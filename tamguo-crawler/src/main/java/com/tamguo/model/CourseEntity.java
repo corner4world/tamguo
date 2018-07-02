@@ -1,12 +1,10 @@
-package com.tamguo.admin.model;
+package com.tamguo.model;
 
 import java.io.Serializable;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.tamguo.admin.config.dao.SuperEntity;
+import com.tamguo.config.dao.SuperEntity;
 
 import java.math.BigInteger;
-import java.util.List;
 
 
 /**
@@ -19,12 +17,14 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 
 	private String name;
 
-	private BigInteger subjectId;
+	private String subjectId;
 	
 	private BigInteger pointNum;
-
+	
 	private BigInteger questionNum;
 
+	private String icon;
+	
 	private Integer orders;
 	
 	private String seoTitle;
@@ -33,12 +33,6 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 	
 	private String seoDescription;
 	
-	@TableField(exist=false)
-	private String subjectName;
-	
-	@TableField(exist=false)
-	private List<ChapterEntity> chapterList;
-
 	public CourseEntity() {
 	}
 
@@ -50,11 +44,11 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 		this.name = name;
 	}
 
-	public BigInteger getSubjectId() {
+	public String getSubjectId() {
 		return this.subjectId;
 	}
 
-	public void setSubjectId(BigInteger subjectId) {
+	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
 	}
 
@@ -74,6 +68,14 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 		this.pointNum = pointNum;
 	}
 
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
 	public Integer getOrders() {
 		return orders;
 	}
@@ -82,13 +84,6 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 		this.orders = orders;
 	}
 
-	public List<ChapterEntity> getChapterList() {
-		return chapterList;
-	}
-
-	public void setChapterList(List<ChapterEntity> chapterList) {
-		this.chapterList = chapterList;
-	}
 
 	public String getSeoTitle() {
 		return seoTitle;
@@ -117,13 +112,4 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	public String getSubjectName() {
-		return subjectName;
-	}
-
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
-
 }

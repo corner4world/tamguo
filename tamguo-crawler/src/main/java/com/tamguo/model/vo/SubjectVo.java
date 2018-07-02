@@ -14,12 +14,31 @@ public class SubjectVo {
 	@PageFieldSelect(cssQuery=".course-list-container .course-list .course-item")
 	private List<String> courseName;
 	
+	@PageFieldSelect(cssQuery=".submenu-contain .contain-title")
+	private String subjectName;
+	
 	public List<String> getName() {
 		return name;
 	}
 
 	public void setName(List<String> name) {
 		this.name = name;
+	}
+
+	public List<String> getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(List<String> courseName) {
+		this.courseName = courseName;
+	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
 	}
 
 }

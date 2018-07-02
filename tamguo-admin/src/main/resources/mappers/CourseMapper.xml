@@ -8,7 +8,6 @@
 	    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
 	    <result column="point_num" property="pointNum" jdbcType="INTEGER" />
 	    <result column="question_num" property="questionNum" jdbcType="INTEGER" />
-	    <result column="icon" property="icon" jdbcType="VARCHAR" />
 	    <result column="orders" property="orders" jdbcType="INTEGER" />
 	    <result column="seo_title" property="seoTitle" jdbcType="VARCHAR" />
 	    <result column="seo_keywords" property="seoKeywords" jdbcType="VARCHAR" />
@@ -24,7 +23,6 @@
 			c.point_num,
 			c.question_num,
 			c.subject_id,
-			c.icon
 		FROM
 			tiku_course c
 		WHERE
@@ -34,7 +32,6 @@
 	
 	<select id="queryPageByName" resultType="CourseEntity">
 		SELECT
-			c.icon,
 			c.`name`,
 			c.orders,
 			c.point_num,

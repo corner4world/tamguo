@@ -8,8 +8,7 @@ $(function () {
 			{ label: '科目名称', name: 'name', width: 60 },
 			{ label: '排序', name: 'orders', width: 60 },
 			{ label: '题目数量', name: 'questionNum', width: 60 },
-			{ label: '知识点数量', name: 'pointNum', width: 100 },
-			{ label: '图标', name: 'icon', width: 50}                   
+			{ label: '知识点数量', name: 'pointNum', width: 100 }
         ],
 		viewrecords: true,
         height: 385,
@@ -101,7 +100,6 @@ var vm = new Vue({
 			subjectId:null,
 			pointNum:null,
 			questionNum:null,
-			icon:null,
 			orders:0,
 			chapterList:[]
 		}
@@ -120,7 +118,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.course = {uid:null,name:null,subjectId:null,pointNum:null,questionNum:null,icon:null,orders:0};
+			vm.course = {uid:null,name:null,subjectId:null,pointNum:null,questionNum:null,orders:0};
 			axios.all([vm.getMenu() , vm.getSubjectList()]).then(axios.spread(function (mResponse,sResponse) {
 				ztree = $.fn.zTree.init($("#menuTree"), setting, mResponse.data.result);
 				
