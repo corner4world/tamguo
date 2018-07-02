@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>注册_探果网</title>
+		<meta name="description" content="探果题库携手高校名师为考生提供高效的智能备考服务，涵括领域有高考、财会类、建筑工程、职业资格、医卫类、计算机类和学历类等热门考试题库。拥有高校名师丰富的经验，优质的学习资料和备考全阶段的高效服务，助您丰富自我，不断前行！"/>
+		<meta name="keyword" content="探果题库,数学试卷,高校试题,名校,名校试题,名校试卷,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
+		<meta name="author" content="Tamguo Team" />
+		<meta name="copyright" content="Tamguo" />
+		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${setting.domain + 'css/member/register.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
+	</head>
+	<body>
+		<div id="wrapper" class="">
+		    <div id="head">
+		        <div class="mod-header">
+		            <a th:href="${setting.domain}" style="display: block;">
+		                <img th:src="${setting.domain + 'images/logo_731bc32.png'}" alt="logo"></a>
+		        </div>
+		    </div>
+		    <div id="nav">
+		        <div class="nav-2">
+		            <div class="mod-nav clearfix">
+		                <h1 class="page-type-notab"></h1>
+		            </div>
+		        </div>
+		    </div>
+		    <div id="content">
+		        <div class="mod-reg clearfix mod-reg-">
+		            <div class="reg-content tang-pass-reg" id="reg_content" style="width:50%;margin-top:10px;">
+		                <el-form :model="member" :rules="rules" ref="member" label-width="100px" class="demo-ruleForm" v-loading="loading">
+						  <el-form-item label="用戶名" prop="username">
+						    <el-input v-model="member.username"></el-input>
+						  </el-form-item>
+						  <el-form-item label="科目" prop="kemuId">
+						    <el-cascader
+							    :options="courses"
+							    v-model="member.kemuId">
+							  </el-cascader>
+						  </el-form-item>
+						  <el-form-item label="手机号" prop="mobile">
+						    <el-input v-model="member.mobile"></el-input>
+						  </el-form-item>
+						  <el-form-item label="邮箱" prop="email">
+						    <el-input v-model="member.email"></el-input>
+						  </el-form-item>
+						  <el-form-item label="密码" prop="password">
+						    <el-input type="password" v-model="member.password" auto-complete="off"></el-input>
+						  </el-form-item>
+						  <el-form-item label="确认密码" prop="checkPass">
+						    <el-input type="password" v-model="member.checkPass" auto-complete="off"></el-input>
+						  </el-form-item>
+						  <el-form-item label="验证码" prop="verifyCode">
+						    <el-input v-model="member.verifyCode" style="width:60%;"></el-input>
+						    <el-button @click="sendSms" :disabled="smsDisabled">发送短信</el-button>
+						  </el-form-item>
+						  <el-form-item>
+						  <el-button type="primary" @click="submitForm('member')">立即注册</el-button>
+						    <el-button @click="resetForm('member')">重置</el-button>
+						  </el-form-item>
+						</el-form>
+		            </div>
+		            <div class="login-link" id="login_link">
+		                <span>我已注册，现在就</span>
+		                <button class="login-btn" id="login_btn"><a title="探果网登录" th:href="${setting.domain + 'login.html'}">登录</a></button></div>
+		        </div>
+			    <div id="foot">
+			        <div class="mod-footer">
+			            <div class="copy-box">2018&nbsp;©Tamguo</div></div>
+			    </div>
+		</div>
+	</div>
+	</body>
+	<script type="text/javascript" th:inline="javascript">
+	var mainHttp = [[${setting.domain}]];
+	</script>
+    <!-- import JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+	<script type="text/javascript" th:src="${setting.domain + 'js/member/register.js'}"></script>
+</html>

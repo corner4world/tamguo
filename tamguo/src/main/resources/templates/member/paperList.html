@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>会员中心-试卷列表</title>
+		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${setting.domain + 'css/iconfont.css'}" />
+		<link rel="stylesheet" th:href="${setting.domain + 'css/member/paperList.css'}" />
+		<link rel="stylesheet" th:href="${setting.domain + 'css/member/memberMain.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
+	</head>
+	<body  style="position: relative;height: auto;min-height: 100%;">
+	
+		<div class="head" th:fragment="memberHeader">
+			<div class="head-bar public">
+				<div class="logo">
+					<a target="_blank" th:href="${setting.domain}">
+						<img th:src="${setting.domain + 'images/logo_731bc32.png'}">
+					</a>
+					<p><span>考试中心</span></p>
+				</div>
+				<ul class="nav">
+					<li><a th:href="${setting.domain + 'member/index.html'}">首页</a></li>
+					<li class="active"><a th:href="${setting.domain + 'member/paper.html'}">试卷</a></li>
+					<li><a th:href="${setting.domain + 'member/account.html'}">帐号</a></li>
+				</ul>
+				<div class="mguser">
+					<div class="mguser-box">
+						<span th:text="${session.currMember.username}">tamguo</span>
+						<a th:href="${setting.domain + 'logout.html'}">退出</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="cnav">
+			<div class="public cnav_b">
+				<div class="cnav_left">
+					探果五步曲
+				</div>
+				<div class="cnav_right">
+					<ul>
+						<li><span class="Cnav_t">1</span><b>新建试卷</b></li>
+						<li><span>2</span>添加子卷</li>
+						<li><span>3</span>添加试题</li>
+						<li><span>4</span>发布试卷</li>
+						<li><span>5</span>等待收益</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="plist test_public myPositionList ng-scope" style="margin-bottom: 20px;">
+		    <div class="topbt topbt-2">
+		        <h3>我的试卷</h3>
+		    </div>
+		
+		    <div class="pageShow" id="pageShow"  v-loading="loading">
+		        <div class="con_top addNewPaper">
+		            <div style="position:absolute;top:12px;">
+		                <div class="fl">
+		                    <input class="select-n" name="keySearch" type="text" v-on:keyup.enter="reload(1)" v-model="q.name" placeholder="试卷名称关键字">
+		                    <a class="select-t" href="javascript:void(0)" v-on:click="reload(1)"></a>
+		                </div>
+		            </div>
+		            <span style="text-align: center;" id="addSiama" v-on:click="paperDialogFormVisible = true"><a href="javascript:void(0)">+ 新建试卷</a></span>
+		        </div>
+		
+		        <table class="public-tab">
+		            <tbody>
+		            <tr align="center" valign="middle">
+		                <td width="254">试卷名称</td>
+		                <td width="100">科目</td>
+		                <td width="100">年份</td>
+		                <td width="100">下载数</td>
+		                <td width="100">查阅数</td>
+		                <td>操作</td>
+		            </tr>
+		            </tbody>
+		        </table>
+				
+				<div id="paperListDiv">
+		        <div class="plist-table positionList ng-scope" style="" v-for="paper in paperList">
+		            <div class="selectImg"></div>
+		            <table class="plist-ctab">
+		                <tbody>
+		                <tr align="center" valign="middle" style="height:66px">
+		                    <td width="300" class="plist-bt">
+		                        <span @click="openPaperInfo(paper.uid)">{{paper.uid == currPaperUid ? '-' : '+'}}</span>
+		                        <div class="M ng-binding" style="line-height: 40px;" title="软件JAVA">{{paper.name}}
+                        		</div>
+		                    </td>
+		                    <td width="100"><span style="font-weight: bolder;font-size: 14px;" class="ng-binding">{{paper.courseId}}</span>
+		                    </td>
+		                    <td width="100"><span style="font-weight: bolder;font-size: 14px;" class="ng-binding">{{paper.year}}</span>
+		                    </td>
+		                    <td width="100"><span style="font-weight: bolder;font-size: 14px;" class="ng-binding">{{paper.downHits}}</span> 次
+		                    </td>
+		                    <td width="100"><span style="font-weight: bolder;font-size: 14px;" class="ng-binding">{{paper.openHits}}</span> 次
+		                    </td>
+		
+		                    <td class="plist-x">
+		                    <span>
+		                    	<a href="javascript:void(0)" v-on:click="updatePaper(paper.uid , paper.name)">编辑</a>|<a href="javascript:void(0)" v-on:click="showDeleteDialog(paper.uid , paper.name)">删除</a>
+		                	</span>
+		                        <ul class="testPaper-list">
+		                            <li><a class="addPaperQuestionInfoBtn" v-on:click="showPaperInfo(paper.uid,paper.queInfo)">添加子卷</a>
+		                            </li>
+		                            <li><a href="#" target="_blank" class="ng-scope">预览试卷</a>
+		                        </ul>
+		                    </td>
+		                </tr>
+		                </tbody>
+		            </table>
+		            <div v-bind:style="{ display: paper.uid == currPaperUid ? 'block' : 'none'}">
+			           <table class="plist-ctab2 able">
+			                <tbody>
+			                <tr class="tr_header" align="center" valign="middle">
+			                    <td width="62">No. <span></span></td>
+			                    <td width="500">子卷标题<span></span></td>
+			                    <td width="100">题目类型</td>
+			                    <td>操作</td>
+			                </tr>
+			                <tr v-for="(qInfo,index) in paper.queInfo" class="paperData ng-scope" align="center" valign="middle" data-arrayindex="">
+			                    <td class="ng-binding">{{index+1}}</td>
+			                    <td style="position: relative">
+			                        <div class="paperTitle ng-binding" title="软件JS" style="max-width: 450px;">{{qInfo.title}}</div>
+			                        <span title="" class="ng-binding"></span></td>
+			                    <td class="ng-binding">{{qInfo.name}}</td>
+			                    <td class="plist-x" style="float:none">
+			                        <div>
+			                        <span style="margin-left:0;">
+			                            <a href="javascript:void(0)" class="update_paper2" v-on:click="showUpdatePaperInfo(paper.uid, qInfo.type,qInfo.title,qInfo.uid)">编辑</a>|
+			                            <a href="javascript:void(0)" class="del" v-on:click="showPaperInfoDeleteDialog(paper.uid , qInfo.title , qInfo.uid)">删除</a>
+			                        </span>
+			                            <ul class="addQuestion" style="margin:-3px 0 0;float:none">
+			                                <li class="ng-scope"><a class="add able" v-on:click="addPaperQuestionFn(paper.uid)" href="javascript:(0);">添加试题</a>
+			                                </li>
+			                                <li class="ng-scope"><a class="edit able" :href="'questionList.html?paperId=' + paper.uid">管理试题</a>
+			                                </li>
+			                            </ul>
+			                        </div>
+			                    </td>
+			                </tr>
+			                </tbody>
+			            </table>
+		            </div>
+		        </div>
+				</div>
+		
+		        <div class="plist-f" style="text-align: center;margin-top:20px;">
+		            <el-pagination
+							  background
+							  layout="prev, pager, next"
+							  @current-change="handleCurrentChange"
+							  page-size="6"
+							  :total="totalCount">
+							</el-pagination>
+		        </div>
+		        <div class="clear"></div>
+		        
+		        <el-dialog title="添加试卷" :visible.sync="paperDialogFormVisible">
+					  <el-form :model="paper" :rules="rules" ref="paper" label-width="80px" class="demo-ruleForm" v-loading="loading"> 
+						  <el-form-item label="试卷名称" prop="name">
+						    <el-input v-model="paper.name"></el-input>
+						  </el-form-item>
+						  <el-form-item label="地区" prop="areaIdList">
+					    	<el-cascader :clearable="true" :options="areas" v-model="paper.areaIdList" change-on-select @change="querySchoolByAreaId">
+							</el-cascader>
+						  </el-form-item>
+						  <el-form-item label="学校" prop="schoolIdList">
+						      <el-select v-model="paper.schoolIdList" multiple placeholder="请选择">
+							    <el-option
+							      v-for="school in schools"
+							      :key="school.uid"
+							      :label="school.name"
+							      :value="school.uid">
+							    </el-option>
+							  </el-select>
+						  </el-form-item>
+						  <el-form-item label="科目" prop="courseIdList">
+						    <el-cascader
+							    :options="courses"
+							    v-model="paper.courseIdList">
+							  </el-cascader>
+						  </el-form-item>
+						  <el-form-item label="试卷类型" prop="type">
+						    <el-radio-group v-model="paper.type">
+						      <el-radio label="0">真题试卷</el-radio>
+						      <el-radio label="1">模拟试卷</el-radio>
+						      <el-radio label="2">押题预测</el-radio>
+						      <el-radio label="3">名校精品</el-radio>
+						    </el-radio-group>
+						  </el-form-item>
+						  <el-form-item label="年份" prop="year">
+						    <el-input v-model="paper.year"></el-input>
+						  </el-form-item>
+						  <el-form-item label="是否免费">
+						    <el-switch v-model="paper.free" @click="isFree" inactive-value="0" active-value="1"></el-switch>
+						  </el-form-item>
+						  <el-form-item label="所需积分" prop="point" v-show="paper.free == 1">
+						    <el-input-number v-model="paper.point" :step="1" :min="0" controls-position="right"></el-input-number>
+						  </el-form-item>
+						  <el-form-item label="所需金额" prop="money" v-show="paper.free == 1">
+						    <el-input-number v-model="paper.money" :precision="2" :step="0.1" :max="100" :min="0" controls-position="right"></el-input-number>
+						  </el-form-item>
+					    </el-form-item>
+					  </el-form>
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="paperDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="savePaper">确 定</el-button>
+					  </div>
+				</el-dialog>
+				
+				<el-dialog title="添加子试卷" :visible.sync="paperInfoDialogFormVisible">
+					  <el-form :model="paperInfo" :rules="pagerInfoRules" ref="paperInfo" label-width="80px" class="demo-ruleForm" v-loading="loading"> 
+						  <el-form-item label="子卷标题" prop="title">
+						    <el-input v-model="paperInfo.title"></el-input>
+						  </el-form-item>
+						  <el-form-item label="试卷类型" prop="type">
+						    <el-radio-group v-model="paperInfo.type">
+						      <el-radio label="1">单选题</el-radio>
+						      <el-radio label="2">多选题</el-radio>
+						      <el-radio label="3">填空题</el-radio>
+						      <el-radio label="4">判断题</el-radio>
+						      <el-radio label="5">问答题</el-radio>
+						    </el-radio-group>
+						  </el-form-item>
+					    </el-form-item>
+					  </el-form>
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="paperInfoDialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="savePaperInfo">确 定</el-button>
+					  </div>
+				</el-dialog>
+		</div>
+		</div>
+		
+		<!-- 尾部-->
+		<div th:replace="include/memberFooter :: memberFooter"></div>
+		
+	</body>
+	<script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${setting.domain}]];
+	</script>
+    <!-- import JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+	<script type="text/javascript" th:src="${setting.domain + 'js/member/paperList.js'}" ></script>
+</html>

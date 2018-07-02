@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamguo.dao.QuestionMapper">
+
+	<resultMap id="BaseResultMap" type="com.tamguo.model.QuestionEntity" >
+	    <id column="user_id" property="userId" jdbcType="BIGINT" />
+	    <result column="analysis" property="analysis" jdbcType="VARCHAR" />
+	    <result column="paper_id" property="paperId" jdbcType="BIGINT" />
+	    <result column="answer" property="answer" jdbcType="VARCHAR" />
+	    <result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+	    <result column="chapter_name" property="chapterName" jdbcType="VARCHAR" />
+	    <result column="question_type" property="questionType" jdbcType="VARCHAR" />
+	    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+	    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+	    <result column="review_point" property="reviewPoint" jdbcType="VARCHAR" />
+	    <result column="year" property="year" jdbcType="VARCHAR" />
+	    <result column="score" property="score" jdbcType="BIGINT" />
+	    <result column="subject_name" property="subjectName" jdbcType="VARCHAR"/>
+	    <result column="subject_id" property="subjectId" jdbcType="VARCHAR"/>
+	    <result column="audit_status" property="auditStatus" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="findByChapterId" resultType="QuestionEntity">
+		SELECT
+			q.uid,
+			q.analysis,
+			q.answer,
+			q.chapter_id,
+			q.content,
+			q.question_type,
+			q.course_id,
+			q.review_point,
+			q.year,
+			q.score,
+			q.subject_id,
+			q.audit_status
+		FROM
+			tiku_question q
+		WHERE
+			q.chapter_id = #{chapterId}
+	</select>
+	
+	<select id="findByPaperId" resultType="QuestionEntity">
+		SELECT
+			q.analysis,
+			q.answer,
+			q.chapter_id,
+			q.content,
+			q.paper_id,
+			q.question_type,
+			q.review_point,
+			q.score,
+			q.course_id,
+			q.uid,
+			q.`year`,
+			q.subject_id,
+			q.audit_status
+		FROM
+			tiku_question q
+		WHERE
+			q.paper_id = #{paperId}
+	</select>
+	
+	<select id="queryQuestionList" resultType="QuestionEntity">
+		SELECT
+			q.analysis,
+			q.answer,
+			q.chapter_id,
+			q.content,
+			q.paper_id,
+			q.question_type,
+			q.review_point,
+			q.score,
+			q.course_id,
+			q.uid,
+			q.`year`,
+			q.subject_id,
+			q.audit_status
+		FROM
+			tiku_question q
+		<where>
+			1=1 
+			<if test="uid != null and uid != ''">
+				and q.uid = #{uid}
+			</if>
+			<if test="content != null and content != ''">
+				and q.content like #{content}
+			</if>
+			<if test="questionType != null and questionType != ''">
+				and q.question_type = #{questionType}
+			</if>
+			<if test="paperId != null and paperId != ''">
+				and q.paper_id = #{paperId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectByUid" resultType="QuestionEntity">
+		SELECT
+			q.uid,
+			q.analysis,
+			q.answer,
+			q.chapter_id,
+			(select c.name from tiku_chapter c where c.uid = q.chapter_id) as chapter_name,
+			q.content,
+			q.question_type,
+			q.course_id,
+			q.review_point,
+			q.year,
+			q.score,
+			q.subject_id,
+			q.audit_status
+		FROM
+			tiku_question q
+		WHERE
+			q.uid = #{uid}
+	</select>
+	
+	<select id="findNormalQuestion" resultType="QuestionEntity">
+		SELECT
+			q.uid,
+			q.analysis,
+			q.answer,
+			q.chapter_id,
+			(select c.name from tiku_chapter c where c.uid = q.chapter_id) as chapter_name,
+			q.content,
+			q.question_type,
+			q.course_id,
+			q.review_point,
+			q.year,
+			q.score,
+			q.subject_id,
+			q.audit_status
+		FROM
+			tiku_question q
+		WHERE
+			q.uid = #{uid} and q.audit_status = '1'
+	</select>
+	
+	<select id="featuredQuestion" resultType="QuestionEntity">
+		SELECT
+			q.analysis,
+			q.answer,
+			q.chapter_id,
+			q.content,
+			q.paper_id,
+			q.question_type,
+			q.review_point,
+			q.score,
+			q.course_id,
+			q.uid,
+			q.`year`,
+			q.subject_id,
+			q.audit_status
+		FROM
+			tiku_question q
+		<where>
+			1=1 
+			<if test="subjectId != null and subjectId != ''">
+				and q.subject_id = #{subjectId}
+			</if>
+			<if test="courseId != null and courseId != ''">
+				and q.course_id = #{courseId}
+			</if>
+		</where>
+	</select>
+</mapper>

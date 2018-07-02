@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>探果-管理试题</title>
+		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css' }" />
+		<link rel="stylesheet" th:href="${setting.domain + 'css/member/questionList.css' }" />
+		<link rel="stylesheet" th:href="${setting.domain + 'css/member/memberMain.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
+	</head>
+	<body>
+		<!-- 头部-->
+		<div class="head" th:fragment="memberHeader">
+			<div class="head-bar public">
+				<div class="logo">
+					<a target="_blank" th:href="${setting.domain}">
+						<img th:src="${setting.domain + 'images/logo_731bc32.png'}">
+					</a>
+					<p><span>考试中心</span></p>
+				</div>
+				<ul class="nav">
+					<li><a th:href="${setting.domain + 'member/index.html'}">首页</a></li>
+					<li class="active"><a th:href="${setting.domain + 'member/paper.html'}">试卷</a></li>
+					<li><a th:href="${setting.domain + 'member/account.html'}">帐号</a></li>
+				</ul>
+				<div class="mguser">
+					<div class="mguser-box">
+						<span th:text="${session.currMember.username}">tamguo</span>
+						<a th:href="${setting.domain + 'logout.html'}">退出</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="banner_list">
+	        <div class="cnav">
+	            <div class="public cnav_b">
+	                <div class="cnav_left">
+						探果五步曲
+					</div>
+					<div class="cnav_right">
+						<ul>
+							<li><span class="Cnav_t">1</span><b>新建试卷</b></li>
+							<li><span>2</span>添加子卷</li>
+							<li><span>3</span>添加试题</li>
+							<li><span>4</span>发布试卷</li>
+							<li><span>5</span>等待收益</li>
+						</ul>
+					</div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    <div id="container" class="plist test_public  prof_t ng-scope" v-cloak  v-loading="loading">
+    		<div class="pronext" style="margin-right: 16px;"><a th:href="${setting.domain + 'member/paper.html'}" class="backM">返回试卷列表页</a></div>
+		    <div class="topbt topbt-2">
+		        <h3>管理试题</h3>
+		    </div>
+		    <div class="test">
+		        <span style="margin-right: 10px;display: inline-block;line-height:20px;">试卷：<span style="font-weight: bolder;font-size: 16px;    display: inline-block;overflow: hidden; white-space: nowrap;text-overflow: ellipsis;max-width: 304px;position:relative;top:5px;" th:title="${paper.name}" class="ng-binding" th:text="${paper.name}">赛码样卷（示例）</span></span>
+		    </div>
+		    <div class="addQues_btn">
+		        <span><a th:href="${setting.domain + 'member/addQuestion.html?paperId=' + paper.uid}">+ 添加试题</a></span>
+		    </div>
+		    <div class="apa_ri">
+		        <div class="apa_ri-tab">
+		            <div class="apa_ri-t">
+		                <table class="quesQueryBox">
+		                    <tbody><tr>
+		                        <td>题目类型：</td>
+		                        <td>
+		                            <select style="height:33px;border: 1px solid #dcdfe3;width:140px;" v-model="q.questionType">
+										<option value="">请选择</option> 
+										<option :value="type.id" v-for="type in questionTypes">{{type.name}}</option>                         	
+		                            </select>
+		                        <td>试题编号：</td>
+		                        <td><input v-model="q.uid" v-on:keyup.enter="queryQuestionList(1)" class="idno ng-pristine ng-untouched ng-valid" type="text" style="left: 71px;"></td>
+		                        <td>题干关键词：</td>
+		                        <td>
+		                        	<input v-on:keyup.enter="queryQuestionList(1)" v-model="q.content" class="quesTitle ng-pristine ng-untouched ng-valid" type="text" style="width: 230px;">
+		                        </td>
+		                    </tr>
+		                    <tr><td colspan="6"><div class="apa_ri-t5"><p v-on:click="queryQuestionList(1)">搜索试题</p></div></td></tr>
+		                </tbody></table>
+		            </div>
+		        </div>
+        <div class="apa_ri-two">
+            <div class="apa_ri-qx">
+                <span style="position: relative;top: 3px;">共 <em class="ng-binding">{{totalCount}}</em> 项查询结果</span>
+            </div>
+            <div class="quesesBox quesManBox">
+				<div class="paperQuesList ng-scope" v-for="(question,index) in questionList">
+                    <div class="chouTiBoxNo">
+                        <div class="qtBox">
+                            <div class="qtList ng-scope">
+                                <div class="ng-scope">
+                                   		<div class="apa_ri-cen ng-scope"><em></em>
+                                        <div class="apa_ri-cenbt">
+                                            <span class="quesNo ng-binding" style="display: inline-block;width:20px;left:0px; font-weight: bolder; ">{{index+1}}、</span>
+                                            <span style="display: inline-block;width: 50px;left: 0px;color: #2abcb8;font-weight: bolder" class="ng-scope" v-if="question.questionType=='1'">单选题</span>
+                                            <span style="display: inline-block;width: 50px;left: 0px;color: #2abcb8;font-weight: bolder" class="ng-scope" v-if="question.questionType=='2'">多选题</span>
+                                            <span style="display: inline-block;width: 50px;left: 0px;color: #2abcb8;font-weight: bolder" class="ng-scope" v-if="question.questionType=='3'">判断题</span>
+                                            <span style="display: inline-block;width: 50px;left: 0px;color: #2abcb8;font-weight: bolder" class="ng-scope" v-if="question.questionType=='4'">填空题</span>
+                                            <span style="display: inline-block;width: 50px;left: 0px;color: #2abcb8;font-weight: bolder" class="ng-scope" v-if="question.questionType=='4'">解答题</span>
+                                            <span style="display: inline-block;width:initial;left:0px;">|</span>
+                                            <pre class="titlePre">
+                                            <div class="quesTitle ng-binding" v-html="question.content">
+                                            
+                                            </div>
+                                            </pre>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <ul class="apa_ri-cenul">
+                                            <div class="answerBox" style="width:750px;">
+                                                <span style="color: #ff8a00;">参考答案：</span><pre style="color:#29bdb9;word-break: break-all;width: 690px" v-html="question.answer" class="ng-binding">B | D | B | C | A</pre>
+                                            </div>
+                                        </ul>
+                                        <div class="apa_ri-cenzb">
+                                            <ul>
+                                            </ul>
+                                            <span class="ng-binding ng-scope">
+                                            <strong style="font-weight: normal;" class="ng-binding ng-scope">试题编号：{{question.uid}}<em>|</em></strong>
+                                            <strong style="font-weight: normal;" class="ng-binding ng-scope">试题分值：{{question.score}}<em>|</em></strong>
+                                        <span>
+                                            <span class="fl ng-scope">
+                                            <a :href="'editQuestion.html?paperId='+question.paperId+'&questionId='+question.uid">编辑</a>
+                                            <a class="ng-scope" v-on:click="deleteQuestion(question.uid)">移除</a>
+                                        </span>
+                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <el-pagination
+					  background
+					  layout="prev, pager, next"
+					  @current-change="handleCurrentChange"
+					  page-size="2"
+					  :total="totalCount">
+					</el-pagination>
+        </div>
+    </div>
+</div>
+<!-- 尾部-->
+<div th:replace="include/memberFooter :: memberFooter"></div>
+</body>
+	
+	<!-- 引入组件库 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${setting.domain}]];
+		var paperId = [[${paper.uid}]];
+	</script>
+	<script type="text/javascript" th:src="${setting.domain + 'js/member/questionList.js'}" ></script>
+</html>
