@@ -1,7 +1,6 @@
 package com.tamguo.config.dao;
 
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
-import com.tamguo.TamguoCrawlerApplication;
 
 import org.apache.ibatis.reflection.MetaObject;
 import org.slf4j.Logger;
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
 //@Component
 public class MyMetaObjectHandler extends MetaObjectHandler {
 
-    protected final static Logger logger = LoggerFactory.getLogger(TamguoCrawlerApplication.class);
+    protected final static Logger logger = LoggerFactory.getLogger(MyMetaObjectHandler.class);
 
     @Override
     public void insertFill(MetaObject metaObject) {
