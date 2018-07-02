@@ -6,14 +6,11 @@ import com.xuxueli.crawler.annotation.PageFieldSelect;
 import com.xuxueli.crawler.annotation.PageSelect;
 
 @PageSelect(cssQuery = "body")
-public class SubjectVo {
+public class CourseVo {
 
-	@PageFieldSelect(cssQuery = ".all-list-li")
+	@PageFieldSelect(cssQuery = ".course-item")
 	private List<String> name;
-	
-	@PageFieldSelect(cssQuery=".course-list-container .course-list .course-item")
-	private List<String> courseName;
-	
+
 	public List<String> getName() {
 		return name;
 	}
@@ -21,5 +18,5 @@ public class SubjectVo {
 	public void setName(List<String> name) {
 		this.name = name;
 	}
-
+	
 }
