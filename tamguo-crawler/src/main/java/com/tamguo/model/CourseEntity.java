@@ -23,8 +23,6 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 	
 	private BigInteger questionNum;
 
-	private String icon;
-	
 	private Integer orders;
 	
 	private String seoTitle;
@@ -66,14 +64,6 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 
 	public void setPointNum(BigInteger pointNum) {
 		this.pointNum = pointNum;
-	}
-
-	public String getIcon() {
-		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
 	}
 
 	public Integer getOrders() {
