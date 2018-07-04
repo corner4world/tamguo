@@ -81,9 +81,15 @@ public class SubjectService implements ISubjectService{
                     	for(int i=0 ; i<subjectVo.getCourseName().size() ; i++) {
                         	logger.info("科目名称:{}" , subjectVo.getCourseName().get(i));
                         	SubjectEntity subject = subjectMapper.findByName(subjectVo.getSubjectName());
-                        	
+                        	if(subject == null) {
+                        		continue;
+                        	}
                         	CourseEntity course = new CourseEntity();
                         	course.setName(subjectVo.getCourseName().get(i));
+                        	CourseEntity courseEntity = courseMapper.selectOne(course);
+                        	if(courseEntity != null) {
+                        		continue;
+                        	}
                         	course.setOrders(i+1);
                         	course.setPointNum(BigInteger.ZERO);
                         	course.setQuestionNum(BigInteger.ZERO);

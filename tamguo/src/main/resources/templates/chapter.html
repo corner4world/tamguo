@@ -78,18 +78,16 @@
 
         <div class="list-left">
             <div id="outline" tabindex="0" style="overflow: hidden; position: static; outline: none; height: 697px; top: 0px;">
-    <div class="outline-content" style="transform: translate3d(0px, 0px, 0px);">
-        
-            <div th:class="${cStat.index==0} ? 'out-chapter show' : 'out-chapter'" th:attr="data-chapterId=${c.uid}" th:each="c,cStat:${chapterList}">
-                <h3 class="k1" data-class="dct-0" title="第一章 集合与常用逻辑用语">
-                    <i class="iconfont icon-unie047 icon-zhankai"></i> <span th:text="${c.name}">第一章 集合与常用逻辑用语</span>
-                </h3>
-            </div>
-        	<div class="blank" style="height: 70px;"></div>
-    </div>
-<div id="ascrail2000" class="nicescroll-rails nicescroll-rails-vr" style="width: 15px; z-index: auto; cursor: default; position: absolute; top: 0px; right: 0px; touch-action: none; height: 697px; opacity: 0; display: block;"><div class="nicescroll-cursors" style="position: relative; top: 0px; float: right; width: 5px; height: 403px; background-color: rgb(219, 219, 219); border: 5px; background-clip: padding-box; border-radius: 5px; touch-action: none;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails nicescroll-rails-hr" style="height: 15px; z-index: auto; position: absolute; left: 0px; bottom: 0px; cursor: default; display: none; width: 329px; opacity: 0;"><div class="nicescroll-cursors" style="position: absolute; top: 0px; height: 5px; width: 329px; background-color: rgb(219, 219, 219); border: 5px; background-clip: padding-box; border-radius: 5px;"></div></div></div>
-
-
+			    <div class="outline-content" style="transform: translate3d(0px, 0px, 0px);">
+			        
+			            <div th:class="${cStat.index==0} ? 'out-chapter show' : 'out-chapter'" th:attr="data-chapterId=${c.uid}" th:each="c,cStat:${chapterList}">
+			                <h3 class="k1" data-class="dct-0" title="第一章 集合与常用逻辑用语">
+			                    <i class="iconfont icon-unie047 icon-zhankai"></i> <span th:text="${c.name}">第一章 集合与常用逻辑用语</span>
+			                </h3>
+			            </div>
+			        	<div class="blank" style="height: 70px;"></div>
+			    </div>
+				<div id="ascrail2000" class="nicescroll-rails nicescroll-rails-vr" style="width: 15px; z-index: auto; cursor: default; position: absolute; top: 0px; right: 0px; touch-action: none; height: 697px; opacity: 0; display: block;"><div class="nicescroll-cursors" style="position: relative; top: 0px; float: right; width: 5px; height: 403px; background-color: rgb(219, 219, 219); border: 5px; background-clip: padding-box; border-radius: 5px; touch-action: none;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails nicescroll-rails-hr" style="height: 15px; z-index: auto; position: absolute; left: 0px; bottom: 0px; cursor: default; display: none; width: 329px; opacity: 0;"><div class="nicescroll-cursors" style="position: absolute; top: 0px; height: 5px; width: 329px; background-color: rgb(219, 219, 219); border: 5px; background-clip: padding-box; border-radius: 5px;"></div></div></div>
         </div>
         <div class="list-right">
             <div class="detail">
@@ -112,7 +110,7 @@
         
             <div class="detail-kpoint-1" th:each="cc,ccStat:${c.childChapterList}">
             <div class="kpoint-1-title k1t-0-0" id="k1t-0-0">
-                <h4 text="$">1 集合的概念及运算</h4>
+                <h4 th:text="${cc.name}">1 集合的概念及运算</h4>
                 <span>1181 试题</span>
                 
                     <a target="_blank" class="ten" th:href="${setting.domain + 'question/' + subjectId +'/'+ course.uid + '/' +c.uid +'/'+cc.uid+'-1-15.html'}">随机来
