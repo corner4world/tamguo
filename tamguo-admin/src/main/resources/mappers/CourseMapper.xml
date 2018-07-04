@@ -22,7 +22,7 @@
 			c.orders,
 			c.point_num,
 			c.question_num,
-			c.subject_id,
+			c.subject_id
 		FROM
 			tiku_course c
 		WHERE
