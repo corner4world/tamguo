@@ -22,7 +22,7 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 
 	private String answer;
 
-	private BigInteger chapterId;
+	private String chapterId;
 
 	private String questionType;
 
@@ -36,7 +36,7 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 	
 	private String year;
 	
-	private Integer score;
+	private String score;
 	
 	private String auditStatus;
 	
@@ -68,11 +68,11 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 		this.answer = answer;
 	}
 
-	public BigInteger getChapterId() {
+	public String getChapterId() {
 		return this.chapterId;
 	}
 
-	public void setChapterId(BigInteger chapterId) {
+	public void setChapterId(String chapterId) {
 		this.chapterId = chapterId;
 	}
 	
@@ -108,11 +108,11 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 		this.year = year;
 	}
 
-	public Integer getScore() {
+	public String getScore() {
 		return score;
 	}
 
-	public void setScore(Integer score) {
+	public void setScore(String score) {
 		this.score = score;
 	}
 
