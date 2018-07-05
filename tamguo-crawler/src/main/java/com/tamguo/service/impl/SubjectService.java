@@ -1,8 +1,10 @@
 package com.tamguo.service.impl;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,9 +16,11 @@ import org.springframework.stereotype.Service;
 
 import com.tamguo.dao.ChapterMapper;
 import com.tamguo.dao.CourseMapper;
+import com.tamguo.dao.CrawlerQuestionMapper;
 import com.tamguo.dao.SubjectMapper;
 import com.tamguo.model.ChapterEntity;
 import com.tamguo.model.CourseEntity;
+import com.tamguo.model.CrawlerQuestionEntity;
 import com.tamguo.model.SubjectEntity;
 import com.tamguo.model.vo.SubjectVo;
 import com.tamguo.service.ISubjectService;
@@ -33,20 +37,24 @@ public class SubjectService implements ISubjectService{
 	CourseMapper courseMapper;
 	@Autowired
 	ChapterMapper chapterMapper;
+	@Autowired
+	CrawlerQuestionMapper crawlerQuestionMapper;
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	private List<String> urls = new ArrayList<>();
+	private Set<String> urls = new HashSet<>();
 	
+	private Set<String> questionUrls = new HashSet<String>();
+	
+	private Map<String, Object> chapterQuestionListMap = new HashMap<>();
+
 	private RunData runData;
 	
 	@Override
 	public void crawlerSubject() {
 		XxlCrawler crawler = new XxlCrawler.Builder()
             .setUrls("https://tiku.baidu.com/")
-            .setWhiteUrlRegexs("https://tiku.baidu.com/tikupc/homepage/\\w+","https://tiku.baidu.com/tikupc/homepage/\\w+" 
-            		, "https://tiku.baidu.com/"
-            		, "https://tiku.baidu.com/tikupc/chapterlist/.*")
+            .setAllowSpread(false)
             .setPageParser(new PageParser<SubjectVo>() {
             	
                 @Override
@@ -75,7 +83,6 @@ public class SubjectService implements ISubjectService{
                     		runData.addUrl(url);
                     	}
                     }
-                    
                     if(pageUrl.contains("https://tiku.baidu.com/tikupc/homepage/")) {
                     	logger.info("开始解析科目分类：{}" , pageUrl);
                     	for(int i=0 ; i<subjectVo.getCourseName().size() ; i++) {
@@ -178,6 +185,14 @@ public class SubjectService implements ISubjectService{
                         				chapter2.setPointNum(0);
                         				chapter2.setOrders(k+1);
                                 		chapterMapper.insert(chapter2);
+                                		Elements maskList = detailKpoint.getElementsByClass("mask");
+                                		if(maskList.size() > 0) {
+                                			String questionUrl = maskList.get(0).getElementsByTag("a").attr("abs:href");
+                                    		questionUrl = questionUrl.replace("1-5", "1-1000");
+                                    		chapterQuestionListMap.put(questionUrl, chapter2);
+                                    		
+                                    		runData.addUrl(questionUrl);
+                                		}
                         			}
                         		}
                     		}
@@ -185,9 +200,8 @@ public class SubjectService implements ISubjectService{
                     	
                     	// 剔除已经爬取的数据
                     	urls.add(pageUrl);
-                    	// 加入科目爬取数据
                     	for(String url : subjectVo.getChapterUrls()) {
-                    		if(url.equals("https://tiku.baidu.com"+pageVoElement.getElementsByClass("main-inner").get(0).getElementsByClass("selected").get(0).getElementsByTag("a").attr("href"))) {
+                    		if(url.equals(pageVoElement.getElementsByClass("main-inner").get(0).getElementsByClass("selected").get(0).getElementsByTag("a").attr("abs:href"))) {
                     			continue;
                     		}
                     		if(!urls.contains(url)) {
@@ -195,13 +209,40 @@ public class SubjectService implements ISubjectService{
                     		}
                     	}
                     }
+                    
+                    if(pageUrl.contains("https://tiku.baidu.com/tikupc/chapterdetail")) {
+                    	// 加入待解析题目列表
+                        for(String questionUrl : subjectVo.getQuestionUrls()) {
+                        	if(!questionUrls.contains(questionUrl)) {
+                        		//  处理URL 
+                        	//	runData.addUrl(questionUrl);
+                        		questionUrls.add(questionUrl);
+                        		
+                        		ChapterEntity chapterEntity = (ChapterEntity) chapterQuestionListMap.get(pageUrl);
+                        		
+                        		CrawlerQuestionEntity condition = new CrawlerQuestionEntity();
+                        		condition.setQuestionUrl(questionUrl);
+                        		if(crawlerQuestionMapper.selectOne(condition) == null) {
+                            		CrawlerQuestionEntity crawlerQuestion = new CrawlerQuestionEntity();
+                            		crawlerQuestion.setQuestionUrl(questionUrl);
+                            		crawlerQuestion.setChapterId(chapterEntity.getUid());
+                            		crawlerQuestion.setStatus("0");
+                            		crawlerQuestionMapper.insert(crawlerQuestion);
+                        		}else {
+                        			logger.info(questionUrl+"已经爬取");
+                        		}
+                        	}
+                        }
+                    }
+                    
+                    /*if(pageUrl.contains("https://tiku.baidu.com/tikupc/singledetail")) {
+                    	ChapterEntity chapterEntity = (ChapterEntity) chapterQuestionMap.get(pageUrl);
+                    	System.out.println(chapterEntity);
+                    }*/
                 }
         }).build();
 		
 		runData = crawler.getRunData();
-		
-		
-		
 		// 获取科目
 		crawler.start(true);
 	}
