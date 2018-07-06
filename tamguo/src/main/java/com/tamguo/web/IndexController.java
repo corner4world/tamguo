@@ -26,4 +26,9 @@ public class IndexController {
         return model;
     }
     
+    @RequestMapping(value = "/baidu_verify_iAm7387J0l", method = RequestMethod.GET)
+    public ModelAndView baidu_verify_iAm7387J0l(ModelAndView model) {
+    	model.setViewName("thirdparty/baidu_verify_iAm7387J0l");
+        return model;
+    }
 }
