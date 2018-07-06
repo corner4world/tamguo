@@ -11,6 +11,12 @@ public class QuestionVo {
 	@PageFieldSelect(cssQuery=".question-box-inner .questem-inner", selectType = XxlCrawlerConf.SelectType.HTML)
 	private String content;
 	
+	@PageFieldSelect(cssQuery = ".question-box-inner .questem-inner img", selectType = XxlCrawlerConf.SelectType.ATTR, selectVal = "abs:src")
+    private List<String> contentImages;
+	
+	@PageFieldSelect(cssQuery=".queoptions-inner", selectType = XxlCrawlerConf.SelectType.HTML)
+	private String queoptions;
+	
 	@PageFieldSelect(cssQuery=".exam-answer-content", selectType = XxlCrawlerConf.SelectType.HTML)
 	private String answer;
 	
@@ -35,21 +41,6 @@ public class QuestionVo {
 	@PageFieldSelect(cssQuery=".kpoint-contain point point-item",selectType = XxlCrawlerConf.SelectType.TEXT)
 	private List<String> reviewPoint;
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getAnalysis() {
-		return analysis;
-	}
-
-	public void setAnalysis(String analysis) {
-		this.analysis = analysis;
-	}
 
 	public String getQuestionType() {
 		return questionType;
@@ -106,5 +97,37 @@ public class QuestionVo {
 	public void setAnalysisImages(List<String> analysisImages) {
 		this.analysisImages = analysisImages;
 	}
-	
+
+	public String getQueoptions() {
+		return queoptions;
+	}
+
+	public void setQueoptions(String queoptions) {
+		this.queoptions = queoptions;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public List<String> getContentImages() {
+		return contentImages;
+	}
+
+	public void setContentImages(List<String> contentImages) {
+		this.contentImages = contentImages;
+	}
+
+	public String getAnalysis() {
+		return analysis;
+	}
+
+	public void setAnalysis(String analysis) {
+		this.analysis = analysis;
+	}
+
 }
