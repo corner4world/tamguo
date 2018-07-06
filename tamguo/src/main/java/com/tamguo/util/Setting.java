@@ -16,6 +16,10 @@ public final class Setting {
 	@Value(value="${domain.name}")
 	public String domain;
 	
+	/**站点编号 **/
+	@Value(value="${sitenum}")
+	private String sitenum;
+	
 	/** 后端管理*/
 	@Value(value="${admin.domain.name}")
 	public String adminDomain;
@@ -28,5 +32,11 @@ public final class Setting {
 	public final String PAPER_TYPE_YATI = "3";
 	/** 名校 */
 	public final String PAPER_TYPE_MINGXIAO = "4";
+	public String getSitenum() {
+		return sitenum;
+	}
+	public void setSitenum(String sitenum) {
+		this.sitenum = sitenum;
+	}
 	
 }

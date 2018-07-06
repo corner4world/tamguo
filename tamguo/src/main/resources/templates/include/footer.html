@@ -47,7 +47,7 @@
 			target="_blank">沪ICP备14022608号-1</a> Copyright © 2018 Tamguo
 	</p>
 </div>
-<script type="text/javascript" th:if="${setting.domain} eq 'http://www.tamguo.com'" th:inline="javascript" th:fragment="footer">
+<script type="text/javascript" th:if="${setting.domain} eq '1'" th:inline="javascript" th:fragment="footer">
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
@@ -68,7 +68,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-<script type="text/javascript" th:if="${setting.domain} eq 'http://www.tanguoguo.com'" th:inline="javascript" th:fragment="footer">
+<script type="text/javascript" th:if="${setting.sitenum} eq '2'" th:inline="javascript" th:fragment="footer">
 (function(){
 	var _hmt = _hmt || [];
 	(function() {
