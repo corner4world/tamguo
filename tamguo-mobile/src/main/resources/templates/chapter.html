@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <meta charset="utf-8">
@@ -29,7 +29,6 @@
 					    <mu-icon value="chevron_right" slot="divider"></mu-icon>
 					    <mu-breadcrumbs-item :disabled="true">当前位置</mu-breadcrumbs-item>
 					    <mu-breadcrumbs-item :disabled="true">理科数学</mu-breadcrumbs-item>
-					    <mu-breadcrumbs-item :disabled="true">第一章 社会工作概述</mu-breadcrumbs-item>
 					  </mu-breadcrumbs>
 				  </mu-container>
 				  <mu-list textline="three-line">
@@ -90,18 +89,10 @@
 			  
 			  <mu-drawer :open.sync="open" :docked="docked" :right="position === 'right'">
 			    <mu-list>
-			      <mu-list-item button>
-			        <mu-list-item-title>理科数学</mu-list-item-title>
+			      <mu-list-item button v-for="course in courseList" @click="open = false">
+			        <mu-list-item-title>{{course.name}}</mu-list-item-title>
 			      </mu-list-item>
-			      <mu-list-item button>
-			        <mu-list-item-title>文科数学</mu-list-item-title>
-			      </mu-list-item>
-			      <mu-list-item button>
-			        <mu-list-item-title>物理</mu-list-item-title>
-			      </mu-list-item>
-			      <mu-list-item button>
-			        <mu-list-item-title>英语</mu-list-item-title>
-			      </mu-list-item>
+			      
 			      <mu-list-item  @click="open = false" button>
 			        <mu-list-item-title>关闭</mu-list-item-title>
 			      </mu-list-item>
@@ -113,16 +104,11 @@
     <!-- 引入 Vue -->
     <script type="text/javascript" th:inline="javascript">
 		var mainHttp = [[${setting.domain}]];
+		var subjectId = [[${subjectId}]];
+		var courseId = [[${courseId}]];
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
     <script src="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.min.js"></script>
-    <script type="text/javascript">
-    	new Vue({data:{docked: false,
-		      open: true,
-		      position: 'left',panel: ''},methods: {
-		    	    toggle (panel) {
-		    	        this.panel = panel === this.panel ? '' : panel;
-		    	      }
-		    	    }}).$mount('#app')
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+    <script th:src="${setting.domain + 'js/chapter/main.js'}"></script>
 </html>

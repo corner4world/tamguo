@@ -17,4 +17,13 @@
 		ORDER BY orders ASC
 	</select>
 	
+	<select id="findByCourseId" resultType="ChapterEntity">
+		SELECT
+			c.uid,c.course_id , c.parent_id , c.`name` , c.question_num , c.point_num , c.orders
+		FROM
+			tiku_chapter c
+		WHERE c.course_id = #{courseId}
+		ORDER BY c.uid asc
+	</select>
+	
 </mapper>
