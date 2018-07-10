@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+        <title>MUSEUI Demo</title>
+        <!-- 引入 FrozenUI -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">
+		<style type="text/css">
+			.mu-appbar-header {
+			    position: fixed;
+			    left: 0;
+			    right: 0;
+			    top: 0;
+			    z-index: 101;
+			    overflow: hidden
+			}
+			.mu-appbar-footer {
+			    position: fixed;
+			    left: 0;
+			    right: 0;
+			    bottom:0px;
+			    z-index: 101;
+			    overflow: hidden
+			}
+		</style>
+    </head>
+    <body>
+    	<div id="app">
+	    	<mu-appbar style="width: 100%;" color="primary" class="mu-appbar-header">
+			  <mu-button icon slot="left" @click="open = true">
+			    <mu-icon value="menu"></mu-icon>
+			  </mu-button>
+				探果题库
+				
+			  <mu-button flat slot="right">登录</mu-button>
+			  <mu-button flat slot="right">注册</mu-button>
+			</mu-appbar>
+			
+			
+			<mu-container>
+				<mu-card style="width: 100%;margin-top: 80px;margin-bottom:80px;" raised="true">
+				  <mu-card-text>
+				    <p> <span> 如图，圆O </span> <span class="ext_valign_sub"> 1 </span> <span> 与圆O </span> <span class="ext_valign_sub"> 2 </span> <span> 内切于点A，其半径分别为r </span> <span class="ext_valign_sub"> 1 </span> <span> 与r </span> <span class="ext_valign_sub"> 2 </span> <span> (r </span> <span class="ext_valign_sub"> 1 </span> <span> &gt;r </span> <span class="ext_valign_sub"> 2 </span> <span> ).圆O </span> <span class="ext_valign_sub"> 1 </span> <span> 的弦AB交圆O </span> <span class="ext_valign_sub"> 2 </span> <span> 于点C(O </span> <span class="ext_valign_sub"> 1 </span> <span> 不在AB上)。 </span> </p> 
+<p> <img src="http://www.tamguo.com//files/20180706/FP161217.jpg" width="189px" height="171px" class="scale-img"> </p> 
+<p class="ext_text-align_left"> 求证：AB∶AC为定值。 </p>
+				  </mu-card-text>
+				  <mu-card-title sub-title="答案"></mu-card-title>
+				  <mu-card-text>
+				    <span> B </span>
+				  </mu-card-text>
+				  <mu-card-title sub-title="解析"></mu-card-title>
+				  <mu-card-text>
+				    <p> 苯巴比妥属于巴比妥类镇静催眠药；佐匹克隆属于环吡咯酮类镇静催眠药；阿普唑仑属于苯二氮䓬类镇静催眠药，同类药物还有地西泮等，苯妥英钠属于乙内酰脲类抗癫痫药。 </p>
+				  </mu-card-text>
+				  
+				</mu-card>
+				
+				
+				<mu-drawer :open.sync="open" :docked="docked" :right="position === 'right'">
+			    <mu-list>
+			      <mu-list-item button>
+			        <mu-list-item-title>理科数学</mu-list-item-title>
+			      </mu-list-item>
+			      <mu-list-item button>
+			        <mu-list-item-title>文科数学</mu-list-item-title>
+			      </mu-list-item>
+			      <mu-list-item button>
+			        <mu-list-item-title>物理</mu-list-item-title>
+			      </mu-list-item>
+			      <mu-list-item button>
+			        <mu-list-item-title>英语</mu-list-item-title>
+			      </mu-list-item>
+			      <mu-list-item  @click="open = false" button>
+			        <mu-list-item-title>关闭</mu-list-item-title>
+			      </mu-list-item>
+			    </mu-list>
+			  </mu-drawer>
+			<mu-container>
+			
+			  <mu-bottom-nav class="mu-appbar-footer">
+				    <mu-bottom-nav-item title="上一题"  icon="keyboard_arrow_left"></mu-bottom-nav-item>
+				    <mu-bottom-nav-item title="此章节共10题"></mu-bottom-nav-item>
+				    <mu-bottom-nav-item title="下一题" icon="keyboard_arrow_right"></mu-bottom-nav-item>
+			  </mu-bottom-nav>
+		</div>
+    </body>
+    <!-- 引入 Vue -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+    <script src="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.min.js"></script>
+    <script type="text/javascript">
+    	new Vue({data:{docked: false,
+		      open: false,
+		      position: 'left',panel: ''}}).$mount('#app')
+    </script>
+</html>

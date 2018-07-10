@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+        <title>MUSEUI Demo</title>
+        <!-- 引入 FrozenUI -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">
+    </head>
+    <body>
+    	<div id="app">
+	    	<mu-appbar style="width: 100%;" color="primary">
+			  <mu-button icon slot="left" @click="open = true">
+			    <mu-icon value="menu"></mu-icon>
+			  </mu-button>
+				探果题库
+				
+			  <mu-button flat slot="right">登录</mu-button>
+			  <mu-button flat slot="right">注册</mu-button>
+			</mu-appbar>
+			
+			
+			<mu-container>
+				 <mu-container>
+					  <mu-breadcrumbs divider="—">
+					    <mu-icon value="chevron_right" slot="divider"></mu-icon>
+					    <mu-breadcrumbs-item :disabled="true">当前位置</mu-breadcrumbs-item>
+					    <mu-breadcrumbs-item :disabled="true">理科数学</mu-breadcrumbs-item>
+					    <mu-breadcrumbs-item :disabled="true">第一章 社会工作概述</mu-breadcrumbs-item>
+					  </mu-breadcrumbs>
+				  </mu-container>
+				  <mu-list textline="three-line">
+				    <mu-sub-header>第一章 社会工作概述</mu-sub-header>
+				    <mu-divider></mu-divider>
+				    <mu-list-item avatar :ripple="true" button href="question">
+				      <mu-list-item-content>
+				        1.1 社区的含义、要素及功能</mu-list-item-title>
+				        <mu-list-item-sub-title>
+				           1 社会工作的含义、目标与功能
+				        </mu-list-item-sub-title>
+				      </mu-list-item-content>
+				      <mu-list-item-action>
+				        <mu-badge content="12" circle color="secondary">
+					      <mu-button icon>
+					        <mu-icon value="help"></mu-icon>
+					      </mu-button>
+					    </mu-badge>
+				      </mu-list-item-action>
+				    </mu-list-item>
+				    <mu-divider></mu-divider>
+				    <mu-list-item avatar :ripple="false" button>
+				      <mu-list-item-content>
+				        1.2 社区工作的含义及特点
+				      </mu-list-item-title>
+				      <mu-list-item-sub-title>
+				           1 社会工作的含义、目标与功能
+				      </mu-list-item-sub-title>
+				      </mu-list-item-content>
+				    </mu-list-item>
+				    <mu-divider></mu-divider>
+				    
+				    <mu-sub-header>第一章 社会工作概述</mu-sub-header>
+				    <mu-divider></mu-divider>
+				    <mu-list-item avatar :ripple="false" button href="question">
+				      <mu-list-item-content>
+				        1.1 社区的含义、要素及功能</mu-list-item-title>
+				        <mu-list-item-sub-title>
+				           1 社会工作的含义、目标与功能
+				        </mu-list-item-sub-title>
+				      </mu-list-item-content>
+				      <mu-list-item-action>
+				        <mu-badge content="12" circle color="secondary">
+					      <mu-button icon>
+					        <mu-icon value="help"></mu-icon>
+					      </mu-button>
+					    </mu-badge>
+				      </mu-list-item-action>
+				    </mu-list-item>
+				    <mu-divider></mu-divider>
+				    <mu-list-item avatar :ripple="false" button>
+				      <mu-list-item-content>
+				        1.2 社区工作的含义及特点
+				      </mu-list-item-title>
+				      <mu-list-item-sub-title>
+				           1 社会工作的含义、目标与功能
+				      </mu-list-item-sub-title>
+				      </mu-list-item-content>
+				    </mu-list-item>
+				  </mu-list>
+			  <mu-drawer :open.sync="open" :docked="docked" :right="position === 'right'">
+			    <mu-list>
+			      <mu-list-item button>
+			        <mu-list-item-title>理科数学</mu-list-item-title>
+			      </mu-list-item>
+			      <mu-list-item button>
+			        <mu-list-item-title>文科数学</mu-list-item-title>
+			      </mu-list-item>
+			      <mu-list-item button>
+			        <mu-list-item-title>物理</mu-list-item-title>
+			      </mu-list-item>
+			      <mu-list-item button>
+			        <mu-list-item-title>英语</mu-list-item-title>
+			      </mu-list-item>
+			      <mu-list-item  @click="open = false" button>
+			        <mu-list-item-title>关闭</mu-list-item-title>
+			      </mu-list-item>
+			    </mu-list>
+			  </mu-drawer>
+			<mu-container>
+		</div>
+    </body>
+    <!-- 引入 Vue -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+    <script src="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.min.js"></script>
+    <script type="text/javascript">
+    	new Vue({data:{docked: false,
+		      open: true,
+		      position: 'left',panel: ''},methods: {
+		    	    toggle (panel) {
+		    	        this.panel = panel === this.panel ? '' : panel;
+		    	      }
+		    	    }}).$mount('#app')
+    </script>
+</html>
