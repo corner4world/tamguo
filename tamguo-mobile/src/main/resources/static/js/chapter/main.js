@@ -19,7 +19,7 @@ var vm = new Vue({
 		findChapterList(courseId){
 			axios({method: 'post',url: mainHttp + 'chapter/findChapterList.html?courseId='+courseId}).then(function(response){
       		    if(response.data.code == 0){
-      		    	vm.courseList = response.data.result;
+      		    	vm.chapterList = response.data.result;
 				}
       	  	});
 		}
