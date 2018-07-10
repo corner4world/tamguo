@@ -33,6 +33,7 @@
 					  </mu-breadcrumbs>
 				  </mu-container>
 				  <mu-list textline="three-line">
+				  <div>
 				    <mu-sub-header>第一章 社会工作概述</mu-sub-header>
 				    <mu-divider></mu-divider>
 				    <mu-list-item avatar :ripple="true" button href="question">
@@ -50,21 +51,11 @@
 					    </mu-badge>
 				      </mu-list-item-action>
 				    </mu-list-item>
-				    <mu-divider></mu-divider>
-				    <mu-list-item avatar :ripple="false" button>
-				      <mu-list-item-content>
-				        1.2 社区工作的含义及特点
-				      </mu-list-item-title>
-				      <mu-list-item-sub-title>
-				           1 社会工作的含义、目标与功能
-				      </mu-list-item-sub-title>
-				      </mu-list-item-content>
-				    </mu-list-item>
-				    <mu-divider></mu-divider>
-				    
+				    </div>
+				    <div>
 				    <mu-sub-header>第一章 社会工作概述</mu-sub-header>
 				    <mu-divider></mu-divider>
-				    <mu-list-item avatar :ripple="false" button href="question">
+				    <mu-list-item avatar :ripple="true" button href="question">
 				      <mu-list-item-content>
 				        1.1 社区的含义、要素及功能</mu-list-item-title>
 				        <mu-list-item-sub-title>
@@ -79,17 +70,24 @@
 					    </mu-badge>
 				      </mu-list-item-action>
 				    </mu-list-item>
-				    <mu-divider></mu-divider>
-				    <mu-list-item avatar :ripple="false" button>
+				    <mu-list-item avatar :ripple="true" button href="question">
 				      <mu-list-item-content>
-				        1.2 社区工作的含义及特点
-				      </mu-list-item-title>
-				      <mu-list-item-sub-title>
+				        1.1 社区的含义、要素及功能</mu-list-item-title>
+				        <mu-list-item-sub-title>
 				           1 社会工作的含义、目标与功能
-				      </mu-list-item-sub-title>
+				        </mu-list-item-sub-title>
 				      </mu-list-item-content>
+				      <mu-list-item-action>
+				        <mu-badge content="12" circle color="secondary">
+					      <mu-button icon>
+					        <mu-icon value="help"></mu-icon>
+					      </mu-button>
+					    </mu-badge>
+				      </mu-list-item-action>
 				    </mu-list-item>
-				  </mu-list>
+				    </div>
+			  	  </mu-list>
+			  
 			  <mu-drawer :open.sync="open" :docked="docked" :right="position === 'right'">
 			    <mu-list>
 			      <mu-list-item button>
@@ -113,6 +111,9 @@
 		</div>
     </body>
     <!-- 引入 Vue -->
+    <script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${setting.domain}]];
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
     <script src="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.min.js"></script>
     <script type="text/javascript">

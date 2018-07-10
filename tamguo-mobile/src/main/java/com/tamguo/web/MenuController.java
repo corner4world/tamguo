@@ -18,14 +18,14 @@ import com.tamguo.util.Result;
 public class MenuController {
 	
 	@Resource
-	private IMenuService iSubjectService;
+	private IMenuService iMenuService;
 
 	@RequestMapping(path="menu/findAllMenus",method=RequestMethod.POST)
 	@ResponseBody
 	public Result findAllMenus() {
 		// 获取全部菜单
 		try {
-			List<MenuEntity> allMenuList = iSubjectService.findAllMenus();
+			List<MenuEntity> allMenuList = iMenuService.findAllMenus();
 			return Result.successResult(allMenuList);
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("查询所有菜单", this.getClass(), e);

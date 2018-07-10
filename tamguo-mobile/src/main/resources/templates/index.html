@@ -33,7 +33,7 @@
 			<mu-paper :z-depth="1" class="demo-list-wrap" style="margin-top:70px;">
 			  <mu-list :item="item" v-for="item in menus">
 			  	<mu-sub-header>{{item.name}}</mu-sub-header>
-			    <mu-list-item avatar button :ripple="true" href="chapter" :item="it" v-for="it in item.childSubjects">
+			    <mu-list-item avatar button :ripple="true" :href="it.url" :item="it" v-for="it in item.childSubjects">
 			      <mu-list-item-title>{{it.name}}</mu-list-item-title>
 			      <mu-list-item-action>
 			        <mu-icon value="keyboard_arrow_right"></mu-icon>
