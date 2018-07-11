@@ -19,7 +19,7 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 
 	private String name;
 
-	private BigInteger subjectId;
+	private String subjectId;
 	
 	private BigInteger pointNum;
 	
@@ -50,11 +50,11 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 		this.name = name;
 	}
 
-	public BigInteger getSubjectId() {
+	public String getSubjectId() {
 		return this.subjectId;
 	}
 
-	public void setSubjectId(BigInteger subjectId) {
+	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
 	}
 

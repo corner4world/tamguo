@@ -43,57 +43,57 @@
 			
 			<mu-container>
 				<mu-card style="width: 100%;margin-top: 80px;margin-bottom:80px;" raised="true">
-				  <mu-card-text>
+				  <mu-card-text v-html="question.content">
 				    <p> <span> 如图，圆O </span> <span class="ext_valign_sub"> 1 </span> <span> 与圆O </span> <span class="ext_valign_sub"> 2 </span> <span> 内切于点A，其半径分别为r </span> <span class="ext_valign_sub"> 1 </span> <span> 与r </span> <span class="ext_valign_sub"> 2 </span> <span> (r </span> <span class="ext_valign_sub"> 1 </span> <span> &gt;r </span> <span class="ext_valign_sub"> 2 </span> <span> ).圆O </span> <span class="ext_valign_sub"> 1 </span> <span> 的弦AB交圆O </span> <span class="ext_valign_sub"> 2 </span> <span> 于点C(O </span> <span class="ext_valign_sub"> 1 </span> <span> 不在AB上)。 </span> </p> 
 <p> <img src="http://www.tamguo.com//files/20180706/FP161217.jpg" width="189px" height="171px" class="scale-img"> </p> 
 <p class="ext_text-align_left"> 求证：AB∶AC为定值。 </p>
 				  </mu-card-text>
 				  <mu-card-title sub-title="答案"></mu-card-title>
-				  <mu-card-text>
+				  <mu-card-text v-html="question.answer">
 				    <span> B </span>
 				  </mu-card-text>
 				  <mu-card-title sub-title="解析"></mu-card-title>
-				  <mu-card-text>
+				  <mu-card-text v-html="question.analysis">
 				    <p> 苯巴比妥属于巴比妥类镇静催眠药；佐匹克隆属于环吡咯酮类镇静催眠药；阿普唑仑属于苯二氮䓬类镇静催眠药，同类药物还有地西泮等，苯妥英钠属于乙内酰脲类抗癫痫药。 </p>
 				  </mu-card-text>
-				  
 				</mu-card>
 				
 				
 				<mu-drawer :open.sync="open" :docked="docked" :right="position === 'right'">
-			    <mu-list>
-			      <mu-list-item button>
-			        <mu-list-item-title>理科数学</mu-list-item-title>
-			      </mu-list-item>
-			      <mu-list-item button>
-			        <mu-list-item-title>文科数学</mu-list-item-title>
-			      </mu-list-item>
-			      <mu-list-item button>
-			        <mu-list-item-title>物理</mu-list-item-title>
-			      </mu-list-item>
-			      <mu-list-item button>
-			        <mu-list-item-title>英语</mu-list-item-title>
-			      </mu-list-item>
-			      <mu-list-item  @click="open = false" button>
-			        <mu-list-item-title>关闭</mu-list-item-title>
-			      </mu-list-item>
-			    </mu-list>
-			  </mu-drawer>
+				    <mu-list>
+				    	
+				      <mu-list-item :href="mainHttp" button>
+				        <mu-list-item-title>首页</mu-list-item-title>
+				      </mu-list-item>
+				      
+				      <mu-list-item button v-for="course in courseList" :href="course.url" @click="open = false">
+				        <mu-list-item-title>{{course.name}}</mu-list-item-title>
+				      </mu-list-item>
+				      
+				      <mu-list-item  @click="open = false" button>
+				        <mu-list-item-title>关闭</mu-list-item-title>
+				      </mu-list-item>
+				    </mu-list>
+				  </mu-drawer>
 			<mu-container>
 			
-			  <mu-bottom-nav class="mu-appbar-footer">
-				    <mu-bottom-nav-item title="上一题"  icon="keyboard_arrow_left"></mu-bottom-nav-item>
-				    <mu-bottom-nav-item title="此章节共10题"></mu-bottom-nav-item>
-				    <mu-bottom-nav-item title="下一题" icon="keyboard_arrow_right"></mu-bottom-nav-item>
-			  </mu-bottom-nav>
+			<mu-bottom-nav class="mu-appbar-footer">
+				    <mu-bottom-nav-item title="上一题"  icon="keyboard_arrow_left" :href="topUrl"></mu-bottom-nav-item>
+				    <mu-bottom-nav-item :title="current+'/'+total+'题'"></mu-bottom-nav-item>
+				    <mu-bottom-nav-item title="下一题" icon="keyboard_arrow_right" :href="nextUrl" :disabled="true"></mu-bottom-nav-item>
+			</mu-bottom-nav>
 		</div>
     </body>
     <!-- 引入 Vue -->
+    <script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${setting.domain}]];
+		var subjectId = [[${subjectId}]];
+		var chapterId = [[${chapterId}]];
+		var current =  [[${current}]];
+		var size = [[${size}]];
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
     <script src="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.min.js"></script>
-    <script type="text/javascript">
-    	new Vue({data:{docked: false,
-		      open: false,
-		      position: 'left',panel: ''}}).$mount('#app')
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+    <script th:src="${setting.domain + 'js/question/main.js'}"></script>
 </html>
