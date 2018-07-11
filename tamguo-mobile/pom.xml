@@ -155,7 +155,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>tamguo</finalName>
+		<finalName>tamguo-mobile</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
