@@ -93,7 +93,7 @@ var vm = new Vue({
 	},
 	methods: {
 		getChapterTree:function(courseId){
-			axios.get(mainHttp + "/chapter/findChapterTreeByCourseId.html?courseId="+courseId).then(function (response) {
+			axios.get(mainHttp + "course/findChapterTreeByCourseId.html?courseId="+courseId).then(function (response) {
 			    ztree = $.fn.zTree.init($("#menuTree"), setting, response.data.result);
 				var node = ztree.getNodeByParam("parentId", "-1");
 				ztree.selectNode(node);

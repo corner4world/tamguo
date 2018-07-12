@@ -32,7 +32,7 @@
 			            </li>
 			            
 			            <li class="contain-li">
-			                <a class="" th:href="${setting.domain + 'chapter/'+subjectId+'/'+courseId+'.html'}">章节学习</a>
+			                <a class="" th:href="${setting.domain + 'course/'+courseId+'.html'}">章节学习</a>
 			            </li>
 			            <li class="contain-li">
 			                <a th:class="${paperType == setting.PAPER_TYPE_ZHENTI} ? 'curr' : '' " th:href="${setting.domain + 'paperlist/' + subjectId + '/'+courseId+'-'+setting.PAPER_TYPE_ZHENTI+'-0-0-1.html'}">真题试卷</a>

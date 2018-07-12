@@ -9,7 +9,10 @@
 			c.orders,
 			c.point_num,
 			c.question_num,
-			c.subject_id
+			c.subject_id,
+			c.seo_title,
+			c.seo_keywords,
+			c.seo_description
 		FROM
 			tiku_course c
 		WHERE

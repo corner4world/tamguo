@@ -1,7 +1,6 @@
 package com.tamguo.web;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,6 @@ import com.tamguo.model.CourseEntity;
 import com.tamguo.model.SubjectEntity;
 import com.tamguo.service.IAreaService;
 import com.tamguo.service.IChapterService;
-import com.tamguo.service.ICourseService;
 import com.tamguo.service.ISubjectService;
 import com.tamguo.util.Result;
 
@@ -30,8 +28,6 @@ import com.tamguo.util.Result;
 public class SubjectController {
 	
 	@Autowired
-	private ICourseService iCourseService;
-	@Autowired
 	private IChapterService iChapterService;
 	@Autowired
 	private IAreaService iAreaService;
@@ -41,8 +37,9 @@ public class SubjectController {
 	@RequestMapping(value = {"subject/{subjectId}.html"}, method = RequestMethod.GET)
     public ModelAndView indexAction(@PathVariable String subjectId , ModelAndView model) {
 		SubjectEntity subject = iSubjectService.find(subjectId);
-		CourseEntity course = iCourseService.find(subject.getCourseId());
-		List<ChapterEntity> chapterList = iChapterService.findCourseChapter(subject.getCourseId());
+		// 获取第一个科目
+		CourseEntity course = subject.getCourseList().get(0);
+		List<ChapterEntity> chapterList = iChapterService.findCourseChapter(course.getUid());
     	model.setViewName("subject");
     	model.addObject("subject", subject);
     	model.addObject("course" , course);

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
-
-import java.math.BigInteger;
 import java.util.List;
 
 
@@ -19,11 +17,11 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 
 	private String name;
 
-	private BigInteger subjectId;
+	private String subjectId;
 	
-	private BigInteger pointNum;
+	private String pointNum;
 	
-	private BigInteger questionNum;
+	private String questionNum;
 
 	private Integer orders;
 	
@@ -50,27 +48,27 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 		this.name = name;
 	}
 
-	public BigInteger getSubjectId() {
+	public String getSubjectId() {
 		return this.subjectId;
 	}
 
-	public void setSubjectId(BigInteger subjectId) {
+	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
 	}
 
-	public BigInteger getQuestionNum() {
+	public String getQuestionNum() {
 		return questionNum;
 	}
 
-	public void setQuestionNum(BigInteger questionNum) {
+	public void setQuestionNum(String questionNum) {
 		this.questionNum = questionNum;
 	}
 
-	public BigInteger getPointNum() {
+	public String getPointNum() {
 		return pointNum;
 	}
 
-	public void setPointNum(BigInteger pointNum) {
+	public void setPointNum(String pointNum) {
 		this.pointNum = pointNum;
 	}
 

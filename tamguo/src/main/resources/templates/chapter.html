@@ -32,10 +32,10 @@
 			        </span>
 			        <ul class="contain-ul">
 			            <li class="contain-li">
-			                <a th:href="${setting.domain + 'subject/' + subjectId + '.html'}" class="">考试首页</a>
+			                <a th:href="${setting.domain + 'subject/' + subject.uid + '.html'}" class="">考试首页</a>
 			            </li>
 			            <li class="contain-li curr">
-			                <a class="curr " th:href="${setting.domain + 'chapter/'+subjectId+'/'+course.uid+'.html'}">章节学习</a>
+			                <a class="curr " th:href="${setting.domain + 'course/'+course.uid+'.html'}">章节学习</a>
 			            </li>
 			            <li class="contain-li">
 			                <a class="" th:href="${setting.domain + 'paperlist/' + subjectId + '/'+course.uid+'-'+setting.PAPER_TYPE_ZHENTI+'-0-0-1.html'}">真题试卷</a>
@@ -60,7 +60,7 @@
         <li>科目:</li>
         
             <li th:class="${c.uid == course.uid} ? 'selected' : ''" th:each="c,cStat:${courseList}">
-                <a th:href="${setting.domain + 'chapter/'+c.subjectId+'/'+c.uid+'.html'}" th:text="${c.name}">
+                <a th:href="${setting.domain + 'course/'+c.uid+'.html'}" th:text="${c.name}">
                     理科数学
                 </a>
             </li>
@@ -69,7 +69,7 @@
         <li>结构:</li>
         
         <li class="selected">
-            <a th:href="${setting.domain + 'chapter/'+subjectId+'/'+course.uid+'.html'}">
+            <a th:href="${setting.domain + 'course/'+course.uid+'.html'}">
                 按知识点
             </a>
         </li>
