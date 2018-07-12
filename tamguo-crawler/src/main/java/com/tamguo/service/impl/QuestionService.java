@@ -26,6 +26,7 @@ import com.tamguo.model.CourseEntity;
 import com.tamguo.model.CrawlerQuestionEntity;
 import com.tamguo.model.QuestionEntity;
 import com.tamguo.model.SubjectEntity;
+import com.tamguo.model.enums.QuestionType;
 import com.tamguo.model.vo.QuestionVo;
 import com.tamguo.service.IQuestionService;
 import com.xuxueli.crawler.XxlCrawler;
@@ -50,9 +51,9 @@ public class QuestionService implements IQuestionService{
 	SubjectMapper subjectMapper;
 	@Autowired
 	CacheService cacheService;
-	private static final String FILES_NO_FORMAT = "00000";
-	private static final String FILES_PREFIX = "FP";
-	private static final String DOMAIN = "http://static.tamguo.com";
+	private static final String FILES_NO_FORMAT = "0000000000";
+	private static final String FILES_PREFIX = "FPIMAGE";
+	private static final String DOMAIN = "http://www.tamguo.com";
 	
 	private RunData runData;
 
@@ -61,12 +62,17 @@ public class QuestionService implements IQuestionService{
 		
 		XxlCrawler crawler = new XxlCrawler.Builder()
 	            .setAllowSpread(false)
-	            .setThreadCount(10)
+	            .setThreadCount(20)
+	            .setFailRetryCount(5)
 	            .setPageLoader(new HtmlUnitPageLoader())
 	            .setPageParser(new PageParser<QuestionVo>() {
 	            	
 	                @Override
 	                public void parse(Document html, Element pageVoElement, QuestionVo questionVo) {
+	                	if(StringUtils.isEmpty(questionVo.getContent())) {
+	                		runData.addUrl(html.baseUri());
+	                		return;
+	                	}
                 		CrawlerQuestionEntity condition = new CrawlerQuestionEntity();
 	                	condition.setQuestionUrl(html.baseUri());
 	                	CrawlerQuestionEntity crawlerQuestion = crawlerQuestionMapper.selectOne(condition);
@@ -74,21 +80,47 @@ public class QuestionService implements IQuestionService{
 	                	CourseEntity course = courseMapper.selectById(chapter.getCourseId());
 	                	SubjectEntity subject = subjectMapper.selectById(course.getSubjectId());
 	                	
+	                	QuestionType questionType = QuestionType.getQuestionType(questionVo.getQuestionType());
+	                	
+
 	                	QuestionEntity question = new QuestionEntity();
+	                	if(questionType == QuestionType.DANXUANTI) {
+	                		if(!StringUtils.isEmpty(questionVo.getQueoptions())) {
+	                			question.setContent(questionVo.getContent() + questionVo.getQueoptions());	
+	                		}else {
+	                			question.setContent(questionVo.getContent());
+	                		}
+	                	}else {
+	                		question.setContent(questionVo.getContent());
+	                	}
 	                	question.setAnalysis(questionVo.getAnalysis());
+	                	if(StringUtils.isEmpty(question.getAnswer())) {
+	                		question.setAnalysis("<p> <span> 略 </span> <br> </p>");
+	                	}
 	                	question.setAnswer(questionVo.getAnswer());
 	                	question.setAuditStatus("1");
 	                	question.setChapterId(chapter.getUid());
-	                	question.setContent(questionVo.getContent());
 	                	question.setCourseId(course.getUid());
 	                	question.setPaperId(null);
-	                	question.setQuestionType("1");
+	                	question.setQuestionType(questionType.getValue().toString());
 	                	if(questionVo.getReviewPoint() != null && questionVo.getReviewPoint().size() > 0) {
 		                	question.setReviewPoint(StringUtils.join(questionVo.getReviewPoint().toArray(), ","));
 	                	}
-	                	question.setScore(questionVo.getScore());
+	                	// 处理分数
+	                	if(questionVo.getScore() != null) {
+	                		if(questionVo.getScore().contains("分")) {
+		                		question.setScore(questionVo.getScore());
+		                	}
+		                	if(questionVo.getScore().contains("年")) {
+		                		question.setYear(questionVo.getScore());
+		                	}
+	                	}
+	                	if(questionVo.getYear() != null) {
+	                		if(questionVo.getYear().contains("年")) {
+	                			question.setYear(questionVo.getYear());
+	                		}
+	                	}
 	                	question.setSubjectId(subject.getUid());
-	                	question.setYear(questionVo.getYear());
 	                	
 	                	if (questionVo.getAnswerImages()!=null && questionVo.getAnswerImages().size() > 0) {
                             Set<String> imagesSet = new HashSet<>(questionVo.getAnswerImages());
@@ -124,8 +156,9 @@ public class QuestionService implements IQuestionService{
                             }
                         }
 	                	// 处理图片
+	                	question.setSourceType("baidu");
+	                	question.setSourceUrl(html.baseUri());
 	                	questionMapper.insert(question);
-	                	
 	                }
 	                
 	                public String getFileName(String img) {

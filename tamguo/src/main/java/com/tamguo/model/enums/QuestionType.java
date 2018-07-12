@@ -35,7 +35,7 @@ public enum QuestionType {
     	}else if("5".equals(value)) {
     		return WENDATI;
     	}
-    	return null;
+    	return WENDATI;
     }
 
     public Serializable getValue() {

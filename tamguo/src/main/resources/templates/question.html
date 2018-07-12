@@ -27,7 +27,7 @@
 			<div class="main-contain">
 				<div class="single">
 					<div class="question">
-						<div class="que-title"> <span class="op">填空题</span> <span th:if="${question.score != null}" th:text="${question.score + '分'}">5</span> <span th:if="${question.year != null}" th:text="${question.year + '年'}">2016</span> </div>
+						<div class="que-title"> <span class="op" th:text="${question.questionType}">填空题</span> <span th:if="${question.score != null}" th:text="${question.score }">5</span> <span th:if="${question.year != null}" th:text="${question.year}">2016</span> </div>
 						<div class="question-box que-blank" id="undefined" data-index="NaN">
 							<div class="question-box-inner">
 								<div class="question-top">

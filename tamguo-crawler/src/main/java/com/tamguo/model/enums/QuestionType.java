@@ -34,8 +34,10 @@ public enum QuestionType {
     		return PANDUANTI;
     	}else if("问答题".equals(value)) {
     		return WENDATI;
+    	}else if("选择题".equals(value)) {
+    		return DANXUANTI;
     	}
-    	return DANXUANTI;
+    	return WENDATI;
     }
 
     public Serializable getValue() {

@@ -13,6 +13,7 @@ import com.tamguo.model.ChapterEntity;
 import com.tamguo.model.CourseEntity;
 import com.tamguo.model.QuestionEntity;
 import com.tamguo.model.SubjectEntity;
+import com.tamguo.model.enums.QuestionType;
 import com.tamguo.service.IChapterService;
 import com.tamguo.service.ICourseService;
 import com.tamguo.service.IQuestionService;
@@ -67,6 +68,7 @@ public class QuestionContrller {
 	public ModelAndView question(@PathVariable String uid , ModelAndView model){
 		model.setViewName("question");
 		QuestionEntity question = iQuestionService.findNormalQuestion(uid);
+		question.setQuestionType(QuestionType.getQuestionType(question.getQuestionType()).getDesc());
 		model.addObject("question", question);
 		
 		// 推荐试题

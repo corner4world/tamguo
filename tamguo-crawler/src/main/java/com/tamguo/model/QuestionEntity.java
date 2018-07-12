@@ -36,6 +36,10 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 	private String score;
 	
 	private String auditStatus;
+	
+	private String sourceType;
+	
+	private String sourceUrl;
 
 	public QuestionEntity() {
 	}
@@ -134,6 +138,22 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 
 	public void setAuditStatus(String auditStatus) {
 		this.auditStatus = auditStatus;
+	}
+
+	public String getSourceType() {
+		return sourceType;
+	}
+
+	public void setSourceType(String sourceType) {
+		this.sourceType = sourceType;
+	}
+
+	public String getSourceUrl() {
+		return sourceUrl;
+	}
+
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
 	}
 
 }

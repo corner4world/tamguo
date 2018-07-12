@@ -14,7 +14,7 @@ public class QuestionVo {
 	@PageFieldSelect(cssQuery = ".question-box-inner .questem-inner img", selectType = XxlCrawlerConf.SelectType.ATTR, selectVal = "abs:src")
     private List<String> contentImages;
 	
-	@PageFieldSelect(cssQuery=".queoptions-inner", selectType = XxlCrawlerConf.SelectType.HTML)
+	@PageFieldSelect(cssQuery=".que-options", selectType = XxlCrawlerConf.SelectType.HTML)
 	private String queoptions;
 	
 	@PageFieldSelect(cssQuery=".exam-answer-content", selectType = XxlCrawlerConf.SelectType.HTML)
@@ -38,7 +38,7 @@ public class QuestionVo {
 	@PageFieldSelect(cssQuery=".que-title span:eq(2)",selectType = XxlCrawlerConf.SelectType.TEXT)
 	private String year;
 	
-	@PageFieldSelect(cssQuery=".kpoint-contain point point-item",selectType = XxlCrawlerConf.SelectType.TEXT)
+	@PageFieldSelect(cssQuery=".kpoint-contain .point .point-item",selectType = XxlCrawlerConf.SelectType.TEXT)
 	private List<String> reviewPoint;
 
 
