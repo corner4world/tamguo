@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tamguo.dao.ChapterMapper;
 import com.tamguo.dao.CourseMapper;
 import com.tamguo.dao.CrawlerQuestionMapper;
@@ -55,6 +56,8 @@ public class SubjectService implements ISubjectService{
 		XxlCrawler crawler = new XxlCrawler.Builder()
             .setUrls("https://tiku.baidu.com/")
             .setAllowSpread(false)
+            .setFailRetryCount(5)
+            .setThreadCount(20)
             .setPageParser(new PageParser<SubjectVo>() {
             	
                 @Override
@@ -200,18 +203,24 @@ public class SubjectService implements ISubjectService{
                     	
                     	// 剔除已经爬取的数据
                     	urls.add(pageUrl);
-                    	for(String url : subjectVo.getChapterUrls()) {
-                    		if(url.equals(pageVoElement.getElementsByClass("main-inner").get(0).getElementsByClass("selected").get(0).getElementsByTag("a").attr("abs:href"))) {
-                    			continue;
-                    		}
-                    		if(!urls.contains(url)) {
-                        		runData.addUrl(url);
-                    		}
+                    	logger.info("url:{}" ,pageUrl );
+                    	logger.info("subjectVo:{}" ,JSONObject.toJSON(subjectVo) );
+                    	if(subjectVo.getChapterUrls() != null) {
+                    		for(String url : subjectVo.getChapterUrls()) {
+                        		if(url.equals(pageVoElement.getElementsByClass("main-inner").get(0).getElementsByClass("selected").get(0).getElementsByTag("a").attr("abs:href"))) {
+                        			continue;
+                        		}
+                        		if(!urls.contains(url)) {
+                            		runData.addUrl(url);
+                        		}
+                        	}
                     	}
                     }
                     
                     if(pageUrl.contains("https://tiku.baidu.com/tikupc/chapterdetail")) {
                     	// 加入待解析题目列表
+                    	logger.info("url : {}" , pageUrl);
+                    	logger.info("subjectVo : {}" , JSONObject.toJSON(subjectVo));
                         for(String questionUrl : subjectVo.getQuestionUrls()) {
                         	if(!questionUrls.contains(questionUrl)) {
                         		//  处理URL 
