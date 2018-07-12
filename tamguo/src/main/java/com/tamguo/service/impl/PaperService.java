@@ -73,6 +73,18 @@ public class PaperService extends ServiceImpl<PaperMapper, PaperEntity> implemen
 	public Page<PaperEntity> findList(String subjectId , String courseId,
 			String paperType, String year, String area , Integer pageNum) {
 		Page<PaperEntity> page = new Page<>(pageNum , TamguoConstant.DEFAULT_PAGE_SIZE);
+		if("0".equals(courseId)) {
+			courseId = "";
+		}
+		if("0".equals(paperType)) {
+			paperType = "";
+		}
+		if("0".equals(year)) {
+			year = "";
+		}
+		if("0".equals(area)) {
+			area = "";
+		}
 		return page.setRecords(paperMapper.findList(subjectId , courseId , paperType , year , area , page));
 	}
 

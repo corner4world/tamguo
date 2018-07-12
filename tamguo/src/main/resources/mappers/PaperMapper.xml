@@ -82,19 +82,19 @@
 		FROM
 			tiku_paper p
 		where 1 = 1
-		<if test="subjectId != null and subjectId != 0">
+		<if test="subjectId != null and subjectId != ''">
 			and p.subject_id = #{subjectId}
 		</if>
-		<if test="courseId != null and courseId != 0">
+		<if test="courseId != null and courseId != ''">
 			and p.course_id = #{courseId}
 		</if>
-		<if test="paperType != null and paperType != 0">
+		<if test="paperType != null and paperType != ''">
 			and p.type = #{paperType}
 		</if>
-		<if test="year != null and year != 0">
+		<if test="year != null and year != ''">
 			and p.year = #{year}
 		</if>
-		<if test="area != null and area != 0">
+		<if test="area != null and area != ''">
 			and p.area_id = #{area}
 		</if>
 	</select>

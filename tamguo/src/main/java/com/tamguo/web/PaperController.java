@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tamguo.model.AreaEntity;
+import com.tamguo.model.CourseEntity;
 import com.tamguo.model.PaperEntity;
+import com.tamguo.model.SubjectEntity;
 import com.tamguo.service.IAreaService;
 import com.tamguo.service.ICourseService;
 import com.tamguo.service.IPaperService;
@@ -40,16 +43,26 @@ public class PaperController {
 	@Autowired
 	private ISubjectService iSubjectService;
 
-	@RequestMapping(value = {"/paperlist/{subjectId}/{courseId}-{paperType}-{year}-{area}-{pageNum}.html"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"paperlist/{subjectId}-{courseId}-{paperType}-{year}-{area}-{pageNum}"}, method = RequestMethod.GET)
     public ModelAndView indexAction(@PathVariable String subjectId , @PathVariable String courseId , @PathVariable String paperType,
     		@PathVariable String year , @PathVariable String area , @PathVariable Integer pageNum, ModelAndView model) {
     	model.setViewName("paperlist");
-    	model.addObject("courseList", iCourseService.findBySubjectId(subjectId));
-    	model.addObject("subject", iSubjectService.find(subjectId));
-    	model.addObject("course", iCourseService.find(courseId));
-    	model.addObject("areaList", iAreaService.findRootArea());
-    	model.addObject("paperPage" , PageUtils.getPage(iPaperService.findList(subjectId , courseId , paperType , year , area , pageNum)));
-    	model.addObject("total" , iPaperService.getPaperTotal());
+    	
+    	CourseEntity course = iCourseService.find(courseId);
+    	List<CourseEntity> courseList = iCourseService.findBySubjectId(subjectId);
+    	SubjectEntity subject = iSubjectService.find(subjectId);
+    	List<AreaEntity> areaList = iAreaService.findRootArea();
+    	PageUtils page = PageUtils.getPage(iPaperService.findList(subjectId , courseId , paperType , year , area , pageNum));
+    	if(course == null) {
+    		course = courseList.get(0);
+    	}
+    	Long total = iPaperService.getPaperTotal();
+    	model.addObject("courseList", courseList);
+    	model.addObject("subject", subject);
+    	model.addObject("course", course);
+    	model.addObject("areaList", areaList);
+    	model.addObject("paperPage" , page);
+    	model.addObject("total" , total);
     	model.addObject("courseId", courseId);
     	model.addObject("paperType", paperType);
     	model.addObject("year", year);
