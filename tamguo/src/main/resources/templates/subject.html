@@ -133,12 +133,12 @@
 						<ul class="chapterlist-container">
 							<li class="chapterlist-item" th:each="c,cStat:${chapterList}" th:if="${cStat.index < 5}">
 								<p class="chapterlist-item-name">
-									<a class="chapterlist-item-name-link" th:href="${setting.domain + 'chapter/' + subject.uid + '/'+course.uid+'.html'}">
+									<a class="chapterlist-item-name-link" th:href="${setting.domain + 'course/' +course.uid+'.html'}">
 										<span th:text="${c.name}">第一章 集合与常用逻辑用语</span>
 									</a>
 								</p>
 								<p class="chapterlist-detail"><span th:text="${c.pointNum}">21</span>知识点 | <span th:text="${c.questionNum}">2295</span>试题</p>
-								<a class="chapterlist-item-btn" data-kp="a9d6195f312b3169a451a405" th:href="${setting.domain + 'chapter/' + subject.uid + '/'+course.uid+'.html'}">开始学习</a>
+								<a class="chapterlist-item-btn" th:href="${setting.domain + 'course/' + course.uid+'.html'}">开始学习</a>
 							</li>
 							
 						</ul>
