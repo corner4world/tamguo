@@ -36,18 +36,23 @@ public class CourseController {
 
 	@RequestMapping(value = {"course/{uid}"}, method = RequestMethod.GET)
 	public ModelAndView index(@PathVariable String uid , ModelAndView model) {
-		CourseEntity course = iCourseService.find(uid);
-		SubjectEntity subject = iSubjectService.find(course.getSubjectId());
-		List<ChapterEntity> chapterList = iChapterService.findCourseChapter(uid);
-		List<CourseEntity> courseList = iCourseService.findBySubjectId(course.getSubjectId());
-		
-		model.addObject("chapterList", chapterList);
-		model.addObject("courseList", courseList);
-		model.addObject("course", course);
-		model.addObject("subject", subject);
-		
-		model.setViewName("chapter");
-		return model;
+		try {
+			CourseEntity course = iCourseService.find(uid);
+			SubjectEntity subject = iSubjectService.find(course.getSubjectId());
+			List<ChapterEntity> chapterList = iChapterService.findCourseChapter(uid);
+			List<CourseEntity> courseList = iCourseService.findBySubjectId(course.getSubjectId());
+			
+			model.addObject("chapterList", chapterList);
+			model.addObject("courseList", courseList);
+			model.addObject("course", course);
+			model.addObject("subject", subject);
+			
+			model.setViewName("chapter");
+			return model;
+		} catch (Exception e) {
+			model.setViewName("404");
+			return model;
+		}
 	}
 	
 	@RequestMapping(value = {"course/findChapter"}, method = RequestMethod.GET)

@@ -24,7 +24,7 @@ public class SchoolController {
 	@Autowired
 	private ISchoolService iSchoolService;
 	
-	@RequestMapping(value = {"/school/area/{areaId}.html"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"school/area/{areaId}"}, method = RequestMethod.GET)
 	@ResponseBody
 	public List<SchoolEntity> findSchoolByAreaId(@PathVariable String areaId , ModelAndView model){
 		return iSchoolService.findEliteSchoolPaper(areaId);
@@ -35,7 +35,7 @@ public class SchoolController {
 	 * @param areaId
 	 * @return
 	 */
-	@RequestMapping(value = {"/school/findByAreaId.html"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"school/findByAreaId"}, method = RequestMethod.GET)
 	@ResponseBody
 	public List<SchoolEntity> findSchoolByAreaId(String areaId){
 		return iSchoolService.findSchoolByAreaId(areaId);

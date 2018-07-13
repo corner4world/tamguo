@@ -35,27 +35,33 @@ public class QuestionContrller {
 	@RequestMapping(value = {"questionlist/{chapterId}-{offset}-{limit}"}, method = RequestMethod.GET)
 	public ModelAndView questionList(@PathVariable String chapterId , @PathVariable Integer offset , 
 			@PathVariable Integer limit , ModelAndView model){
-		model.setViewName("questionList");
+		try {
+			model.setViewName("questionList");
 
-		ChapterEntity chapter = iChapterService.findById(chapterId);
-		CourseEntity course = iCourseService.find(chapter.getCourseId());
-		SubjectEntity subject = iSubjectService.find(course.getSubjectId());
-		ChapterEntity parentChapter = iChapterService.findById(chapter.getParentId());
-		ChapterEntity nextChapter = iChapterService.findNextPoint(chapter.getParentId() , chapter.getOrders());
+			ChapterEntity chapter = iChapterService.findById(chapterId);
+			CourseEntity course = iCourseService.find(chapter.getCourseId());
+			SubjectEntity subject = iSubjectService.find(course.getSubjectId());
+			ChapterEntity parentChapter = iChapterService.findById(chapter.getParentId());
+			ChapterEntity nextChapter = iChapterService.findNextPoint(chapter.getParentId() , chapter.getOrders());
+			
+			Page<QuestionEntity> page = new Page<>();
+			page.setCurrent(offset);
+			page.setSize(limit);
+			Page<QuestionEntity> questionList = iQuestionService.findByChapterId(chapterId , page);
+			model.addObject("subject", subject);
+			model.addObject("course", course);
+			model.addObject("chapter", chapter);
+			model.addObject("parentChapter" , parentChapter);
+			model.addObject("nextChapter" , nextChapter);
+			model.addObject("questionList", questionList);
+			model.addObject("subjectId", course.getSubjectId());
+			model.addObject("courseId", course.getUid());
+			return model;
+		} catch (Exception e) {
+			model.setViewName("404");
+			return model;
+		}
 		
-		Page<QuestionEntity> page = new Page<>();
-		page.setCurrent(offset);
-		page.setSize(limit);
-		Page<QuestionEntity> questionList = iQuestionService.findByChapterId(chapterId , page);
-		model.addObject("subject", subject);
-		model.addObject("course", course);
-		model.addObject("chapter", chapter);
-		model.addObject("parentChapter" , parentChapter);
-		model.addObject("nextChapter" , nextChapter);
-		model.addObject("questionList", questionList);
-		model.addObject("subjectId", course.getSubjectId());
-		model.addObject("courseId", course.getUid());
-		return model;
 	}
 	
 	/**
@@ -66,17 +72,23 @@ public class QuestionContrller {
 	 */
 	@RequestMapping(value = {"/question/{uid}.html"}, method = RequestMethod.GET)
 	public ModelAndView question(@PathVariable String uid , ModelAndView model){
-		model.setViewName("question");
-		QuestionEntity question = iQuestionService.findNormalQuestion(uid);
-		question.setQuestionType(QuestionType.getQuestionType(question.getQuestionType()).getDesc());
-		model.addObject("question", question);
+		try {
+			model.setViewName("question");
+			QuestionEntity question = iQuestionService.findNormalQuestion(uid);
+			question.setQuestionType(QuestionType.getQuestionType(question.getQuestionType()).getDesc());
+			model.addObject("question", question);
+			
+			// 推荐试题
+			model.addObject("featuredQuestionList", iQuestionService.featuredQuestion(question.getSubjectId(),question.getCourseId()));
+			return model;
+		} catch (Exception e) {
+			model.setViewName("404");
+			return model;
+		}
 		
-		// 推荐试题
-		model.addObject("featuredQuestionList", iQuestionService.featuredQuestion(question.getSubjectId(),question.getCourseId()));
-		return model;
 	}
 	
-	@RequestMapping(value = {"/question/getQuestion/{uid}.html"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"question/getQuestion/{uid}"}, method = RequestMethod.GET)
 	@ResponseBody
 	public Result getQuestion(@PathVariable String uid , ModelAndView model){
 		return Result.successResult(iQuestionService.select(uid));

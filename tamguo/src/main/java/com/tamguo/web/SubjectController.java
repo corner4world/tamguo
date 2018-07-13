@@ -36,17 +36,23 @@ public class SubjectController {
 
 	@RequestMapping(value = {"subject/{subjectId}.html"}, method = RequestMethod.GET)
     public ModelAndView indexAction(@PathVariable String subjectId , ModelAndView model) {
-		SubjectEntity subject = iSubjectService.find(subjectId);
-		// 获取第一个科目
-		CourseEntity course = subject.getCourseList().get(0);
-		List<ChapterEntity> chapterList = iChapterService.findCourseChapter(course.getUid());
-    	model.setViewName("subject");
-    	model.addObject("subject", subject);
-    	model.addObject("course" , course);
-    	model.addObject("courseList", subject.getCourseList());
-    	model.addObject("chapterList" , chapterList);
-    	model.addObject("areaList", iAreaService.findRootArea());
-        return model;
+		try {
+			SubjectEntity subject = iSubjectService.find(subjectId);
+			// 获取第一个科目
+			CourseEntity course = subject.getCourseList().get(0);
+			List<ChapterEntity> chapterList = iChapterService.findCourseChapter(course.getUid());
+	    	model.setViewName("subject");
+	    	model.addObject("subject", subject);
+	    	model.addObject("course" , course);
+	    	model.addObject("courseList", subject.getCourseList());
+	    	model.addObject("chapterList" , chapterList);
+	    	model.addObject("areaList", iAreaService.findRootArea());
+	        return model;
+		} catch (Exception e) {
+			model.setViewName("404");
+			return model;
+		}
+		
     }
 	
 	@RequestMapping(value = {"subject/getCourseTree.html"}, method = RequestMethod.GET)
