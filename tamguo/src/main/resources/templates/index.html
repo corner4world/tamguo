@@ -52,7 +52,7 @@
 					<div class="navbar-list-item-section" th:attr="datatype=${m.pinyin}" style="display: none;" th:each="m,mStat:${leftMenuList}">
 						<ul class="navbar-list-ul">
 							<li class="navbar-list-li">
-								<a th:text="${c.name}" th:each="c,cmStat:${m.childSubjects}" class="navbar-list-item-section-name log-navbar-item" th:href="${setting.domain + m.url}" target="_blank">高考</a>
+								<a th:text="${c.name}" th:each="c,cmStat:${m.childSubjects}" class="navbar-list-item-section-name log-navbar-item" th:href="${setting.domain + c.url}" target="_blank">高考</a>
 							</li>
 						</ul>
 					</div>

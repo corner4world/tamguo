@@ -33,7 +33,7 @@
 	<div class="clearfix submenu-container" data-id="submenu">
 	    <div class="submenu clearfix" id="submenu" data-id="submenu">
 	        <ul th:class="${m.pinyin + ' subm-ul dis-none'}" th:each="m,mStat:${menuList}" data-id="submenu">
-	            <li class="subm-li" th:each="c,cmStat:${m.childSubjects}"><a th:href="${setting.domain + m.url}" target="_blank" th:text="${c.name}">高考</a></li>
+	            <li class="subm-li" th:each="c,cmStat:${m.childSubjects}"><a th:href="${setting.domain + c.url}" target="_blank" th:text="${c.name}">高考</a></li>
 	        </ul>
 	        <div class="all-exm all dis-none" data-id="submenu">
 	            <div class="all-ul" th:each="m,mStat:${allMenuList}">
@@ -42,7 +42,7 @@
 	                    <span th:text="${m.name}"></span>
 	                </span>
 	                <ul class="all-list clearfix" id="allmenu">
-	                    <li class="all-list-li" th:each="c,cmStat:${m.childSubjects}"><a th:href="${setting.domain + m.url}" target="_blank" th:text="${c.name}">高考</a></li>
+	                    <li class="all-list-li" th:each="c,cmStat:${m.childSubjects}"><a th:href="${setting.domain + c.url}" target="_blank" th:text="${c.name}">高考</a></li>
 	                </ul>
 	            </div>
 	        </div>

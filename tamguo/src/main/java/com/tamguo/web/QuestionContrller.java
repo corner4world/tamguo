@@ -32,15 +32,15 @@ public class QuestionContrller {
 	@Autowired
 	private ICourseService iCourseService;
 	
-	@RequestMapping(value = {"/question/{subjectId}/{courseId}/{parentChapterId}/{chapterId}-{offset}-{limit}.html"}, method = RequestMethod.GET)
-	public ModelAndView questionList(@PathVariable String subjectId , @PathVariable String courseId , 
-			@PathVariable String parentChapterId ,@PathVariable String chapterId , @PathVariable Integer offset , 
+	@RequestMapping(value = {"questionlist/{chapterId}-{offset}-{limit}"}, method = RequestMethod.GET)
+	public ModelAndView questionList(@PathVariable String chapterId , @PathVariable Integer offset , 
 			@PathVariable Integer limit , ModelAndView model){
 		model.setViewName("questionList");
-		SubjectEntity subject = iSubjectService.find(subjectId);
-		CourseEntity course = iCourseService.find(courseId);
+
 		ChapterEntity chapter = iChapterService.findById(chapterId);
-		ChapterEntity parentChapter = iChapterService.findById(parentChapterId);
+		CourseEntity course = iCourseService.find(chapter.getCourseId());
+		SubjectEntity subject = iSubjectService.find(course.getSubjectId());
+		ChapterEntity parentChapter = iChapterService.findById(chapter.getParentId());
 		ChapterEntity nextChapter = iChapterService.findNextPoint(chapter.getParentId() , chapter.getOrders());
 		
 		Page<QuestionEntity> page = new Page<>();
@@ -53,8 +53,8 @@ public class QuestionContrller {
 		model.addObject("parentChapter" , parentChapter);
 		model.addObject("nextChapter" , nextChapter);
 		model.addObject("questionList", questionList);
-		model.addObject("subjectId", subjectId);
-		model.addObject("courseId", courseId);
+		model.addObject("subjectId", course.getSubjectId());
+		model.addObject("courseId", course.getUid());
 		return model;
 	}
 	

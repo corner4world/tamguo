@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 
-import java.math.BigInteger;
 import java.util.List;
 
 
@@ -21,7 +20,7 @@ public class MenuEntity extends SuperEntity<MenuEntity> implements Serializable 
 	
 	private String pinyin;
 
-	private BigInteger parentId;
+	private String parentId;
 	
 	private String isShow;
 	
@@ -46,11 +45,11 @@ public class MenuEntity extends SuperEntity<MenuEntity> implements Serializable 
 		this.name = name;
 	}
 
-	public BigInteger getParentId() {
+	public String getParentId() {
 		return this.parentId;
 	}
 
-	public void setParentId(BigInteger parentId) {
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 
