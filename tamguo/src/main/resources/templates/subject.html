@@ -78,7 +78,7 @@
 				    	<div class="title-underline">
 				        </div>
 				        <div class="withyou-main">
-				        	<a class="withyou-box withyou-box-learn log-withyou-box " th:href="${setting.domain + 'chapter/' + subject.uid + '/'+course.uid+'.html'}" data-info="kp">
+				        	<a class="withyou-box withyou-box-learn log-withyou-box " th:href="${setting.domain + 'course/' + course.uid +'.html'}" data-info="kp">
 				        		<div class="box-title">
 				        			<p class="box-title-name">章节学习</p>
 				        			<p class="box-title-detail">考点各个击破</p>
@@ -133,7 +133,7 @@
 						<ul class="chapterlist-container">
 							<li class="chapterlist-item" th:each="c,cStat:${chapterList}" th:if="${cStat.index < 5}">
 								<p class="chapterlist-item-name">
-									<a class="chapterlist-item-name-link" data-kp="a9d6195f312b3169a451a405" th:href="${setting.domain + 'chapter/' + subject.uid + '/'+course.uid+'.html'}">
+									<a class="chapterlist-item-name-link" th:href="${setting.domain + 'chapter/' + subject.uid + '/'+course.uid+'.html'}">
 										<span th:text="${c.name}">第一章 集合与常用逻辑用语</span>
 									</a>
 								</p>
@@ -143,7 +143,7 @@
 							
 						</ul>
 						<p class="more-chapterlist-item">
-							<a class="more-item" th:href="${setting.domain + 'chapter/' + subject.uid + '/'+course.uid+'.html'}">更多章节 &gt; </a>
+							<a class="more-item" th:href="${setting.domain + 'course/' + course.uid+'.html'}">更多章节 &gt; </a>
 						</p>
 					</div>
 				
