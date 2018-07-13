@@ -63,7 +63,7 @@ public class PaperController {
     	model.addObject("areaList", areaList);
     	model.addObject("paperPage" , page);
     	model.addObject("total" , total);
-    	model.addObject("courseId", courseId);
+    	model.addObject("courseId", course.getUid());
     	model.addObject("paperType", paperType);
     	model.addObject("year", year);
     	model.addObject("area", area);
