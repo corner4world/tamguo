@@ -5,9 +5,6 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 
-import java.math.BigInteger;
-
-
 /**
  * The persistent class for the tiku_question database table.
  * 
@@ -22,7 +19,7 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 
 	private String answer;
 
-	private BigInteger chapterId;
+	private String chapterId;
 
 	private String questionType;
 
@@ -68,11 +65,11 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 		this.answer = answer;
 	}
 
-	public BigInteger getChapterId() {
+	public String getChapterId() {
 		return this.chapterId;
 	}
 
-	public void setChapterId(BigInteger chapterId) {
+	public void setChapterId(String chapterId) {
 		this.chapterId = chapterId;
 	}
 	

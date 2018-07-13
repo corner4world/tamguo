@@ -21,9 +21,9 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 
 	private String subjectId;
 	
-	private BigInteger pointNum;
+	private Integer pointNum;
 	
-	private BigInteger questionNum;
+	private Integer questionNum;
 
 	private Integer orders;
 	
@@ -58,19 +58,19 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 		this.subjectId = subjectId;
 	}
 
-	public BigInteger getQuestionNum() {
+	public Integer getQuestionNum() {
 		return questionNum;
 	}
 
-	public void setQuestionNum(BigInteger questionNum) {
+	public void setQuestionNum(Integer questionNum) {
 		this.questionNum = questionNum;
 	}
 
-	public BigInteger getPointNum() {
+	public Integer getPointNum() {
 		return pointNum;
 	}
 
-	public void setPointNum(BigInteger pointNum) {
+	public void setPointNum(Integer pointNum) {
 		this.pointNum = pointNum;
 	}
 

@@ -31,4 +31,10 @@ public class IndexController {
     	model.setViewName("thirdparty/baidu_verify_iAm7387J0l");
         return model;
     }
+    
+    @RequestMapping(value = "/sogousiteverification", method = RequestMethod.GET)
+    public ModelAndView sogousiteverification(ModelAndView model) {
+    	model.setViewName("thirdparty/sogousiteverification");
+        return model;
+    }
 }

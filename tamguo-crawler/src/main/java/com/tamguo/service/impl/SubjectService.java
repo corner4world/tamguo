@@ -101,8 +101,8 @@ public class SubjectService implements ISubjectService{
                         		continue;
                         	}
                         	course.setOrders(i+1);
-                        	course.setPointNum(BigInteger.ZERO);
-                        	course.setQuestionNum(BigInteger.ZERO);
+                        	course.setPointNum(0);
+                        	course.setQuestionNum(0);
                         	course.setSeoDescription(subjectVo.getCourseName().get(i));
                         	course.setSeoKeywords(subjectVo.getCourseName().get(i));
                         	course.setSeoTitle(subjectVo.getCourseName().get(i));

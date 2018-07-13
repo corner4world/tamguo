@@ -18,7 +18,7 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 
 	private String analysis;
 	
-	private BigInteger paperId;
+	private String paperId;
 
 	private String answer;
 
@@ -116,11 +116,11 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 		this.score = score;
 	}
 
-	public BigInteger getPaperId() {
+	public String getPaperId() {
 		return paperId;
 	}
 
-	public void setPaperId(BigInteger paperId) {
+	public void setPaperId(String paperId) {
 		this.paperId = paperId;
 	}
 

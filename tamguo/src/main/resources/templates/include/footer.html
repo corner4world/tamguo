@@ -47,37 +47,49 @@
 			target="_blank">沪ICP备14022608号-1</a> Copyright © 2018 Tamguo
 	</p>
 </div>
-<script type="text/javascript" th:if="${setting.domain} eq '1'" th:inline="javascript" th:fragment="footer">
+<script type="text/javascript" th:if="${setting.sitename} eq 'tamguo'" th:inline="javascript" th:fragment="footer">
+//百度统计 www.tamguo.com
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?877e9c9ef462fe55b7750d478a41c981";
+  hm.src = "https://hm.baidu.com/hm.js?440681a7a488eb89e3273ec0088fb08c";
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
-  
-  var bp = document.createElement('script');
-  var curProtocol = window.location.protocol.split(':')[0];
-  if (curProtocol === 'https') {
-      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-  }
-  else {
-      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-  }
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(bp, s);
+})();
+
+// 百度推送 www.tamguo.com
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+
+<!--360搜索自动推送  www.tamguo.com-->
+(function(){
+var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?40ee03bede7c19e05d89f18db868df8a":"https://jspassport.ssl.qhimg.com/11.0.1.js?40ee03bede7c19e05d89f18db868df8a";
+document.write('<script src="' + src + '" id="sozz"><\/script>');
 })();
 </script>
 
-<script type="text/javascript" th:if="${setting.sitenum} eq '2'" th:inline="javascript" th:fragment="footer">
+<script type="text/javascript" th:if="${setting.sitename} eq 'tanguoguo'" th:inline="javascript" th:fragment="footer">
+// 百度统计 www.tanguoguo.com
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?440681a7a488eb89e3273ec0088fb08c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+// 百度推送  www.tanguoguo.com
 (function(){
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "https://hm.baidu.com/hm.js?440681a7a488eb89e3273ec0088fb08c";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
-	
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
     if (curProtocol === 'https') {
