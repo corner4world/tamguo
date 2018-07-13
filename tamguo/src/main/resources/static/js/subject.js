@@ -17,7 +17,7 @@ $(function(){
 		var courseId = $(this).attr("courseid");
 		$.ajax({
 			type : "get", 
-			url : mainHttp + "course/findChapter.html?courseId=" +courseId+".html",
+			url : mainHttp + "course/findChapter.html?courseId=" +courseId,
 			async : true,
 			dataType : "json",
 			success : function(data) {// 返回数据根据结果进行相应的处理,无论请求成功还是失败，都会走这个方法的

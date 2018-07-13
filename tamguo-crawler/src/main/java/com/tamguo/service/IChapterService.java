@@ -3,7 +3,7 @@ package com.tamguo.service;
 public interface IChapterService {
 
 	/**
-	 * 爬取章节数据
+	 * 修改章节数量
 	 */
-	void crawlerChapter();
+	void modifyQuestionNum();
 }

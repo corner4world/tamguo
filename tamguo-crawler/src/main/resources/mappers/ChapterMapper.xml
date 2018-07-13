@@ -2,5 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tamguo.dao.ChapterMapper">
 
+	<select id="queryList" resultType="ChapterEntity">
+		select * from tiku_chapter order by uid desc
+	</select>
 	
+	<select id="queryCount" resultType="java.lang.Integer">
+		select count(1) from tiku_question where chapter_id = #{uid}
+	</select>
 </mapper>
