@@ -4,7 +4,7 @@
 
 	<select id="queryPage" resultType="SubjectEntity">
 		SELECT
-			s.uid , s.name , s.course_id , s.course_name
+			s.uid , s.name
 		FROM
 			tiku_subject s
 		<where>

@@ -14,10 +14,6 @@ public class SubjectEntity extends SuperEntity<SubjectEntity> implements Seriali
 	
 	private String name;
 	
-	private String courseId;
-	
-	private String courseName;
-	
 	@TableField(exist=false)
 	private List<CourseEntity> courseList;
 
@@ -27,22 +23,6 @@ public class SubjectEntity extends SuperEntity<SubjectEntity> implements Seriali
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(String courseId) {
-		this.courseId = courseId;
-	}
-
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
 	}
 
 	public List<CourseEntity> getCourseList() {

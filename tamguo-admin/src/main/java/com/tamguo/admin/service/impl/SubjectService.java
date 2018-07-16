@@ -46,21 +46,11 @@ public class SubjectService implements ISubjectService{
 	public void update(SubjectEntity subject) {
 		SubjectEntity entity = subjectMapper.selectById(subject.getUid());
 		entity.setName(subject.getName());
-		if(!StringUtils.isEmpty(subject.getCourseId())){
-			CourseEntity course = courseMapper.selectById(subject.getCourseId());
-			entity.setCourseId(course.getUid());
-			entity.setCourseName(course.getName());
-		}
 		subjectMapper.updateById(entity);
 	}
 
 	@Override
 	public void save(SubjectEntity subject) {
-		if(!StringUtils.isEmpty(subject.getCourseId())){
-			CourseEntity course = courseMapper.selectById(subject.getCourseId());
-			subject.setCourseId(course.getUid());
-			subject.setCourseName(course.getName());
-		}
 		subjectMapper.insert(subject);
 	}
 

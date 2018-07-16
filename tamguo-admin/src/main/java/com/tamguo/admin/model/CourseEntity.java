@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.admin.config.dao.SuperEntity;
 
-import java.math.BigInteger;
 import java.util.List;
 
 
