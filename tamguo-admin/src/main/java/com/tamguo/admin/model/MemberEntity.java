@@ -16,33 +16,19 @@ public class MemberEntity extends SuperEntity<MemberEntity> implements Serializa
 	private static final long serialVersionUID = 1L;
 	
 	private String subjectId;
-	
 	private String courseId;
-
 	private String username;
-	
 	private String nickName;
-
 	private String password;
-	
 	private String avatar;
-	
 	private String mobile;
-	
 	private String email;
-	
 	private Integer point;
-	
 	private BigDecimal amount;
-	
 	private Long lastLoginTime;
-	
 	private Integer paperNum;
-	
 	private Integer questionNum;
-	
 	private Integer downNum;
-	
 	private Integer hitsNum;
 	
 	@TableField(exist=false)

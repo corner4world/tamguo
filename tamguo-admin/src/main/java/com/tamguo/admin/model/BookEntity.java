@@ -1,40 +1,27 @@
 package com.tamguo.admin.model;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.admin.config.dao.SuperEntity;
 
-import java.util.List;
+@TableName(value="tiku_book")
+public class BookEntity extends SuperEntity<BookEntity>{
 
-
-/**
- * The persistent class for the tiku_chapter database table.
- * 
- */
-@TableName(value="tiku_chapter")
-public class ChapterEntity extends SuperEntity<ChapterEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	private String subjectId;
 	private String courseId;
-	private String bookId;
 	private String name;
-	private String parentId;
+	private String publishingHouse;
 	private Integer questionNum;
 	private Integer pointNum;
 	private Integer orders;
 	
 	@TableField(exist=false)
-	private String parentName;
-	@TableField(exist=false)
-	private List<ChapterEntity> childChapterList;
-
-	public ChapterEntity() {
-	}
+	private String courseName;
 
 	public String getCourseId() {
-		return this.courseId;
+		return courseId;
 	}
 
 	public void setCourseId(String courseId) {
@@ -42,27 +29,23 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getParentId() {
-		return this.parentId;
+	public String getPublishingHouse() {
+		return publishingHouse;
 	}
 
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
+	public void setPublishingHouse(String publishingHouse) {
+		this.publishingHouse = publishingHouse;
 	}
 
-	public List<ChapterEntity> getChildChapterList() {
-		return childChapterList;
-	}
-
-	public void setChildChapterList(List<ChapterEntity> childChapterList) {
-		this.childChapterList = childChapterList;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public Integer getQuestionNum() {
@@ -89,20 +72,20 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 		this.orders = orders;
 	}
 
-	public String getParentName() {
-		return parentName;
+	public String getCourseName() {
+		return courseName;
 	}
 
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 
-	public String getBookId() {
-		return bookId;
+	public String getSubjectId() {
+		return subjectId;
 	}
 
-	public void setBookId(String bookId) {
-		this.bookId = bookId;
+	public void setSubjectId(String subjectId) {
+		this.subjectId = subjectId;
 	}
 
 }

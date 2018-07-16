@@ -18,42 +18,26 @@ public class PaperEntity extends SuperEntity<PaperEntity> implements Serializabl
 	private static final long serialVersionUID = 1L;
 
 	private String subjectId;
-	
 	private String courseId;
-	
 	private String schoolId;
-	
 	private String areaId;
-	
 	private String createrId;
-	
 	private String name;
-	
 	private String questionInfo;
-	
 	private String type;
-	
 	private String year;
-	
 	private Integer downHits;
-	
 	private Integer openHits;
-	
 	private String seoTitle;
-	
 	private String seoKeywords;
-	
 	private String seoDescription;
 	
 	@TableField(exist=false)
 	private String subjectName;
-	
 	@TableField(exist=false)
 	private String courseName;
-	
 	@TableField(exist=false)
 	private String areaName;
-	
 	@TableField(exist=false)
 	private String schoolName;
 	

@@ -17,15 +17,10 @@ public class SysMenuEntity extends SuperEntity<SysMenuEntity> implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-
-	private int orderNum;
-
+	private Integer orderNum;
 	private String parentId;
-
-	private int type;
-
+	private Integer type;
 	private String url;
-	
 	private String perms;
 
 	@TableField(exist=false)
@@ -48,11 +43,11 @@ public class SysMenuEntity extends SuperEntity<SysMenuEntity> implements Seriali
 		this.name = name;
 	}
 
-	public int getOrderNum() {
+	public Integer getOrderNum() {
 		return this.orderNum;
 	}
 
-	public void setOrderNum(int orderNum) {
+	public void setOrderNum(Integer orderNum) {
 		this.orderNum = orderNum;
 	}
 

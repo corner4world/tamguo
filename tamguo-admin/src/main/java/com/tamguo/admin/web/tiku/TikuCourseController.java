@@ -35,10 +35,10 @@ public class TikuCourseController {
 		return Result.jqGridResult(list.getRecords(), list.getTotal(), limit, page, list.getPages());
 	}
 	
-	@RequestMapping("course/getChapterTree/{courseId}.html")
+	@RequestMapping("course/getChapterTree/{bookId}")
 	@ResponseBody
-	public Result getChapterTree(@PathVariable String courseId){
-		return Result.result(0, iChapterService.getChapterTree(courseId), null);
+	public Result getChapterTree(@PathVariable String bookId){
+		return Result.result(0, iChapterService.getChapterTree(bookId), null);
 	}
 	
 	@RequestMapping("course/info/{courseId}.html")

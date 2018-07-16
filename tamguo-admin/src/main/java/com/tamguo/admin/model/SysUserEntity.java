@@ -20,26 +20,18 @@ public class SysUserEntity extends SuperEntity<SysUserEntity> implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	private String userName;
-
 	private String nickName;
-	
 	private String mobile;
-	
 	private String email;
-
 	private String password;
-
 	private String roleIds;
 	
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysUserStatusEnum status;
 	
 	private String safeKeyValue;
-	
 	private Long createTime;
-	
 	private String courseId;
-	
 	private String subjectId;
 
 	@TableField(exist=false)

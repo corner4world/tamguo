@@ -17,7 +17,6 @@ public class SysRoleEntity extends SuperEntity<SysRoleEntity> implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	private String perms;
-
 	private String name;
 
 	@TableField(exist=false)

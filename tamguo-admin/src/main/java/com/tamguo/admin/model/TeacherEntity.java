@@ -18,43 +18,29 @@ public class TeacherEntity extends SuperEntity<TeacherEntity> implements Seriali
 	private static final long serialVersionUID = 1L;
 	
 	private String mobile;
-	
 	private String email;
-	
 	private String name;
-	
 	private String motto;
-	
 	private String provinceId;
-	
 	private String cityId;
-	
 	private String subjectId;
-	
 	private String courseId;
-	
 	private String cardId;
-	
 	private String cardPhoto;
-	
 	private String occupationPapers;
-	
 	private Long createTime;
 	
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private TeacherStatus status;
-	
 	private String qq;
+	
 	
 	@TableField(exist=false)
 	private String provinceName;
-	
 	@TableField(exist=false)
 	private String courseName;
-	
 	@TableField(exist=false)
 	private String cityName;
-	
 	@TableField(exist=false)
 	private String subjectName;
 

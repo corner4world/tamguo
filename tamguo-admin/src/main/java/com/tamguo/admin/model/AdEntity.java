@@ -16,9 +16,7 @@ public class AdEntity extends SuperEntity<AdEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String businessKey;
-
 	private String name;
-	
 	private String adInfo;
 
 	public String getName() {

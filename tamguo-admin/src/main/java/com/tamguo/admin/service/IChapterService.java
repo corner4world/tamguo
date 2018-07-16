@@ -6,9 +6,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.admin.model.ChapterEntity;
 
 public interface IChapterService {
-
-	// 获取科目章节
-	public List<ChapterEntity> findCourseChapter(String courseId);
 	
 	// 获取当前章节
 	public ChapterEntity findById(String uid);
@@ -17,7 +14,7 @@ public interface IChapterService {
 	public ChapterEntity findNextPoint(String uid , Integer orders);
 
 	// 获取树形
-	public List<ChapterEntity> getChapterTree(String courseId);
+	public List<ChapterEntity> getChapterTree(String bookId);
 	
 	// 获取树形
 	public List<ChapterEntity> getChapterTree();

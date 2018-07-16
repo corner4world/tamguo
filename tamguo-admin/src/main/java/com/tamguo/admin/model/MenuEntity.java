@@ -17,15 +17,10 @@ public class MenuEntity extends SuperEntity<MenuEntity> implements Serializable 
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	
 	private String pinyin;
-
 	private String parentId;
-	
 	private String isShow;
-	
 	private Integer orders;
-
 	private String url;
 	
 	@TableField(value="reserve_1")

@@ -9,7 +9,7 @@ import com.tamguo.admin.model.ChapterEntity;
 
 public interface ChapterMapper extends SuperMapper<ChapterEntity>{
 
-	List<ChapterEntity> findByCourseId(@Param(value="courseId") String courseId);
+	List<ChapterEntity> findByBookId(@Param(value="bookId") String bookId);
 	
 	List<ChapterEntity> findByParentId(@Param(value="parentId") String parentId);
 

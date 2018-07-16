@@ -13,15 +13,10 @@ public class AreaEntity extends SuperEntity<AreaEntity> implements Serializable 
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	
 	private Integer orders;
-	
 	private String fullName;
-	
 	private Integer grade;
-	
 	private String treePath;
-	
 	private String parent;
 
 	public String getName() {

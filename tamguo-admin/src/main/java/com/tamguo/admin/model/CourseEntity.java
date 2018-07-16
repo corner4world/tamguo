@@ -17,24 +17,16 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-
 	private String subjectId;
-	
 	private Integer pointNum;
-
 	private Integer questionNum;
-
 	private Integer orders;
-	
 	private String seoTitle;
-	
 	private String seoKeywords;
-	
 	private String seoDescription;
 	
 	@TableField(exist=false)
 	private String subjectName;
-	
 	@TableField(exist=false)
 	private List<ChapterEntity> chapterList;
 

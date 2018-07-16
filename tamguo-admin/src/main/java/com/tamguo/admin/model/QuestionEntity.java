@@ -14,35 +14,22 @@ public class QuestionEntity extends SuperEntity<QuestionEntity> implements Seria
 	private static final long serialVersionUID = 1L;
 
 	private String analysis;
-	
 	private String paperId;
-
 	private String answer;
-
 	private String chapterId;
-
 	private String questionType;
-
 	private String content;
-	
 	private String subjectId;
-
 	private String courseId;
-	
 	private String reviewPoint;
-	
 	private String year;
-	
 	private String score;
-	
 	private String auditStatus;
 	
 	@TableField(exist=false)
 	private String courseName;
-	
 	@TableField(exist=false)
 	private String chapterName;
-	
 	@TableField(exist=false)
 	private String subjectName;
 

@@ -16,9 +16,7 @@ public class SchoolEntity extends SuperEntity<SchoolEntity> implements Serializa
 	private static final long serialVersionUID = 1L;
 
 	private String areaId;
-	
 	private String name;
-	
 	private String image;
 	
 	// 试卷

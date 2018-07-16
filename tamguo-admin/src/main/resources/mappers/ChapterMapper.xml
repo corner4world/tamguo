@@ -21,12 +21,12 @@
 			</if>
 	</select>
 
-	<select id="findByCourseId" resultType="ChapterEntity">
+	<select id="findByBookId" resultType="ChapterEntity">
 		SELECT
-			c.uid,c.course_id , c.parent_id , c.`name` , c.question_num , c.point_num , c.orders
+			c.uid,c.course_id , c.book_id , c.parent_id , c.`name` , c.question_num , c.point_num , c.orders
 		FROM
 			tiku_chapter c
-		WHERE c.course_id = #{courseId}
+		WHERE c.book_id = #{bookId}
 		ORDER BY c.orders asc
 	</select>	
 	
