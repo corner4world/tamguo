@@ -36,7 +36,9 @@ public class CrawlerBookService implements ICrawlerBookService {
     public void crawlerBook() {
         XxlCrawler crawler = new XxlCrawler.Builder()
                 .setUrls("http://www.ruiwen.com/jiaocai/")
-                .setWhiteUrlRegexs("http://www\\.ruiwen\\.com/jiaocai/yuwen/bubianban/yinianjishangce/shangce\\d+\\.html")
+                .setWhiteUrlRegexs("http://www\\.ruiwen\\.com/jiaocai/yuwen/bubianban/yinianjishangce/shangce\\d+\\.html")//一年级语文上册
+//                .setWhiteUrlRegexs("http://www\\.ruiwen\\.com/jiaocai/yuwen/bubianban/yinianjixiace/xiace\\d+\\.html")//一年级语文下册
+//                .setWhiteUrlRegexs("http://www\\.ruiwen\\.com/jiaocai/yingyu/bubianban/yinianjixiace/xiace\\d+\\.html")//一年级英语上册
                 .setAllowSpread(true)
                 .setFailRetryCount(5)
                 .setThreadCount(20)
@@ -47,7 +49,9 @@ public class CrawlerBookService implements ICrawlerBookService {
                         String img = crawlerBookVo.getBookImage();
                         if (StringUtils.isNoneBlank(img)) {
                             CrawlerBookEntity crawlerBookEntity = new CrawlerBookEntity();
-                            crawlerBookEntity.setBookUid("1019238600753074178");
+                            crawlerBookEntity.setBookUid("1019244094196551682");//一年级语文上册
+//                            crawlerBookEntity.setBookUid("1019244094704062466");//一年级语文下册
+//                            crawlerBookEntity.setBookUid("1019244096797020162");//一年级英语上册
                             crawlerBookEntity.setBookUrl(crawlerBookVo.getBookImage());
                             crawlerBookEntity.setOrders(Integer.parseInt(img.substring(img.lastIndexOf("/") + 1, img.lastIndexOf("."))));
                             crawlerBookMapper.insert(crawlerBookEntity);
