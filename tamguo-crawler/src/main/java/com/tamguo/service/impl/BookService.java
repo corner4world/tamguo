@@ -28,7 +28,7 @@ public class BookService implements IBookService {
     @Override
     public void crawlerBook() {
         XxlCrawler crawler = new XxlCrawler.Builder()
-                .setUrls("http://www.dzkbw.com")
+                .setUrls("http://www.ruiwen.com/jiaocai/")
                 .setAllowSpread(false)
                 .setFailRetryCount(5)
                 .setThreadCount(20)
@@ -37,7 +37,7 @@ public class BookService implements IBookService {
                     public void parse(Document html, Element pageVoElement, BookVo bookVo) {
                         // 解析封装 PageVo 对象
                         String pageUrl = html.baseUri();
-                        if (pageUrl.equals("http://www.dzkbw.com")) {
+                        if (pageUrl.equals("http://www.ruiwen.com/jiaocai/")) {
                             logger.info("开始解析书本信息：{}", pageUrl);
                             List<String> books = bookVo.getName();
                             books.forEach(item -> {

@@ -9,7 +9,7 @@ import java.util.List;
 @PageSelect(cssQuery = "body")
 public class BookVo {
 
-	@PageFieldSelect(cssQuery = ".ih3")
+	@PageFieldSelect(cssQuery = ".text")
 	private List<String> name;
 
 	public List<String> getName() {
