@@ -6,7 +6,7 @@ import com.tamguo.config.dao.SuperEntity;
 import java.io.Serializable;
 
 /**
- * The persistent class for the tiku_course database table.
+ * The persistent class for the tiku_book database table.
  */
 @TableName(value = "tiku_book")
 public class BookEntity extends SuperEntity<BookEntity> implements Serializable {
