@@ -4,19 +4,29 @@ import com.xuxueli.crawler.annotation.PageFieldSelect;
 import com.xuxueli.crawler.annotation.PageSelect;
 import com.xuxueli.crawler.conf.XxlCrawlerConf;
 
-import java.util.List;
-
-@PageSelect(cssQuery = "body")
+@PageSelect(cssQuery = ".pic_right li")
 public class BookVo {
 
-	@PageFieldSelect(cssQuery = ".pic_right .text")
-	private List<String> name;
+    @PageFieldSelect(cssQuery = ".text")
+    private String name;
 
-	public List<String> getName() {
-		return name;
-	}
+    @PageFieldSelect(cssQuery = "a", selectType = XxlCrawlerConf.SelectType.ATTR, selectVal = "abs:href")
+    private String bookUrl;
 
-	public void setName(List<String> name) {
-		this.name = name;
-	}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBookUrl() {
+        return bookUrl;
+    }
+
+    public void setBookUrl(String bookUrl) {
+        this.bookUrl = bookUrl;
+    }
 }

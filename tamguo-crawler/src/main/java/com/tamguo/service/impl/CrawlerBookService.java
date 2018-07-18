@@ -1,7 +1,9 @@
 package com.tamguo.service.impl;
 
-import com.tamguo.config.redis.CacheService;
+import com.baomidou.mybatisplus.mapper.Condition;
+import com.tamguo.dao.BookMapper;
 import com.tamguo.dao.CrawlerBookMapper;
+import com.tamguo.model.BookEntity;
 import com.tamguo.model.CrawlerBookEntity;
 import com.tamguo.model.vo.CrawlerBookVo;
 import com.tamguo.service.ICrawlerBookService;
@@ -15,52 +17,61 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CrawlerBookService implements ICrawlerBookService {
 
 
     @Autowired
     CrawlerBookMapper crawlerBookMapper;
+    @Autowired
+    BookMapper bookMapper;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    private static final String FILES_NO_FORMAT = "000000";
-    private static final String FILES_PREFIX = "FPIMAGE";
-    private static final String DOMAIN = "http://www.tamguo.com";
-    @Autowired
-    CacheService cacheService;
 
-
-    //一年级语文上册
     @Override
     public void crawlerBook() {
-        XxlCrawler crawler = new XxlCrawler.Builder()
-                .setUrls("http://www.ruiwen.com/jiaocai/")
-                .setWhiteUrlRegexs("http://www\\.ruiwen\\.com/jiaocai/yuwen/bubianban/yinianjishangce/shangce\\d+\\.html")//一年级语文上册
-//                .setWhiteUrlRegexs("http://www\\.ruiwen\\.com/jiaocai/yuwen/bubianban/yinianjixiace/xiace\\d+\\.html")//一年级语文下册
-//                .setWhiteUrlRegexs("http://www\\.ruiwen\\.com/jiaocai/yingyu/bubianban/yinianjixiace/xiace\\d+\\.html")//一年级英语上册
-                .setAllowSpread(true)
-                .setFailRetryCount(5)
-                .setThreadCount(20)
-                .setPageParser(new PageParser<CrawlerBookVo>() {
-                    @Override
-                    public void parse(Document html, Element pageVoElement, CrawlerBookVo crawlerBookVo) {
-                        // 解析封装 PageVo 对象
-                        String img = crawlerBookVo.getBookImage();
-                        if (StringUtils.isNoneBlank(img)) {
-                            CrawlerBookEntity crawlerBookEntity = new CrawlerBookEntity();
-                            crawlerBookEntity.setBookUid("1019244094196551682");//一年级语文上册
-//                            crawlerBookEntity.setBookUid("1019244094704062466");//一年级语文下册
-//                            crawlerBookEntity.setBookUid("1019244096797020162");//一年级英语上册
-                            crawlerBookEntity.setBookUrl(crawlerBookVo.getBookImage());
-                            crawlerBookEntity.setOrders(Integer.parseInt(img.substring(img.lastIndexOf("/") + 1, img.lastIndexOf("."))));
-                            crawlerBookMapper.insert(crawlerBookEntity);
-                        }
-                    }
-                }).build();
+        List<BookEntity> bookEntities = bookMapper.selectList(Condition.EMPTY);
+        for (BookEntity bookEntity : bookEntities) {
+            String url = bookEntity.getReserveField1();
+            String bookId = bookEntity.getUid();
+            String regexs = url.replaceAll("\\d+", "\\\\d+").replaceAll("\\.","\\\\.");
 
-        // 获取科目
-        crawler.start(true);
+            XxlCrawler crawler = new XxlCrawler.Builder()
+                    .setUrls("http://www.ruiwen.com/jiaocai/")
+                    .setWhiteUrlRegexs(regexs)//
+                    .setAllowSpread(true)
+                    .setFailRetryCount(5)
+                    .setThreadCount(20)
+                    .setPageParser(new PageParser<CrawlerBookVo>() {
+                        @Override
+                        public void parse(Document html, Element pageVoElement, CrawlerBookVo crawlerBookVo) {
+                            String pageUrl = html.baseUri();
+                            // 解析封装 PageVo 对象
+                            String img = crawlerBookVo.getBookImage();
+                            if (StringUtils.isNoneBlank(img)) {
+                                CrawlerBookEntity crawlerBookEntity = new CrawlerBookEntity();
+                                crawlerBookEntity.setBookUid(bookId);
+                                crawlerBookEntity.setBookUrl(crawlerBookVo.getBookImage());
+                                crawlerBookEntity.setOrders(Integer.parseInt(img.substring(img.lastIndexOf("/") + 1, img.lastIndexOf("."))));
+                                crawlerBookMapper.insert(crawlerBookEntity);
+                            }
+
+
+                        }
+                    }).build();
+
+            // 获取科目
+            crawler.start(true);
+        }
+
     }
+
+//    public static void main(String[] args) {
+//        String url = "http://www.ruiwen.com/jiaocai/yuwen/renjiaoban/yinianjishangce/shangce1.html";
+//        System.out.println(url.replaceAll("\\d+", "\\\\d+").replaceAll("\\.","\\\\."));
+//    }
 
 }

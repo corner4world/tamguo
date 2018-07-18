@@ -13,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class BookService implements IBookService {
 
@@ -39,14 +37,15 @@ public class BookService implements IBookService {
                         String pageUrl = html.baseUri();
                         if (pageUrl.equals("http://www.ruiwen.com/jiaocai/")) {
                             logger.info("开始解析书本信息：{}", pageUrl);
-                            List<String> books = bookVo.getName();
-                            books.forEach(item -> {
-                                BookEntity bookEntity = new BookEntity();
-                                bookEntity.setName(item);
-                                bookEntity.setQuestionNum(0);
-                                bookEntity.setPointNum(0);
-                                bookMapper.insert(bookEntity);
-                            });
+                            String name = bookVo.getName();
+                            String url = bookVo.getBookUrl();
+
+                            BookEntity bookEntity = new BookEntity();
+                            bookEntity.setName(name);
+                            bookEntity.setReserveField1(url);
+                            bookEntity.setQuestionNum(0);
+                            bookEntity.setPointNum(0);
+                            bookMapper.insert(bookEntity);
                         }
 
 

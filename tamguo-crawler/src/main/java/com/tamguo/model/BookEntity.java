@@ -27,6 +27,8 @@ public class BookEntity extends SuperEntity<BookEntity> implements Serializable 
 
     private Integer orders;
 
+    private String reserveField1;
+
     public BookEntity() {
     }
 
@@ -88,5 +90,13 @@ public class BookEntity extends SuperEntity<BookEntity> implements Serializable 
 
     public void setOrders(Integer orders) {
         this.orders = orders;
+    }
+
+    public String getReserveField1() {
+        return reserveField1;
+    }
+
+    public void setReserveField1(String reserveField1) {
+        this.reserveField1 = reserveField1;
     }
 }
