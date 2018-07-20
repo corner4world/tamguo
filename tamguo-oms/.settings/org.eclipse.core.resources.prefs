@@ -4,6 +4,7 @@ encoding//src/main/resources=UTF-8
 encoding//src/main/resources/static/common/common.css=UTF-8
 encoding//src/main/resources/static/common/i18n/jeesite_en.js=UTF-8
 encoding//src/main/resources/static/common/i18n/jeesite_zh_CN.js=UTF-8
+encoding//src/main/resources/static/modules/sys/sysLogin.js=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
 encoding/<project>=UTF-8
