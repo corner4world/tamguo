@@ -2,12 +2,11 @@ package com.tamguo.modules.sys.model;
 
 import java.io.Serializable;
 import java.util.List;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.tamguo.common.dao.SuperEntity;
+import com.tamguo.config.dao.SuperEntity;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 
 

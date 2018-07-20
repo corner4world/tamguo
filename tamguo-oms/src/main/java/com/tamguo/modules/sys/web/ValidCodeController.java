@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
-import com.tamguo.common.utils.ShiroUtils;
+import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Controller
 public class ValidCodeController {

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.kaptcha.Constants;
-import com.tamguo.common.utils.ExceptionSupport;
-import com.tamguo.common.utils.Result;
-import com.tamguo.common.utils.ShiroUtils;
+import com.tamguo.modules.sys.utils.ExceptionSupport;
+import com.tamguo.modules.sys.utils.Result;
+import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Controller
 public class LoginController {

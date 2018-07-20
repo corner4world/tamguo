@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
-import com.tamguo.common.dao.SuperMapper;
+import com.tamguo.config.dao.SuperMapper;
 import com.tamguo.modules.sys.model.SysMenuEntity;
 
 public interface SysMenuMapper extends SuperMapper<SysMenuEntity>{

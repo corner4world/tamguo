@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.tamguo.common.dao.SuperEntity;
+import com.tamguo.config.dao.SuperEntity;
 
 
 /**

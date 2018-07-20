@@ -4,7 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.tamguo.common.dao.SuperMapper;
+import com.tamguo.config.dao.SuperMapper;
 import com.tamguo.modules.sys.model.SysUserEntity;
 
 public interface SysUserMapper extends SuperMapper<SysUserEntity>{
