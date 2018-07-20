@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<section class="sidebar" th:fragment="leftMenu">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img data-href="/js/a/sys/user/info" data-title="个人中心"
+				class="addTabPage img-circle" src="images/user1.jpg">
+		</div>
+		<div class="pull-left info">
+			<p>超级管理员</p>
+			<a href="javascript:"><i class="fa fa-circle text-success"></i>
+				在线</a> <a href="/js/a/logout"><i class="fa fa-sign-out text-danger"></i>
+				注销</a>
+		</div>
+	</div>
+	<ul class="sidebar-menu" data-widget="tree"> 
+	   <li class="treeview"><a title="系统管理" href="javascript:" data-href="blank" class="addTabPage"><i class="fa fa-fw icon-settings"></i> <span>系统管理</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
+	    <ul class="treeview-menu"> 
+		     <li class="treeview">
+		     	  <a title="组织管理" href="javascript:" data-href="blank" class="addTabPage"><i class="fa fa-fw icon-grid"></i> <span>组织管理</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
+			      <ul class="treeview-menu"> 
+				       <li class="treeview"><a title="用户管理" href="javascript:" data-href="/js/a/sys/empUser/index" class="addTabPage"><i class="fa fa-fw icon-user"></i> <span>用户管理</span></a></li> 
+				       <li class="treeview"><a title="机构管理" href="javascript:" data-href="/js/a/sys/office/list" class="addTabPage"><i class="fa fa-fw icon-grid"></i> <span>机构管理</span></a></li> 
+				       <li class="treeview"><a title="岗位管理" href="javascript:" data-href="/js/a/sys/post/list" class="addTabPage"><i class="fa fa-fw icon-trophy"></i> <span>岗位管理</span></a></li> 
+			      </ul>
+		     </li> 
+		     <li class="treeview"><a title="权限管理" href="javascript:" data-href="blank" class="addTabPage"><i class="fa fa-fw icon-social-dropbox"></i> <span>权限管理</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
+			      <ul class="treeview-menu"> 
+				       <li class="treeview"><a title="角色管理" href="javascript:" data-href="/js/a/sys/role/list" class="addTabPage"><i class="fa fa-fw icon-people"></i> <span>角色管理</span></a></li> 
+				       <li class="treeview"><a title="系统管理员" href="javascript:" data-href="/js/a/sys/corpAdmin/list" class="addTabPage"><i class="fa fa-fw icon-badge"></i> <span>系统管理员</span></a></li> 
+			      </ul>
+		     </li> 
+		     <li class="treeview"><a title="系统设置" href="javascript:" data-href="blank" class="addTabPage"><i class="fa fa-fw icon-settings"></i> <span>系统设置</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
+			      <ul class="treeview-menu"> 
+				       <li class="treeview"><a title="菜单管理" href="javascript:" data-href="/js/a/sys/menu/list" class="addTabPage"><i class="fa fa-fw icon-book-open"></i> <span>菜单管理</span></a></li> 
+				       <li class="treeview"><a title="行政区划" href="javascript:" data-href="/js/a/sys/area/list" class="addTabPage"><i class="fa fa-fw icon-map"></i> <span>行政区划</span></a></li> 
+			      </ul>
+			  </li> 
+		      <li class="treeview"><a title="系统监控" href="javascript:" data-href="blank" class="addTabPage"><i class="fa fa-fw icon-ghost"></i> <span>系统监控</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
+			      <ul class="treeview-menu"> 
+				       <li class="treeview"><a title="访问日志" href="javascript:" data-href="/js/a/sys/log/list" class="addTabPage"><i class="fa fa-fw fa fa-bug"></i> <span>访问日志</span></a></li> 
+				       <li class="treeview"><a title="数据监控" href="javascript:" data-href="/js/druid" class="addTabPage"><i class="fa fa-fw icon-disc"></i> <span>数据监控</span></a></li> 
+				       <li class="treeview"><a title="缓存监控" href="javascript:" data-href="/js/a/state/ehcache" class="addTabPage"><i class="fa fa-fw icon-social-dribbble"></i> <span>缓存监控</span></a></li> 
+				       <li class="treeview"><a title="服务器监控" href="javascript:" data-href="/js/a/state/server" class="addTabPage"><i class="fa fa-fw icon-speedometer"></i> <span>服务器监控</span></a></li> 
+				       <li class="treeview"><a title="作业监控" href="javascript:" data-href="/js/a/job/list" class="addTabPage"><i class="fa fa-fw icon-notebook"></i> <span>作业监控</span></a></li> 
+				       <li class="treeview"><a title="在线用户" href="javascript:" data-href="/js/a/sys/online/list" class="addTabPage"><i class="fa fa-fw icon-social-twitter"></i> <span>在线用户</span></a></li> 
+			      </ul>
+		       </li> 
+		       <li class="treeview"><a title="消息推送" href="javascript:" data-href="blank" class="addTabPage"><i class="fa fa-fw icon-envelope-letter"></i> <span>消息推送</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
+			      <ul class="treeview-menu"> 
+				       <li class="treeview"><a title="未完成消息" href="javascript:" data-href="/js/a/msg/msgPush/list" class="addTabPage"><i class="fa fa-fw fa-circle-o"></i> <span>未完成消息</span></a></li> 
+				       <li class="treeview"><a title="已完成消息" href="javascript:" data-href="/js/a/msg/msgPush/list?pushed=true" class="addTabPage"><i class="fa fa-fw fa-circle-o"></i> <span>已完成消息</span></a></li> 
+				       <li class="treeview"><a title="消息模板管理" href="javascript:" data-href="/js/a/msg/msgTemplate/list" class="addTabPage"><i class="fa fa-fw fa-circle-o"></i> <span>消息模板管理</span></a></li> 
+			      </ul>
+			    </li> 
+			     <li class="treeview"><a title="探果题库社区" href="javascript:" data-href="blank" class="addTabPage"><i class="fa fa-fw fa fa-code"></i> <span>探果题库社区</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
+			      <ul class="treeview-menu"> 
+			       <li class="treeview"><a title="官方网站" href="http://jeesite.com" target="_blank"><i class="fa fa-fw fa-circle-o"></i> <span>官方网站</span></a></li> 
+			       <li class="treeview"><a title="问题反馈" href="https://gitee.com/thinkgem/jeesite4/issues" target="_blank"><i class="fa fa-fw fa-circle-o"></i> <span>问题反馈</span></a></li> 
+			       <li class="treeview"><a title="作者博客" href="https://my.oschina.net/thinkgem" target="_blank"><i class="fa fa-fw fa-circle-o"></i> <span>作者博客</span></a></li> 
+			       <li class="treeview"><a title="开源社区" href="http://jeesite.net" target="_blank"><i class="fa fa-fw fa-circle-o"></i> <span>开源社区</span></a></li> 
+			      </ul></li> 
+	    </ul></li> 
+	  </ul>
+</section>

@@ -1,0 +1,206 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<nav class="navbar navbar-static-top" th:fragment="topMenu">
+	<div class="logo" data-toggle="push-menu">
+		<b>JeeSite Demo</b> <small>&nbsp; &nbsp;<i class="fa fa-bars"></i></small>
+	</div>
+	<div class="navbar-custom-menu">
+		<ul class="nav navbar-nav">
+			<li><a href="http://jeesite.com" target="_blank"><i
+					class="fa fa-diamond"></i> 官方网站</a></li>
+			<li><a href="javascript:" id="fullScreen" title="全屏"><i
+					class="fa fa-arrows-alt"></i></a></li>
+			<li><a href="javascript:" id="switchSkin" title="切换主题"
+				style="margin-top: -1px;"><i class="fa fa-dashboard"></i></a></li>
+			<li><a href="javascript:" data-href="/js/a/sys/online/list"
+				data-title="在线人员" title="在线人员" class="addTabPage"> <i
+					class="icon-people"></i><span id="onlineCount"
+					class="label label-success">0</span>
+			</a> <script>
+							function refreshOnlineCount() {
+								$.get(
+										'/js/a/sys/online/count?__notUpdateSession=true&__t='
+												+ new Date().getTime(),
+										function(data) {
+											try {
+												$('#onlineCount').html(
+														Number(data))
+											} catch (e) {
+											}
+										})
+							}
+							refreshOnlineCount(); // 先执行一次
+							setInterval(refreshOnlineCount, 180000); // 3分钟执行一次
+						</script></li>
+			<li class="dropdown messages-menu"><a href="javascript:"
+				class="dropdown-toggle" data-hover="dropdown"> <i
+					class="fa fa-envelope-o"></i> <span class="label label-success"
+					id="msgNum">0</span>
+			</a>
+				<ul class="dropdown-menu">
+					<li class="header">你有 <span id="msgNum2">0</span> 条消息
+					</li>
+					<li>
+						<ul class="menu" id="msgList" data-mergeMsgLimit="5"
+							data-mergeMsgTitle="系统消息"
+							data-mergeMsgContent="您有 {0} 条新消息，由于消息太多，这里为您合并，请点击查看按钮看详情。"></ul>
+					</li>
+					<li class="footer"><a href="javascript:"
+						data-href="/js/a/msg/list" data-title="查看全部消息" class="addTabPage">查看全部消息</a></li>
+				</ul> <script src="jquery-timeago/jquery.timeago.js"></script> <script
+					src="jquery-timeago/i18n/jquery.timeago.zh_CN.js"></script> <script
+					src="modules/msg/topMenuMsg.js"></script> <script
+					type="text/template" id="msgListTpl">
+		<li id="msg{{d.id}}"><a href="javascript:"
+				data-href="/js/a/msg/readMsg?id={{d.id}}"
+				onclick="readMsg(this, '查看消息', '{{d.id}}')" >
+			<div class="pull-left"><i class="img-circle bg-aqua icon-bubble"></i></div>
+			<h4>{{d.msgContentEntity.title}} <small><i class="fa fa-clock-o"></i>
+				<abbr class="timeago" title="{{d.sendDate}}">{{d.sendDate}}</abbr></small></h4>
+			<p>{{=d.msgContentEntity.content}}</p>
+		</a></li>
+	</script> <script type="text/template" id="msgTipTpl">
+		<abbr class="timeago" title="{{d.sendDate}}">{{d.sendDate}}</abbr>
+			{{d.sendUserName}} <br/> {{=d.msgContentEntity.content}} 
+		<div style="margin:8px 0 0;float:right;">
+			{{# $.each(d.msgContentEntity.buttons, function(idx, item){ }}
+				<button class="btn btn-default btn-sm" type="button"
+					data-href="/js{{d.item.href}}"
+					onclick="readMsg(this, '查看消息', '{{d.item.id}}');">{{d.item.name}}</button>&nbsp;
+			{{# }); }}
+			<button type="button" class="btn btn-default btn-sm"
+				data-href="/js/a/msg/readMsg?id={{d.id}}"
+				onclick="readMsg(this, '消息详情', '{{d.id}}')">查看</button>&nbsp;
+		</div>
+	</script></li>
+			<li class="dropdown notifications-menu"><a href="javascript:"
+				class="dropdown-toggle" data-hover="dropdown"> <i
+					class="fa fa-bell-o"></i> <span class="label label-warning">10</span>
+			</a>
+				<ul class="dropdown-menu">
+					<li class="header">You have 10 notifications</li>
+					<li>
+						<!-- inner menu: contains the actual data -->
+						<ul class="menu">
+							<li><a href="#"> <i class="fa fa-users text-aqua"></i> 5
+									new members joined today
+							</a></li>
+							<li><a href="#"> <i class="fa fa-warning text-yellow"></i>
+									Very long description here that may not fit into the page and
+									may cause design problems
+							</a></li>
+							<li><a href="#"> <i class="fa fa-users text-red"></i> 5
+									new members joined
+							</a></li>
+
+							<li><a href="#"> <i
+									class="fa fa-shopping-cart text-green"></i> 25 sales made
+							</a></li>
+							<li><a href="#"> <i class="fa fa-user text-red"></i> You
+									changed your username
+							</a></li>
+						</ul>
+					</li>
+					<li class="footer"><a href="#">View all</a></li>
+				</ul></li>
+			<li class="dropdown tasks-menu"><a href="javascript:"
+				class="dropdown-toggle" data-hover="dropdown"> <i
+					class="fa fa-flag-o"></i> <span class="label label-danger">9</span>
+			</a>
+				<ul class="dropdown-menu">
+					<li class="header">You have 9 tasks</li>
+					<li>
+						<!-- inner menu: contains the actual data -->
+						<ul class="menu">
+							<li>
+								<!-- Task item --> <a href="#">
+									<h3>
+										Design some buttons <small class="pull-right">20%</small>
+									</h3>
+									<div class="progress xs">
+										<div class="progress-bar progress-bar-aqua" style="width: 20%"
+											role="progressbar" aria-valuenow="20" aria-valuemin="0"
+											aria-valuemax="100">
+											<span class="sr-only">20% Complete</span>
+										</div>
+									</div>
+							</a>
+							</li>
+							<!-- end task item -->
+							<li>
+								<!-- Task item --> <a href="#">
+									<h3>
+										Create a nice theme <small class="pull-right">40%</small>
+									</h3>
+									<div class="progress xs">
+										<div class="progress-bar progress-bar-green"
+											style="width: 40%" role="progressbar" aria-valuenow="20"
+											aria-valuemin="0" aria-valuemax="100">
+											<span class="sr-only">40% Complete</span>
+										</div>
+									</div>
+							</a>
+							</li>
+							<!-- end task item -->
+							<li>
+								<!-- Task item --> <a href="#">
+									<h3>
+										Some task I need to do <small class="pull-right">60%</small>
+									</h3>
+									<div class="progress xs">
+										<div class="progress-bar progress-bar-red" style="width: 60%"
+											role="progressbar" aria-valuenow="20" aria-valuemin="0"
+											aria-valuemax="100">
+											<span class="sr-only">60% Complete</span>
+										</div>
+									</div>
+							</a>
+							</li>
+							<!-- end task item -->
+							<li>
+								<!-- Task item --> <a href="#">
+									<h3>
+										Make beautiful transitions <small class="pull-right">80%</small>
+									</h3>
+									<div class="progress xs">
+										<div class="progress-bar progress-bar-yellow"
+											style="width: 80%" role="progressbar" aria-valuenow="20"
+											aria-valuemin="0" aria-valuemax="100">
+											<span class="sr-only">80% Complete</span>
+										</div>
+									</div>
+							</a>
+							</li>
+							<!-- end task item -->
+						</ul>
+					</li>
+					<li class="footer"><a href="#">View all tasks</a></li>
+				</ul></li>
+			<li class="dropdown user-menu mr5"><a href="javascript:"
+				class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+					<img src="modules/sys/images/user1.jpg" class="user-image"> <span
+					class="hidden-xs">超级管理员</span>
+			</a>
+				<ul class="dropdown-menu">
+					<li class="mt5"><a id="userInfo" href="javascript:"
+						data-href="/js/a/sys/user/info" class="addTabPage"> <i
+							class="fa fa-user"></i> 个人中心
+					</a></li>
+					<li><a id="modifyPassword" href="javascript:"
+						data-href="/js/a/sys/user/info?op=pwd" class="addTabPage"> <i
+							class="fa fa-key"></i> 修改密码
+					</a></li>
+					<li class="divider"></li>
+					<li><a href="/js/a/logout"> <i class="fa fa-sign-out"></i>
+							退出登录
+					</a></li>
+					<li class="divider"></li>
+					<li class="dropdown-header mb5">系统切换：</li>
+					<li><a href="/js/a/switch/default"> <i
+							class="fa fa-check-circle-o"></i> 主导航菜单
+					</a></li>
+					<li class="mt10"></li>
+				</ul></li>
+		</ul>
+	</div>
+</nav>
