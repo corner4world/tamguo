@@ -59,8 +59,8 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
-        shiroFilterFactoryBean.setLoginUrl("/login");
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setLoginUrl("/sysLogin");
+        shiroFilterFactoryBean.setSuccessUrl("/sysIndex");
         filterChainDefinitionMap.put("/jquery/**", "anon");
         filterChainDefinitionMap.put("/adminlte/**", "anon");
         filterChainDefinitionMap.put("/bootstrap/**", "anon");
@@ -79,7 +79,8 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/modules/**", "anon");
         filterChainDefinitionMap.put("/my97/**", "anon");
         filterChainDefinitionMap.put("/select2/**", "anon");
-        filterChainDefinitionMap.put("/login/**", "anon");
+        filterChainDefinitionMap.put("/sysLogin/**", "anon");
+        filterChainDefinitionMap.put("/sysIndex/**", "anon");
         filterChainDefinitionMap.put("/validCode", "anon");
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

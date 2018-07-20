@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.kaptcha.Constants;
 import com.tamguo.common.utils.ExceptionSupport;
@@ -23,9 +24,9 @@ import com.tamguo.common.utils.ShiroUtils;
 @Controller
 public class LoginController {
 
-	@RequestMapping(path="login")
-	public String helloWorld() {
-		return "login";
+	@RequestMapping(path="sysLogin")
+	public String sysLogin(ModelAndView model) {
+		return "sysLogin.html";
 	}
 	
 	@ResponseBody

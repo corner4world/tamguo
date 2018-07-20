@@ -1,7 +1,6 @@
 package com.tamguo.common;
 
 import java.util.Properties;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,13 +27,14 @@ public class WebConfig implements WebMvcConfigurer {
   //      properties.setProperty("kaptcha.border.color", "105,179,90");
         properties.setProperty("kaptcha.border", "no");
         properties.setProperty("kaptcha.image.width", "125");  
-        properties.setProperty("kaptcha.image.height", "38");  
-        properties.setProperty("kaptcha.session.key", "code");  
+        properties.setProperty("kaptcha.image.height", "40");  
+        properties.setProperty("kaptcha.session.key", "code"); 
+        properties.setProperty("kaptcha.textproducer.char.space", "4");
         properties.setProperty("kaptcha.textproducer.char.length", "4");  
         properties.setProperty("kaptcha.textproducer.font.names", "宋体,楷体,微软雅黑");          
         Config config=new Config(properties);  
         defaultKaptcha.setConfig(config);  
         return defaultKaptcha;  
     }  
-
+	
 }
