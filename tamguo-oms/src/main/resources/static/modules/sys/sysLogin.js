@@ -13,7 +13,7 @@ $("#loginForm").validate({
           , a = $("#password").val()
           , b = $("#validCode").val();
         js.ajaxSubmitForm($(c), function(f, e, g) {
-            if (f.result == "false" && f.message.length > 0) {
+            if (f.result != 0) {
                 js.showMessage(f.message)
             } else {
                 js.loading($("#btnSubmit").data("loading"));
