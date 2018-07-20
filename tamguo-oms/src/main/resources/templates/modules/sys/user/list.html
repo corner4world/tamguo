@@ -1,0 +1,392 @@
+
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>用户管理 - JeeSite Demo</title>
+<script src="/js/global.min.js?ctx=/js/a"></script>
+<script src="http://localhost/jquery/jquery-1.12.4.min.js"></script>
+<script src="http://localhost/jquery/jquery-migrate-1.4.1.min.js"></script>
+<!--[if lt IE 9]><script src="http://localhost/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" href="http://localhost/fonts/font-icons.min.css">
+<link rel="stylesheet" href="http://localhost/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://localhost/select2/4.0/select2.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/icheck/1.0/minimal/grey.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/jqGrid/4.7/css/ui.jqgrid.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/adminlte/css/AdminLTE.min.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/common/jeesite.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/common/common.css?V4.0-07201614">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-user"></i> 用户管理
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+					<a href="/js/a/sys/empUser/form?op=add" class="btn btn-default btnTool" title="新增用户"><i class="fa fa-plus"></i> 新增</a>
+				<div class="btn-group">
+					<a href="javascript:" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-navicon"></i> <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="javascript:" id="btnExport"><i class="glyphicon glyphicon-export"></i> 导出</a></li>
+						<li><a href="javascript:" id="btnImport"><i class="glyphicon glyphicon-import"></i> 导入</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="box-body">
+<form id="searchForm" action="/js/a/sys/empUser/listData" method="post" class="form-inline " data-page-no="" data-page-size="" data-order-by="">
+				<div class="form-group">
+					<label class="control-label">账号：</label>
+					<div class="control-inline">
+<input type="text" id="loginCode" name="loginCode" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">昵称：</label>
+					<div class="control-inline">
+<input type="text" id="userName" name="userName" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">邮箱：</label>
+					<div class="control-inline">
+<input type="text" id="email" name="email" value="" maxlength="300" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">手机：</label>
+					<div class="control-inline">
+<input type="text" id="mobile" name="mobile" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">电话：</label>
+					<div class="control-inline">
+<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-row"></div>
+				<div class="form-group">
+					<label class="control-label">姓名：</label>
+					<div class="control-inline">
+<input type="text" id="refName" name="refName" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">机构：</label>
+					<div class="control-inline width-90">
+<div class="input-group treeselect" id="officeDiv" data-url="/js/a/sys/office/treeData">
+	<input id="officeCode" type="hidden" name="employee.office.officeCode" value="" class="isReset"/>
+	<input id="officeName" type="text" name="employee.office.officeName" value=""
+		class="form-control  " readonly="readonly"
+	/><span class="input-group-btn"><a id="officeButton" href="javascript:"
+		class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
+	</span>
+</div>
+<script>
+$("#officeButton,#officeName").click(function(){
+	if ($("#officeButton").hasClass("disabled")){
+		return true;
+	}
+	var options = {
+		type: 2,
+		maxmin: true,
+		shadeClose: true,
+		title: '机构选择',
+		area: ['300px', '400px'],
+		content: '/js/tags/treeselect',
+		contentFormData: {
+			url: $('#officeDiv').attr('data-url'),
+			checkbox: 'false',
+			expandLevel: '-1',
+			selectCodes: $("#officeCode").val(),
+			isReturnValue: 'false'
+		},
+		success: function(layero, index){
+			if ($(js.layer.window).width() < 300
+				|| $(js.layer.window).height() < 400){
+				js.layer.full(index);
+			}
+		},
+		btn: ['<i class="fa fa-check"></i> 确定'],
+		btn1: function(index, layero){
+			var win = js.layer.iframeWindow(index);
+			win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
+			if ("false" == "true"){
+				nodes = win.tree.getCheckedNodes(true);
+			}else{
+				nodes = win.tree.getSelectedNodes();
+			}
+			for(var i=0; i<nodes.length; i++) {
+				if (nodes[i].level == 0 && nodes[i].isParent){
+					js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
+					return false;
+				}
+				var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+				codes.push(code.replace(/^u_/g,''));
+				names.push(name.replace(/\([0-9]*\)/g,''));
+				break;
+			}
+			if(typeof treeselectCheck == 'function'){
+				if (!treeselectCheck('office', nodes)){
+					return false;
+				}
+			}
+			$("#officeCode").val(codes.join(',')).change();
+			$("#officeName").val(names.join(',')).change();
+			try { $('#officeCode,#officeName').valid(); }catch(e){}
+			if(typeof treeselectCallback == 'function'){
+				treeselectCallback('office', 'ok', index, layero, nodes);
+			}
+		}
+	};
+	options.btn.push('<i class="fa fa-eraser"></i> 清除');
+	options['btn'+options.btn.length] = function(index, layero){
+		$("#officeCode").val('').change();
+		$("#officeName").val('').change();
+		if(typeof treeselectCallback == 'function'){
+			treeselectCallback('office', 'clear', index, layero);
+		}
+	};
+	options.btn.push('<i class="fa fa-close"></i> 关闭');
+	options['btn'+options.btn.length] = function(index, layero){
+		if(typeof treeselectCallback == 'function'){
+			treeselectCallback('office', 'cancel', index, layero);
+		}
+	};
+	js.layer.open(options);
+});
+</script>					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">公司：</label>
+					<div class="control-inline width-90">
+<div class="input-group treeselect" id="companyDiv" data-url="/js/a/sys/company/treeData">
+	<input id="companyCode" type="hidden" name="employee.company.companyCode" value="" class="isReset"/>
+	<input id="companyName" type="text" name="employee.company.companyName" value=""
+		class="form-control  " readonly="readonly"
+	/><span class="input-group-btn"><a id="companyButton" href="javascript:"
+		class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
+	</span>
+</div>
+<script>
+$("#companyButton,#companyName").click(function(){
+	if ($("#companyButton").hasClass("disabled")){
+		return true;
+	}
+	var options = {
+		type: 2,
+		maxmin: true,
+		shadeClose: true,
+		title: '公司选择',
+		area: ['300px', '400px'],
+		content: '/js/tags/treeselect',
+		contentFormData: {
+			url: $('#companyDiv').attr('data-url'),
+			checkbox: 'false',
+			expandLevel: '-1',
+			selectCodes: $("#companyCode").val(),
+			isReturnValue: 'false'
+		},
+		success: function(layero, index){
+			if ($(js.layer.window).width() < 300
+				|| $(js.layer.window).height() < 400){
+				js.layer.full(index);
+			}
+		},
+		btn: ['<i class="fa fa-check"></i> 确定'],
+		btn1: function(index, layero){
+			var win = js.layer.iframeWindow(index);
+			win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
+			if ("false" == "true"){
+				nodes = win.tree.getCheckedNodes(true);
+			}else{
+				nodes = win.tree.getSelectedNodes();
+			}
+			for(var i=0; i<nodes.length; i++) {
+				if (nodes[i].level == 0 && nodes[i].isParent){
+					js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
+					return false;
+				}
+				var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+				codes.push(code.replace(/^u_/g,''));
+				names.push(name.replace(/\([0-9]*\)/g,''));
+				break;
+			}
+			if(typeof treeselectCheck == 'function'){
+				if (!treeselectCheck('company', nodes)){
+					return false;
+				}
+			}
+			$("#companyCode").val(codes.join(',')).change();
+			$("#companyName").val(names.join(',')).change();
+			try { $('#companyCode,#companyName').valid(); }catch(e){}
+			if(typeof treeselectCallback == 'function'){
+				treeselectCallback('company', 'ok', index, layero, nodes);
+			}
+		}
+	};
+	options.btn.push('<i class="fa fa-eraser"></i> 清除');
+	options['btn'+options.btn.length] = function(index, layero){
+		$("#companyCode").val('').change();
+		$("#companyName").val('').change();
+		if(typeof treeselectCallback == 'function'){
+			treeselectCallback('company', 'clear', index, layero);
+		}
+	};
+	options.btn.push('<i class="fa fa-close"></i> 关闭');
+	options['btn'+options.btn.length] = function(index, layero){
+		if(typeof treeselectCallback == 'function'){
+			treeselectCallback('company', 'cancel', index, layero);
+		}
+	};
+	js.layer.open(options);
+});
+</script>					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">岗位：</label>
+					<div class="control-inline width-90">
+
+<select id="employee_postCode" name="employee.postCode" class="form-control">
+<option value="">&nbsp;</option><option value="cfo">财务经理</option><option value="hrm">人力经理</option><option value="dept">部门经理</option><option value="user">普通员工</option></select>					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">状态：</label>
+					<div class="control-inline width-90">
+
+<select id="status" name="status" class="form-control">
+<option value="">&nbsp;</option><option value="0">正常</option><option value="2">停用</option><option value="3">冻结</option></select>					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+</form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script src="http://localhost/bootstrap/js/bootstrap.min.js"></script>
+<script src="http://localhost/select2/4.0/select2.js?V4.0-07201614"></script>
+<script src="http://localhost/select2/4.0/i18n/zh_CN.js?V4.0-07201614"></script>
+<script src="http://localhost/layer/3.1/layer.js?V4.0-07201614"></script>
+<script src="http://localhost/my97/WdatePicker.js?V4.0-07201614"></script>
+<script src="http://localhost/jqGrid/4.7/js/jquery.jqGrid.js?V4.0-07201614"></script>
+<script src="http://localhost/jqGrid/4.7/js/jquery.jqGrid.extend.js?V4.0-07201614"></script>
+<script src="http://localhost/jqGrid/4.7/js/i18n/zh_CN.js?V4.0-07201614"></script>
+<script src="http://localhost/common/jeesite.js?V4.0-07201614"></script>
+<script src="http://localhost/common/i18n/jeesite_zh_CN.js?V4.0-07201614"></script>
+<script src="http://localhost/common/common.js?V4.0-07201614"></script>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'登录账号', name:'loginCode', index:'a.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="/js/a/sys/empUser/form?userCode='+row.userCode+'&op=edit" class="btnList" data-title="编辑用户">'+(val||row.id)+'</a>';
+		}},
+		{header:'用户昵称', name:'userName', index:'a.user_name', width:200, align:"center"},
+		{header:'员工姓名', name:'refName', index:'a.ref_name', width:200, align:"center"},
+		{header:'归属机构', name:'employee.office.officeName', index:'o.office_name', width:200, align:"center"},
+		{header:'归属公司', name:'employee.company.companyName', index:'c.company_name', width:200, align:"center"},
+		{header:'电子邮箱', name:'email', index:'a.email', width:200, align:"center"},
+		{header:'手机号码', name:'mobile', index:'a.mobile', width:200, align:"center"},
+		{header:'办公电话', name:'phone', index:'a.phone', width:200, align:"center"},
+		{header:'更新时间', name:'updateDate', index:'a.update_date', width:200, align:"center"},
+		{header:'状态', name:'status', index:'a.status', width:140, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"1019065439174938624","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":20,"treeSorts":"0000000020,","treeNames":"正常","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439174938624","dictLabelOrig":"正常","dictType":"sys_status","cssStyle":"","description":"","dictValue":"0","dictLabel":"正常","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439330127872","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":30,"treeSorts":"0000000030,","treeNames":"删除","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439330127872","dictLabelOrig":"删除","dictType":"sys_status","cssStyle":"color:#f00;","description":"","dictValue":"1","dictLabel":"删除","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439481122816","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":40,"treeSorts":"0000000040,","treeNames":"停用","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439481122816","dictLabelOrig":"停用","dictType":"sys_status","cssStyle":"color:#f00;","description":"","dictValue":"2","dictLabel":"停用","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439699226624","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":50,"treeSorts":"0000000050,","treeNames":"冻结","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439699226624","dictLabelOrig":"冻结","dictType":"sys_status","cssStyle":"color:#fa0;","description":"","dictValue":"3","dictLabel":"冻结","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439875387392","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":60,"treeSorts":"0000000060,","treeNames":"待审","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439875387392","dictLabelOrig":"待审","dictType":"sys_status","cssStyle":"","description":"","dictValue":"4","dictLabel":"待审","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065440022188032","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":70,"treeSorts":"0000000070,","treeNames":"驳回","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065440022188032","dictLabelOrig":"驳回","dictType":"sys_status","cssStyle":"","description":"","dictValue":"5","dictLabel":"驳回","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065440210931712","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":80,"treeSorts":"0000000080,","treeNames":"草稿","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065440210931712","dictLabelOrig":"草稿","dictType":"sys_status","cssStyle":"color:#aaa;","description":"","dictValue":"9","dictLabel":"草稿","parentCode":"0","isRoot":true,"isTreeLeaf":true}], val, '未知', true);
+		}},
+		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+				actions.push('<a href="/js/a/sys/empUser/form?userCode='+row.userCode+'&op=edit" class="btnList" title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
+				if (row.status == Global.STATUS_NORMAL){
+					actions.push('<a href="/js/a/sys/empUser/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+				}
+				if (row.status == Global.STATUS_DISABLE){
+					actions.push('<a href="/js/a/sys/empUser/enable?userCode='+row.userCode+'" class="btnList" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+				}
+				actions.push('<a href="/js/a/sys/empUser/delete?userCode='+row.userCode+'" class="btnList" title="删除用户" data-confirm="确认要删除该用户吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="javascript:" class="btnMore" title="更多操作"><i class="fa fa-chevron-circle-right"></i></a>&nbsp;');
+				actions.push('<div class="moreItems">');
+					actions.push('<a href="/js/a/sys/empUser/form?userCode='+row.userCode+'&op=auth" class="btn btn-default btn-xs btnList" title="用户分配角色"><i class="fa fa-check-square-o"></i> 分配角色</a>&nbsp;');
+					actions.push('<a href="/js/a/sys/empUser/formAuthDataScope?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户分配数据权限"><i class="fa fa-check-circle-o"></i> 数据权限</a>&nbsp;');
+					actions.push('<a href="/js/a/sys/empUser/resetpwd?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户密码重置" data-confirm="确认要将该用户密码重置到初始状态吗？"><i class="fa fa-reply-all"></i> 重置密码</a>&nbsp;');
+				actions.push('</div>');
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+$('#btnExport').click(function(){
+	js.ajaxSubmitForm($('#searchForm'), {
+		url:'/js/a/sys/empUser/exportData',
+		downloadFile:true
+	});
+});
+$('#btnImport').click(function(){
+	js.layer.open({
+		type: 1,
+		area: ['400px'],
+		title: '导入用户数据',
+		resize: false,
+		scrollbar: true,
+		content: js.template('importTpl'),
+		success: function(layero, index){
+			layero.find('input[type="checkbox"]').iCheck();
+		},
+		btn: ['<i class="fa fa-check"></i> 导入',
+			'<i class="fa fa-remove"></i> 取消'],
+		btn1: function(index, layero){
+			var form = {
+				inputForm: layero.find('#inputForm'),
+				file: layero.find('#file').val()
+			};
+		    if (form.file == '' || (!js.endWith(form.file, '.xls') && !js.endWith(form.file, '.xlsx'))){
+		    	js.showMessage("文件不正确，请选择后缀为 “xls”或“xlsx”的文件。", null, 'warning');
+		        return false;
+		    }
+			js.ajaxSubmitForm(form.inputForm, function(data){
+				js.showMessage(data.message);
+				if(data.result == Global.TRUE){
+					js.layer.closeAll();
+				}
+				page();
+			}, "json");
+			return true;
+		}
+	});
+});
+</script>
+<script id="importTpl" type="text/template">//<!--
+<form id="inputForm" action="/js/a/sys/empUser/importData" method="post" enctype="multipart/form-data"
+	class="form-horizontal mt20 mb10" style="overflow:auto;max-height:200px;">
+	<div class="row">
+		<div class="col-xs-12 col-xs-offset-1">
+			<input type="file" id="file" name="file" class="form-file"/>
+			<div class="mt10 pt5">
+
+<span id="updateSupport" class="icheck" class="form-control" title="如果用户编码已经存在，更新这条数据。">
+<label><input type="checkbox" id="updateSupport1" name="updateSupport"
+			value="1" class="form-control" title="如果用户编码已经存在，更新这条数据。"> 否更新已经存在的用户数据</label><input type="hidden" name="!updateSupport" value="0"/></span>
+ &nbsp;				<a href="/js/a/sys/empUser/importTemplate" class="btn btn-default btn-xs"><i class="fa fa-file-excel-o"></i> 下载模板</a>
+			</div>
+			<font color="red" class="pull-left mt10">
+				提示：仅允许导入“xls”或“xlsx”格式文件！
+			</font>
+		</div>
+	</div>
+</form>
+//--></script>

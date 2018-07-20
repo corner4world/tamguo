@@ -1,0 +1,109 @@
+
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>用户管理 - JeeSite Demo</title>
+<script src="http://localhost/global.min.js?ctx=/js/a"></script>
+<script src="http://localhost/jquery/jquery-1.12.4.min.js"></script>
+<script src="http://localhost/jquery/jquery-migrate-1.4.1.min.js"></script>
+<!--[if lt IE 9]><script src="http://localhost/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" href="http://localhost/fonts/font-icons.min.css">
+<link rel="stylesheet" href="http://localhost/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://localhost/select2/4.0/select2.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/icheck/1.0/minimal/grey.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/jquery-ztree/3.5/css/metro/zTreeStyle.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/jquery-plugins/jquery.layout-latest.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/adminlte/css/AdminLTE.min.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/common/jeesite.css?V4.0-07201614">
+<link rel="stylesheet" href="http://localhost/common/common.css?V4.0-07201614">
+</head><body class="hold-transition ">
+<div class="ui-layout-west">
+	<div class="main-content">
+		<div class="box box-main">
+			<div class="box-header">
+				<div class="box-title">
+					<i class="fa icon-grid"></i> 组织机构
+				</div>
+				<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool addTabPage" data-href="/js/a/sys/office/list" title="机构管理"><i class="fa fa-edit"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新"><i class="fa fa-refresh"></i></button>
+				</div>
+			</div>
+			<div class="ui-layout-content">
+				<div id="tree" class="ztree"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui-layout-center">
+	<iframe id="mainFrame" name="mainFrame" class="ui-layout-content p0"
+		src="http://localhost/sys/user/list"></iframe>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script src="http://localhost/bootstrap/js/bootstrap.min.js"></script>
+<script src="http://localhost/select2/4.0/select2.js?V4.0-07201614"></script>
+<script src="http://localhost/select2/4.0/i18n/zh_CN.js?V4.0-07201614"></script>
+<script src="http://localhost/layer/3.1/layer.js?V4.0-07201614"></script>
+<script src="http://localhost/my97/WdatePicker.js?V4.0-07201614"></script>
+<script src="http://localhost/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js?V4.0-07201614"></script>
+<script src="http://localhost/jquery/jquery-ui-draggable-1.12.1.min.js?V4.0-07201614"></script>
+<script src="http://localhost/jquery/jquery-ui-effect-1.12.1.min.js?V4.0-07201614"></script>
+<script src="http://localhost/jquery-plugins/jquery.layout-latest.js?V4.0-07201614"></script>
+<script src="http://localhost/common/jeesite.js?V4.0-07201614"></script>
+<script src="http://localhost/common/i18n/jeesite_zh_CN.js?V4.0-07201614"></script>
+<script src="http://localhost/common/common.js?V4.0-07201614"></script>
+<script>
+// 初始化布局
+$('body').layout({
+	west__size: 180
+});
+// 主页框架
+var win = $("#mainFrame")[0].contentWindow;
+// 树结构初始化加载
+var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData:{enable:true}},
+	callback:{onClick:function(event, treeId, treeNode){
+		tree.expandNode(treeNode);
+		win.$('input[type=reset]').click();
+		win.$('#officeCode').val(treeNode.id);
+		win.$('#officeName').val(treeNode.name);
+		win.page();
+	}}
+}, tree, loadTree = function(){
+	js.ajaxSubmit("/js/a/sys/office/treeData?___t=" + new Date().getTime(), {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
+		tree = $.fn.zTree.init($("#tree"), setting, data);//.expandAll(true);
+		// 展开第一级节点
+		var nodes = tree.getNodesByParam("level", 0);
+		for(var i=0; i<nodes.length; i++) {
+			tree.expandNode(nodes[i], true, false, false);
+		}
+		// 展开第二级节点
+// 		nodes = tree.getNodesByParam("level", 1);
+// 		for(var i=0; i<nodes.length; i++) {
+// 			tree.expandNode(nodes[i], true, false, false);
+// 		}
+	}, null, null, js.text('loading.message'));
+};loadTree();
+// 工具栏按钮绑定
+$('#btnExpand').click(function(){
+	tree.expandAll(true);
+	$(this).hide();
+	$('#btnCollapse').show();
+});
+$('#btnCollapse').click(function(){
+	tree.expandAll(false);
+	$(this).hide();
+	$('#btnExpand').show();
+});
+$('#btnRefresh').click(function(){
+	loadTree();
+});
+//调用子页分页函数
+function page(){
+	win.page();
+}
+</script>
