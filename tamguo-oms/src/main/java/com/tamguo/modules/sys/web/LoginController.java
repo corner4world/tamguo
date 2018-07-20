@@ -30,7 +30,7 @@ public class LoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "sysLogin", method = RequestMethod.POST)
 	public Result toLogin(HttpServletRequest request, String username, String password, String captcha)
 			throws IOException {
 		try {

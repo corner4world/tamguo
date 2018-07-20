@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Controller
@@ -40,9 +41,13 @@ public class ValidCodeController {
 	@RequestMapping("checkCode")
 	@ResponseBody
 	public Boolean checkCode(String validCode) throws ServletException, IOException {
-		String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-		if (!validCode.equalsIgnoreCase(kaptcha)) {
-			return true;
+		try {
+			String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+			if (!validCode.equalsIgnoreCase(kaptcha)) {
+				return true;
+			}
+		} catch (Exception e) {
+			ExceptionSupport.resolverResult("验证编码错误", this.getClass(), e);
 		}
 		return false;
 	}
