@@ -271,7 +271,7 @@ $(function() {
     $(window).resize();
     var a = $("#desktopTabPage");
     if (a.size() > 0) {
-        js.addTabPage(null, '<i class="fa fa-home"></i> ' + '页表盘', a.data("url"), false, false)
+        js.addTabPage(null, '<i class="fa fa-home"></i> ' + '仪表盘', a.data("url"), false, false)
     }
     var b = $("#modifyPasswordTip");
     if (b.size() > 0 && b.data("message") != "") {
