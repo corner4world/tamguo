@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -34,6 +35,16 @@ public class ValidCodeController {
 		ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
 		ServletOutputStream out = response.getOutputStream();
 		ImageIO.write(image, "jpg", out);
+	}
+	
+	@RequestMapping("checkCode")
+	@ResponseBody
+	public Boolean checkCode(String validCode) throws ServletException, IOException {
+		String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+		if (!validCode.equalsIgnoreCase(kaptcha)) {
+			return true;
+		}
+		return false;
 	}
 	
 }

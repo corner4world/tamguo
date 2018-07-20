@@ -80,12 +80,12 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/my97/**", "anon");
         filterChainDefinitionMap.put("/select2/**", "anon");
         filterChainDefinitionMap.put("/sysLogin/**", "anon");
-        filterChainDefinitionMap.put("/sysIndex/**", "anon");
         filterChainDefinitionMap.put("/validCode", "anon");
+        filterChainDefinitionMap.put("/checkCode", "anon");
         filterChainDefinitionMap.put("/wdScrollTab/**", "anon");
         filterChainDefinitionMap.put("/jquery-timeago/**", "anon");
         
-    //    filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

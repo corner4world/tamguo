@@ -15,6 +15,11 @@ public final class Setting {
 	/** 域名 */
 	@Value(value="${domain.name}")
 	public String domain;
+	/** 静态资源地址*/
+	@Value(value="${static.domain}")
+	public String staticDomain;
+	@Value(value="${version}")
+	public String version;
 	/** 真题 */
 	public final String PAPER_TYPE_ZHENTI = "1";
 	/** 模拟*/

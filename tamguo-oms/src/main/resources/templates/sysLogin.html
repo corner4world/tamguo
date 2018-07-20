@@ -1,44 +1,38 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta content="webkit" name="renderer" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="keywords" content="PoweredByJeeSiteV4.0" />
-<meta http-equiv="Cache-Control"
-	content="no-cache, no-store, must-revalidate" />
-<meta name="description" content="PoweredByJeeSiteV4.0" />
+<meta name="keywords" content="PoweredByTamguoV1.0.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta name="description" content="PoweredByTamguoV1.0.0" />
 <meta content="no-cache" http-equiv="Pragma" />
 <meta http-equiv="Expires" content="0" />
-<meta content="width=device-width, initial-scale=1, user-scalable=1"
-	name="viewport" />
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport" />
 <title>登录 - Tamguo OMS</title>
-<script src="jquery/jquery-1.12.4.min.js"></script>
-<script src="jquery/jquery-migrate-1.4.1.min.js"></script>
+<script th:src="${setting.staticDomain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.staticDomain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
 <!--[if lt IE 9]><script src="common/h5fix.min.js"></script><![endif]-->
-<link rel="stylesheet" href="fonts/font-icons.min.css">
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="select2/4.0/select2.css">
-<link rel="stylesheet" href="icheck/1.0/minimal/grey.css">
-<link rel="stylesheet" href="adminlte/css/AdminLTE.min.css">
-<link rel="stylesheet" href="common/jeesite.css">
-<link rel="stylesheet" href="common/common.css">
+<link rel="stylesheet" th:href="${setting.staticDomain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.staticDomain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.staticDomain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.staticDomain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.staticDomain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.staticDomain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.staticDomain + 'common/common.css'}">
 </head>
 <body class="hold-transition login-page">
 	<div class="wrapper">
-		<!--[if lte IE 9]><a style="position:absolute;top:0;left:0;z-index:100000;display:block;width:100%;font-size:14px;color:#F00;text-decoration:none;background-color:#faffb3;text-align:center;"
-href="upbw/index.html" target="_blank">您的浏览器版本过低或在兼容模式下，导致打开速度过慢，提升速度您可以切换到极速模式或升级为最新版，点击此处查看详情。</a><![endif]-->
-		<!--[if lte IE 8]><script>window.location.href='upbw/index.html?url='+location.href;</script><![endif]-->
-		<link rel="stylesheet" href="icheck/1.0/square/blue.css">
-		<link rel="stylesheet"
-			href="jquery-toastr/2.0/toastr.min.css">
-		<link rel="stylesheet" href="modules/sys/sysLogin.css">
+		<link rel="stylesheet" th:href="${setting.staticDomain + 'icheck/1.0/square/blue.css'}">
+		<link rel="stylesheet" th:href="${setting.staticDomain + 'jquery-toastr/2.0/toastr.min.css'}">
+		<link rel="stylesheet" th:href="${setting.staticDomain + 'modules/sys/sysLogin.css'}">
 		<div class="login-box">
 			<div class="login-logo">
-				<a href="/a/login"><b>JeeSite Demo</b> <small>V4.0</small></a>
+				<a th:href="${setting.domain}"><b>TamGuo OMS</b> <small th:text="${setting.version}">1.0.0</small></a>
 			</div>
 			<div class="login-box-body">
-				<form id="loginForm" action="/a/login" method="post">
+				<form id="loginForm" action="sys/login" method="post">
 					<div class="form-group has-feedback">
 						<span class="glyphicon glyphicon-user form-control-feedback"
 							title="登录账号"></span> <input type="text" id="username"
@@ -55,12 +49,11 @@ href="upbw/index.html" target="_blank">您的浏览器版本过低或在兼容�
 							placeholder="登录密码" autocomplete="off" />
 					</div>
 					<div class="form-group has-feedback" id="isValidCodeLogin">
-
 						<div class="input-group">
 							<span class="input-group-addon">验证码：</span> <input type="text"
 								id="validCode" name="validCode" class="form-control"
 								required="true" data-msg-required="请填写验证码"
-								remote="/validCode" data-msg-remote="验证码不正确." /> <span
+								th:remote="${setting.domain + 'checkCode'}" data-msg-remote="验证码不正确." /> <span
 								class="input-group-addon p0"> <img id="validCodeImg"
 								class="validCodeImg" title="看不清，点击图片刷新" src="" alt="验证码"
 								style="width: 100px;" />
@@ -98,9 +91,7 @@ href="upbw/index.html" target="_blank">您的浏览器版本过低或在兼容�
 						</div>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block btn-flat"
-							id="btnSubmit" data-loading="登录验证成功，正在进入..."
-							data-login-valid="正在验证登录，请稍后...">立即登录</button>
+						<button type="submit" class="btn btn-primary btn-block btn-flat" id="btnSubmit" data-loading="登录验证成功，正在进入..." data-login-valid="正在验证登录，请稍后...">立即登录</button>
 					</div>
 				</form>
 				<div class="row">
@@ -110,28 +101,25 @@ href="upbw/index.html" target="_blank">您的浏览器版本过低或在兼容�
 				</div>
 			</div>
 			<div class="login-copyright">
-				&copy; 2018 JeeSite Demo - Powered By <a href="http://jeesite.com">JeeSite
-					V4.0.5</a>
+				&copy; 2018 TamGuo OMS - Powered By <a href="http://www.tamguo.com" th:text="${'TamGuo OMS' + setting.version}">TamGuo
+					</a>
 			</div>
 		</div>
 	</div>
 
-	<a id="scroll-up" href="#" class="btn btn-sm"><i
-		class="fa fa-angle-double-up"></i></a>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="select2/4.0/select2.js"></script>
-	<script src="select2/4.0/i18n/zh_CN.js"></script>
-	<script src="layer/3.1/layer.js"></script>
-	<script src="my97/WdatePicker.js"></script>
-	<script src="jquery-validation/1.16/jquery.validate.js"></script>
-	<script
-		src="jquery-validation/1.16/localization/messages_zh_CN.js"></script>
-	<script
-		src="jquery-validation/1.16/jquery.validate.extend.js"></script>
-	<script src="common/jeesite.js"></script>
-	<script src="common/i18n/jeesite_zh_CN.js"></script>
-	<script src="common/common.js"></script>
-	<script>var secretKey = 'thinkgem,jeesite,com';</script>
-	<script src="jquery-toastr/2.0/toastr.min.js"></script>
-	<script src="common/des.js"></script>
-	<script src="modules/sys/sysLogin.js"></script>
+	<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+	<script th:src="${setting.staticDomain + 'bootstrap/js/bootstrap.min.js'}"></script>
+	<script th:src="${setting.staticDomain + 'select2/4.0/select2.js'}"></script>
+	<script th:src="${setting.staticDomain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+	<script th:src="${setting.staticDomain + 'layer/3.1/layer.js'}"></script>
+	<script th:src="${setting.staticDomain + 'my97/WdatePicker.js'}"></script>
+	<script th:src="${setting.staticDomain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
+	<script th:src="${setting.staticDomain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
+	<script th:src="${setting.staticDomain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
+	<script th:src="${setting.staticDomain + 'common/jeesite.js'}"></script>
+	<script th:src="${setting.staticDomain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+	<script th:src="${setting.staticDomain + 'common/common.js'}"></script>
+	<script>var secretKey = 'tamguo,tamguo,com';</script>
+	<script th:src="${setting.staticDomain + 'jquery-toastr/2.0/toastr.min.js'}"></script>
+	<script th:src="${setting.staticDomain + 'common/des.js'}"></script>
+	<script th:src="${setting.staticDomain + 'modules/sys/sysLogin.js'}"></script>
