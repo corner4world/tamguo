@@ -43,7 +43,7 @@ public class ValidCodeController {
 	public Boolean checkCode(String validCode) throws ServletException, IOException {
 		try {
 			String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-			if (!validCode.equalsIgnoreCase(kaptcha)) {
+			if (validCode.equalsIgnoreCase(kaptcha)) {
 				return true;
 			}
 		} catch (Exception e) {

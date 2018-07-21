@@ -9,7 +9,7 @@ public class IndexController {
 
 	@RequestMapping(path="sysIndex")
 	public String sysLogin(ModelAndView model) {
-		return "sysIndex.html";
+		return "sysIndex";
 	}
 	
 }

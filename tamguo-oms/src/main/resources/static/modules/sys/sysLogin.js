@@ -13,11 +13,11 @@ $("#loginForm").validate({
           , a = $("#password").val()
           , b = $("#validCode").val();
         js.ajaxSubmitForm($(c), function(f, e, g) {
-            if (f.result != 0) {
-                js.showMessage(f.message)
-            } else {
+            if (f.result.code != 0) {
                 js.loading($("#btnSubmit").data("loading"));
-                location = ctx + "/index"
+                location = ctx + "sysIndex"
+            } else {
+            	js.showMessage(f.message)
             }
         }, "json", true, $("#btnSubmit").data("loginValid"));
         $("#username").val(d);

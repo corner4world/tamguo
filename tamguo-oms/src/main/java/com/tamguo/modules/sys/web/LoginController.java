@@ -26,19 +26,21 @@ public class LoginController {
 
 	@RequestMapping(path="sysLogin")
 	public String sysLogin(ModelAndView model) {
-		return "sysLogin.html";
+		if(ShiroUtils.isLogin()) {
+			return "sysIndex";
+		}
+		return "sysLogin";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "sysLogin", method = RequestMethod.POST)
-	public Result toLogin(HttpServletRequest request, String username, String password, String captcha)
+	public Result toLogin(HttpServletRequest request, String username, String password, String validCode)
 			throws IOException {
 		try {
 			String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-			if (!captcha.equalsIgnoreCase(kaptcha)) {
+			if (!validCode.equalsIgnoreCase(kaptcha)) {
 				return Result.failResult("验证码错误");
 			}
-
 			Subject subject = ShiroUtils.getSubject();
 			// sha256加密
 			password = new Sha256Hash(password).toHex();
