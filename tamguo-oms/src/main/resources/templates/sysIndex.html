@@ -55,7 +55,7 @@
 	<script src="common/jeesite.js?V4.0-07200941"></script>
 	<script src="common/i18n/jeesite_zh_CN.js?V4.0-07200941"></script>
 	<script src="common/common.js?V4.0-07200941"></script>
-	<div class="hide" id="desktopTabPage" data-title="仪表盘" data-url="/js/a/desktop"></div>
+	<div class="hide" id="desktopTabPage" data-title="仪表盘" th:attr="data-url=${setting.domain + 'sys/desktop'}"></div>
 	<div class="hide" id="modifyPasswordTip" data-message=""></div>
 	<script src="jquery-toastr/2.0/toastr.min.js?V4.0-07200941"></script>
 	<script src="jquery-plugins/jquery.slimscroll.js"></script>
