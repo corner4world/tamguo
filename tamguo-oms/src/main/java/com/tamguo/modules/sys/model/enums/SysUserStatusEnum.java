@@ -8,7 +8,8 @@ import com.baomidou.mybatisplus.enums.IEnum;
  */
 public enum SysUserStatusEnum implements IEnum {
 	NORMAL("normal", "正常"),
-	LOCKED("locked", "锁定");
+	LOCKED("locked", "锁定"),
+	DISABLED("disable" , "禁用");
 
     private String value;
     private String desc;

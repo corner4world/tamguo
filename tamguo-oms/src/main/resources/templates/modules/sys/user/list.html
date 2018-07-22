@@ -43,13 +43,13 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<div class="form-group">
 					<label class="control-label">账号：</label>
 					<div class="control-inline">
-<input type="text" id="loginCode" name="loginCode" value="" maxlength="100" class="form-control width-90"/>
+<input type="text" id="userName" name="userName" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">昵称：</label>
 					<div class="control-inline">
-<input type="text" id="userName" name="userName" value="" maxlength="100" class="form-control width-90"/>
+<input type="text" id="nickName" name="nickName" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -68,20 +68,20 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<div class="form-group">
 					<label class="control-label">姓名：</label>
 					<div class="control-inline">
-<input type="text" id="refName" name="refName" value="" maxlength="100" class="form-control width-90"/>
+<input type="text" id="name" name="name" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">公司：</label>
 					<div class="control-inline width-90">
-<div class="input-group treeselect" id="companyDiv" data-url="/js/a/sys/company/treeData">
-	<input id="companyCode" type="hidden" name="employee.company.companyCode" value="" class="isReset"/>
-	<input id="companyName" type="text" name="employee.company.companyName" value=""
-		class="form-control  " readonly="readonly"
-	/><span class="input-group-btn"><a id="companyButton" href="javascript:"
-		class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
-	</span>
-</div>
+					<div class="input-group treeselect" id="companyDiv" data-url="sys/company/treeData?">
+						<input id="companyCode" type="hidden" name="companyCode" value="" class="isReset"/>
+						<input id="companyName" type="text" name="companyName" value=""
+							class="form-control  " readonly="readonly"
+						/><span class="input-group-btn"><a id="companyButton" href="javascript:"
+							class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
+						</span>
+					</div>
 <script>
 $("#companyButton,#companyName").click(function(){
 	if ($("#companyButton").hasClass("disabled")){
@@ -93,7 +93,7 @@ $("#companyButton,#companyName").click(function(){
 		shadeClose: true,
 		title: '公司选择',
 		area: ['300px', '400px'],
-		content: '/js/tags/treeselect',
+		content: ctx + 'sys/treeselect',
 		contentFormData: {
 			url: $('#companyDiv').attr('data-url'),
 			checkbox: 'false',
@@ -121,7 +121,7 @@ $("#companyButton,#companyName").click(function(){
 					js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
 					return false;
 				}
-				var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+				var code = nodes[i]['uid'], name = nodes[i]['name'];
 				codes.push(code.replace(/^u_/g,''));
 				names.push(name.replace(/\([0-9]*\)/g,''));
 				break;
@@ -169,7 +169,7 @@ $("#companyButton,#companyName").click(function(){
 					<div class="control-inline width-90">
 
 <select id="status" name="status" class="form-control">
-<option value="">&nbsp;</option><option value="0">正常</option><option value="2">停用</option><option value="3">冻结</option></select>					</div>
+<option value="">&nbsp;</option><option value="normal">正常</option><option value="disabled">停用</option><option value="locked">锁定</option></select>					</div>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-sm">查询</button>
