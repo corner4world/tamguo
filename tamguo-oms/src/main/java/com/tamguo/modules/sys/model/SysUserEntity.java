@@ -1,6 +1,7 @@
 package com.tamguo.modules.sys.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -20,24 +21,26 @@ public class SysUserEntity extends SuperEntity<SysUserEntity> implements Seriali
 
 	private String userName;
 	private String nickName;
+	private String name;
 	private String mobile;
 	private String email;
 	private String password;
 	private String roleIds;
+	private String companyId;
+	private Date createDate;
+	private Date updateDate;
 	
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysUserStatusEnum status;
 	
 	private String safeKeyValue;
 	private Long createTime;
-	private String courseId;
-	private String subjectId;
 
 	@TableField(exist=false)
 	private List<String> roleIdList;
 	
 	@TableField(exist=false)
-	private String roleName;
+	private String companyName;
 	
 	public SysUserEntity() {
 	}
@@ -122,28 +125,44 @@ public class SysUserEntity extends SuperEntity<SysUserEntity> implements Seriali
 		this.status = status;
 	}
 
-	public String getCourseId() {
-		return courseId;
+	public String getName() {
+		return name;
 	}
 
-	public void setCourseId(String courseId) {
-		this.courseId = courseId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getRoleName() {
-		return roleName;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
-	public String getSubjectId() {
-		return subjectId;
+	public String getCompanyId() {
+		return companyId;
 	}
 
-	public void setSubjectId(String subjectId) {
-		this.subjectId = subjectId;
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 

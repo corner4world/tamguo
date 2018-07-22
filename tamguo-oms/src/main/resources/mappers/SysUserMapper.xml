@@ -19,21 +19,24 @@
 			u.user_name = #{username}
   	</select>
   	
-  	<select id="queryPage" resultType="SysUserEntity">
+  	<select id="listData" resultType="SysUserEntity">
   		SELECT
 			u.uid,
 			u.user_name,
+			u.name,
 			u.role_ids,
-			r.name as role_name,
+			u.company_id,
+			c.name as company_name,
 			u.password,
 			u.status,
 			u.nick_name,
 			u.mobile,
 			u.email,
-			u.course_id
+			u.update_date,
+			u.create_date
 		FROM
 			sys_user u
-		LEFT JOIN sys_role r ON r.uid = u.role_ids 
+		LEFT JOIN sys_company c ON u.company_id = c.uid
 		<where>
 			<if test="userName != null and userName != ''">
 				u.user_name like #{userName}

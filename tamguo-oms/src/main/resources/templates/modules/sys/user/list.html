@@ -5,7 +5,7 @@ content="no-cache, no-store, must-revalidate"/><meta name="description" content=
 content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
 content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <title>用户管理 - JeeSite Demo</title>
-<script src="/js/global.min.js?ctx=/js/a"></script>
+<script src="/global.min.js?ctx=/js/a"></script>
 <script src="http://localhost/jquery/jquery-1.12.4.min.js"></script>
 <script src="http://localhost/jquery/jquery-migrate-1.4.1.min.js"></script>
 <!--[if lt IE 9]><script src="http://localhost/common/h5fix.min.js"></script><![endif]-->
@@ -26,7 +26,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
-					<a href="/js/a/sys/empUser/form?op=add" class="btn btn-default btnTool" title="新增用户"><i class="fa fa-plus"></i> 新增</a>
+				<a href="/js/a/sys/empUser/form?op=add" class="btn btn-default btnTool" title="新增用户"><i class="fa fa-plus"></i> 新增</a>
 				<div class="btn-group">
 					<a href="javascript:" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-navicon"></i> <span class="caret"></span>
@@ -39,7 +39,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 		</div>
 		<div class="box-body">
-<form id="searchForm" action="/js/a/sys/empUser/listData" method="post" class="form-inline " data-page-no="" data-page-size="" data-order-by="">
+<form id="searchForm" th:action="${setting.domain + 'sys/user/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
 				<div class="form-group">
 					<label class="control-label">账号：</label>
 					<div class="control-inline">
@@ -64,104 +64,12 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <input type="text" id="mobile" name="mobile" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label">电话：</label>
-					<div class="control-inline">
-<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control width-90"/>
-					</div>
-				</div>
 				<div class="form-row"></div>
 				<div class="form-group">
 					<label class="control-label">姓名：</label>
 					<div class="control-inline">
 <input type="text" id="refName" name="refName" value="" maxlength="100" class="form-control width-90"/>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">机构：</label>
-					<div class="control-inline width-90">
-<div class="input-group treeselect" id="officeDiv" data-url="/js/a/sys/office/treeData">
-	<input id="officeCode" type="hidden" name="employee.office.officeCode" value="" class="isReset"/>
-	<input id="officeName" type="text" name="employee.office.officeName" value=""
-		class="form-control  " readonly="readonly"
-	/><span class="input-group-btn"><a id="officeButton" href="javascript:"
-		class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
-	</span>
-</div>
-<script>
-$("#officeButton,#officeName").click(function(){
-	if ($("#officeButton").hasClass("disabled")){
-		return true;
-	}
-	var options = {
-		type: 2,
-		maxmin: true,
-		shadeClose: true,
-		title: '机构选择',
-		area: ['300px', '400px'],
-		content: '/js/tags/treeselect',
-		contentFormData: {
-			url: $('#officeDiv').attr('data-url'),
-			checkbox: 'false',
-			expandLevel: '-1',
-			selectCodes: $("#officeCode").val(),
-			isReturnValue: 'false'
-		},
-		success: function(layero, index){
-			if ($(js.layer.window).width() < 300
-				|| $(js.layer.window).height() < 400){
-				js.layer.full(index);
-			}
-		},
-		btn: ['<i class="fa fa-check"></i> 确定'],
-		btn1: function(index, layero){
-			var win = js.layer.iframeWindow(index);
-			win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
-			if ("false" == "true"){
-				nodes = win.tree.getCheckedNodes(true);
-			}else{
-				nodes = win.tree.getSelectedNodes();
-			}
-			for(var i=0; i<nodes.length; i++) {
-				if (nodes[i].level == 0 && nodes[i].isParent){
-					js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
-					return false;
-				}
-				var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
-				codes.push(code.replace(/^u_/g,''));
-				names.push(name.replace(/\([0-9]*\)/g,''));
-				break;
-			}
-			if(typeof treeselectCheck == 'function'){
-				if (!treeselectCheck('office', nodes)){
-					return false;
-				}
-			}
-			$("#officeCode").val(codes.join(',')).change();
-			$("#officeName").val(names.join(',')).change();
-			try { $('#officeCode,#officeName').valid(); }catch(e){}
-			if(typeof treeselectCallback == 'function'){
-				treeselectCallback('office', 'ok', index, layero, nodes);
-			}
-		}
-	};
-	options.btn.push('<i class="fa fa-eraser"></i> 清除');
-	options['btn'+options.btn.length] = function(index, layero){
-		$("#officeCode").val('').change();
-		$("#officeName").val('').change();
-		if(typeof treeselectCallback == 'function'){
-			treeselectCallback('office', 'clear', index, layero);
-		}
-	};
-	options.btn.push('<i class="fa fa-close"></i> 关闭');
-	options['btn'+options.btn.length] = function(index, layero){
-		if(typeof treeselectCallback == 'function'){
-			treeselectCallback('office', 'cancel', index, layero);
-		}
-	};
-	js.layer.open(options);
-});
-</script>					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">公司：</label>
@@ -292,19 +200,25 @@ $("#companyButton,#companyName").click(function(){
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'登录账号', name:'loginCode', index:'a.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+		{header:'登录账号', name:'userName', index:'a.login_code', width:300, align:"center", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="/js/a/sys/empUser/form?userCode='+row.userCode+'&op=edit" class="btnList" data-title="编辑用户">'+(val||row.id)+'</a>';
 		}},
-		{header:'用户昵称', name:'userName', index:'a.user_name', width:200, align:"center"},
-		{header:'员工姓名', name:'refName', index:'a.ref_name', width:200, align:"center"},
-		{header:'归属机构', name:'employee.office.officeName', index:'o.office_name', width:200, align:"center"},
-		{header:'归属公司', name:'employee.company.companyName', index:'c.company_name', width:200, align:"center"},
+		{header:'用户昵称', name:'nickName', index:'a.user_name', width:200, align:"center"},
+		{header:'员工姓名', name:'name', index:'a.ref_name', width:200, align:"center"},
+		{header:'归属公司', name:'companyName', index:'c.company_name', width:200, align:"center"},
 		{header:'电子邮箱', name:'email', index:'a.email', width:200, align:"center"},
 		{header:'手机号码', name:'mobile', index:'a.mobile', width:200, align:"center"},
-		{header:'办公电话', name:'phone', index:'a.phone', width:200, align:"center"},
 		{header:'更新时间', name:'updateDate', index:'a.update_date', width:200, align:"center"},
 		{header:'状态', name:'status', index:'a.status', width:140, align:"center", formatter: function(val, obj, row, act){
-			return js.getDictLabel([{"id":"1019065439174938624","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":20,"treeSorts":"0000000020,","treeNames":"正常","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439174938624","dictLabelOrig":"正常","dictType":"sys_status","cssStyle":"","description":"","dictValue":"0","dictLabel":"正常","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439330127872","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":30,"treeSorts":"0000000030,","treeNames":"删除","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439330127872","dictLabelOrig":"删除","dictType":"sys_status","cssStyle":"color:#f00;","description":"","dictValue":"1","dictLabel":"删除","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439481122816","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":40,"treeSorts":"0000000040,","treeNames":"停用","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439481122816","dictLabelOrig":"停用","dictType":"sys_status","cssStyle":"color:#f00;","description":"","dictValue":"2","dictLabel":"停用","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439699226624","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":50,"treeSorts":"0000000050,","treeNames":"冻结","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439699226624","dictLabelOrig":"冻结","dictType":"sys_status","cssStyle":"color:#fa0;","description":"","dictValue":"3","dictLabel":"冻结","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439875387392","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":60,"treeSorts":"0000000060,","treeNames":"待审","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439875387392","dictLabelOrig":"待审","dictType":"sys_status","cssStyle":"","description":"","dictValue":"4","dictLabel":"待审","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065440022188032","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":70,"treeSorts":"0000000070,","treeNames":"驳回","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065440022188032","dictLabelOrig":"驳回","dictType":"sys_status","cssStyle":"","description":"","dictValue":"5","dictLabel":"驳回","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065440210931712","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":80,"treeSorts":"0000000080,","treeNames":"草稿","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065440210931712","dictLabelOrig":"草稿","dictType":"sys_status","cssStyle":"color:#aaa;","description":"","dictValue":"9","dictLabel":"草稿","parentCode":"0","isRoot":true,"isTreeLeaf":true}], val, '未知', true);
+			if(val == "normal"){
+				return '正常';
+			}else if(val == "locked"){
+				return '锁定';
+			}else if(val == "disable"){
+				return '禁用';
+			}else{
+				return '未知';
+			}
 		}},
 		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
