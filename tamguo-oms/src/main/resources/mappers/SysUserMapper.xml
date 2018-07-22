@@ -39,7 +39,7 @@
 		<where>
 			1 = 1
 			<if test="userName != null and userName != ''">
-				and u.user_name like #{userName}
+				and u.user_name = #{userName}
 			</if>
 			<if test="nickName != null and nickName != ''">
 				and u.nick_name like #{nickName}
@@ -48,7 +48,7 @@
 				and u.nick_name like #{nickName}
 			</if>
 			<if test="companyCode != null and companyCode != ''">
-				and u.company_id = #{companyCode}
+				and u.company_ids like #{companyCode}
 			</if>
 			<if test="email != null and email != ''">
 				and u.email = #{email}

@@ -68,10 +68,13 @@ public class Result implements Serializable {
 			int totalPage) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
-		result.put("totalCount", totalCount);
+		result.put("count", totalCount);
+		result.put("next", currPage == totalPage ? currPage : currPage + 1);
+		result.put("prev", currPage == 1 ? 1 : currPage - 1);
+		result.put("first", 1);
+		result.put("last", totalPage);
 		result.put("pageSize", pageSize);
-		result.put("currPage", currPage);
-		result.put("totalPage", totalPage);
+		result.put("pageNo", currPage);
 		return result;
 	}
 

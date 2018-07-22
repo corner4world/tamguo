@@ -27,6 +27,7 @@ public class SysUserEntity extends SuperEntity<SysUserEntity> implements Seriali
 	private String password;
 	private String roleIds;
 	private String companyId;
+	private String companyIds;
 	private Date createDate;
 	private Date updateDate;
 	
@@ -163,6 +164,14 @@ public class SysUserEntity extends SuperEntity<SysUserEntity> implements Seriali
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getCompanyIds() {
+		return companyIds;
+	}
+
+	public void setCompanyIds(String companyIds) {
+		this.companyIds = companyIds;
 	}
 
 
