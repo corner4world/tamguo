@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +21,8 @@ import com.tamguo.modules.sys.utils.Result;
 public class PostController {
 
 	private final String POST_INDEX_PAGE = "modules/sys/post/index";
-	private final String POST_DETAIL_PAGE = "modules/sys/post/detail";
+	private final String POST_UPDATE_PAGE = "modules/sys/post/update";
+	private final String POST_ADD_PAGE = "modules/sys/post/add";
 	
 	@Autowired
 	private IPostService iPostService;
@@ -32,16 +32,17 @@ public class PostController {
 		return POST_INDEX_PAGE;
 	}
 	
-	@RequestMapping(path="detail")
-	public ModelAndView detail(ModelAndView model , String id) {
-		if(StringUtils.isEmpty(id)) {
-			model.addObject("title", "新增岗位");
-		}else {
-			model.addObject("title", "修改岗位");
-			model.addObject("post", iPostService.selectById(id));
-		}
-		model.setViewName(POST_DETAIL_PAGE);
+	@RequestMapping(path="update")
+	public ModelAndView update(ModelAndView model , String id) {
+		model.addObject("title", "修改岗位");
+		model.addObject("post", iPostService.selectById(id));
+		model.setViewName(POST_UPDATE_PAGE);
 		return model;
+	}
+	
+	@RequestMapping(path="add")
+	public String add() {
+		return POST_ADD_PAGE;
 	}
 	
 	@RequestMapping(path="listData",method=RequestMethod.POST)
@@ -55,14 +56,21 @@ public class PostController {
 	@ResponseBody
 	public Result save(SysPostEntity post) {
 		try {
-			if(StringUtils.isEmpty(post.getId())) {
-				iPostService.add(post);
-			}else {
-				iPostService.update(post);
-			}
+			iPostService.add(post);
 			return Result.result(0, null, "操作成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("保存岗位", this.getClass(), e);
+		}
+	}
+	
+	@RequestMapping(path="update",method=RequestMethod.POST)
+	@ResponseBody
+	public Result update(SysPostEntity post) {
+		try {
+			iPostService.update(post);
+			return Result.result(0, null, "操作成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("修改岗位", this.getClass(), e);
 		}
 		
 	}

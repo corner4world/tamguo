@@ -19,7 +19,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <div class="wrapper"><div class="main-content">
 	<div class="box box-main">
 		<div class="box-header">
-			<div class="box-title" th:utext="${'<i class=fa icon-trophy></i>' + title}">
+			<div class="box-title">
+				<i class=fa icon-trophy></i> 新增岗位
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -34,8 +35,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 岗位名称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="hidden" id="id" name="id" th:value="${post.id}"/>
-								<input type="text" id="name" name="name" th:value="${post.name}" maxlength="100" class="form-control required "/>
+								<input type="hidden" id="id" name="id" value=""/>
+								<input type="text" id="name" name="name" value="" maxlength="100" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -45,7 +46,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 								<span class="required ">*</span> 岗位编码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<input type="hidden" id="isNewRecord" name="isNewRecord" value="true"/>
-								<input type="text" id="code" name="code" th:value="${post.code}" maxlength="64" class="form-control required abc"/>
+								<input type="text" id="code" name="code" value="" maxlength="64" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -58,10 +59,10 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<div class="col-sm-8">
 								<select id="postType" name="postType" class="form-control ">
 									<option value="">&nbsp;</option>
-									<option value="gaoguan" th:selected="${post.postType.value=='gaoguan'}? true : false">高管</option>
-									<option value="zhongceng" th:selected="${post.postType.value=='zhongceng'}? true : false">中层</option>
-									<option value="jiceng" th:select="${post.postType.value=='jiceng'}? true : false">基层</option>
-									<option value="qita" th:select="${post.postType.value=='qita'}? true : false">其它</option>
+									<option value="gaoguan">高管</option>
+									<option value="zhongceng">中层</option>
+									<option value="jiceng">基层</option>
+									<option value="qita">其它</option>
 								</select>							
 							</div>
 						</div>
@@ -71,7 +72,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 排序号：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="sorts" name="sorts" th:value="${post.sorts}" maxlength="10" class="form-control digits"/>
+								<input type="text" id="sorts" name="sorts" value="" maxlength="10" class="form-control digits"/>
 							</div>
 						</div>
 					</div>
@@ -82,7 +83,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
-<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control " th:utext="${post.remarks}"></textarea>
+<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control "></textarea>
 							</div>
 						</div>
 					</div>
