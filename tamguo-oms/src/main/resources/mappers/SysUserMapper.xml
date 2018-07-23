@@ -4,7 +4,7 @@
 	
 	<select id="queryByUserName" resultType="SysUserEntity">
 		SELECT
-			u.uid,
+			u.id,
 			u.user_name,
 			u.role_ids,
 			u.password,
@@ -20,7 +20,7 @@
   	
   	<select id="listData" resultType="SysUserEntity">
   		SELECT
-			u.uid,
+			u.id,
 			u.user_name,
 			u.name,
 			u.role_ids,
@@ -35,7 +35,7 @@
 			u.create_date
 		FROM
 			sys_user u
-		LEFT JOIN sys_company c ON u.company_id = c.uid
+		LEFT JOIN sys_company c ON u.company_id = c.id
 		<where>
 			1 = 1
 			<if test="userName != null and userName != ''">

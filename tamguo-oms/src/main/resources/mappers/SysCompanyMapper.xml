@@ -2,4 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tamguo.modules.sys.dao.SysCompanyMapper">
 	
+	<select id="listData" resultType="SysCompanyEntity">
+		SELECT
+			c.id,
+			c.parent_id,
+			c.is_leaf,
+			c.tree_level,
+			c.name,
+			c.full_name,
+			c.type,
+			c.duty_man,
+			c.tel,
+			c.address,
+			c.zip_code,
+			c.email,
+			c.remarks,
+			c.update_date
+		FROM
+			sys_company c		
+		<where>
+			1 = 1
+			<choose>
+		        <when test="parentCode != null and parentCode != ''">
+		          	and c.parent_id = #{parentCode}
+		        </when>
+		        <otherwise>
+		            and c.tree_level = 0
+		        </otherwise>
+		    </choose>
+		</where>
+	</select>
 </mapper>

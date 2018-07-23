@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.modules.sys.dao.SysCompanyMapper;
 import com.tamguo.modules.sys.model.SysCompanyEntity;
+import com.tamguo.modules.sys.model.condition.SysCompanyCondition;
 import com.tamguo.modules.sys.service.ISysCompanyService;
 
 @Service
@@ -23,6 +24,11 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 		
 		List<SysCompanyEntity> companyList = sysCompanyMapper.selectList(Condition.EMPTY);
 		return companyList;
+	}
+
+	@Override
+	public List<SysCompanyEntity> listData(SysCompanyCondition condition) {
+		return sysCompanyMapper.listData(condition);
 	}
 	
 }

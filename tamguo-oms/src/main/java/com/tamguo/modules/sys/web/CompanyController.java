@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tamguo.modules.sys.model.SysCompanyEntity;
+import com.tamguo.modules.sys.model.condition.SysCompanyCondition;
 import com.tamguo.modules.sys.service.ISysCompanyService;
 
 @Controller
@@ -23,6 +24,12 @@ public class CompanyController {
 	@RequestMapping(path="index")
 	public String index(ModelAndView model) {
 		return COMPANY_INDEX_PAGE;
+	}
+	
+	@RequestMapping(path="listData")
+	@ResponseBody
+	public List<SysCompanyEntity> listData(SysCompanyCondition condition) {
+		return iSysCompanyService.listData(condition);
 	}
 
 	@RequestMapping(path="treeData")

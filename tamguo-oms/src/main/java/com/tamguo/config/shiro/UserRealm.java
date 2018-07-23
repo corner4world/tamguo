@@ -43,7 +43,7 @@ public class UserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		SysUserEntity user = (SysUserEntity)principals.getPrimaryPrincipal();
-		String userId = user.getUid();
+		String userId = user.getId();
 		
 		List<String> permsList = null;
 		

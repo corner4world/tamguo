@@ -68,7 +68,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
 			List<SysMenuEntity> childMenus = new ArrayList<>();
 			for(int k=0 ; k<menus.size() ; k++) {
 				SysMenuEntity cMenu = menus.get(k);
-				if(cMenu.getParentId().toString().equals(pMenu.getUid())) {
+				if(cMenu.getParentId().toString().equals(pMenu.getId())) {
 					childMenus.add(cMenu);
 				}
 			}

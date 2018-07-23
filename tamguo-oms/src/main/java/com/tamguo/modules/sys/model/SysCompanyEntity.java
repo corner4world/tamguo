@@ -1,6 +1,8 @@
 package com.tamguo.modules.sys.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 
@@ -20,9 +22,11 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	private String address;
 	private String zipCode;
 	private String email;
-	private String comments;
+	private String remarks;
 	private String parentId;
-	private String treeId;
+	private Boolean isLeaf;
+	private Integer treeLevel;
+	private Date updateDate;
 	
 	public String getName() {
 		return name;
@@ -72,12 +76,6 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getComments() {
-		return comments;
-	}
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -87,11 +85,29 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
-	public String getTreeId() {
-		return treeId;
+	public String getRemarks() {
+		return remarks;
 	}
-	public void setTreeId(String treeId) {
-		this.treeId = treeId;
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
-	
+	public Integer getTreeLevel() {
+		return treeLevel;
+	}
+	public void setTreeLevel(Integer treeLevel) {
+		this.treeLevel = treeLevel;
+	}
+	public Boolean getIsLeaf() {
+		return isLeaf;
+	}
+	public void setIsLeaf(Boolean isLeaf) {
+		this.isLeaf = isLeaf;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
 }

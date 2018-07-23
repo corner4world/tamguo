@@ -4,7 +4,7 @@
 
 	<select id="selectPageByName" resultType="SysRoleEntity">
 		SELECT
-			r.uid , r.name , r.perms
+			r.id , r.name , r.perms
 		FROM
 			sys_role r
 		<where>

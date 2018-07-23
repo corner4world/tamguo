@@ -3,7 +3,7 @@
 <mapper namespace="com.tamguo.modules.sys.dao.SysMenuMapper">
 
   <resultMap id="BaseResultMap" type="com.tamguo.modules.sys.model.SysMenuEntity" >
-    <id column="uid" property="uid" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    uid, parent_id, name, url, type, perms ,  order_num
+    id, parent_id, name, url, type, perms ,  order_num
   </sql>
 
 
