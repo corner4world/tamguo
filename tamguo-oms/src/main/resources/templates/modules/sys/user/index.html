@@ -65,7 +65,7 @@ $('body').layout({
 // 主页框架
 var win = $("#mainFrame")[0].contentWindow;
 // 树结构初始化加载
-var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData: {enable: true,idKey: "uid",pIdKey: "parentId",rootPId: "",enable:true},key: {url:"nourl"}},
+var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData: {enable: true,idKey: "id",pIdKey: "parentId",rootPId: "",enable:true},key: {url:"nourl"}},
 	callback:{onClick:function(event, treeId, treeNode){
 		tree.expandNode(treeNode);
 		win.$('input[type=reset]').click();
