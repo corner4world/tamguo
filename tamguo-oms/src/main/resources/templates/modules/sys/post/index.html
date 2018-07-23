@@ -91,13 +91,23 @@ $('#dataGrid').dataGrid({
 		{header:'岗位编码', name:'code', index:'a.post_code', width:200, align:"center"},
 		{header:'排序号', name:'sorts', index:'a.post_sort', width:80, align:"center"},
 		{header:'岗位分类', name:'postType', index:'a.post_type', width:100, align:"center", formatter: function(val, obj, row, act){
-			return js.getDictLabel([{"id":"1019065447139921920","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":30,"treeSorts":"0000000030,","treeNames":"高管","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065447139921920","dictLabelOrig":"高管","dictType":"sys_post_type","cssStyle":"","description":"","dictValue":"1","dictLabel":"高管","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065447290916864","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":40,"treeSorts":"0000000040,","treeNames":"中层","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065447290916864","dictLabelOrig":"中层","dictType":"sys_post_type","cssStyle":"","description":"","dictValue":"2","dictLabel":"中层","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065447429328896","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":50,"treeSorts":"0000000050,","treeNames":"基层","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065447429328896","dictLabelOrig":"基层","dictType":"sys_post_type","cssStyle":"","description":"","dictValue":"3","dictLabel":"基层","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065447576129536","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":60,"treeSorts":"0000000060,","treeNames":"其它","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065447576129536","dictLabelOrig":"其它","dictType":"sys_post_type","cssStyle":"","description":"","dictValue":"4","dictLabel":"其它","parentCode":"0","isTreeLeaf":true,"isRoot":true}], val, '未知', true);
+			if(val == "gaoguan"){
+				return '高管';
+			}else if(val == "zhongceng"){
+				return '中层';
+			}else if(val == "jiceng"){
+				return '基层';
+			}else if(val == "qita"){
+				return '其他';
+			}else {
+				return '未知';
+			}
 		}},
 		{header:'更新时间', name:'updateDate', index:'a.update_date', width:150, align:"center"},
 		{header:'备注信息', name:'remarks', index:'a.remarks', width:200, align:"left"},
 		{header:'状态', name:'status', index:'a.status', width:80, align:"center", formatter: function(val, obj, row, act){
 			if(val == "normal"){
-				return '<span style="color:red;">正常</span>';
+				return '正常';
 			}else if(val == "locked"){
 				return '锁定';
 			}else if(val == "disabled"){

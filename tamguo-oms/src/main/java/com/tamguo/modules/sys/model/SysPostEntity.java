@@ -17,7 +17,10 @@ public class SysPostEntity extends SuperEntity<SysPostEntity> implements Seriali
 	
 	private String name;
 	private String code;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysPostTypeEnum postType;
+	
 	private Integer sorts;
 	private String remarks;
 	private Date createDate;
