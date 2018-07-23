@@ -25,7 +25,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
-					<a href="/js/a/sys/post/form" class="btn btn-default btnTool" title="新增岗位"><i class="fa fa-plus"></i> 新增</a>
+					<a th:href="${setting.domain + 'sys/post/detail'}" class="btn btn-default btnTool" title="新增岗位"><i class="fa fa-plus"></i> 新增</a>
 			</div>
 		</div>
 		<div class="box-body">
@@ -88,13 +88,13 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <script th:src="${setting.domain + 'common/jeesite.js'}"></script>
 <script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'common/common.js'}"></script>
-<script>
+<script type="text/javascript" th:inline="javascript">
 // 初始化DataGrid对象
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
 		{header:'岗位名称', name:'name', index:'a.post_name', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
-			return '<a href="/js/a/sys/post/form?postCode='+row.postCode+'" class="btnList" data-title="编辑岗位">'+(val||row.id)+'</a>';
+			return '<a href="'+ctx+'sys/post/detail?id='+row.id+'" class="btnList" data-title="编辑岗位">'+(val||row.id)+'</a>';
 		}},
 		{header:'岗位编码', name:'code', index:'a.post_code', width:200, align:"center"},
 		{header:'排序号', name:'sorts', index:'a.post_sort', width:80, align:"center"},
@@ -124,14 +124,14 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="/js/a/sys/post/form?postCode='+row.postCode+'" class="btnList" title="编辑岗位"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="'+ctx+'sys/post/detail?id='+row.id+'" class="btnList" title="编辑岗位"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == "normal"){
-					actions.push('<a href="/js/a/sys/post/disable?postCode='+row.postCode+'" class="btnList" title="停用岗位" data-confirm="确认要停用该岗位吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'sys/post/detail?id='+row.id+'" class="btnList" title="停用岗位" data-confirm="确认要停用该岗位吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
 				if (row.status == "disabled"){
-					actions.push('<a href="/js/a/sys/post/enable?postCode='+row.postCode+'" class="btnList" title="启用岗位" data-confirm="确认要启用该岗位吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+					actions.push('<a href="/js/a/sys/post/enable?postCode='+row.id+'" class="btnList" title="启用岗位" data-confirm="确认要启用该岗位吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
-				actions.push('<a href="/js/a/sys/post/delete?postCode='+row.postCode+'" class="btnList" title="删除岗位" data-confirm="确认要删除该岗位吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="/js/a/sys/post/delete?postCode='+row.id+'" class="btnList" title="删除岗位" data-confirm="确认要删除该岗位吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');
 		}}
 	],

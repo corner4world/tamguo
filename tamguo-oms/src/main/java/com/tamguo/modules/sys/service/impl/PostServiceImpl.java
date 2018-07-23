@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.modules.sys.dao.SysPostMapper;
 import com.tamguo.modules.sys.model.SysPostEntity;
 import com.tamguo.modules.sys.model.condition.SysPostCondition;
 import com.tamguo.modules.sys.service.IPostService;
 
 @Service
-public class PostServiceImpl implements IPostService{
+public class PostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity> implements IPostService{
 	
 	@Autowired
 	private SysPostMapper sysPostMapper;
