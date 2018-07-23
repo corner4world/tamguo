@@ -33,28 +33,36 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<div class="form-group">
 					<label class="control-label">岗位编码：</label>
 					<div class="control-inline">
-<input type="text" id="postCode" name="postCode" value="" maxlength="64" class="form-control width-120"/>
+<input type="text" id="code" name="code" value="" maxlength="64" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">岗位名称：</label>
 					<div class="control-inline">
-<input type="text" id="postName" name="postName" value="" maxlength="100" class="form-control width-120"/>
+<input type="text" id="name" name="name" value="" maxlength="100" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">岗位分类：</label>
 					<div class="control-inline width-90">
-
-<select id="postType" name="postType" class="form-control">
-<option value="">&nbsp;</option><option value="1">高管</option><option value="2">中层</option><option value="3">基层</option><option value="4">其它</option></select>					</div>
+						<select id="postType" name="postType" class="form-control">
+							<option value="">&nbsp;</option>
+							<option value="gaoguan">高管</option>
+							<option value="zhongceng">中层</option>
+							<option value="jiceng">基层</option>
+							<option value="qita">其它</option>
+						</select>					
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">状态：</label>
 					<div class="control-inline width-60">
-
-<select id="status" name="status" class="form-control">
-<option value="">&nbsp;</option><option value="0">正常</option><option value="2">停用</option></select>					</div>
+						<select id="status" name="status" class="form-control">
+							<option value="">&nbsp;</option>
+							<option value="normal">正常</option>
+							<option value="disabled">停用</option>
+						</select>					
+					</div>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-sm">查询</button>
@@ -108,8 +116,6 @@ $('#dataGrid').dataGrid({
 		{header:'状态', name:'status', index:'a.status', width:80, align:"center", formatter: function(val, obj, row, act){
 			if(val == "normal"){
 				return '正常';
-			}else if(val == "locked"){
-				return '锁定';
 			}else if(val == "disabled"){
 				return '禁用';
 			}else{
