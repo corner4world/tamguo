@@ -2,6 +2,7 @@ package com.tamguo.modules.sys.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -20,6 +21,18 @@ public class PostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity> i
 	public Page<SysPostEntity> listData(SysPostCondition condition) {
 		Page<SysPostEntity> page = new Page<>(condition.getPageNo(), condition.getPageSize());
 		return page.setRecords(sysPostMapper.listData(condition , page));
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void add(SysPostEntity post) {
+		sysPostMapper.insert(post);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void update(SysPostEntity post) {
+		sysPostMapper.updateById(post);
 	}
 
 }

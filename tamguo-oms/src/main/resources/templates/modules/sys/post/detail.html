@@ -25,7 +25,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" action="/js/a/sys/post/save" method="post" class="form-horizontal">
+<form id="inputForm" th:action="${setting.domain + 'sys/post/save'}" method="post" class="form-horizontal">
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
 				<div class="row">
@@ -34,8 +34,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 岗位名称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="hidden" id="oldRoleName" name="oldRoleName" value=""/>
-<input type="text" id="name" name="name" th:value="${post.name}" maxlength="100" class="form-control required " remote="/js/a/sys/post/checkPostName?oldPostName=" data-msg-remote="岗位名称已存在"/>
+								<input type="hidden" id="id" name="id" th:value="${post.id}"/>
+								<input type="text" id="name" name="name" th:value="${post.name}" maxlength="100" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -44,8 +44,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 岗位编码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="hidden" id="isNewRecord" name="isNewRecord" value="true"/>
-<input type="text" id="code" name="code" th:value="${post.code}" maxlength="64" class="form-control required abc"/>
+								<input type="hidden" id="isNewRecord" name="isNewRecord" value="true"/>
+								<input type="text" id="code" name="code" th:value="${post.code}" maxlength="64" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -91,7 +91,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			<div class="box-footer">
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+						<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
 						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
 					</div>
 				</div>
@@ -118,7 +118,7 @@ $("#inputForm").validate({
 	submitHandler: function(form){
 		js.ajaxSubmitForm($(form), function(data){
 			js.showMessage(data.message);
-			if(data.result == Global.TRUE){
+			if(data.code == 0){
 				js.closeCurrentTabPage(function(contentWindow){
 					contentWindow.page();
 				});

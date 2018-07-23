@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.modules.sys.model.SysPostEntity;
 import com.tamguo.modules.sys.model.condition.SysPostCondition;
 import com.tamguo.modules.sys.service.IPostService;
+import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.Result;
 
 @Controller
@@ -48,5 +49,21 @@ public class PostController {
 	public Map<String, Object> listData(SysPostCondition condition) {
 		Page<SysPostEntity> page = iPostService.listData(condition);
 		return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
+	}
+	
+	@RequestMapping(path="save",method=RequestMethod.POST)
+	@ResponseBody
+	public Result save(SysPostEntity post) {
+		try {
+			if(StringUtils.isEmpty(post.getId())) {
+				iPostService.add(post);
+			}else {
+				iPostService.update(post);
+			}
+			return Result.result(0, null, "操作成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("保存岗位", this.getClass(), e);
+		}
+		
 	}
 }

@@ -44,8 +44,8 @@ public class SysPostEntity extends SuperEntity<SysPostEntity> implements Seriali
 	public SysPostTypeEnum getPostType() {
 		return postType;
 	}
-	public void setPostType(SysPostTypeEnum postType) {
-		this.postType = postType;
+	public void setPostType(String postType) {
+		this.postType = SysPostTypeEnum.getPostType(postType);
 	}
 	public Integer getSorts() {
 		return sorts;

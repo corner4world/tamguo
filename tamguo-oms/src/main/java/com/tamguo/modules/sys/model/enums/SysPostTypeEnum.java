@@ -19,6 +19,19 @@ public enum SysPostTypeEnum implements IEnum {
         this.value = value;
         this.desc = desc;
     }
+    
+    public static SysPostTypeEnum getPostType(String postType) {
+    	if("gaoguan".equals(postType)) {
+    		return SysPostTypeEnum.GAOGUAN;
+    	}else if("zhongceng".equals(postType)) {
+    		return SysPostTypeEnum.ZHONGCENG;
+    	}else if("jiceng".equals(postType)) {
+    		return SysPostTypeEnum.JICENG;
+    	}else if("qita".equals(postType)) {
+    		return SysPostTypeEnum.QITA;
+    	}
+    	return null;
+    }
 
     public Serializable getValue() {
         return this.value;
