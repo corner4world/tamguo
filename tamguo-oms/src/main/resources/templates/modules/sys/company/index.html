@@ -1,14 +1,10 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8"><meta content="webkit" name="renderer"/>
-<meta http-equiv="X-UA-Compatible"
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
 content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
 content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
 content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
 content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
-<title>机构管理 - JeeSite Demo</title>
-<script th:src="${setting.domain + 'global.min.js?ctx=/js/a'}"></script>
+<title>公司管理 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
 <!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
@@ -25,42 +21,35 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa icon-grid"></i> 机构管理
+				<i class="fa icon-fire"></i> 公司管理
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
 				<a href="#" class="btn btn-default" id="btnRefreshTree" title="刷新"><i class="fa fa-refresh"></i> 刷新</a>
 				<a href="#" class="btn btn-default" id="btnExpandTreeNode" title="展开一级"><i class="fa fa-angle-double-down"></i> 展开</a>
 				<a href="#" class="btn btn-default" id="btnCollapseTreeNode" title="折叠全部"><i class="fa fa-angle-double-up"></i> 折叠</a>
-					<a href="/js/a/sys/office/form" class="btn btn-default btnTool" title="新增机构"><i class="fa fa-plus"></i> 新增</a>
+					<a href="/js/a/sys/company/form" class="btn btn-default btnTool" title="新增公司"><i class="fa fa-plus"></i> 新增</a>
 			</div>
 		</div>
 		<div class="box-body">
 <form id="searchForm" th:action="${setting.domain + 'sys/company/listData'}" method="post" class="form-inline hide" data-page-no="" data-page-size="" data-order-by="">
 				<div class="form-group">
-					<label class="control-label">机构代码：</label>
+					<label class="control-label">公司代码：</label>
 					<div class="control-inline">
 <input type="text" id="viewCode" name="viewCode" value="" maxlength="100" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">机构名称：</label>
+					<label class="control-label">公司名称：</label>
 					<div class="control-inline">
-<input type="text" id="officeName" name="officeName" value="" maxlength="100" class="form-control width-120"/>
+<input type="text" id="companyName" name="companyName" value="" maxlength="200" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">机构全称：</label>
+					<label class="control-label">公司全称：</label>
 					<div class="control-inline">
 <input type="text" id="fullName" name="fullName" value="" maxlength="200" class="form-control width-120"/>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label">机构类型：</label>
-					<div class="control-inline width-90">
-
-<select id="officeType" name="officeType" class="form-control">
-<option value="">&nbsp;</option><option value="1">省级公司</option><option value="2">市级公司</option><option value="3">部门</option></select>					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">状态：</label>
@@ -97,32 +86,34 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'机构名称', name:'name', index:'a.office_name', width:250, align:"left", frozen:true, formatter: function(val, obj, row, act){
-			return '( '+row.id+' ) '+'<a href="/js/a/sys/office/form?officeCode='+row.id+'" class="btnList" data-title="编辑机构">'+(val||row.id)+'</a>';
+		{header:'公司名称', name:'name', index:'a.company_name', width:250, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '( '+row.code+' ) '+'<a href="/js/a/sys/company/form?companyCode='+row.uid+'" class="btnList" data-title="编辑公司">'+(val||row.code)+'</a>';
 		}},
-		{header:'机构全称', name:'fullName', index:'a.full_name', width:200, align:"left"},
-		{header:'机构类型', name:'type', index:'a.office_type', width:100, align:"center", formatter: function(val, obj, row, act){
-			return "股份公司";
-		}},
-		{header:'更新时间', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'公司全称', name:'fullName', index:'a.full_name', width:200, align:"left"},
+		{header:'排序号', name:'treeSort', index:'a.tree_sort', width:80, align:"center"},
+		{header:'归属区域', name:'area.treeNames', index:'a.areaCode', width:200, align:"center"},
+		{header:'更新时间', name:'updateDate', index:'a.update_date', width:200, align:"center"},
 		{header:'备注信息', name:'remarks', index:'a.remarks', width:200, align:"left"},
-		{header:'操作', name:'actions', width:150, sortable:false, title:false, formatter: function(val, obj, row, act){
+		{header:'状态', name:'status', index:'a.status', width:80, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"1019065439174938624","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":20,"treeSorts":"0000000020,","treeNames":"正常","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439174938624","dictLabelOrig":"正常","dictType":"sys_status","cssStyle":"","description":"","dictValue":"0","dictLabel":"正常","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439330127872","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":30,"treeSorts":"0000000030,","treeNames":"删除","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439330127872","dictLabelOrig":"删除","dictType":"sys_status","cssStyle":"color:#f00;","description":"","dictValue":"1","dictLabel":"删除","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439481122816","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":40,"treeSorts":"0000000040,","treeNames":"停用","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439481122816","dictLabelOrig":"停用","dictType":"sys_status","cssStyle":"color:#f00;","description":"","dictValue":"2","dictLabel":"停用","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439699226624","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":50,"treeSorts":"0000000050,","treeNames":"冻结","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439699226624","dictLabelOrig":"冻结","dictType":"sys_status","cssStyle":"color:#fa0;","description":"","dictValue":"3","dictLabel":"冻结","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439875387392","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":60,"treeSorts":"0000000060,","treeNames":"待审","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439875387392","dictLabelOrig":"待审","dictType":"sys_status","cssStyle":"","description":"","dictValue":"4","dictLabel":"待审","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065440022188032","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":70,"treeSorts":"0000000070,","treeNames":"驳回","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065440022188032","dictLabelOrig":"驳回","dictType":"sys_status","cssStyle":"","description":"","dictValue":"5","dictLabel":"驳回","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065440210931712","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":80,"treeSorts":"0000000080,","treeNames":"草稿","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065440210931712","dictLabelOrig":"草稿","dictType":"sys_status","cssStyle":"color:#aaa;","description":"","dictValue":"9","dictLabel":"草稿","parentCode":"0","isRoot":true,"isTreeLeaf":true}], val, '未知', true);
+		}},
+		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="/js/a/sys/office/form?officeCode='+row.officeCode+'" class="btnList" title="编辑机构"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="/js/a/sys/company/form?companyCode='+row.companyCode+'" class="btnList" title="编辑公司"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == Global.STATUS_NORMAL){
 					actions.push('<a href="/js/a/sys/office/disable?officeCode='+row.officeCode+'" class="btnList" title="停用机构" data-confirm="确认要停用该机构吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
 				if (row.status == Global.STATUS_DISABLE){
 					actions.push('<a href="/js/a/sys/office/enable?officeCode='+row.officeCode+'" class="btnList" title="启用机构" data-confirm="确认要启用该机构吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
-				actions.push('<a href="/js/a/sys/office/delete?officeCode='+row.officeCode+'" class="btnList" title="删除机构" data-confirm="确认要删除该机构及所有子机构吗？" data-deltreenode="'+row.id+'"><i class="fa fa-trash-o"></i></a>&nbsp;');
-				actions.push('<a href="/js/a/sys/office/form?parentCode='+row.id+'" class="btnList" title="新增下级机构"><i class="fa fa-plus-square"></i></a>&nbsp;');
+				actions.push('<a href="/js/a/sys/company/delete?companyCode='+row.companyCode+'" class="btnList" title="删除公司" data-confirm="确认要删除该公司及所有子公司吗？" data-deltreenode="'+row.id+'"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="/js/a/sys/company/form?parentCode='+row.id+'" class="btnList" title="新增下级公司"><i class="fa fa-plus-square"></i></a>&nbsp;');
 			return actions.join('');
 		}}
 	],
 	treeGrid: true,			// 启用树结构表格
 	defaultExpandLevel: 0,	// 默认展开的层次
-	expandNodeClearPostData: 'viewCode,officeName,fullName,officeType,', // 展开节点清理请求参数数据（一般设置查询条件的字段属性，否则在查询后，不能展开子节点数据）	// 加载成功后执行事件
+	expandNodeClearPostData: 'viewCode,companyName,fullName,', // 展开节点清理请求参数数据（一般设置查询条件的字段属性，否则在查询后，不能展开子节点数据）	// 加载成功后执行事件
 	ajaxSuccess: function(data){
 		
 	}

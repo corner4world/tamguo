@@ -121,7 +121,7 @@ $("#companyButton,#companyName").click(function(){
 					js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
 					return false;
 				}
-				var code = nodes[i]['uid'], name = nodes[i]['name'];
+				var code = nodes[i]['id'], name = nodes[i]['name'];
 				codes.push(code.replace(/^u_/g,''));
 				names.push(name.replace(/\([0-9]*\)/g,''));
 				break;

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
+import com.tamguo.modules.sys.model.enums.SysCompanyStatusEnum;
 
 /**
  * The persistent class for the sys_company database table.
@@ -14,6 +15,7 @@ import com.tamguo.config.dao.SuperEntity;
 public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private String code;
 	private String name;
 	private String fullName;
 	private String type;
@@ -27,6 +29,7 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	private Boolean isLeaf;
 	private Integer treeLevel;
 	private Date updateDate;
+	private SysCompanyStatusEnum status;
 	
 	public String getName() {
 		return name;
@@ -108,6 +111,18 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public SysCompanyStatusEnum getStatus() {
+		return status;
+	}
+	public void setStatus(SysCompanyStatusEnum status) {
+		this.status = status;
 	}
 
 }

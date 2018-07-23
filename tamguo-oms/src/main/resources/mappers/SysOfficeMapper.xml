@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tamguo.modules.sys.dao.SysCompanyMapper">
+<mapper namespace="com.tamguo.modules.sys.dao.SysOfficeMapper">
 	
 	<select id="listData" resultType="SysCompanyEntity">
 		SELECT
-			c.id,
-			c.code,
-			c.parent_id,
-			c.is_leaf,
-			c.tree_level,
-			c.name,
-			c.full_name,
-			c.type,
-			c.duty_man,
-			c.tel,
-			c.address,
-			c.zip_code,
-			c.email,
-			c.remarks,
-			c.update_date,
-			c.status
+			o.id,
+			o.parent_id,
+			o.name,
+			o.full_name,
+			o.office_code,
+			o.sorts,
+			o.office_type,
+			o.leader,
+			o.tel,
+			o.address,
+			o.zip_code,
+			o.email,
+			o.remarks,
+			o.`status`,
+			o.is_leaf,
+			o.tree_level
 		FROM
-			sys_company c		
+			sys_office o	
 		<where>
 			1 = 1
 			<choose>
 		        <when test="parentCode != null and parentCode != ''">
-		          	and c.parent_id = #{parentCode}
+		          	and o.parent_id = #{parentCode}
 		        </when>
 		        <otherwise>
-		            and c.tree_level = 0
+		            and o.tree_level = 0
 		        </otherwise>
 		    </choose>
 		</where>
