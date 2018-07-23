@@ -3,6 +3,8 @@ package com.tamguo.modules.sys.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 import com.tamguo.modules.sys.model.enums.SysCompanyStatusEnum;
@@ -29,6 +31,8 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	private Boolean isLeaf;
 	private Integer treeLevel;
 	private Date updateDate;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysCompanyStatusEnum status;
 	
 	public String getName() {
