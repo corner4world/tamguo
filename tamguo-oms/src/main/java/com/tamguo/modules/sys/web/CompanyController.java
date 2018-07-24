@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.tamguo.modules.sys.model.SysCompanyEntity;
 import com.tamguo.modules.sys.model.condition.SysCompanyCondition;
 import com.tamguo.modules.sys.service.ISysCompanyService;
@@ -50,7 +51,7 @@ public class CompanyController {
 
 	@RequestMapping(path="treeData")
 	@ResponseBody
-	public List<SysCompanyEntity> treeData(String excludeId) {
+	public JSONArray treeData(String excludeId) {
 		return iSysCompanyService.treeData(excludeId);
 	}
 }

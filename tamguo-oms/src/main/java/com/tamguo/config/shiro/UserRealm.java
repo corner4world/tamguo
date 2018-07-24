@@ -1,11 +1,5 @@
 package com.tamguo.config.shiro;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -18,12 +12,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
-
-import com.tamguo.modules.sys.model.SysMenuEntity;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
-import com.tamguo.modules.sys.service.ISysMenuService;
 import com.tamguo.modules.sys.service.ISysUserService;
 
 /**
@@ -31,8 +21,6 @@ import com.tamguo.modules.sys.service.ISysUserService;
  * 
  */
 public class UserRealm extends AuthorizingRealm {
-	@Autowired
-    private ISysMenuService sysMenuService;
     
     @Autowired
     private ISysUserService sysUserService;
@@ -42,27 +30,8 @@ public class UserRealm extends AuthorizingRealm {
      */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		SysUserEntity user = (SysUserEntity)principals.getPrimaryPrincipal();
-		String userId = user.getId();
-		
-		List<String> permsList = null;
-		
-		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(userId);
-		permsList = new ArrayList<>();
-		for(SysMenuEntity menu : menuList){
-			permsList.add(menu.getPerms());
-		}
-		//用户权限列表
-		Set<String> permsSet = new HashSet<String>();
-		for(String perms : permsList){
-			if(StringUtils.isEmpty(perms)){
-				continue;
-			}
-			permsSet.addAll(Arrays.asList(perms.trim().split(",")));
-		}
-		
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		info.setStringPermissions(permsSet);
+	//	info.setStringPermissions(permsSet);
 		
 		return info;
 	}
@@ -77,7 +46,7 @@ public class UserRealm extends AuthorizingRealm {
         String password = new String((char[]) token.getCredentials());
         
         //查询用户信息
-        SysUserEntity user = sysUserService.queryByUserName(username);
+        SysUserEntity user = sysUserService.queryByLoginCode(username);
         
         //账号不存在
         if(user == null) {

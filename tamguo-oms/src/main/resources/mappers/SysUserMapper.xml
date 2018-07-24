@@ -2,64 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tamguo.modules.sys.dao.SysUserMapper">
 	
-	<select id="queryByUserName" resultType="SysUserEntity">
+	<select id="queryByLoginCode" resultType="SysUserEntity">
 		SELECT
-			u.id,
-			u.user_name,
-			u.role_ids,
-			u.password,
-			u.status,
-			u.nick_name,
-			u.mobile,
-			u.email
+			u.*
 		FROM
 			sys_user u
 		WHERE
-			u.user_name = #{username}
+			u.login_code = #{loginCode}
   	</select>
   	
   	<select id="listData" resultType="SysUserEntity">
-  		SELECT
-			u.id,
-			u.user_name,
-			u.name,
-			u.role_ids,
-			u.company_id,
-			c.name as company_name,
-			u.password,
-			u.status,
-			u.nick_name,
-			u.mobile,
-			u.email,
-			u.update_date,
-			u.create_date
+		SELECT
+			u.*
 		FROM
 			sys_user u
-		LEFT JOIN sys_company c ON u.company_id = c.id
-		<where>
-			1 = 1
-			<if test="userName != null and userName != ''">
-				and u.user_name = #{userName}
-			</if>
-			<if test="nickName != null and nickName != ''">
-				and u.nick_name like #{nickName}
-			</if>
-			<if test="name != null and name != ''">
-				and u.nick_name like #{nickName}
-			</if>
-			<if test="companyCode != null and companyCode != ''">
-				and u.company_ids like #{companyCode}
-			</if>
-			<if test="email != null and email != ''">
-				and u.email = #{email}
-			</if>
-			<if test="mobile != null and mobile != ''">
-				and u.mobile = #{mobile}
-			</if>
-			<if test="status != null and status != ''">
-				and u.status = #{status}
-			</if>
-		</where>
   	</select>
 
 </mapper>

@@ -5,19 +5,19 @@ content="no-cache, no-store, must-revalidate"/><meta name="description" content=
 content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
 content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <title>用户管理 - JeeSite Demo</title>
-<script src="http://localhost/global.min.js?ctx=/js/a"></script>
-<script src="http://localhost/jquery/jquery-1.12.4.min.js"></script>
-<script src="http://localhost/jquery/jquery-migrate-1.4.1.min.js"></script>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
 <!--[if lt IE 9]><script src="http://localhost/common/h5fix.min.js"></script><![endif]-->
-<link rel="stylesheet" href="http://localhost/fonts/font-icons.min.css">
-<link rel="stylesheet" href="http://localhost/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://localhost/select2/4.0/select2.css?V4.0-07201614">
-<link rel="stylesheet" href="http://localhost/icheck/1.0/minimal/grey.css?V4.0-07201614">
-<link rel="stylesheet" href="http://localhost/jquery-ztree/3.5/css/metro/zTreeStyle.css?V4.0-07201614">
-<link rel="stylesheet" href="http://localhost/jquery-plugins/jquery.layout-latest.css?V4.0-07201614">
-<link rel="stylesheet" href="http://localhost/adminlte/css/AdminLTE.min.css?V4.0-07201614">
-<link rel="stylesheet" href="http://localhost/common/jeesite.css?V4.0-07201614">
-<link rel="stylesheet" href="http://localhost/common/common.css?V4.0-07201614">
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jquery-ztree/3.5/css/metro/zTreeStyle.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jquery-plugins/jquery.layout-latest.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
 </head><body class="hold-transition ">
 <div class="ui-layout-west">
 	<div class="main-content">
@@ -45,18 +45,18 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 </div>
 
 <a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
-<script src="http://localhost/bootstrap/js/bootstrap.min.js"></script>
-<script src="http://localhost/select2/4.0/select2.js?V4.0-07201614"></script>
-<script src="http://localhost/select2/4.0/i18n/zh_CN.js?V4.0-07201614"></script>
-<script src="http://localhost/layer/3.1/layer.js?V4.0-07201614"></script>
-<script src="http://localhost/my97/WdatePicker.js?V4.0-07201614"></script>
-<script src="http://localhost/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js?V4.0-07201614"></script>
-<script src="http://localhost/jquery/jquery-ui-draggable-1.12.1.min.js?V4.0-07201614"></script>
-<script src="http://localhost/jquery/jquery-ui-effect-1.12.1.min.js?V4.0-07201614"></script>
-<script src="http://localhost/jquery-plugins/jquery.layout-latest.js?V4.0-07201614"></script>
-<script src="http://localhost/common/jeesite.js?V4.0-07201614"></script>
-<script src="http://localhost/common/i18n/jeesite_zh_CN.js?V4.0-07201614"></script>
-<script src="http://localhost/common/common.js?V4.0-07201614"></script>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jquery-ztree/3.5/js/jquery.ztree.all-3.5.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-ui-draggable-1.12.1.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-ui-effect-1.12.1.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery-plugins/jquery.layout-latest.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
 <script>
 // 初始化布局
 $('body').layout({
@@ -65,7 +65,7 @@ $('body').layout({
 // 主页框架
 var win = $("#mainFrame")[0].contentWindow;
 // 树结构初始化加载
-var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData: {enable: true,idKey: "id",pIdKey: "parentId",rootPId: "",enable:true},key: {url:"nourl"}},
+var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData: {enable: true},key: {url:"nourl"}},
 	callback:{onClick:function(event, treeId, treeNode){
 		tree.expandNode(treeNode);
 		win.$('input[type=reset]').click();
@@ -74,7 +74,7 @@ var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData: 
 		win.page();
 	}}
 }, tree, loadTree = function(){
-	js.ajaxSubmit("http://localhost/sys/company/treeData?___t=" + new Date().getTime(), {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
+	js.ajaxSubmit(ctx + "sys/company/treeData?___t=" + new Date().getTime(), {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
 		tree = $.fn.zTree.init($("#tree"), setting, data);//.expandAll(true);
 		// 展开第一级节点
 		var nodes = tree.getNodesByParam("level", 0);

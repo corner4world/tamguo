@@ -1,49 +1,182 @@
 package com.tamguo.modules.sys.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.baomidou.mybatisplus.annotations.TableField;
+
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.tamguo.config.dao.SuperEntity;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 
 
 /**
- * The persistent class for the reaps_sys_user database table.
+ * The persistent class for the sys_user database table.
  * 
  */
 @TableName(value="sys_user")
-public class SysUserEntity extends SuperEntity<SysUserEntity> implements Serializable {
+public class SysUserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String userName;
-	private String nickName;
-	private String name;
-	private String mobile;
-	private String email;
-	private String password;
-	private String roleIds;
-	private String companyId;
-	private String companyIds;
+	private String userCode;
+	private String avatar;
+	private String corpCode;
+	private String corpName;
+	private String createBy;
 	private Date createDate;
-	private Date updateDate;
-	
-	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private String email;
+	private String freezeCause;
+	private Date freezeDate;
+	private Date lastLoginDate;
+	private String lastLoginIp;
+	private String loginCode;
+	private String mgrType;
+	private String mobile;
+	private String mobileImei;
+	private String password;
+	private String phone;
+	private Date pwdQuestUpdateDate;
+	private String pwdQuestion;
+	private String pwdQuestion2;
+	private String pwdQuestion3;
+	private String pwdQuestionAnswer;
+	private String pwdQuestionAnswer2;
+	private String pwdQuestionAnswer3;
+	private BigDecimal pwdSecurityLevel;
+	private Date pwdUpdateDate;
+	private String pwdUpdateRecord;
+	private String refCode;
+	private String refName;
+	private String remarks;
+	private String sex;
+	private String sign;
 	private SysUserStatusEnum status;
-	
-	private String safeKeyValue;
-	private Long createTime;
+	private String updateBy;
+	private Date updateDate;
+	private String userName;
+	private String userType;
+	private BigDecimal userWeight;
+	private String wxOpenid;
 
-	@TableField(exist=false)
-	private List<String> roleIdList;
-	
-	@TableField(exist=false)
-	private String companyName;
-	
 	public SysUserEntity() {
+	}
+
+	public String getUserCode() {
+		return this.userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
+	public String getAvatar() {
+		return this.avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getCorpCode() {
+		return this.corpCode;
+	}
+
+	public void setCorpCode(String corpCode) {
+		this.corpCode = corpCode;
+	}
+
+	public String getCorpName() {
+		return this.corpName;
+	}
+
+	public void setCorpName(String corpName) {
+		this.corpName = corpName;
+	}
+
+	public String getCreateBy() {
+		return this.createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	public Date getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFreezeCause() {
+		return this.freezeCause;
+	}
+
+	public void setFreezeCause(String freezeCause) {
+		this.freezeCause = freezeCause;
+	}
+
+	public Date getFreezeDate() {
+		return this.freezeDate;
+	}
+
+	public void setFreezeDate(Date freezeDate) {
+		this.freezeDate = freezeDate;
+	}
+
+	public Date getLastLoginDate() {
+		return this.lastLoginDate;
+	}
+
+	public void setLastLoginDate(Date lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
+	}
+
+	public String getLastLoginIp() {
+		return this.lastLoginIp;
+	}
+
+	public void setLastLoginIp(String lastLoginIp) {
+		this.lastLoginIp = lastLoginIp;
+	}
+
+	public String getLoginCode() {
+		return this.loginCode;
+	}
+
+	public void setLoginCode(String loginCode) {
+		this.loginCode = loginCode;
+	}
+
+	public String getMgrType() {
+		return this.mgrType;
+	}
+
+	public void setMgrType(String mgrType) {
+		this.mgrType = mgrType;
+	}
+
+	public String getMobile() {
+		return this.mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getMobileImei() {
+		return this.mobileImei;
+	}
+
+	public void setMobileImei(String mobileImei) {
+		this.mobileImei = mobileImei;
 	}
 
 	public String getPassword() {
@@ -54,125 +187,188 @@ public class SysUserEntity extends SuperEntity<SysUserEntity> implements Seriali
 		this.password = password;
 	}
 
-	public String getRoleIds() {
-		return this.roleIds;
+	public String getPhone() {
+		return this.phone;
 	}
 
-	public void setRoleIds(String roleIds) {
-		this.roleIds = roleIds;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getUserName() {
-		return userName;
+	public Date getPwdQuestUpdateDate() {
+		return this.pwdQuestUpdateDate;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setPwdQuestUpdateDate(Date pwdQuestUpdateDate) {
+		this.pwdQuestUpdateDate = pwdQuestUpdateDate;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getPwdQuestion() {
+		return this.pwdQuestion;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setPwdQuestion(String pwdQuestion) {
+		this.pwdQuestion = pwdQuestion;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getPwdQuestion2() {
+		return this.pwdQuestion2;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setPwdQuestion2(String pwdQuestion2) {
+		this.pwdQuestion2 = pwdQuestion2;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPwdQuestion3() {
+		return this.pwdQuestion3;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPwdQuestion3(String pwdQuestion3) {
+		this.pwdQuestion3 = pwdQuestion3;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
+	public String getPwdQuestionAnswer() {
+		return this.pwdQuestionAnswer;
 	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
+	public void setPwdQuestionAnswer(String pwdQuestionAnswer) {
+		this.pwdQuestionAnswer = pwdQuestionAnswer;
 	}
 
-	public List<String> getRoleIdList() {
-		return roleIdList;
+	public String getPwdQuestionAnswer2() {
+		return this.pwdQuestionAnswer2;
 	}
 
-	public void setRoleIdList(List<String> roleIdList) {
-		this.roleIdList = roleIdList;
+	public void setPwdQuestionAnswer2(String pwdQuestionAnswer2) {
+		this.pwdQuestionAnswer2 = pwdQuestionAnswer2;
 	}
 
-	public String getSafeKeyValue() {
-		return safeKeyValue;
+	public String getPwdQuestionAnswer3() {
+		return this.pwdQuestionAnswer3;
 	}
 
-	public void setSafeKeyValue(String safeKeyValue) {
-		this.safeKeyValue = safeKeyValue;
+	public void setPwdQuestionAnswer3(String pwdQuestionAnswer3) {
+		this.pwdQuestionAnswer3 = pwdQuestionAnswer3;
+	}
+
+	public BigDecimal getPwdSecurityLevel() {
+		return this.pwdSecurityLevel;
+	}
+
+	public void setPwdSecurityLevel(BigDecimal pwdSecurityLevel) {
+		this.pwdSecurityLevel = pwdSecurityLevel;
+	}
+
+	public Date getPwdUpdateDate() {
+		return this.pwdUpdateDate;
+	}
+
+	public void setPwdUpdateDate(Date pwdUpdateDate) {
+		this.pwdUpdateDate = pwdUpdateDate;
+	}
+
+	public String getPwdUpdateRecord() {
+		return this.pwdUpdateRecord;
+	}
+
+	public void setPwdUpdateRecord(String pwdUpdateRecord) {
+		this.pwdUpdateRecord = pwdUpdateRecord;
+	}
+
+	public String getRefCode() {
+		return this.refCode;
+	}
+
+	public void setRefCode(String refCode) {
+		this.refCode = refCode;
+	}
+
+	public String getRefName() {
+		return this.refName;
+	}
+
+	public void setRefName(String refName) {
+		this.refName = refName;
+	}
+
+	public String getRemarks() {
+		return this.remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getSex() {
+		return this.sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getSign() {
+		return this.sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
 	}
 
 	public SysUserStatusEnum getStatus() {
-		return status;
+		return this.status;
 	}
 
 	public void setStatus(SysUserStatusEnum status) {
 		this.status = status;
 	}
 
-	public String getName() {
-		return name;
+	public String getUpdateBy() {
+		return this.updateBy;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	public String getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
 	}
 
 	public Date getUpdateDate() {
-		return updateDate;
+		return this.updateDate;
 	}
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public String getUserName() {
+		return this.userName;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getCompanyIds() {
-		return companyIds;
+	public String getUserType() {
+		return this.userType;
 	}
 
-	public void setCompanyIds(String companyIds) {
-		this.companyIds = companyIds;
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
+	public BigDecimal getUserWeight() {
+		return this.userWeight;
+	}
+
+	public void setUserWeight(BigDecimal userWeight) {
+		this.userWeight = userWeight;
+	}
+
+	public String getWxOpenid() {
+		return this.wxOpenid;
+	}
+
+	public void setWxOpenid(String wxOpenid) {
+		this.wxOpenid = wxOpenid;
+	}
 
 }

@@ -6,7 +6,7 @@ import com.tamguo.modules.sys.model.condition.SysUserCondition;
 
 public interface ISysUserService {
 	
-	public SysUserEntity queryByUserName(String username);
+	public SysUserEntity queryByLoginCode(String loginCode);
 	
 	public Page<SysUserEntity> listData(SysUserCondition condition);
 }

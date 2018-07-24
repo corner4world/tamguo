@@ -19,8 +19,8 @@ public class SysUserServiceImpl implements ISysUserService{
 	
 	@Transactional(readOnly=false)
 	@Override
-	public SysUserEntity queryByUserName(String username) {
-		return sysUserMapper.queryByUserName(username);
+	public SysUserEntity queryByLoginCode(String loginCode) {
+		return sysUserMapper.queryByLoginCode(loginCode);
 	}
 
 

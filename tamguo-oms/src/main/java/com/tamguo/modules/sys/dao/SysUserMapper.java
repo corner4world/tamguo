@@ -11,7 +11,7 @@ import com.tamguo.modules.sys.model.condition.SysUserCondition;
 
 public interface SysUserMapper extends SuperMapper<SysUserEntity>{
 
-	SysUserEntity queryByUserName(String username);
+	SysUserEntity queryByLoginCode(@Param(value="loginCode")String loginCode);
 
 	List<SysUserEntity> queryPage(@Param(value="userName")String userName , Page<SysUserEntity> page);
 

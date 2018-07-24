@@ -1,13 +1,11 @@
 package com.tamguo.modules.sys.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.tamguo.modules.sys.model.enums.SysCompanyStatusEnum;
+
 
 /**
  * The persistent class for the sys_company database table.
@@ -17,90 +15,188 @@ import com.tamguo.modules.sys.model.enums.SysCompanyStatusEnum;
 public class SysCompanyEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String id;
-	private String name;
+	private String companyCode;
+	private String areaCode;
+	private String companyName;
+	private String corpCode;
+	private String corpName;
+	private String createBy;
+	private Date createDate;
 	private String fullName;
-	private String type;
+	private String parentCode;
+	private String parentCodes;
 	private String remarks;
-	private String parentId;
-	private Boolean isLeaf;
-	private Integer treeLevel;
+	private String status;
+	private String treeLeaf;
+	private BigDecimal treeLevel;
+	private String treeNames;
+	private BigDecimal treeSort;
+	private String treeSorts;
+	private String updateBy;
 	private Date updateDate;
-	
-	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
-	private SysCompanyStatusEnum status;
-	
-	@TableField(exist=false)
-	private String parentName;
-	
-	public String getName() {
-		return name;
+	private String viewCode;
+
+	public SysCompanyEntity() {
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public String getCompanyCode() {
+		return this.companyCode;
 	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getAreaCode() {
+		return this.areaCode;
+	}
+
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
+	}
+
+	public String getCompanyName() {
+		return this.companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getCorpCode() {
+		return this.corpCode;
+	}
+
+	public void setCorpCode(String corpCode) {
+		this.corpCode = corpCode;
+	}
+
+	public String getCorpName() {
+		return this.corpName;
+	}
+
+	public void setCorpName(String corpName) {
+		this.corpName = corpName;
+	}
+
+	public String getCreateBy() {
+		return this.createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	public Date getCreateDate() {
+		return this.createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	public String getFullName() {
-		return fullName;
+		return this.fullName;
 	}
+
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	public String getType() {
-		return type;
+
+	public String getParentCode() {
+		return this.parentCode;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+
+	public String getParentCodes() {
+		return this.parentCodes;
 	}
+
+	public void setParentCodes(String parentCodes) {
+		this.parentCodes = parentCodes;
+	}
+
 	public String getRemarks() {
-		return remarks;
+		return this.remarks;
 	}
+
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public Integer getTreeLevel() {
-		return treeLevel;
+
+	public String getStatus() {
+		return this.status;
 	}
-	public void setTreeLevel(Integer treeLevel) {
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getTreeLeaf() {
+		return this.treeLeaf;
+	}
+
+	public void setTreeLeaf(String treeLeaf) {
+		this.treeLeaf = treeLeaf;
+	}
+
+	public BigDecimal getTreeLevel() {
+		return this.treeLevel;
+	}
+
+	public void setTreeLevel(BigDecimal treeLevel) {
 		this.treeLevel = treeLevel;
 	}
-	public Boolean getIsLeaf() {
-		return isLeaf;
+
+	public String getTreeNames() {
+		return this.treeNames;
 	}
-	public void setIsLeaf(Boolean isLeaf) {
-		this.isLeaf = isLeaf;
+
+	public void setTreeNames(String treeNames) {
+		this.treeNames = treeNames;
 	}
+
+	public BigDecimal getTreeSort() {
+		return this.treeSort;
+	}
+
+	public void setTreeSort(BigDecimal treeSort) {
+		this.treeSort = treeSort;
+	}
+
+	public String getTreeSorts() {
+		return this.treeSorts;
+	}
+
+	public void setTreeSorts(String treeSorts) {
+		this.treeSorts = treeSorts;
+	}
+
+	public String getUpdateBy() {
+		return this.updateBy;
+	}
+
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+
 	public Date getUpdateDate() {
-		return updateDate;
+		return this.updateDate;
 	}
+
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	public SysCompanyStatusEnum getStatus() {
-		return status;
+
+	public String getViewCode() {
+		return this.viewCode;
 	}
-	public void setStatus(SysCompanyStatusEnum status) {
-		this.status = status;
-	}
-	public String getParentName() {
-		return parentName;
-	}
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getParentId() {
-		return parentId;
-	}
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
+
+	public void setViewCode(String viewCode) {
+		this.viewCode = viewCode;
 	}
 
 }
