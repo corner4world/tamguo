@@ -61,8 +61,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 									<option value="">&nbsp;</option>
 									<option value="gaoguan" th:selected="${post.postType.value=='gaoguan'}? true : false">高管</option>
 									<option value="zhongceng" th:selected="${post.postType.value=='zhongceng'}? true : false">中层</option>
-									<option value="jiceng" th:select="${post.postType.value=='jiceng'}? true : false">基层</option>
-									<option value="qita" th:select="${post.postType.value=='qita'}? true : false">其它</option>
+									<option value="jiceng" th:selected="${post.postType.value=='jiceng'}? true : false">基层</option>
+									<option value="qita" th:selected="${post.postType.value=='qita'}? true : false">其它</option>
 								</select>							
 							</div>
 						</div>
