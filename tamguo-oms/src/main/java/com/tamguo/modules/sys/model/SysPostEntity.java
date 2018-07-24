@@ -1,84 +1,131 @@
 package com.tamguo.modules.sys.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.tamguo.config.dao.SuperEntity;
 import com.tamguo.modules.sys.model.enums.SysPostStatusEnum;
-import com.tamguo.modules.sys.model.enums.SysPostTypeEnum;
 
+
+/**
+ * The persistent class for the sys_post database table.
+ * 
+ */
 @TableName(value="sys_post")
-public class SysPostEntity extends SuperEntity<SysPostEntity> implements Serializable{
-
+public class SysPostEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	private String name;
-	private String code;
-	
-	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
-	private SysPostTypeEnum postType;
-	
-	private Integer sorts;
-	private String remarks;
+
+	private String postCode;
+	private String corpCode;
+	private String corpName;
+	private String createBy;
 	private Date createDate;
-	private Date updateDate;
-	
-	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private String postName;
+	private BigDecimal postSort;
+	private String postType;
+	private String remarks;
 	private SysPostStatusEnum status;
-	
-	public String getName() {
-		return name;
+	private String updateBy;
+	private Date updateDate;
+
+	public SysPostEntity() {
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public String getPostCode() {
+		return this.postCode;
 	}
-	public String getCode() {
-		return code;
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
 	}
-	public void setCode(String code) {
-		this.code = code;
+
+	public String getCorpCode() {
+		return this.corpCode;
 	}
-	public SysPostTypeEnum getPostType() {
-		return postType;
+
+	public void setCorpCode(String corpCode) {
+		this.corpCode = corpCode;
 	}
-	public void setPostType(String postType) {
-		this.postType = SysPostTypeEnum.getPostType(postType);
+
+	public String getCorpName() {
+		return this.corpName;
 	}
-	public Integer getSorts() {
-		return sorts;
+
+	public void setCorpName(String corpName) {
+		this.corpName = corpName;
 	}
-	public void setSorts(Integer sorts) {
-		this.sorts = sorts;
+
+	public String getCreateBy() {
+		return this.createBy;
 	}
-	public String getRemarks() {
-		return remarks;
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
 	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+
 	public Date getCreateDate() {
-		return createDate;
+		return this.createDate;
 	}
+
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public Date getUpdateDate() {
-		return updateDate;
+
+	public String getPostName() {
+		return this.postName;
 	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+
+	public void setPostName(String postName) {
+		this.postName = postName;
 	}
+
+	public BigDecimal getPostSort() {
+		return this.postSort;
+	}
+
+	public void setPostSort(BigDecimal postSort) {
+		this.postSort = postSort;
+	}
+
+	public String getPostType() {
+		return this.postType;
+	}
+
+	public void setPostType(String postType) {
+		this.postType = postType;
+	}
+
+	public String getRemarks() {
+		return this.remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
 	public SysPostStatusEnum getStatus() {
-		return status;
+		return this.status;
 	}
+
 	public void setStatus(SysPostStatusEnum status) {
 		this.status = status;
 	}
-	
+
+	public String getUpdateBy() {
+		return this.updateBy;
+	}
+
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+
+	public Date getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
 }

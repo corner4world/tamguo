@@ -4,31 +4,11 @@
 	
 	<select id="listData" resultType="SysPostEntity">
 		SELECT
-			p.id,
-			p. NAME,
-			p.`code`,
-			p.post_type,
-			p.sorts,
-			p.remarks,
-			p.create_date,
-			p.update_date,
-			p.status
+			p.*
 		FROM
 			sys_post p
 		<where>
 			1 = 1
-			<if test="code != null and code != ''">
-				and p.code = #{code}
-			</if>
-			<if test="name != null and name != ''">
-				and p.name like #{name}
-			</if>
-			<if test="postType != null and postType != ''">
-				and p.post_type like #{postType}
-			</if>
-			<if test="status != null and status != ''">
-				and p.status like #{status}
-			</if>
 		</where>
 	</select>
 	

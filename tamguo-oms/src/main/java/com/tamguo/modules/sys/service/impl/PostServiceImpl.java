@@ -37,12 +37,6 @@ public class PostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity> i
 	@Transactional(readOnly=false)
 	@Override
 	public void update(SysPostEntity post) {
-		SysPostEntity entity = sysPostMapper.selectById(post.getId());
-		entity.setCode(post.getCode());
-		entity.setName(post.getName());
-		entity.setPostType(post.getPostType().getValue().toString());
-		entity.setRemarks(post.getRemarks());
-		entity.setSorts(post.getSorts());
 		post.setUpdateDate(new Date());
 		sysPostMapper.updateById(post);
 	}

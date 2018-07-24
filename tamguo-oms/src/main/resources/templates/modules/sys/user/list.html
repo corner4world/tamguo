@@ -1,4 +1,3 @@
-
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
 content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
 content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
@@ -81,8 +80,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 					<label class="control-label">机构：</label>
 					<div class="control-inline width-90">
 <div class="input-group treeselect" id="officeDiv" data-url="sys/office/treeData">
-	<input id="officeCode" type="hidden" name="employee.office.officeCode" value="" class="isReset"/>
-	<input id="officeName" type="text" name="employee.office.officeName" value=""
+	<input id="officeCode" type="hidden" name="officeCode" value="" class="isReset"/>
+	<input id="officeName" type="text" name="officeName" value=""
 		class="form-control  " readonly="readonly"
 	/><span class="input-group-btn"><a id="officeButton" href="javascript:"
 		class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
@@ -167,8 +166,8 @@ $("#officeButton,#officeName").click(function(){
 					<label class="control-label">公司：</label>
 					<div class="control-inline width-90">
 <div class="input-group treeselect" id="companyDiv" data-url="sys/company/treeData">
-	<input id="companyCode" type="hidden" name="employee.company.companyCode" value="" class="isReset"/>
-	<input id="companyName" type="text" name="employee.company.companyName" value=""
+	<input id="companyCode" type="hidden" name="companyCode" value="" class="isReset"/>
+	<input id="companyName" type="text" name="companyName" value=""
 		class="form-control  " readonly="readonly"
 	/><span class="input-group-btn"><a id="companyButton" href="javascript:"
 		class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
@@ -287,6 +286,10 @@ $("#companyButton,#companyName").click(function(){
 <script th:src="${setting.domain + 'common/jeesite.js'}"></script>
 <script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'common/common.js'}"></script>
+
+<!-- VUE -->
+<script th:src="${setting.domain + 'vue/vue.min.js'}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 // 初始化DataGrid对象
 $('#dataGrid').dataGrid({
@@ -370,7 +373,8 @@ $('#btnImport').click(function(){
 	});
 });
 </script>
-<script id="importTpl" type="text/template">//<!--
+<script id="importTpl" type="text/template">
+//<!--
 <form id="inputForm" action="/js/a/sys/empUser/importData" method="post" enctype="multipart/form-data"
 	class="form-horizontal mt20 mb10" style="overflow:auto;max-height:200px;">
 	<div class="row">
@@ -389,4 +393,5 @@ $('#btnImport').click(function(){
 		</div>
 	</div>
 </form>
-//--></script>
+//-->
+</script>
