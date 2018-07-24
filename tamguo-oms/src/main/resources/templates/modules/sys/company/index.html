@@ -86,10 +86,9 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'公司名称', name:'name', index:'a.company_name', width:250, align:"left", frozen:true, formatter: function(val, obj, row, act){
-			return '( '+row.code+' ) '+'<a href="/js/a/sys/company/form?companyCode='+row.code+'" class="btnList" data-title="编辑公司">'+(val||row.code)+'</a>';
+		{header:'公司名称', name:'name', index:'a.name', width:250, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '( '+row.id+' ) '+'<a href="/js/a/sys/company/form?companyCode='+row.id+'" class="btnList" data-title="编辑公司">'+(val||row.id)+'</a>';
 		}},
-		{header:'公司编码', name:'code', index:'a.code',hidden : true, align:"left"},
 		{header:'公司全称', name:'fullName', index:'a.full_name', width:200, align:"left"},
 		{header:'排序号', name:'treeSort', index:'a.tree_sort', width:80, align:"center"},
 		{header:'归属区域', name:'area.treeNames', index:'a.areaCode', width:200, align:"center"},
@@ -100,7 +99,7 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="'+ctx+'sys/company/detail?id='+row.code+'" class="btnList" title="编辑公司"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="'+ctx+'sys/company/detail?id='+row.id+'" class="btnList" title="编辑公司"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == Global.STATUS_NORMAL){
 					actions.push('<a href="/js/a/sys/office/disable?officeCode='+row.officeCode+'" class="btnList" title="停用机构" data-confirm="确认要停用该机构吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}

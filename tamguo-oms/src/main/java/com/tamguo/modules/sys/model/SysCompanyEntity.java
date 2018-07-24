@@ -17,12 +17,12 @@ import com.tamguo.modules.sys.model.enums.SysCompanyStatusEnum;
 public class SysCompanyEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String code;
+	private String id;
 	private String name;
 	private String fullName;
 	private String type;
 	private String remarks;
-	private String parentCode;
+	private String parentId;
 	private Boolean isLeaf;
 	private Integer treeLevel;
 	private Date updateDate;
@@ -78,12 +78,6 @@ public class SysCompanyEntity implements Serializable {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
 	public SysCompanyStatusEnum getStatus() {
 		return status;
 	}
@@ -96,11 +90,17 @@ public class SysCompanyEntity implements Serializable {
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}
-	public String getParentCode() {
-		return parentCode;
+	public String getId() {
+		return id;
 	}
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getParentId() {
+		return parentId;
+	}
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 
 }

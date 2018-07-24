@@ -4,8 +4,8 @@
 	
 	<select id="listData" resultType="SysCompanyEntity">
 		SELECT
-			c.code,
-			c.parent_code,
+			c.id,
+			c.parent_id,
 			c.is_leaf,
 			c.tree_level,
 			c.name,
@@ -20,7 +20,7 @@
 			1 = 1
 			<choose>
 		        <when test="parentCode != null and parentCode != ''">
-		          	and c.parent_code = #{parentCode}
+		          	and c.parent_id = #{parentCode}
 		        </when>
 		        <otherwise>
 		            and c.tree_level = 0
@@ -31,8 +31,8 @@
 	
 	<select id="selectByCode" resultType="SysCompanyEntity">
 		SELECT
-			c.code,
-			c.parent_code,
+			c.id,
+			c.parent_id,
 			c.is_leaf,
 			c.tree_level,
 			c.name,
@@ -44,8 +44,8 @@
 			cp.name as parent_name
 		FROM
 			sys_company c
-		LEFT JOIN sys_company cp on cp.code = c.parent_code
+		LEFT JOIN sys_company cp on cp.id = c.parent_id
 		WHERE
-			c.code = #{code}
+			c.id = #{id}
 	</select>
 </mapper>
