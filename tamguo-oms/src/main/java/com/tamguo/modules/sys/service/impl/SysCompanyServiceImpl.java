@@ -20,15 +20,20 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<SysCompanyEntity> treeData() {
+	public List<SysCompanyEntity> treeData(String excludeId) {
 		
-		List<SysCompanyEntity> companyList = sysCompanyMapper.selectList(Condition.EMPTY);
+		List<SysCompanyEntity> companyList = sysCompanyMapper.selectList(Condition.create().ne("id", excludeId));
 		return companyList;
 	}
 
 	@Override
 	public List<SysCompanyEntity> listData(SysCompanyCondition condition) {
 		return sysCompanyMapper.listData(condition);
+	}
+
+	@Override
+	public SysCompanyEntity select(String id) {
+		return sysCompanyMapper.select(id);
 	}
 	
 }

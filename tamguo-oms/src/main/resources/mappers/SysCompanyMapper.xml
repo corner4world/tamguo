@@ -34,4 +34,30 @@
 		    </choose>
 		</where>
 	</select>
+	
+	<select id="select" resultType="SysCompanyEntity">
+		SELECT
+			c.id,
+			c.code,
+			c.parent_id,
+			c.is_leaf,
+			c.tree_level,
+			c.name,
+			c.full_name,
+			c.type,
+			c.duty_man,
+			c.tel,
+			c.address,
+			c.zip_code,
+			c.email,
+			c.update_date,
+			c.create_date,
+			c.`status`,
+			cp.name as parent_name
+		FROM
+			sys_company c
+		LEFT JOIN sys_company cp on cp.id = c.parent_id
+		WHERE
+			c.id = #{id}
+	</select>
 </mapper>

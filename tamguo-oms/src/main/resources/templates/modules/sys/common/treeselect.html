@@ -56,7 +56,7 @@ var setting = {
 		}
 	}
 }, tree, loadTree = function(){
-	$.get(ctx + [[${url}]] + new Date().getTime(), function(zNodes){
+	$.get(ctx + [[${url}]] +"&t="+ new Date().getTime(), function(zNodes){
 		tree = $.fn.zTree.init($("#tree"), setting, zNodes);//.expandAll(true);
 		var nodes = tree.getNodesByParam("level", 0);
 		for(var i=0, l=nodes.length; i<l; i++) {

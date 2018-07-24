@@ -48,171 +48,15 @@
 									<label class="control-label col-sm-4">上级公司：</label>
 									<div class="col-sm-8">
 										<div class="input-group treeselect" id="parentDiv"
-											data-url="/js/a/sys/company/treeData?excludeCode=SDJN">
-											<input id="parentCode" type="hidden" name="parent.id"
-												value="SD" class="isReset" /> <input id="parentName"
-												type="text" name="parent.companyName" value="山东公司"
-												class="form-control  " readonly="readonly" /><span
-												class="input-group-btn"><a id="parentButton"
-												href="javascript:" class="btn btn-default "><i
-													class="fa fa-search"></i></a> </span>
+											th:attr="data-url=${'sys/company/treeData?excludeId='+ id}">
+											<input id="parentId" type="hidden" name="parentId" v-model="company.parentId" class="isReset" /> 
+											<input id="parentName" type="text" name="parentName" v-model="company.parentName" class="form-control" readonly="readonly" />
+											<span class="input-group-btn">
+												<a id="parentButton" @click="showCompanyDialog" href="javascript:" class="btn btn-default ">
+													<i class="fa fa-search"></i>
+												</a> 
+											</span>
 										</div>
-										<script>
-											$("#parentButton,#parentName")
-													.click(
-															function() {
-																if ($(
-																		"#parentButton")
-																		.hasClass(
-																				"disabled")) {
-																	return true;
-																}
-																var options = {
-																	type : 2,
-																	maxmin : true,
-																	shadeClose : true,
-																	title : '上级公司',
-																	area : [
-																			'300px',
-																			'400px' ],
-																	content : '/js/tags/treeselect',
-																	contentFormData : {
-																		url : $(
-																				'#parentDiv')
-																				.attr(
-																						'data-url'),
-																		checkbox : 'false',
-																		expandLevel : '-1',
-																		selectCodes : $(
-																				"#parentCode")
-																				.val(),
-																		isReturnValue : 'false'
-																	},
-																	success : function(
-																			layero,
-																			index) {
-																		if ($(
-																				js.layer.window)
-																				.width() < 300
-																				|| $(
-																						js.layer.window)
-																						.height() < 400) {
-																			js.layer
-																					.full(index);
-																		}
-																	},
-																	btn : [ '<i class="fa fa-check"></i> 确定' ],
-																	btn1 : function(
-																			index,
-																			layero) {
-																		var win = js.layer
-																				.iframeWindow(index);
-																		win
-																				.$(
-																						'#keyword')
-																				.val(
-																						'')
-																				.change();
-																		var codes = [], names = [], nodes;
-																		if ("false" == "true") {
-																			nodes = win.tree
-																					.getCheckedNodes(true);
-																		} else {
-																			nodes = win.tree
-																					.getSelectedNodes();
-																		}
-																		for (var i = 0; i < nodes.length; i++) {
-																			var code = nodes[i]['false' == 'true' ? 'value'
-																					: 'id'], name = nodes[i]['name'];
-																			codes
-																					.push(code
-																							.replace(
-																									/^u_/g,
-																									''));
-																			names
-																					.push(name
-																							.replace(
-																									/\([0-9]*\)/g,
-																									''));
-																			break;
-																		}
-																		if (typeof treeselectCheck == 'function') {
-																			if (!treeselectCheck(
-																					'parent',
-																					nodes)) {
-																				return false;
-																			}
-																		}
-																		$(
-																				"#parentCode")
-																				.val(
-																						codes
-																								.join(','))
-																				.change();
-																		$(
-																				"#parentName")
-																				.val(
-																						names
-																								.join(','))
-																				.change();
-																		try {
-																			$(
-																					'#parentCode,#parentName')
-																					.valid();
-																		} catch (e) {
-																		}
-																		if (typeof treeselectCallback == 'function') {
-																			treeselectCallback(
-																					'parent',
-																					'ok',
-																					index,
-																					layero,
-																					nodes);
-																		}
-																	}
-																};
-																options.btn
-																		.push('<i class="fa fa-eraser"></i> 清除');
-																options['btn'
-																		+ options.btn.length] = function(
-																		index,
-																		layero) {
-																	$(
-																			"#parentCode")
-																			.val(
-																					'')
-																			.change();
-																	$(
-																			"#parentName")
-																			.val(
-																					'')
-																			.change();
-																	if (typeof treeselectCallback == 'function') {
-																		treeselectCallback(
-																				'parent',
-																				'clear',
-																				index,
-																				layero);
-																	}
-																};
-																options.btn
-																		.push('<i class="fa fa-close"></i> 关闭');
-																options['btn'
-																		+ options.btn.length] = function(
-																		index,
-																		layero) {
-																	if (typeof treeselectCallback == 'function') {
-																		treeselectCallback(
-																				'parent',
-																				'cancel',
-																				index,
-																				layero);
-																	}
-																};
-																js.layer
-																		.open(options);
-															});
-										</script>
 									</div>
 								</div>
 							</div>
@@ -224,8 +68,8 @@
 										class="required ">*</span> 公司名称：<i
 										class="fa icon-question hide"></i></label>
 									<div class="col-sm-8">
-										<input type="text" id="companyName" name="companyName"
-											value="济南公司" maxlength="200" class="form-control required " />
+										<input type="text" id="name" name="name"
+											v-model="company.name" maxlength="200" class="form-control required " @change="changeCompanyName"/>
 									</div>
 								</div>
 							</div>
@@ -234,26 +78,20 @@
 									<label class="control-label col-sm-4" title=""> <span
 										class="required ">*</span> 公司编码：<i
 										class="fa icon-question hide"></i></label>
-									<div class="col-sm-8">
-										<input type="hidden" id="isNewRecord" name="isNewRecord"
-											value="false" /> <input type="hidden" id="companyCode"
-											name="companyCode" value="SDJN" /> <input type="text"
-											id="viewCode" name="viewCode" value="SDJN" maxlength="64"
-											readonly="true" class="form-control required abc" />
-									</div>
+										<div class="col-sm-8">
+											<input type="text" id="code" name="code" v-model="company.code" maxlength="64" class="form-control required abc" />
+										</div>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label class="control-label col-sm-4" title=""> <span
-										class="required ">*</span> 公司全称：<i
-										class="fa icon-question hide"></i></label>
-									<div class="col-sm-8">
-										<input type="text" id="fullName" name="fullName"
-											value="山东济南公司" maxlength="200" class="form-control required " />
-									</div>
+									<label class="control-label col-sm-4" title=""> 
+										<span class="required ">*</span> 公司全称：<i class="fa icon-question hide"></i></label>
+										<div class="col-sm-8">
+											<input type="text" id="fullName" name="fullName" v-model="company.fullName" maxlength="200" class="form-control required " />
+										</div>
 								</div>
 							</div>
 							<div class="col-xs-6">
@@ -676,280 +514,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="box-child collapsed-box">
-							<div class="form-unit" data-widget="collapse-child">
-								扩展字段 <span class="box-tools btn-box-tool"><i
-									class="fa fa-plus"></i></span>
-							</div>
-							<div class="box-body">
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> String 1：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendS1"
-													name="extend.extendS1" value="" maxlength="500"
-													class="form-control " />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> String 2：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendS2"
-													name="extend.extendS2" value="" maxlength="500"
-													class="form-control " />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> String 3：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendS3"
-													name="extend.extendS3" value="" maxlength="500"
-													class="form-control " />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> String 4：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendS4"
-													name="extend.extendS4" value="" maxlength="500"
-													class="form-control " />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> String 5：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendS5"
-													name="extend.extendS5" value="" maxlength="500"
-													class="form-control " />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> String 6：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendS6"
-													name="extend.extendS6" value="" maxlength="500"
-													class="form-control " />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> String 7：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendS7"
-													name="extend.extendS7" value="" maxlength="500"
-													class="form-control " />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> String 8：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendS8"
-													name="extend.extendS8" value="" maxlength="500"
-													class="form-control " />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Integer 1：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendI1"
-													name="extend.extendI1" value="" maxlength="19"
-													class="form-control digits" />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Integer 2：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendI2"
-													name="extend.extendI2" value="" maxlength="19"
-													class="form-control digits" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Integer 3：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendI3"
-													name="extend.extendI3" value="" maxlength="19"
-													class="form-control digits" />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Integer 4：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendI4"
-													name="extend.extendI4" value="" maxlength="19"
-													class="form-control digits" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Float 1：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendF1"
-													name="extend.extendF1" value="" class="form-control number" />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Float 2：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendF2"
-													name="extend.extendF2" value="" class="form-control number" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Float 3：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendF3"
-													name="extend.extendF3" value="" class="form-control number" />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Float 4：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendF4"
-													name="extend.extendF4" value="" class="form-control number" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Date 1：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendD1"
-													name="extend.extendD1" value="" maxlength="20"
-													class="form-control Wdate "
-													onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});" />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Date 2：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendD2"
-													name="extend.extendD2" value="" maxlength="20"
-													class="form-control Wdate "
-													onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Date 3：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendD3"
-													name="extend.extendD3" value="" maxlength="20"
-													class="form-control Wdate "
-													onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});" />
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label class="control-label col-sm-4" title=""> <span
-												class="required hide">*</span> Date 4：<i
-												class="fa icon-question hide"></i></label>
-											<div class="col-sm-8">
-												<input type="text" id="extend_extendD4"
-													name="extend.extendD4" value="" maxlength="20"
-													class="form-control Wdate "
-													onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});" />
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="box-footer">
 						<div class="row">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button type="submit" class="btn btn-sm btn-primary"
-									id="btnSubmit">
+									id="btnSubmit" @click="submit()">
 									<i class="fa fa-check"></i> 保 存
 								</button>
 								&nbsp;
@@ -965,47 +534,134 @@
 		</div>
 	</div>
 
-	<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
-	<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
-	<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
-	<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
-	<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
-	<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
-	<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
-	<script th:src="${setting.domain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
-	<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
-	<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
-	<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
-	<script th:src="${setting.domain + 'common/common.js'}"></script>
-	<script>
-$("#inputForm").validate({
-	submitHandler: function(form){
-		var companyOfficeData = $('#companyOfficeListCode').val().split(',');
-		$("#companyOfficeListJson").val(JSON.stringify(companyOfficeData));
-		js.ajaxSubmitForm($(form), function(data){
-			js.showMessage(data.message);
-			if(data.result == Global.TRUE){
-				js.closeCurrentTabPage(function(contentWindow){
-					contentWindow.$('#dataGrid').dataGrid('refreshTreeChildren',
-							$('#parentCode').val(), 'SDJN');
-				});
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+
+<!-- VUE -->
+<script th:src="${setting.domain + 'vue/vue.min.js'}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+var vm = new Vue({
+	el:'#inputForm',
+	data:{
+		company:{
+			
+		}
+	},
+	methods: {
+		submit:function(){
+			$("#inputForm").validate({
+				submitHandler: function(form){
+					var companyOfficeData = $('#companyOfficeListCode').val().split(',');
+					$("#companyOfficeListJson").val(JSON.stringify(companyOfficeData));
+					js.ajaxSubmitForm($(form), function(data){
+						js.showMessage(data.message);
+						if(data.result == Global.TRUE){
+							js.closeCurrentTabPage(function(contentWindow){
+								contentWindow.$('#dataGrid').dataGrid('refreshTreeChildren',$('#parentCode').val(), 'SDJN');
+							});
+						}
+					}, "json");
+			     }
+			});
+		},
+		getCompany:function(id){
+			axios.get(ctx + "sys/company/info/"+id).then(function(response){
+			    vm.company = response.data.result;
+			})
+		},
+		changeCompanyName:function(){
+			if(vm.company.fullName == ''){
+				Vue.set(vm.company , 'fullName' , vm.company.name);
 			}
-		}, "json");
-    }
-});
-$('#companyName').change(function(){
-	if ($('#fullName').val()==''){
-		$('#fullName').val($(this).val());
+		},
+		showCompanyDialog:function(){
+			if ($("#parentButton").hasClass("disabled")) {
+				return true;
+			}
+			var options = {
+				type : 2,
+				maxmin : true,
+				shadeClose : true,
+				title : '上级公司',
+				area : ['300px','400px' ],
+				content : ctx + 'sys/treeselect',
+				contentFormData : {
+					url : $('#parentDiv').attr('data-url'),
+					checkbox : 'false',
+					expandLevel : '-1',
+					selectCodes : $("#parentCode").val(),
+					isReturnValue : 'false'
+				},
+				success : function(layero,index) {
+					if ($(js.layer.window).width() < 300 || $(js.layer.window).height() < 400) {
+						js.layer.full(index);
+					}
+				},
+				btn : [ '<i class="fa fa-check"></i> 确定' ],
+				btn1 : function(index,layero) {
+					var win = js.layer.iframeWindow(index);
+					win.$('#keyword').val('').change();
+					var codes = [], names = [], nodes;
+					if ("false" == "true") {
+						nodes = win.tree.getCheckedNodes(true);
+					} else {
+						nodes = win.tree.getSelectedNodes();
+					}
+					for (var i = 0; i < nodes.length; i++) {
+						var code = nodes[i]['false' == 'true' ? 'value' : 'id'], name = nodes[i]['name'];
+						codes.push(code.replace(/^u_/g,''));
+						names.push(name.replace(/\([0-9]*\)/g,''));
+						break;
+					}
+					if (typeof treeselectCheck == 'function') {
+						if (!treeselectCheck('parent',nodes)) {
+							return false;
+						}
+					}
+					vm.company.parentId = codes.join(',');
+					vm.company.parentName = names.join(',');
+					try {
+						$('#parentId,#parentName').valid();
+					} catch (e) {
+					}
+					if (typeof treeselectCallback == 'function') {
+						treeselectCallback('parent','ok',index,layero,nodes);
+					}
+				}
+			};
+			options.btn.push('<i class="fa fa-eraser"></i> 清除');
+			options['btn'+ options.btn.length] = function(index,layero) {
+				$("#parentId").val('').change();
+				$("#parentName").val('').change();
+				if (typeof treeselectCallback == 'function') {
+					treeselectCallback('parent','clear',index,layero);
+				}
+			};
+			options.btn.push('<i class="fa fa-close"></i> 关闭');
+			options['btn'+ options.btn.length] = function(index,layero) {
+				if (typeof treeselectCallback == 'function') {
+					treeselectCallback('parent','cancel',index,layero);
+				}
+			};
+			js.layer.open(options);
+		}
+	},
+	watch:{
 	}
 });
-// 选择父级菜单回调方法
-function treeselectCallback(id, act, index, layero){
-	if (id == 'parent' && (act == 'ok' || act == 'clear')){
-		// 创建并初始化下一个节点信息，如：排序号、默认值
-		$.get('/js/a/sys/company/createNextNode?parentCode='
-				+$('#parentCode').val(), function(data){
-			$('#treeSort').val(data.treeSort);
-		});
-	}
+var id = [[${id}]];
+if(!/^(undefined|null|\s*)?$/.test(id)){
+	vm.getCompany(id);
 }
 </script>

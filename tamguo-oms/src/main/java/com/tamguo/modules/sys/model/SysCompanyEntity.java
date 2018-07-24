@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 import com.tamguo.modules.sys.model.enums.SysCompanyStatusEnum;
@@ -34,6 +35,9 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysCompanyStatusEnum status;
+	
+	@TableField(exist=false)
+	private String parentName;
 	
 	public String getName() {
 		return name;
@@ -127,6 +131,12 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	}
 	public void setStatus(SysCompanyStatusEnum status) {
 		this.status = status;
+	}
+	public String getParentName() {
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
 }
