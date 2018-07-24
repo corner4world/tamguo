@@ -36,10 +36,10 @@ public class CompanyController {
 		return model;
 	}
 	
-	@RequestMapping(path="info/{id}")
+	@RequestMapping(path="info/{code}")
 	@ResponseBody
-	public Result info(@PathVariable("id") String id) {
-		return Result.successResult(iSysCompanyService.select(id));
+	public Result info(@PathVariable("code") String code) {
+		return Result.successResult(iSysCompanyService.selectByCode(code));
 	}
 	
 	@RequestMapping(path="listData")

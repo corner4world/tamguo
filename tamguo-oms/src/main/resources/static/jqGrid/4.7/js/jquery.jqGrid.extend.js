@@ -22,7 +22,7 @@
             },
             treeReader: {
                 level_field: "treeLevel",
-                parent_id_field: "parentId",
+                parent_id_field: "parentCode",
                 userdata: "otherData",
                 leaf_field: "isLeaf",
                 expanded_field: "isOpen",

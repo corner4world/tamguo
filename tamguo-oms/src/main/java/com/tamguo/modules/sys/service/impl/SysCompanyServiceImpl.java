@@ -22,7 +22,7 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 	@Override
 	public List<SysCompanyEntity> treeData(String excludeId) {
 		
-		List<SysCompanyEntity> companyList = sysCompanyMapper.selectList(Condition.create().ne("id", excludeId));
+		List<SysCompanyEntity> companyList = sysCompanyMapper.selectList(Condition.create().ne("code", excludeId));
 		return companyList;
 	}
 
@@ -32,8 +32,8 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 	}
 
 	@Override
-	public SysCompanyEntity select(String id) {
-		return sysCompanyMapper.select(id);
+	public SysCompanyEntity selectByCode(String code) {
+		return sysCompanyMapper.selectByCode(code);
 	}
 	
 }

@@ -15,5 +15,5 @@ public interface ISysCompanyService extends IService<SysCompanyEntity>{
 	List<SysCompanyEntity> listData(SysCompanyCondition condition);
 	
 	/** 根据ID查询公司*/
-	SysCompanyEntity select(String id);
+	SysCompanyEntity selectByCode(String code);
 }

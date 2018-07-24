@@ -10,6 +10,6 @@ public interface SysCompanyMapper extends SuperMapper<SysCompanyEntity>{
 
 	List<SysCompanyEntity> listData(SysCompanyCondition condition);
 	
-	SysCompanyEntity select(String id);
+	SysCompanyEntity selectByCode(String code);
 
 }

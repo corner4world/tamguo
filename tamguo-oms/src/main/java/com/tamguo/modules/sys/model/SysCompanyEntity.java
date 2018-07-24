@@ -7,7 +7,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.tamguo.config.dao.SuperEntity;
 import com.tamguo.modules.sys.model.enums.SysCompanyStatusEnum;
 
 /**
@@ -15,20 +14,15 @@ import com.tamguo.modules.sys.model.enums.SysCompanyStatusEnum;
  * 
  */
 @TableName(value="sys_company")
-public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements Serializable {
+public class SysCompanyEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String code;
 	private String name;
 	private String fullName;
 	private String type;
-	private String dutyMan;
-	private String tel;
-	private String address;
-	private String zipCode;
-	private String email;
 	private String remarks;
-	private String parentId;
+	private String parentCode;
 	private Boolean isLeaf;
 	private Integer treeLevel;
 	private Date updateDate;
@@ -57,44 +51,8 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getDutyMan() {
-		return dutyMan;
-	}
-	public void setDutyMan(String dutyMan) {
-		this.dutyMan = dutyMan;
-	}
-	public String getTel() {
-		return tel;
-	}
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getZipCode() {
-		return zipCode;
-	}
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-	public String getParentId() {
-		return parentId;
-	}
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 	public String getRemarks() {
 		return remarks;
@@ -137,6 +95,12 @@ public class SysCompanyEntity extends SuperEntity<SysCompanyEntity> implements S
 	}
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
+	}
+	public String getParentCode() {
+		return parentCode;
+	}
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
 	}
 
 }
