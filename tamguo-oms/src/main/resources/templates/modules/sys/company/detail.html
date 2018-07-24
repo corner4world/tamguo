@@ -47,8 +47,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-4">上级公司：</label>
 									<div class="col-sm-8">
-										<div class="input-group treeselect" id="parentDiv"
-											th:attr="data-url=${'sys/company/treeData?excludeId='+ id}">
+										<div class="input-group treeselect" id="parentDiv">
 											<input id="parentCode" type="hidden" name="parentCode" v-model="company.parentCode" class="isReset" /> 
 											<input id="parentName" type="text" name="parentName" v-model="company.parentName" class="form-control" readonly="readonly" />
 											<span class="input-group-btn">
@@ -597,7 +596,7 @@ var vm = new Vue({
 				area : ['300px','400px' ],
 				content : ctx + 'sys/treeselect',
 				contentFormData : {
-					url : $('#parentDiv').attr('data-url'),
+					url : 'sys/company/treeData?excludeId=' + vm.company.parentId,
 					checkbox : 'false',
 					expandLevel : '-1',
 					selectCodes : $("#parentCode").val(),
