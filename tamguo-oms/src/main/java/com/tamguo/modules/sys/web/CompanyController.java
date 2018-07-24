@@ -17,6 +17,7 @@ import com.tamguo.modules.sys.service.ISysCompanyService;
 public class CompanyController {
 	
 	private final String COMPANY_INDEX_PAGE = "modules/sys/company/index";
+	private final String COMPANY_DETAIL_PAGE = "modules/sys/company/detail";
 
 	@Autowired
 	ISysCompanyService iSysCompanyService;
@@ -24,6 +25,13 @@ public class CompanyController {
 	@RequestMapping(path="index")
 	public String index(ModelAndView model) {
 		return COMPANY_INDEX_PAGE;
+	}
+	
+	@RequestMapping(path="detail")
+	public ModelAndView detail(String id , ModelAndView model) {
+		model.setViewName(COMPANY_DETAIL_PAGE);
+		model.addObject("id", id);
+		return model;
 	}
 	
 	@RequestMapping(path="listData")
