@@ -1,0 +1,138 @@
+
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>菜单管理 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jqGrid/4.7/css/ui.jqgrid.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-book-open"></i> 菜单管理（
+			</div>
+			<div class="box-title dropdown input-inline">
+				<div class="dropdown-toggle" data-hover="dropdown">
+					主导航菜单<b class="caret"></b>
+				</div>
+				<ul class="dropdown-menu">
+<!-- 					 -->					<li><a href="/js/a/sys/menu/list?sysCode=default"> <i
+							class="fa fa-angle-right"></i> 主导航菜单
+					</a></li>
+<!-- 					 -->				</ul>
+			</div>
+			<div class="box-title">）</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+				<a href="#" class="btn btn-default" id="btnRefreshTree" title="刷新"><i class="fa fa-refresh"></i> 刷新</a>
+				<a href="#" class="btn btn-default" id="btnExpandTreeNode" title="展开一级"><i class="fa fa-angle-double-down"></i> 展开</a>
+				<a href="#" class="btn btn-default" id="btnCollapseTreeNode" title="折叠全部"><i class="fa fa-angle-double-up"></i> 折叠</a>
+					<a href="/js/a/sys/menu/form?sysCode=default" class="btn btn-default btnTool" title="新增菜单"><i class="fa fa-plus"></i> 新增</a>
+					<a href="#" class="btn btn-default" id="btnUpdateSort" title="保存排序"><i class="fa fa-sort-amount-asc"></i> 保存排序</a>
+			</div>
+		</div>
+		<div class="box-body">
+<form id="searchForm" th:action="${setting.domain + 'sys/menu/listData'}" method="post" class="form-inline hide">
+<input type="hidden" id="moduleCodes" name="moduleCodes" value="" class="isReset"/>
+<input type="hidden" id="sysCode" name="sysCode" value="default"/>
+				<div class="form-group">
+					<label class="control-label">菜单名称：</label>
+					<div class="control-inline">
+<input type="text" id="menuNameOrig" name="menuNameOrig" value="" maxlength="50" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+</form>
+<form id="dataGridForm" action="/js/a/sys/menu/updateTreeSort" method="post">
+				<table id="dataGrid"></table>
+</form>
+		</div>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.extend.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [ 
+		{header:'菜单名称', name:'menuName', width:200, formatter: function(val, obj, row, act){
+			return '<i class="'+row.menuIcon+'" style="color:'+row.color+'"></i> <a href="/js/a/sys/menu/form?menuCode='
+					+row.id+'" class="btnList" style="color:'+row.color+'" data-title="编辑菜单">'+val+'</a>';
+		}},
+		{header:'归属模块', name:'moduleCodes', width:100, align:"center", formatter: function(val, obj, row, act){
+			return '<a href="javascript:" title="按模块查询" onclick="$(\'#moduleCodes\').val($(this).text());$(\'#dataGrid\').dataGrid(\'refreshTree\',1);">'+val+'</a>';
+		}},
+		{header:'链接', name:'menuHref', width:150},
+		{header:'排序', name:'treeSort', width:63, align:"center", formatter: function(val, obj, row, act){
+			var html = [];
+			html.push('<input type="hidden" name="ids" value="'+row.id+'"/>');
+			html.push('<input name="sorts" type="text" value="'+row.treeSort+'" style="width:50px;height:19px;margin:0;padding:0;text-align:center;border:1px solid #ddd">');
+			return html.join('');
+		}},
+		{header:'类型', name:'menuType', width:50, fixed:true, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"1019065441892847616","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":30,"treeNames":"菜单","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000030,","dictCode":"1019065441892847616","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"菜单","dictValue":"1","dictType":"sys_menu_type","isSys":"1","dictLabel":"菜单","isRoot":true,"isTreeLeaf":true,"parentCode":"0"},{"id":"1019065442081591296","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":40,"treeNames":"权限","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000040,","dictCode":"1019065442081591296","description":"","cssStyle":"color:#c243d6;","cssClass":"","dictLabelOrig":"权限","dictValue":"2","dictType":"sys_menu_type","isSys":"1","dictLabel":"权限","isRoot":true,"isTreeLeaf":true,"parentCode":"0"}], val, '未知', true);
+		}},
+		{header:'可见', name:'isShow', width:50, fixed:true, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"1019065440366120960","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":30,"treeNames":"显示","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000030,","dictCode":"1019065440366120960","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"显示","dictValue":"1","dictType":"sys_show_hide","isSys":"1","dictLabel":"显示","isRoot":true,"isTreeLeaf":true,"parentCode":"0"},{"id":"1019065440512921600","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":40,"treeNames":"隐藏","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000040,","dictCode":"1019065440512921600","description":"","cssStyle":"color:#aaa;","cssClass":"","dictLabelOrig":"隐藏","dictValue":"0","dictType":"sys_show_hide","isSys":"1","dictLabel":"隐藏","isRoot":true,"isTreeLeaf":true,"parentCode":"0"}], val, '未知', true);
+		}},
+		{header:'权限标识', name:'permission', width:150},
+		{header:'权重', name:'weight', width:90, fixed:true, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"1019065442236780544","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":30,"treeNames":"默认权重","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000030,","dictCode":"1019065442236780544","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"默认权重","dictValue":"20","dictType":"sys_menu_weight","isSys":"1","dictLabel":"默认权重","isRoot":true,"isTreeLeaf":true,"parentCode":"0"},{"id":"1019065442404552704","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":40,"treeNames":"二级管理员","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000040,","dictCode":"1019065442404552704","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"二级管理员","dictValue":"40","dictType":"sys_menu_weight","isSys":"1","dictLabel":"二级管理员","isRoot":true,"isTreeLeaf":true,"parentCode":"0"},{"id":"1019065442559741952","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":50,"treeNames":"系统管理员","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000050,","dictCode":"1019065442559741952","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"系统管理员","dictValue":"60","dictType":"sys_menu_weight","isSys":"1","dictLabel":"系统管理员","isRoot":true,"isTreeLeaf":true,"parentCode":"0"},{"id":"1019065442698153984","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":60,"treeNames":"超级管理员","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000060,","dictCode":"1019065442698153984","description":"","cssStyle":"color:#c243d6;","cssClass":"","dictLabelOrig":"超级管理员","dictValue":"80","dictType":"sys_menu_weight","isSys":"1","dictLabel":"超级管理员","isRoot":true,"isTreeLeaf":true,"parentCode":"0"}], val, '未知', true);
+		}},
+		{header:'操作', name:'actions', width:100, sortable:false, formatter: function(val, obj, row, act){
+			var actions = [];
+				actions.push('<a href="/js/a/sys/menu/form?menuCode='+row.id+'" class="btnList" title="编辑菜单"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="/js/a/sys/menu/delete?menuCode='+row.id+'" class="btnList" title="删除菜单" data-confirm="确认要删除该菜单及所有子菜单吗？" data-deltreenode="'+row.id+'"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="/js/a/sys/menu/form?parentCode='+row.id+'&sysCode='+row.sysCode+'" class="btnList" title="新增下级菜单"><i class="fa fa-plus-square"></i></a>&nbsp;');
+				//actions.push('<a href="#" title="只看本节点" onclick="$(\'#dataGrid\').dataGrid(\'refreshTree\', 1, \''+row.id+'\')"><i class="fa fa-arrow-circle-down"></i></a>&nbsp;');
+			return actions.join('');
+		}}
+	],
+	treeGrid: true,			// 启用树结构表格
+	defaultExpandLevel: 0,	// 默认展开的层次
+	expandNodeClearPostData: 'menuNameOrig', // 展开节点清理请求参数数据（一般设置查询条件的字段属性，否则在查询后，不能展开子节点数据）
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+
+// 绑定更新排序按钮
+$('#btnUpdateSort').click(function(){
+	 js.ajaxSubmitForm($("#dataGridForm"), function(data){
+		if(data.result == Global.TRUE){
+			$('#btnRefreshTree').click();
+		}
+		js.showMessage(data.message);
+	}, "json");
+});
+</script>
