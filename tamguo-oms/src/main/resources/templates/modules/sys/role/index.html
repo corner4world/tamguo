@@ -127,7 +127,7 @@ $('#dataGrid').dataGrid({
 				actions.push('<a href="/js/a/sys/role/delete?roleCode='+row.roleCode+'" class="btnList" title="删除角色" data-confirm="确认要删除该角色吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 				actions.push('<a href="javascript:" class="btnMore" title="更多操作"><i class="fa fa-chevron-circle-right"></i></a>&nbsp;');
 				actions.push('<div class="moreItems">');
-				actions.push('<a href="/js/a/sys/role/form?roleCode='+row.id+'&op=auth" class="btn btn-default btn-xs btnList" title="角色分配功能权限"><i class="fa fa-check-square-o"></i> 功能菜单</a>&nbsp;');
+				actions.push('<a href="sys/role/menu?roleCode='+row.id+'&op=auth" class="btn btn-default btn-xs btnList" title="角色分配功能权限"><i class="fa fa-check-square-o"></i> 功能菜单</a>&nbsp;');
 				actions.push('<a href="/js/a/sys/role/formAuthDataScope?roleCode='+row.id+'" class="btn btn-default btn-xs btnList" title="角色分配数据权限"><i class="fa fa-check-circle-o"></i> 数据权限</a>&nbsp;');
 				actions.push('<a href="/js/a/sys/role/formAuthUser?roleCode='+row.id+'" class="btn btn-default btn-xs btnList" title="角色分配用户"><i class="fa fa-user"></i> 分配用户</a>&nbsp;');
 				actions.push('</div>');			

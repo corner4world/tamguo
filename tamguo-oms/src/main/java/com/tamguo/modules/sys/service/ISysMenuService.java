@@ -9,5 +9,5 @@ import com.tamguo.modules.sys.model.condition.SysMenuCondition;
 public interface ISysMenuService extends IService<SysMenuEntity>{
 
 	List<SysMenuEntity> listData(SysMenuCondition condition);
-
+	
 }

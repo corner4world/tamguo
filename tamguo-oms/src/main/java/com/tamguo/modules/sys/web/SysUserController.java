@@ -17,7 +17,7 @@ import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/user")
-public class UserController {
+public class SysUserController {
 	
 	private final String USER_INDEX_PAGE = "modules/sys/user/index";
 	private final String USER_LIST_PAGE = "modules/sys/user/list";
