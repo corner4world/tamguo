@@ -159,14 +159,6 @@ public class SysUserEntity implements Serializable {
 		this.loginCode = loginCode;
 	}
 
-	public String getMgrType() {
-		return this.mgrType;
-	}
-
-	public void setMgrType(String mgrType) {
-		this.mgrType = mgrType;
-	}
-
 	public String getMobile() {
 		return this.mobile;
 	}
@@ -406,5 +398,14 @@ public class SysUserEntity implements Serializable {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
+	public String getMgrType() {
+		return mgrType;
+	}
+
+	public void setMgrType(String mgrType) {
+		this.mgrType = mgrType;
+	}
+
 
 }
