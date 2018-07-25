@@ -1,0 +1,116 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>行政区划 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jqGrid/4.7/css/ui.jqgrid.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-map"></i> 行政区划
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+				<a href="#" class="btn btn-default" id="btnRefreshTree" title="刷新"><i class="fa fa-refresh"></i> 刷新</a>
+				<a href="#" class="btn btn-default" id="btnExpandTreeNode" title="展开一级"><i class="fa fa-angle-double-down"></i> 展开</a>
+				<a href="#" class="btn btn-default" id="btnCollapseTreeNode" title="折叠全部"><i class="fa fa-angle-double-up"></i> 折叠</a>
+					<a href="/js/a/sys/area/form" class="btn btn-default btnTool" title="新增区域"><i class="fa fa-plus"></i> 新增</a>
+			</div>
+		</div>
+		<div class="box-body">
+<form id="searchForm" th:action="${setting.domain + 'sys/area/listData'}" method="post" class="form-inline hide" data-page-no="" data-page-size="" data-order-by="">
+				<div class="form-group">
+					<label class="control-label">区域代码：</label>
+					<div class="control-inline">
+<input type="text" id="areaCode" name="areaCode" value="" maxlength="100" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">区域名称：</label>
+					<div class="control-inline">
+<input type="text" id="areaName" name="areaName" value="" maxlength="100" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">状态：</label>
+					<div class="control-inline width-60">
+
+<select id="status" name="status" class="form-control">
+<option value="">&nbsp;</option><option value="0">正常</option><option value="2">停用</option></select>					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+</form>
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.extend.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'区域名称', name:'areaName', index:'a.area_name', width:230, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '( '+row.areaCode+' ) '+'<a href="/js/a/sys/area/form?areaCode='+row.areaCode+'" class="btnList" data-title="编辑区域">'+(val||row.id)+'</a>';
+		}},
+		{header:'区域类型', name:'areaType', index:'a.area_type', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"1019065442840760320","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":30,"treeNames":"国家","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000030,","dictCode":"1019065442840760320","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"国家","dictValue":"0","dictType":"sys_area_type","isSys":"1","dictLabel":"国家","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065442995949568","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":40,"treeNames":"省份直辖市","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000040,","dictCode":"1019065442995949568","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"省份直辖市","dictValue":"1","dictType":"sys_area_type","isSys":"1","dictLabel":"省份直辖市","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065443339882496","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":50,"treeNames":"地市","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000050,","dictCode":"1019065443339882496","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"地市","dictValue":"2","dictType":"sys_area_type","isSys":"1","dictLabel":"地市","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065443503460352","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":60,"treeNames":"区县","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000060,","dictCode":"1019065443503460352","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"区县","dictValue":"3","dictType":"sys_area_type","isSys":"1","dictLabel":"区县","isTreeLeaf":true,"isRoot":true,"parentCode":"0"}], val, '未知', true);
+		}},
+		{header:'备注信息', name:'remarks', index:'a.remarks', width:200, align:"left"},
+		{header:'排序号', name:'treeSort', index:'a.tree_sort', width:100, align:"center"},
+		{header:'状态', name:'status', index:'a.status', width:80, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"1019065439174938624","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":20,"treeNames":"正常","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000020,","dictCode":"1019065439174938624","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"正常","dictValue":"0","dictType":"sys_status","isSys":"1","dictLabel":"正常","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065439330127872","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":30,"treeNames":"删除","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000030,","dictCode":"1019065439330127872","description":"","cssStyle":"color:#f00;","cssClass":"","dictLabelOrig":"删除","dictValue":"1","dictType":"sys_status","isSys":"1","dictLabel":"删除","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065439481122816","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":40,"treeNames":"停用","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000040,","dictCode":"1019065439481122816","description":"","cssStyle":"color:#f00;","cssClass":"","dictLabelOrig":"停用","dictValue":"2","dictType":"sys_status","isSys":"1","dictLabel":"停用","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065439699226624","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":50,"treeNames":"冻结","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000050,","dictCode":"1019065439699226624","description":"","cssStyle":"color:#fa0;","cssClass":"","dictLabelOrig":"冻结","dictValue":"3","dictType":"sys_status","isSys":"1","dictLabel":"冻结","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065439875387392","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":60,"treeNames":"待审","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000060,","dictCode":"1019065439875387392","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"待审","dictValue":"4","dictType":"sys_status","isSys":"1","dictLabel":"待审","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065440022188032","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":70,"treeNames":"驳回","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000070,","dictCode":"1019065440022188032","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"驳回","dictValue":"5","dictType":"sys_status","isSys":"1","dictLabel":"驳回","isTreeLeaf":true,"isRoot":true,"parentCode":"0"},{"id":"1019065440210931712","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":80,"treeNames":"草稿","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000080,","dictCode":"1019065440210931712","description":"","cssStyle":"color:#aaa;","cssClass":"","dictLabelOrig":"草稿","dictValue":"9","dictType":"sys_status","isSys":"1","dictLabel":"草稿","isTreeLeaf":true,"isRoot":true,"parentCode":"0"}], val, '未知', true);
+		}},
+		{header:'更新时间', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+				actions.push('<a href="/js/a/sys/area/form?areaCode='+row.areaCode+'" class="btnList" title="编辑区域"><i class="fa fa-pencil"></i></a>&nbsp;');
+				if (row.status == Global.STATUS_NORMAL){
+					actions.push('<a href="/js/a/sys/area/disable?areaCode='+row.areaCode+'" class="btnList" title="停用区域" data-confirm="确认要停用该区域吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+				}
+				if (row.status == Global.STATUS_DISABLE){
+					actions.push('<a href="/js/a/sys/area/enable?areaCode='+row.areaCode+'" class="btnList" title="启用区域" data-confirm="确认要启用该区域吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+				}
+				actions.push('<a href="/js/a/sys/area/delete?areaCode='+row.areaCode+'" class="btnList" title="删除区域" data-confirm="确认要删除该区域及所有子区域吗？" data-deltreenode="'+row.id+'"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="/js/a/sys/area/form?parentCode='+row.id+'" class="btnList" title="新增下级区域"><i class="fa fa-plus-square"></i></a>&nbsp;');
+			return actions.join('');
+		}}
+	],
+	treeGrid: true,			// 启用树结构表格
+	defaultExpandLevel: 0,	// 默认展开的层次
+	expandNodeClearPostData: 'areaCode,areaName,', // 展开节点清理请求参数数据（一般设置查询条件的字段属性，否则在查询后，不能展开子节点数据）	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>
