@@ -30,7 +30,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 		</div>
 		<div class="box-body">
-<form id="searchForm" action="/js/a/sys/role/listData" method="post" class="form-inline hide" data-page-no="" data-page-size="" data-order-by="">
+<form id="searchForm" th:action="${setting.domain + 'sys/role/listData'}" method="post" class="form-inline hide" data-page-no="1" data-page-size="10" data-order-by="">
 				<div class="form-group">
 					<label class="control-label">角色名称：</label>
 					<div class="control-inline">

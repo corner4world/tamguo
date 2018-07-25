@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamguo.modules.sys.dao.SysRoleMapper">
+	
+	<select id="listData" resultType="SysRoleEntity">
+		SELECT
+			r.role_code,
+			r.role_name,
+			r.role_type,
+			r.role_sort,
+			r.is_sys,
+			r.user_type,
+			r.data_scope,
+			r.`status`,
+			r.create_by,
+			r.create_date,
+			r.update_by,
+			r.update_date,
+			r.remarks,
+			r.corp_code,
+			r.corp_name
+		FROM
+			sys_role r
+	</select>
+</mapper>
