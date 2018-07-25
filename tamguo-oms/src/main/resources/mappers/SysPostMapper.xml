@@ -4,7 +4,18 @@
 	
 	<select id="listData" resultType="SysPostEntity">
 		SELECT
-			p.*
+			p.post_code,
+			p.post_name,
+			p.post_type,
+			p.post_sort,
+			p.`status`,
+			p.create_by,
+			p.create_date,
+			p.update_by,
+			p.update_date,
+			p.remarks,
+			p.corp_code,
+			p.corp_name
 		FROM
 			sys_post p
 		<where>

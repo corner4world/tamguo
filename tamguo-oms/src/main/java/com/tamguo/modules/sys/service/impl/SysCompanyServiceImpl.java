@@ -51,7 +51,7 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 				
 				SysCompanyEntity company = companyList.get(i);
 				node.put("name", company.getCompanyName());
-				node.put("id", company.getCompanyCode());
+				node.put("id", company.getId());
 				node.put("pId", company.getParentCode());
 				node.put("title", company.getFullName());
 				nodes.add(node);

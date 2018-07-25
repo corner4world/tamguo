@@ -31,7 +31,7 @@ public class SysOfficeEntity implements Serializable {
 	private String phone;
 	private String remarks;
 	private String status;
-	private String treeLeaf;
+	private Boolean treeLeaf;
 	private BigDecimal treeLevel;
 	private String treeNames;
 	private BigDecimal treeSort;
@@ -172,11 +172,11 @@ public class SysOfficeEntity implements Serializable {
 		this.status = status;
 	}
 
-	public String getTreeLeaf() {
+	public Boolean getTreeLeaf() {
 		return this.treeLeaf;
 	}
 
-	public void setTreeLeaf(String treeLeaf) {
+	public void setTreeLeaf(Boolean treeLeaf) {
 		this.treeLeaf = treeLeaf;
 	}
 
@@ -242,6 +242,11 @@ public class SysOfficeEntity implements Serializable {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+	
+	// grid tree
+	public String getId() {
+		return this.getOfficeCode();
 	}
 
 }

@@ -13,9 +13,23 @@
   	
   	<select id="listData" resultType="SysUserEntity">
 		SELECT
-			u.*
+			u.user_code,
+			u.office_code,
+			u.office_name,
+			u.company_code,
+			u.company_name,
+			u.login_code,
+			u.user_name,
+			u.ref_name,
+			u.email,
+			u.mobile,
+			u.phone,
+			u.update_date,
+			u.`status`
 		FROM
 			sys_user u
+		WHERE
+			1 = 1
   	</select>
 
 </mapper>

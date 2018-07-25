@@ -4,14 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.KeySequence;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 
 /**
  * The persistent class for the sys_company database table.
  * 
  */
 @TableName(value="sys_company")
+@KeySequence
 public class SysCompanyEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +28,7 @@ public class SysCompanyEntity implements Serializable {
 	private String parentCodes;
 	private String remarks;
 	private String status;
-	private String treeLeaf;
+	private Boolean treeLeaf;
 	private BigDecimal treeLevel;
 	private String treeNames;
 	private BigDecimal treeSort;
@@ -37,14 +38,6 @@ public class SysCompanyEntity implements Serializable {
 	private String viewCode;
 
 	public SysCompanyEntity() {
-	}
-
-	public String getCompanyCode() {
-		return this.companyCode;
-	}
-
-	public void setCompanyCode(String companyCode) {
-		this.companyCode = companyCode;
 	}
 
 	public String getAreaCode() {
@@ -135,14 +128,6 @@ public class SysCompanyEntity implements Serializable {
 		this.status = status;
 	}
 
-	public String getTreeLeaf() {
-		return this.treeLeaf;
-	}
-
-	public void setTreeLeaf(String treeLeaf) {
-		this.treeLeaf = treeLeaf;
-	}
-
 	public BigDecimal getTreeLevel() {
 		return this.treeLevel;
 	}
@@ -197,6 +182,26 @@ public class SysCompanyEntity implements Serializable {
 
 	public void setViewCode(String viewCode) {
 		this.viewCode = viewCode;
+	}
+
+	public Boolean getTreeLeaf() {
+		return treeLeaf;
+	}
+
+	public void setTreeLeaf(Boolean treeLeaf) {
+		this.treeLeaf = treeLeaf;
+	}
+
+	public String getId() {
+		return this.getCompanyCode();
+	}
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
 	}
 
 }

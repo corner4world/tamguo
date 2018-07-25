@@ -17,6 +17,10 @@ public class SysUserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String userCode;
+	private String officeCode;
+	private String officeName;
+	private String companyCode;
+	private String companyName;
 	private String avatar;
 	private String corpCode;
 	private String corpName;
@@ -369,6 +373,38 @@ public class SysUserEntity implements Serializable {
 
 	public void setWxOpenid(String wxOpenid) {
 		this.wxOpenid = wxOpenid;
+	}
+
+	public String getOfficeCode() {
+		return officeCode;
+	}
+
+	public void setOfficeCode(String officeCode) {
+		this.officeCode = officeCode;
+	}
+
+	public String getOfficeName() {
+		return officeName;
+	}
+
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
+	}
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 }

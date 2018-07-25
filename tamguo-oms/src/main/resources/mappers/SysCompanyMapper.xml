@@ -4,9 +4,28 @@
 	
 	<select id="listData" resultType="SysCompanyEntity">
 		SELECT
-			c.*
+			c.company_code,
+			c.parent_code,
+			c.parent_codes,
+			c.tree_sort,
+			c.tree_sorts,
+			c.tree_leaf,
+			c.tree_level,
+			c.tree_names,
+			c.view_code,
+			c.company_name,
+			c.full_name,
+			c.area_code,
+			c.`status`,
+			c.create_by,
+			c.create_date,
+			c.update_by,
+			c.update_date,
+			c.remarks,
+			c.corp_code,
+			c.corp_name
 		FROM
-			sys_company c		
+			sys_company c
 		<where>
 			1 = 1
 			<choose>
