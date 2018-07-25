@@ -9,4 +9,6 @@ public interface SysMenuMapper extends SuperMapper<SysMenuEntity>{
 
 	List<SysMenuEntity> listData(SysMenuCondition condition);
 
+	List<SysMenuEntity> selectMenuByRoleId(String roleCode);
+
 }

@@ -31,4 +31,35 @@
 		FROM
 			sys_menu m
 	</select>
+	
+	<select id="selectMenuByRoleId" resultType="SysMenuEntity">
+		SELECT
+			m.menu_code,
+			m.parent_code,
+			m.parent_codes,
+			m.tree_sort,
+			m.tree_sorts,
+			m.tree_leaf,
+			m.tree_level,
+			m.tree_names,
+			m.menu_name,
+			m.menu_type,
+			m.menu_href,
+			m.menu_target,
+			m.menu_icon,
+			m.menu_color,
+			m.permission,
+			m.weight,
+			m.is_show,
+			m.sys_code,
+			m.module_codes,
+			m.`status`,
+			m.create_by,
+			m.update_by,
+			m.update_date,
+			m.remarks
+		FROM
+			sys_menu m,sys_role_menu RM
+		WHERE RM.role_code = #{roleCode} and RM.menu_code = m.menu_code
+	</select>
 </mapper>

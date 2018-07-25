@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -36,11 +37,15 @@ public class SysRoleServiceImpl implements ISysRoleService{
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> menuTreeData(String roleCode) {
-		List<SysMenuEntity> menus = sysMenuMapper.selectList(Condition.EMPTY);
+		List<SysMenuEntity> menus = sysMenuMapper.selectList(Condition.create().eq("module_codes", "core"));
+		List<SysMenuEntity> roleMenus = sysMenuMapper.selectMenuByRoleId(roleCode);
+		
 		JSONObject result = new JSONObject();
 		
 		JSONObject menuInfo = transformZTree(menus);
 		result.put("menuMap", menuInfo);
+		result.put("roleMenuList", roleMenus);
+		
 		return result;
 	}
 
@@ -52,7 +57,12 @@ public class SysRoleServiceImpl implements ISysRoleService{
 				SysMenuEntity menu = menus.get(i);
 				
 				JSONObject node = new JSONObject();
-				node.put("name", menu.getMenuName());
+				node.put("name", menu.getMenuName() + "<font color=#888> &nbsp; &nbsp;    </font>");
+				if(!StringUtils.isEmpty(menu.getMenuHref())) {
+					node.put("name", menu.getMenuName() + "<font color=#888> &nbsp; &nbsp;  "+menu.getMenuHref()+"  </font>");
+				}else if(!StringUtils.isEmpty(menu.getPermission())) {
+					node.put("name", menu.getMenuName() + "<font color=#888> &nbsp; &nbsp;  "+menu.getPermission()+"  </font>");
+				}
 				node.put("pId", menu.getParentCode());
 				node.put("id", menu.getMenuCode());
 				node.put("title", menu.getMenuName());
