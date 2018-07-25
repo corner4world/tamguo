@@ -1,0 +1,218 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>二级管理员 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jqGrid/4.7/css/ui.jqgrid.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-user"></i> 二级管理员
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+				<a href="#" class="btn btn-default" id="btnAddAdmin" title="新增"><i class="fa fa-plus"></i> 新增</a>
+			</div>
+		</div>
+		<div class="box-body">
+<form id="searchForm" th:action="${setting.domain + 'sys/secAdmin/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
+				<div class="form-group">
+					<label class="control-label">账号：</label>
+					<div class="control-inline">
+<input type="text" id="loginCode" name="loginCode" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">昵称：</label>
+					<div class="control-inline">
+<input type="text" id="userName" name="userName" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">邮箱：</label>
+					<div class="control-inline">
+<input type="text" id="email" name="email" value="" maxlength="300" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">手机：</label>
+					<div class="control-inline">
+<input type="text" id="mobile" name="mobile" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">电话：</label>
+					<div class="control-inline">
+<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">状态：</label>
+					<div class="control-inline width-90">
+
+<select id="status" name="status" class="form-control">
+<option value="">&nbsp;</option><option value="0">正常</option><option value="2">停用</option><option value="3">冻结</option></select>					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+</form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<div class="hide"><div class="input-group treeselect" id="userSelectDiv" data-url="/js/a/sys/user/userSelect?userType=employee">
+	<input id="userSelectCode" type="hidden" name="" value="" class="isReset"/>
+	<input id="userSelectName" type="text" name="" value=""
+		class="form-control  " readonly="readonly"
+	/><span class="input-group-btn"><a id="userSelectButton" href="javascript:"
+		class="btn btn-default "><i class="fa fa-search"></i></a>
+	</span>
+</div>
+<script>
+$("#userSelectButton,#userSelectName").click(function(){
+	if ($("#userSelectButton").hasClass("disabled")){
+		return true;
+	}
+	var selectData = {},
+	boxWidth = $(top.window).width() - 100,
+	boxHeight = $(top.window).height() - 100;
+	boxWidth = boxWidth < 350 ? 350 : boxWidth;
+	boxHeight = boxHeight < 250 ? 250 : boxHeight;
+	if(typeof listselectGetSelectData == 'function'){
+		selectData = listselectGetSelectData('userSelect');
+	}else{
+		var codes = $('#userSelectCode').val(), names = $('#userSelectName').val();
+		if(codes != null && codes != "" && names != null && names != ""){
+			var codesArr = codes.split(","), namesArr = names.split(",");
+			if (codesArr && namesArr && codesArr.length == namesArr.length){
+				for(var i=0; i<codesArr.length; i++) {
+					selectData[codesArr[i]] = {userCode: codesArr[i], userName: namesArr[i]}
+				}
+			}
+		}
+	}
+	var options = {
+		type: 2,
+		maxmin: true,
+		shadeClose: true,
+		title: '用户选择',
+		area: [boxWidth+'px', boxHeight+'px'],
+		content: $('#userSelectDiv').attr('data-url'),
+		contentFormData: {
+			checkbox: 'false',
+			selectData: js.encodeUrl(JSON.stringify(selectData))
+		},
+		success: function(layero, index){
+			if ($(js.layer.window).width() < boxWidth
+				|| $(js.layer.window).height() < boxHeight){
+				js.layer.full(index);
+			}
+		},
+		btn: ['<i class="fa fa-check"></i> 确定'],
+		btn1: function(index, layero){
+			var win = js.layer.iframeWindow(index);
+			selectData = win.getSelectData();
+			if(typeof listselectCheck == 'function'){
+				if (!listselectCheck('userSelect', selectData)){
+					return false;
+				}
+			}
+			if(typeof listselectSetSelectData == 'function'){
+				listselectSetSelectData('userSelect', selectData);
+			}else{
+				var codes = [], names = [];
+				$.each(selectData, function(key, value){
+					codes.push(value['userCode']);
+					names.push(value['userName']);
+				});
+		   		$('#userSelectCode').val(codes.join(',')).change();
+		   		$('#userSelectName').val(names.join(',')).change();
+			}
+			try { $('#userSelectCode,#userSelectName').valid(); }catch(e){}
+			if(typeof listselectCallback == 'function'){
+				listselectCallback('userSelect', 'ok', index, layero, selectData);
+			}
+		}
+	};
+	options.btn.push('<i class="fa fa-close"></i> 关闭');
+	options['btn'+options.btn.length] = function(index, layero){
+		if(typeof listselectCallback == 'function'){
+			listselectCallback('userSelect', 'cancel', index, layero);
+		}
+	};
+	js.layer.open(options);
+});
+</script></div></div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.extend.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'登录账号', name:'loginCode', index:'a.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="/js/a/sys/secAdmin/form?userCode='+row.userCode+'" class="btnList" data-title="管理数据权限">'+(val||row.id)+'</a>';
+		}},
+		{header:'用户昵称', name:'userName', index:'a.user_name', width:200, align:"center"},
+		{header:'电子邮箱', name:'email', index:'a.email', width:200, align:"center"},
+		{header:'手机号码', name:'mobile', index:'a.mobile', width:200, align:"center"},
+		{header:'办公电话', name:'phone', index:'a.phone', width:200, align:"center"},
+		{header:'更新时间', name:'updateDate', index:'a.update_date', width:200, align:"center"},
+		{header:'状态', name:'status', index:'a.status', width:100, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"1019065439174938624","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":20,"treeNames":"正常","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000020,","dictCode":"1019065439174938624","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"正常","dictValue":"0","dictType":"sys_status","isSys":"1","dictLabel":"正常","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065439330127872","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":30,"treeNames":"删除","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000030,","dictCode":"1019065439330127872","description":"","cssStyle":"color:#f00;","cssClass":"","dictLabelOrig":"删除","dictValue":"1","dictType":"sys_status","isSys":"1","dictLabel":"删除","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065439481122816","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":40,"treeNames":"停用","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000040,","dictCode":"1019065439481122816","description":"","cssStyle":"color:#f00;","cssClass":"","dictLabelOrig":"停用","dictValue":"2","dictType":"sys_status","isSys":"1","dictLabel":"停用","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065439699226624","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":50,"treeNames":"冻结","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000050,","dictCode":"1019065439699226624","description":"","cssStyle":"color:#fa0;","cssClass":"","dictLabelOrig":"冻结","dictValue":"3","dictType":"sys_status","isSys":"1","dictLabel":"冻结","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065439875387392","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":60,"treeNames":"待审","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000060,","dictCode":"1019065439875387392","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"待审","dictValue":"4","dictType":"sys_status","isSys":"1","dictLabel":"待审","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065440022188032","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":70,"treeNames":"驳回","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000070,","dictCode":"1019065440022188032","description":"","cssStyle":"","cssClass":"","dictLabelOrig":"驳回","dictValue":"5","dictType":"sys_status","isSys":"1","dictLabel":"驳回","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"1019065440210931712","updateDate":"2018-07-17 11:45","updateBy":"system","createBy":"system","status":"0","createDate":"2018-07-17 11:45","treeSort":80,"treeNames":"草稿","parentCodes":"0,","treeLeaf":"1","treeLevel":0,"treeSorts":"0000000080,","dictCode":"1019065440210931712","description":"","cssStyle":"color:#aaa;","cssClass":"","dictLabelOrig":"草稿","dictValue":"9","dictType":"sys_status","isSys":"1","dictLabel":"草稿","parentCode":"0","isTreeLeaf":true,"isRoot":true}], val, '未知', true);
+		}},
+		{header:'操作', name:'actions', width:150, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+				actions.push('<a href="/js/a/sys/secAdmin/form?userCode='+row.userCode+'" class="btnList" title="管理数据权限"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="/js/a/sys/secAdmin/delete?userCode='+row.userCode+'" class="btnList" title="取消二级管理员身份" data-confirm="确认要取消该用户的二级管理员身份吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+$('#btnAddAdmin').click(function(){
+	$('#userSelectName').click();
+});
+function listselectCallback(id, action, index, layero){
+	if (id == 'userSelect' && action == 'ok'){
+		if ($('#userSelectCode').val() != ''){
+			js.addTabPage(null, '二级管理员授权',
+					'/js/a/sys/secAdmin/form?userCode='
+							+$('#userSelectCode').val());
+		}else{
+			js.showMessage('请选择需要设置为二级管理员的用户');
+		}
+	}
+}
+</script>
