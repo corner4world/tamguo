@@ -38,55 +38,55 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 		</div>
 		<div class="box-body">
-<form id="searchForm" th:action="${setting.domain + 'sys/user/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
+			<form id="searchForm" th:action="${setting.domain + 'sys/user/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
 				<div class="form-group">
 					<label class="control-label">账号：</label>
 					<div class="control-inline">
-<input type="text" id="loginCode" name="loginCode" value="" maxlength="100" class="form-control width-90"/>
+						<input type="text" id="loginCode" name="loginCode" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">昵称：</label>
 					<div class="control-inline">
-<input type="text" id="userName" name="userName" value="" maxlength="100" class="form-control width-90"/>
+						<input type="text" id="userName" name="userName" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">邮箱：</label>
 					<div class="control-inline">
-<input type="text" id="email" name="email" value="" maxlength="300" class="form-control width-90"/>
+						<input type="text" id="email" name="email" value="" maxlength="300" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">手机：</label>
 					<div class="control-inline">
-<input type="text" id="mobile" name="mobile" value="" maxlength="100" class="form-control width-90"/>
+						<input type="text" id="mobile" name="mobile" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">电话：</label>
 					<div class="control-inline">
-<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control width-90"/>
+						<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-row"></div>
 				<div class="form-group">
 					<label class="control-label">姓名：</label>
 					<div class="control-inline">
-<input type="text" id="refName" name="refName" value="" maxlength="100" class="form-control width-90"/>
+						<input type="text" id="refName" name="refName" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">机构：</label>
 					<div class="control-inline width-90">
-<div class="input-group treeselect" id="officeDiv" data-url="sys/office/treeData">
-	<input id="officeCode" type="hidden" name="officeCode" value="" class="isReset"/>
-	<input id="officeName" type="text" name="officeName" value=""
-		class="form-control  " readonly="readonly"
-	/><span class="input-group-btn"><a id="officeButton" href="javascript:"
-		class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
-	</span>
-</div>
+					<div class="input-group treeselect" id="officeDiv" data-url="sys/office/treeData?">
+						<input id="officeCode" type="hidden" name="officeCode" value="" class="isReset"/>
+						<input id="officeName" type="text" name="officeName" value=""
+							class="form-control  " readonly="readonly"
+						/><span class="input-group-btn"><a id="officeButton" href="javascript:"
+							class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
+						</span>
+					</div>
 <script>
 $("#officeButton,#officeName").click(function(){
 	if ($("#officeButton").hasClass("disabled")){
@@ -165,7 +165,7 @@ $("#officeButton,#officeName").click(function(){
 				<div class="form-group">
 					<label class="control-label">公司：</label>
 					<div class="control-inline width-90">
-<div class="input-group treeselect" id="companyDiv" data-url="sys/company/treeData">
+<div class="input-group treeselect" id="companyDiv" data-url="sys/company/treeData?">
 	<input id="companyCode" type="hidden" name="companyCode" value="" class="isReset"/>
 	<input id="companyName" type="text" name="companyName" value=""
 		class="form-control  " readonly="readonly"
@@ -184,7 +184,7 @@ $("#companyButton,#companyName").click(function(){
 		shadeClose: true,
 		title: '公司选择',
 		area: ['300px', '400px'],
-		content: '/js/tags/treeselect',
+		content: 'sys/treeselect',
 		contentFormData: {
 			url: $('#companyDiv').attr('data-url'),
 			checkbox: 'false',
@@ -251,9 +251,14 @@ $("#companyButton,#companyName").click(function(){
 				<div class="form-group">
 					<label class="control-label">岗位：</label>
 					<div class="control-inline width-90">
-
-<select id="employee_postCode" name="employee.postCode" class="form-control">
-<option value="">&nbsp;</option><option value="cfo">财务经理</option><option value="hrm">人力经理</option><option value="dept">部门经理</option><option value="user">普通员工</option></select>					</div>
+						<select id="employee_postCode" name="postCode" class="form-control">
+							<option value="">&nbsp;</option>
+							<option value="cfo">财务经理</option>
+							<option value="hrm">人力经理</option>
+							<option value="dept">部门经理</option>
+							<option value="user">普通员工</option>
+						</select>					
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label">状态：</label>
