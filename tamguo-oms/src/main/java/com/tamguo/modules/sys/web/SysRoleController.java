@@ -1,7 +1,6 @@
 package com.tamguo.modules.sys.web;
 
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.modules.sys.model.SysRoleEntity;
 import com.tamguo.modules.sys.model.condition.SysRoleCondition;
+import com.tamguo.modules.sys.service.ISysRoleDataScopeService;
 import com.tamguo.modules.sys.service.ISysRoleService;
 import com.tamguo.modules.sys.utils.Result;
 
@@ -28,6 +29,8 @@ public class SysRoleController {
 	
 	@Autowired
 	private ISysRoleService iSysRoleService;
+	@Autowired
+	private ISysRoleDataScopeService iSysRoleDataScopeService;
 
 	/** 角色首页*/
 	@RequestMapping(path="index")
@@ -44,9 +47,11 @@ public class SysRoleController {
 	}
 	
 	/** 数据权限 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path="dataScope")
 	public ModelAndView dataScope(String roleCode , ModelAndView model) {
 		model.addObject("role", iSysRoleService.selectById(roleCode));
+		model.addObject("roleDataScopeList" , iSysRoleDataScopeService.selectList(Condition.create().eq("role_code", roleCode)));
 		model.setViewName(ROLE_DATA_INDEX_PAGE);
 		return model;
 	}

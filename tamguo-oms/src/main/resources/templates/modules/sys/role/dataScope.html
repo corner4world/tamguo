@@ -258,8 +258,10 @@ for (var i=0; i<dataScopes.length; i++){
 	});
 }
 // 默认选择节点
-try{dataScopeTrees['Company'].checkNode(dataScopeTrees['Company']
-	.getNodeByParam("id","SD1"), true, false);}catch(e){}
-try{dataScopeTrees['Company'].checkNode(dataScopeTrees['Company']
-	.getNodeByParam("id","SD2"), true, false);}catch(e){}
+try{
+	dataScopeTrees['Company'].checkNode(dataScopeTrees['Company'].getNodeByParam("id","SD1"), true, false);
+}catch(e){}
+try{
+	dataScopeTrees['Company'].checkNode(dataScopeTrees['Company'].getNodeByParam("id","SD2"), true, false);
+}catch(e){}
 </script>
