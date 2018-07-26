@@ -129,7 +129,7 @@ $('#dataGrid').dataGrid({
 				actions.push('<div class="moreItems">');
 				actions.push('<a href="sys/role/menu?roleCode='+row.id+'&op=auth" class="btn btn-default btn-xs btnList" title="角色分配功能权限"><i class="fa fa-check-square-o"></i> 功能菜单</a>&nbsp;');
 				actions.push('<a href="sys/role/dataScope?roleCode='+row.id+'" class="btn btn-default btn-xs btnList" title="角色分配数据权限"><i class="fa fa-check-circle-o"></i> 数据权限</a>&nbsp;');
-				actions.push('<a href="sys/role/formAuthUser?roleCode='+row.id+'" class="btn btn-default btn-xs btnList" title="角色分配用户"><i class="fa fa-user"></i> 分配用户</a>&nbsp;');
+				actions.push('<a href="sys/role/user?roleCode='+row.id+'" class="btn btn-default btn-xs btnList" title="角色分配用户"><i class="fa fa-user"></i> 分配用户</a>&nbsp;');
 				actions.push('</div>');			
 			return actions.join('');
 		}}

@@ -26,6 +26,8 @@ public class SysRoleController {
 	private final String ROLE_MENU_INDEX_PAGE = "modules/sys/role/menu";
 	// 数据权限
 	private final String ROLE_DATA_INDEX_PAGE = "modules/sys/role/dataScope";
+	// 授权用户
+	private final String ROLE_USER_INDEX_PAGE = "modules/sys/role/user";
 	
 	@Autowired
 	private ISysRoleService iSysRoleService;
@@ -56,6 +58,12 @@ public class SysRoleController {
 		return model;
 	}
 	
+	/** 授权用户*/
+	@RequestMapping(path="user")
+	public String user() {
+		return ROLE_USER_INDEX_PAGE;
+	}
+	
 	/** 列表数据*/
 	@RequestMapping(path="listData",method=RequestMethod.POST)
 	@ResponseBody
@@ -82,6 +90,14 @@ public class SysRoleController {
 	@RequestMapping(path="allowDataScope",method=RequestMethod.POST)
 	@ResponseBody
 	public Result allowDataScope(SysRoleEntity role) {
+		iSysRoleService.allowDataScope(role);
+		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+	}
+	
+	/** 授权用户 */
+	@RequestMapping(path="allowUser",method=RequestMethod.POST)
+	@ResponseBody
+	public Result allowUser(SysRoleEntity role) {
 		iSysRoleService.allowDataScope(role);
 		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
 	}
