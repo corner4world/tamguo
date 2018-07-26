@@ -298,18 +298,18 @@ $("#companyButton,#companyName").click(function(){
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'登录账号', name:'loginCode', index:'a.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+		{header:'登录账号', name:'loginCode', index:'u.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="/js/a/sys/empUser/form?userCode='+row.userCode+'&op=edit" class="btnList" data-title="编辑用户">'+(val||row.id)+'</a>';
 		}},
-		{header:'用户昵称', name:'userName', index:'a.user_name', width:200, align:"center"},
-		{header:'员工姓名', name:'refName', index:'a.ref_name', width:200, align:"center"},
-		{header:'归属机构', name:'officeName', index:'o.office_name', width:200, align:"center"},
-		{header:'归属公司', name:'companyName', index:'c.company_name', width:200, align:"center"},
-		{header:'电子邮箱', name:'email', index:'a.email', width:200, align:"center"},
-		{header:'手机号码', name:'mobile', index:'a.mobile', width:200, align:"center"},
-		{header:'办公电话', name:'phone', index:'a.phone', width:200, align:"center"},
-		{header:'更新时间', name:'updateDate', index:'a.update_date', width:200, align:"center"},
-		{header:'状态', name:'status', index:'a.status', width:140, align:"center", formatter: function(val, obj, row, act){
+		{header:'用户昵称', name:'userName', index:'u.user_name', width:200, align:"center"},
+		{header:'员工姓名', name:'refName', index:'u.ref_name', width:200, align:"center"},
+		{header:'归属机构', name:'officeName', index:'u.office_name', width:200, align:"center"},
+		{header:'归属公司', name:'companyName', index:'u.company_name', width:200, align:"center"},
+		{header:'电子邮箱', name:'email', index:'u.email', width:200, align:"center"},
+		{header:'手机号码', name:'mobile', index:'u.mobile', width:200, align:"center"},
+		{header:'办公电话', name:'phone', index:'u.phone', width:200, align:"center"},
+		{header:'更新时间', name:'updateDate', index:'u.update_date', width:200, align:"center"},
+		{header:'状态', name:'status', index:'u.status', width:140, align:"center", formatter: function(val, obj, row, act){
 			return js.getDictLabel([{"id":"1019065439174938624","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":20,"treeSorts":"0000000020,","treeNames":"正常","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439174938624","dictLabelOrig":"正常","dictType":"sys_status","cssStyle":"","description":"","dictValue":"0","dictLabel":"正常","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439330127872","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":30,"treeSorts":"0000000030,","treeNames":"删除","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439330127872","dictLabelOrig":"删除","dictType":"sys_status","cssStyle":"color:#f00;","description":"","dictValue":"1","dictLabel":"删除","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439481122816","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":40,"treeSorts":"0000000040,","treeNames":"停用","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439481122816","dictLabelOrig":"停用","dictType":"sys_status","cssStyle":"color:#f00;","description":"","dictValue":"2","dictLabel":"停用","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439699226624","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":50,"treeSorts":"0000000050,","treeNames":"冻结","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439699226624","dictLabelOrig":"冻结","dictType":"sys_status","cssStyle":"color:#fa0;","description":"","dictValue":"3","dictLabel":"冻结","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065439875387392","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":60,"treeSorts":"0000000060,","treeNames":"待审","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065439875387392","dictLabelOrig":"待审","dictType":"sys_status","cssStyle":"","description":"","dictValue":"4","dictLabel":"待审","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065440022188032","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":70,"treeSorts":"0000000070,","treeNames":"驳回","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065440022188032","dictLabelOrig":"驳回","dictType":"sys_status","cssStyle":"","description":"","dictValue":"5","dictLabel":"驳回","parentCode":"0","isRoot":true,"isTreeLeaf":true},{"id":"1019065440210931712","status":"0","createBy":"system","createDate":"2018-07-17 11:45","updateDate":"2018-07-17 11:45","updateBy":"system","treeLevel":0,"parentCodes":"0,","treeSort":80,"treeSorts":"0000000080,","treeNames":"草稿","treeLeaf":"1","isSys":"1","cssClass":"","dictCode":"1019065440210931712","dictLabelOrig":"草稿","dictType":"sys_status","cssStyle":"color:#aaa;","description":"","dictValue":"9","dictLabel":"草稿","parentCode":"0","isRoot":true,"isTreeLeaf":true}], val, '未知', true);
 		}},
 		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){

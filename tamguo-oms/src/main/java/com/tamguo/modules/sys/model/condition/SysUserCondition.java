@@ -19,6 +19,8 @@ public class SysUserCondition {
 	private String status;
 	private String userType;
 	
+	private String orderBy;
+	
 	public Integer getPageNo() {
 		return pageNo;
 	}
@@ -108,6 +110,12 @@ public class SysUserCondition {
 	}
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+	public String getOrderBy() {
+		return orderBy;
+	}
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
 	}
 	
 }

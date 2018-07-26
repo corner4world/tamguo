@@ -70,6 +70,10 @@
 		<if test="userType != null and userType != ''">
 			and u.user_type = #{userType}
 		</if>
+		<if test="orderBy != null and orderBy != ''">
+			order by ${orderBy}
+		</if>
+		
   	</select>
 
 </mapper>
