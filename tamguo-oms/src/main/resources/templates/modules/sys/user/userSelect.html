@@ -20,7 +20,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <div class="wrapper"><div class="main-content">
 	<div class="box box-main">
 		<div class="box-body">
-<form id="searchForm" action="/js/a/sys/user/listData" method="post" class="form-inline " data-page-no="" data-page-size="" data-order-by="">
+<form id="searchForm" th:action="${setting.domain + 'sys/user/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
 <input type="hidden" id="status" name="status" value="0"/>
 <input type="hidden" id="userType" name="userType" value="employee"/>
 				<div class="form-group">
