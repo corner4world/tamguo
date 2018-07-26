@@ -42,6 +42,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<div class="form-group">
 					<label class="control-label">账号：</label>
 					<div class="control-inline">
+						<input id="userType" type="hidden" name="userType" value="employee" class="isReset"/>
 						<input type="text" id="loginCode" name="loginCode" value="" maxlength="100" class="form-control width-90"/>
 					</div>
 				</div>
@@ -253,10 +254,7 @@ $("#companyButton,#companyName").click(function(){
 					<div class="control-inline width-90">
 						<select id="employee_postCode" name="postCode" class="form-control">
 							<option value="">&nbsp;</option>
-							<option value="cfo">财务经理</option>
-							<option value="hrm">人力经理</option>
-							<option value="dept">部门经理</option>
-							<option value="user">普通员工</option>
+							<option th:value="${post.postCode}" th:each="post,postStatus:${postList}" th:text="${post.postName}">财务经理</option>
 						</select>					
 					</div>
 				</div>

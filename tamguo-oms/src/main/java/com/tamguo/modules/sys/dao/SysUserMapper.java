@@ -16,5 +16,5 @@ public interface SysUserMapper extends SuperMapper<SysUserEntity>{
 	List<SysUserEntity> queryPage(@Param(value="userName")String userName , Page<SysUserEntity> page);
 
 	List<SysUserEntity> listData(SysUserCondition condition, Pagination page);
-	
+
 }

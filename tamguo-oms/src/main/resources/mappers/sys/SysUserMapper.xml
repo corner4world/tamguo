@@ -28,6 +28,7 @@
 			u.`status`
 		FROM
 			sys_user u
+		LEFT JOIN sys_user_post up ON u.user_code = up.user_code
 		WHERE
 			1 = 1
 		<if test="loginCode != null and loginCode != ''">
@@ -61,10 +62,13 @@
 			and u.company_name = #{companyName}
 		</if>
 		<if test="postCode != null and postCode != ''">
-			and u.post_code = #{postCode}
+			and up.post_code = #{postCode}
 		</if>
 		<if test="status != null and status != ''">
 			and u.status = #{status}
+		</if>
+		<if test="userType != null and userType != ''">
+			and u.user_type = #{userType}
 		</if>
   	</select>
 

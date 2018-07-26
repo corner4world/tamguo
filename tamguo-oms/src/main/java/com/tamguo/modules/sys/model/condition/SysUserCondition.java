@@ -17,6 +17,7 @@ public class SysUserCondition {
 	private String companyName;
 	private String postCode;
 	private String status;
+	private String userType;
 	
 	public Integer getPageNo() {
 		return pageNo;
@@ -101,6 +102,12 @@ public class SysUserCondition {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 	
 }

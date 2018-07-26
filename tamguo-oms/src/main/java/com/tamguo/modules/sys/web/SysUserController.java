@@ -6,10 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
+import com.tamguo.modules.sys.service.IPostService;
 import com.tamguo.modules.sys.service.ISysUserService;
 import com.tamguo.modules.sys.utils.Result;
 
@@ -17,8 +20,20 @@ import com.tamguo.modules.sys.utils.Result;
 @RequestMapping(path="sys/user")
 public class SysUserController {
 	
+	private final String USER_LIST_PAGE = "modules/sys/user/list";
+	
 	@Autowired
 	private ISysUserService iSysUserService;
+	@Autowired
+	private IPostService iPostService;
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path="list")
+	public ModelAndView list(ModelAndView model) {
+		model.setViewName(USER_LIST_PAGE);
+		model.addObject("postList", iPostService.selectList(Condition.create().eq("status", "0")));
+		return model;
+	}
 
 	@RequestMapping(path="listData",method=RequestMethod.POST)
 	@ResponseBody

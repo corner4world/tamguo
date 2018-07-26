@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 
@@ -39,10 +40,14 @@ public class SysUserEntity implements Serializable {
 	private String phone;
 	private Date pwdQuestUpdateDate;
 	private String pwdQuestion;
+	@TableField(value="pwd_question_2")
 	private String pwdQuestion2;
+	@TableField(value="pwd_question_3")
 	private String pwdQuestion3;
 	private String pwdQuestionAnswer;
+	@TableField(value="pwd_question_answer_2")
 	private String pwdQuestionAnswer2;
+	@TableField(value="pwd_question_answer_3")
 	private String pwdQuestionAnswer3;
 	private BigDecimal pwdSecurityLevel;
 	private Date pwdUpdateDate;

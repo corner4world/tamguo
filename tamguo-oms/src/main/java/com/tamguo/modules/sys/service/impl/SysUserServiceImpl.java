@@ -22,7 +22,6 @@ public class SysUserServiceImpl implements ISysUserService{
 		return sysUserMapper.queryByLoginCode(loginCode);
 	}
 
-
 	@Transactional(readOnly=false)
 	@Override
 	public Page<SysUserEntity> listData(SysUserCondition condition) {

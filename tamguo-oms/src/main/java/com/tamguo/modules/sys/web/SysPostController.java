@@ -18,7 +18,7 @@ import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/post")
-public class PostController {
+public class SysPostController {
 
 	private final String POST_INDEX_PAGE = "modules/sys/post/index";
 	private final String POST_UPDATE_PAGE = "modules/sys/post/update";
