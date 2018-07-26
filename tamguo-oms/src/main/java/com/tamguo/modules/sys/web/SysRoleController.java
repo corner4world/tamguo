@@ -23,6 +23,8 @@ public class SysRoleController {
 	private final String ROLE_INDEX_PAGE = "modules/sys/role/index";
 	// 分配角色菜单权限
 	private final String ROLE_MENU_INDEX_PAGE = "modules/sys/role/menu";
+	// 数据权限
+	private final String ROLE_DATA_INDEX_PAGE = "modules/sys/role/dataScope";
 	
 	@Autowired
 	private ISysRoleService iSysRoleService;
@@ -38,6 +40,14 @@ public class SysRoleController {
 	public ModelAndView menu(String roleCode , ModelAndView model) {
 		model.addObject("role", iSysRoleService.selectById(roleCode));
 		model.setViewName(ROLE_MENU_INDEX_PAGE);
+		return model;
+	}
+	
+	/** 数据权限 */
+	@RequestMapping(path="dataScope")
+	public ModelAndView dataScope(String roleCode , ModelAndView model) {
+		model.addObject("role", iSysRoleService.selectById(roleCode));
+		model.setViewName(ROLE_DATA_INDEX_PAGE);
 		return model;
 	}
 	

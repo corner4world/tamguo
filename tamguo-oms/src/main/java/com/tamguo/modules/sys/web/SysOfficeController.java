@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.tamguo.modules.sys.model.SysOfficeEntity;
 import com.tamguo.modules.sys.model.condition.SysOfficeCondition;
 import com.tamguo.modules.sys.service.ISysOfficeService;
@@ -20,7 +21,7 @@ import com.tamguo.modules.sys.service.ISysOfficeService;
  */
 @Controller
 @RequestMapping(path="sys/office")
-public class OfficeController {
+public class SysOfficeController {
 	
 	private final String OFFICE_INDEX_PAGE = "modules/sys/office/index";
 
@@ -36,6 +37,12 @@ public class OfficeController {
 	@ResponseBody
 	public List<SysOfficeEntity> listData(SysOfficeCondition condition) {
 		return iSysOfficeService.listData(condition);
+	}
+	
+	@RequestMapping(path="treeData")
+	@ResponseBody
+	public JSONArray treeData(String excludeId) {
+		return iSysOfficeService.treeData(excludeId);
 	}
 
 	
