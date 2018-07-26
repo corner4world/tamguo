@@ -1,0 +1,388 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>用户管理 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jqGrid/4.7/css/ui.jqgrid.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa icon-people"></i> 编辑用户
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+		<form id="inputForm" action="/js/a/sys/empUser/save" method="post" class="form-horizontal">
+		<input type="hidden" id="op" name="op" value="edit"/>
+		<input type="hidden" id="userType" name="userType" value="employee"/>
+		<input type="hidden" id="userCode" name="userCode" value="TEST01_miom"/>
+			<div class="box-body">
+				<div class="form-unit">基本信息</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> 归属机构：<i class="fa icon-question hide"></i></label>
+									<div class="col-sm-8">
+										<div class="input-group treeselect" id="officeDiv" data-url="/js/a/sys/office/treeData">
+											<input id="officeCode" type="hidden" name="employee.office.officeCode" value="SDQD01" class="isReset"/>
+											<input id="officeName" type="text" name="employee.office.officeName" value="企管部"
+												class="form-control required " readonly="readonly"
+											/><span class="input-group-btn"><a id="officeButton" href="javascript:"
+												class="btn btn-default "><i class="fa fa-search"></i></a>
+											</span>
+										</div>
+										<script>
+										$("#officeButton,#officeName").click(function(){
+											if ($("#officeButton").hasClass("disabled")){
+												return true;
+											}
+											var options = {
+												type: 2,
+												maxmin: true,
+												shadeClose: true,
+												title: '机构选择',
+												area: ['300px', '400px'],
+												content: '/js/tags/treeselect',
+												contentFormData: {
+													url: $('#officeDiv').attr('data-url'),
+													checkbox: 'false',
+													expandLevel: '-1',
+													selectCodes: $("#officeCode").val(),
+													isReturnValue: 'false'
+												},
+												success: function(layero, index){
+													if ($(js.layer.window).width() < 300
+														|| $(js.layer.window).height() < 400){
+														js.layer.full(index);
+													}
+												},
+												btn: ['<i class="fa fa-check"></i> 确定'],
+												btn1: function(index, layero){
+													var win = js.layer.iframeWindow(index);
+													win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
+													if ("false" == "true"){
+														nodes = win.tree.getCheckedNodes(true);
+													}else{
+														nodes = win.tree.getSelectedNodes();
+													}
+													for(var i=0; i<nodes.length; i++) {
+														if (nodes[i].level == 0 && nodes[i].isParent){
+															js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
+															return false;
+														}
+														if (nodes[i].isParent){
+															js.showMessage("不能选择父节点（"+nodes[i].name+"）请重新选择。");
+															return false;
+														}
+														var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+														codes.push(code.replace(/^u_/g,''));
+														names.push(name.replace(/\([0-9]*\)/g,''));
+														break;
+													}
+													if(typeof treeselectCheck == 'function'){
+														if (!treeselectCheck('office', nodes)){
+															return false;
+														}
+													}
+													$("#officeCode").val(codes.join(',')).change();
+													$("#officeName").val(names.join(',')).change();
+													try { $('#officeCode,#officeName').valid(); }catch(e){}
+													if(typeof treeselectCallback == 'function'){
+														treeselectCallback('office', 'ok', index, layero, nodes);
+													}
+												}
+											};
+											options.btn.push('<i class="fa fa-close"></i> 关闭');
+											options['btn'+options.btn.length] = function(index, layero){
+												if(typeof treeselectCallback == 'function'){
+													treeselectCallback('office', 'cancel', index, layero);
+												}
+											};
+											js.layer.open(options);
+										});
+										</script>							
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 归属公司：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<div class="input-group treeselect" id="companyDiv" data-url="/js/a/sys/company/treeData">
+	<input id="companyCode" type="hidden" name="employee.company.companyCode" value="" class="isReset"/>
+	<input id="companyName" type="text" name="employee.company.companyName" value=""
+		class="form-control  " readonly="readonly"
+	/><span class="input-group-btn"><a id="companyButton" href="javascript:"
+		class="btn btn-default "><i class="fa fa-search"></i></a>
+	</span>
+</div>
+<script>
+$("#companyButton,#companyName").click(function(){
+	if ($("#companyButton").hasClass("disabled")){
+		return true;
+	}
+	var options = {
+		type: 2,
+		maxmin: true,
+		shadeClose: true,
+		title: '公司选择',
+		area: ['300px', '400px'],
+		content: '/js/tags/treeselect',
+		contentFormData: {
+			url: $('#companyDiv').attr('data-url'),
+			checkbox: 'false',
+			expandLevel: '-1',
+			selectCodes: $("#companyCode").val(),
+			isReturnValue: 'false'
+		},
+		success: function(layero, index){
+			if ($(js.layer.window).width() < 300
+				|| $(js.layer.window).height() < 400){
+				js.layer.full(index);
+			}
+		},
+		btn: ['<i class="fa fa-check"></i> 确定'],
+		btn1: function(index, layero){
+			var win = js.layer.iframeWindow(index);
+			win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
+			if ("false" == "true"){
+				nodes = win.tree.getCheckedNodes(true);
+			}else{
+				nodes = win.tree.getSelectedNodes();
+			}
+			for(var i=0; i<nodes.length; i++) {
+				if (nodes[i].level == 0 && nodes[i].isParent){
+					js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
+					return false;
+				}
+				if (nodes[i].isParent){
+					js.showMessage("不能选择父节点（"+nodes[i].name+"）请重新选择。");
+					return false;
+				}
+				var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+				codes.push(code.replace(/^u_/g,''));
+				names.push(name.replace(/\([0-9]*\)/g,''));
+				break;
+			}
+			if(typeof treeselectCheck == 'function'){
+				if (!treeselectCheck('company', nodes)){
+					return false;
+				}
+			}
+			$("#companyCode").val(codes.join(',')).change();
+			$("#companyName").val(names.join(',')).change();
+			try { $('#companyCode,#companyName').valid(); }catch(e){}
+			if(typeof treeselectCallback == 'function'){
+				treeselectCallback('company', 'ok', index, layero, nodes);
+			}
+		}
+	};
+	options.btn.push('<i class="fa fa-eraser"></i> 清除');
+	options['btn'+options.btn.length] = function(index, layero){
+		$("#companyCode").val('').change();
+		$("#companyName").val('').change();
+		if(typeof treeselectCallback == 'function'){
+			treeselectCallback('company', 'clear', index, layero);
+		}
+	};
+	options.btn.push('<i class="fa fa-close"></i> 关闭');
+	options['btn'+options.btn.length] = function(index, layero){
+		if(typeof treeselectCallback == 'function'){
+			treeselectCallback('company', 'cancel', index, layero);
+		}
+	};
+	js.layer.open(options);
+});
+</script>							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> 登录账号：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="hidden" id="oldLoginCode" name="oldLoginCode" value="TEST01"/>
+<input type="text" id="loginCode" name="loginCode" value="TEST01" minlength="4" maxlength="20" class="form-control required userName" remote="/js/a/sys/user/checkLoginCode?oldLoginCode=TEST01" data-msg-remote="登录账号已存在"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> 用户昵称：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="userName" name="userName" value="TEST01" maxlength="32" class="form-control required "/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 电子邮箱：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<div class="input-group">
+<input type="text" id="email" name="email" value="123123@QQ.COM" maxlength="300" class="form-control email"/>
+									<span class="input-group-addon"><i class="fa fa-fw fa-envelope" style="margin-top:-2px;display:block;"></i></span>
+				                </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 手机号码：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<div class="input-group">
+<input type="text" id="mobile" name="mobile" value="15618910786" maxlength="100" class="form-control mobile"/>
+									<span class="input-group-addon"><i class="fa fa-fw fa-mobile" style="margin-top:-2px;display:block;"></i></span>
+				                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 办公电话：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<div class="input-group">
+<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control phone"/>
+									<span class="input-group-addon"><i class="fa fa-fw fa-phone"></i></span>
+				                </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 权重(排序)：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="userWeight" name="userWeight" value="1" maxlength="8" class="form-control digits" placeholder="权重越大排名越靠前，请填写数字。"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-unit">详细信息</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 员工编号：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="employee_empCode" name="employee.empCode" value="TEST01_miom" maxlength="32" readonly="true" class="form-control userName"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 员工姓名：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="employee_empName" name="employee.empName" value="TEST01" maxlength="32" class="form-control "/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 所在岗位：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="hidden" name="!employee.employeePosts" value=""/>
+
+<select id="employee_employeePosts" name="employee.employeePosts" class="form-control" multiple="true">
+<option value="cfo">财务经理</option><option value="hrm">人力经理</option><option value="dept">部门经理</option><option value="user">普通员工</option></select>							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 英文名：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="employee_empNameEn" name="employee.empNameEn" value="" maxlength="32" class="form-control "/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control "></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+					</div>
+				</div>
+			</div>
+</form>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.extend.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+
+<!-- VUE -->
+<script th:src="${setting.domain + 'vue/vue.min.js'}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+var vm = new Vue({
+	el:'#inputForm',
+	data:{
+		
+	},
+	methods: {
+		
+	}
+});
+var userCode = [[${userCode}]];
+if(/^(undefined|null|\s*)?$/.test(userCode)){
+	
+}
+</script>
