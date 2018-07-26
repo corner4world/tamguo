@@ -12,20 +12,25 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.modules.sys.dao.SysMenuMapper;
 import com.tamguo.modules.sys.dao.SysRoleMapper;
+import com.tamguo.modules.sys.dao.SysRoleMenuMapper;
 import com.tamguo.modules.sys.model.SysMenuEntity;
 import com.tamguo.modules.sys.model.SysRoleEntity;
+import com.tamguo.modules.sys.model.SysRoleMenuEntity;
 import com.tamguo.modules.sys.model.condition.SysRoleCondition;
 import com.tamguo.modules.sys.service.ISysRoleService;
 
 @Service
-public class SysRoleServiceImpl implements ISysRoleService{
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity> implements ISysRoleService {
 	
 	@Autowired
 	private SysRoleMapper sysRoleMapper;
 	@Autowired
 	private SysMenuMapper sysMenuMapper;
+	@Autowired
+	private SysRoleMenuMapper sysRoleMenuMapper;
 
 	@Transactional(readOnly=true)
 	@Override
@@ -37,7 +42,7 @@ public class SysRoleServiceImpl implements ISysRoleService{
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> menuTreeData(String roleCode) {
-		List<SysMenuEntity> menus = sysMenuMapper.selectList(Condition.create().eq("module_codes", "core"));
+		List<SysMenuEntity> menus = sysMenuMapper.selectList(Condition.create().eq("is_show", "1"));
 		List<SysMenuEntity> roleMenus = sysMenuMapper.selectMenuByRoleId(roleCode);
 		
 		JSONObject result = new JSONObject();
@@ -71,5 +76,24 @@ public class SysRoleServiceImpl implements ISysRoleService{
 			result.put("default", nodes);
 		}
 		return result;
+	}
+
+	@Transactional(readOnly=false)
+	@SuppressWarnings("unchecked")
+	@Override
+	public void allowMenuPermission(SysRoleEntity role) {
+		// 先删除关联表数据
+		sysRoleMenuMapper.delete(Condition.create().eq("role_code", role.getRoleCode()));
+		
+		if(!StringUtils.isEmpty(role.getRoleMenuListJson())) {
+			JSONArray roleMenus = JSONArray.parseArray(role.getRoleMenuListJson());
+			for(int i=0 ; i<roleMenus.size() ; i++) {
+				JSONObject menu = roleMenus.getJSONObject(i);
+				SysRoleMenuEntity roleMenu = new SysRoleMenuEntity();
+				roleMenu.setRoleCode(role.getRoleCode());
+				roleMenu.setMenuCode(menu.getString("menuCode"));
+				sysRoleMenuMapper.insert(roleMenu);
+			}
+		}
 	}
 }

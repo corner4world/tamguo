@@ -27,7 +27,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" action="/js/a/sys/role/save" method="post" class="form-horizontal">
+<form id="inputForm" th:action="${setting.domain + 'sys/role/allowMenuPermission'}" method="post" class="form-horizontal">
 <input type="hidden" id="op" name="op" value="auth"/>
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
@@ -37,8 +37,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 角色名称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="hidden" id="oldRoleName" name="oldRoleName" value="部门经理"/>
-<input type="text" id="roleName" name="roleName" value="部门经理" maxlength="100" readonly="true" class="form-control required " remote="/js/a/sys/role/checkRoleName?oldRoleName=部门经理" data-msg-remote="角色名称已存在"/>
+								<input type="hidden" id="oldRoleName" name="oldRoleName" value="部门经理"/>
+								<input type="text" id="roleName" name="roleName" th:value="${role.roleName}" maxlength="100" readonly="true" class="form-control required " />
 							</div>
 						</div>
 					</div>
@@ -47,8 +47,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 角色编码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="hidden" id="isNewRecord" name="isNewRecord" value="false"/>
-<input type="text" id="roleCode" name="roleCode" value="dept" maxlength="64" readonly="true" class="form-control required abc"/>
+								<input type="hidden" id="isNewRecord" name="isNewRecord" value="false"/>
+								<input type="text" id="roleCode" name="roleCode" th:value="${role.roleCode}" maxlength="64" readonly="true" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -112,14 +112,16 @@ $("#inputForm").validate({
 		$.each(menuTrees, function(key, menuTree){
 			var treeNodes = menuTree.getCheckedNodes(true);
 			for(var i=0; i<treeNodes.length; i++) {
-				menuData.push(treeNodes[i].id);
+				var menu = {};
+				menu.menuCode = treeNodes[i].id;
+				menuData.push(menu);
 			}
 		});
 		$("#roleMenuListJson").val(JSON.stringify(menuData));
 		// 提交表单数据
 		js.ajaxSubmitForm($(form), function(data){
 			js.showMessage(data.message);
-			if(data.result == Global.TRUE){
+			if(data.code == 0){
 				js.closeCurrentTabPage(function(contentWindow){
 					contentWindow.page();
 				});

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.modules.sys.model.SysRoleEntity;
@@ -34,8 +35,10 @@ public class SysRoleController {
 	
 	/** 角色授权功能菜单*/
 	@RequestMapping(path="menu")
-	public String menu() {
-		return ROLE_MENU_INDEX_PAGE;
+	public ModelAndView menu(String roleCode , ModelAndView model) {
+		model.addObject("role", iSysRoleService.selectById(roleCode));
+		model.setViewName(ROLE_MENU_INDEX_PAGE);
+		return model;
 	}
 	
 	/** 列表数据*/
@@ -50,6 +53,14 @@ public class SysRoleController {
 	@ResponseBody
 	public Map<String, Object> menuTreeData(String roleCode) {
 		return iSysRoleService.menuTreeData(roleCode);
+	}
+
+	/** 角色授权功能菜单 */
+	@RequestMapping(path="allowMenuPermission",method=RequestMethod.POST)
+	@ResponseBody
+	public Result allowMenuPermission(SysRoleEntity role) {
+		iSysRoleService.allowMenuPermission(role);
+		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
 	}
 	
 }

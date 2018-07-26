@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 
@@ -15,6 +17,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 public class SysRoleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@TableId
 	private String roleCode;
 	private String corpCode;
 	private String corpName;
@@ -30,6 +33,9 @@ public class SysRoleEntity implements Serializable {
 	private String updateBy;
 	private Date updateDate;
 	private String userType;
+	
+	@TableField(exist=false)
+	private String roleMenuListJson;
 
 	public SysRoleEntity() {
 	}
@@ -152,6 +158,18 @@ public class SysRoleEntity implements Serializable {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+	
+	public String getId() {
+		return getRoleCode();
+	}
+
+	public String getRoleMenuListJson() {
+		return roleMenuListJson;
+	}
+
+	public void setRoleMenuListJson(String roleMenuListJson) {
+		this.roleMenuListJson = roleMenuListJson;
 	}
 
 }
