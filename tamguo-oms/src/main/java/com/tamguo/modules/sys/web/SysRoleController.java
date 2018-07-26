@@ -78,4 +78,12 @@ public class SysRoleController {
 		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
 	}
 	
+	/** 数据权限 */
+	@RequestMapping(path="allowDataScope",method=RequestMethod.POST)
+	@ResponseBody
+	public Result allowDataScope(SysRoleEntity role) {
+		iSysRoleService.allowDataScope(role);
+		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+	}
+	
 }

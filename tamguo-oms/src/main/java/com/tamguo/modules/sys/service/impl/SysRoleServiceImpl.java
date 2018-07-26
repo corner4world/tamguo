@@ -14,9 +14,11 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.modules.sys.dao.SysMenuMapper;
+import com.tamguo.modules.sys.dao.SysRoleDataScopeMapper;
 import com.tamguo.modules.sys.dao.SysRoleMapper;
 import com.tamguo.modules.sys.dao.SysRoleMenuMapper;
 import com.tamguo.modules.sys.model.SysMenuEntity;
+import com.tamguo.modules.sys.model.SysRoleDataScopeEntity;
 import com.tamguo.modules.sys.model.SysRoleEntity;
 import com.tamguo.modules.sys.model.SysRoleMenuEntity;
 import com.tamguo.modules.sys.model.condition.SysRoleCondition;
@@ -31,6 +33,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 	private SysMenuMapper sysMenuMapper;
 	@Autowired
 	private SysRoleMenuMapper sysRoleMenuMapper;
+	@Autowired
+	private SysRoleDataScopeMapper sysRoleDataScopeMapper;
 
 	@Transactional(readOnly=true)
 	@Override
@@ -82,7 +86,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 	@SuppressWarnings("unchecked")
 	@Override
 	public void allowMenuPermission(SysRoleEntity role) {
-		// 先删除关联表数据
+		// 删除关联菜单
 		sysRoleMenuMapper.delete(Condition.create().eq("role_code", role.getRoleCode()));
 		
 		if(!StringUtils.isEmpty(role.getRoleMenuListJson())) {
@@ -93,6 +97,27 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 				roleMenu.setRoleCode(role.getRoleCode());
 				roleMenu.setMenuCode(menu.getString("menuCode"));
 				sysRoleMenuMapper.insert(roleMenu);
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void allowDataScope(SysRoleEntity role) {
+		// 删除权限
+		sysRoleDataScopeMapper.delete(Condition.create().eq("role_code", role.getRoleCode()));
+		
+		// 插入权限
+		if(!StringUtils.isEmpty(role.getRoleDataScopeListJson())) {
+			JSONArray roleDataScopes = JSONArray.parseArray(role.getRoleDataScopeListJson());
+			for(int i=0 ; i<roleDataScopes.size() ; i++) {
+				JSONObject dataScope = roleDataScopes.getJSONObject(i);
+				SysRoleDataScopeEntity roleDataScope = new SysRoleDataScopeEntity();
+				roleDataScope.setRoleCode(role.getRoleCode());
+				roleDataScope.setCtrlPermi("1");
+				roleDataScope.setCtrlType(dataScope.getString("ctrlType"));
+				roleDataScope.setCtrlData(dataScope.getString("ctrlData"));
+				sysRoleDataScopeMapper.insert(roleDataScope);
 			}
 		}
 	}

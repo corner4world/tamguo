@@ -18,4 +18,7 @@ public interface ISysRoleService extends IService<SysRoleEntity>{
 	/** 分配功能权限*/
 	void allowMenuPermission(SysRoleEntity role);
 
+	/** 授权数据权限*/
+	void allowDataScope(SysRoleEntity role);
+
 }

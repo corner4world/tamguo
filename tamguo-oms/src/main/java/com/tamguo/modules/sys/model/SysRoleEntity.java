@@ -36,6 +36,8 @@ public class SysRoleEntity implements Serializable {
 	
 	@TableField(exist=false)
 	private String roleMenuListJson;
+	@TableField(exist=false)
+	private String roleDataScopeListJson;
 
 	public SysRoleEntity() {
 	}
@@ -170,6 +172,14 @@ public class SysRoleEntity implements Serializable {
 
 	public void setRoleMenuListJson(String roleMenuListJson) {
 		this.roleMenuListJson = roleMenuListJson;
+	}
+
+	public String getRoleDataScopeListJson() {
+		return roleDataScopeListJson;
+	}
+
+	public void setRoleDataScopeListJson(String roleDataScopeListJson) {
+		this.roleDataScopeListJson = roleDataScopeListJson;
 	}
 
 }

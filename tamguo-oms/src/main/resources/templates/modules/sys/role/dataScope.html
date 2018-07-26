@@ -27,7 +27,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" action="sys/role/saveDataScope" method="post" class="form-horizontal">
+<form id="inputForm" th:action="${setting.domain + 'sys/role/allowDataScope'}" method="post" class="form-horizontal">
 			<div class="box-body"><br/>
 				<div class="row">
 					<div class="col-xs-6">
@@ -118,7 +118,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <script th:src="${setting.domain + 'common/jeesite.js'}"></script>
 <script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'common/common.js'}"></script>
-<script>
+<script type="text/javascript" th:inline="javascript">
 $("#inputForm").validate({
 	submitHandler: function(form){
 		// 获取数据权限数据
@@ -135,7 +135,7 @@ $("#inputForm").validate({
 		// 提交表单数据
 		js.ajaxSubmitForm($(form), function(data){
 			js.showMessage(data.message);
-			if(data.result == Global.TRUE){
+			if(data.code == 0){
 				js.closeCurrentTabPage(function(contentWindow){
 					contentWindow.page();
 				});
@@ -258,10 +258,10 @@ for (var i=0; i<dataScopes.length; i++){
 	});
 }
 // 默认选择节点
-try{
-	dataScopeTrees['Company'].checkNode(dataScopeTrees['Company'].getNodeByParam("id","SD1"), true, false);
-}catch(e){}
-try{
-	dataScopeTrees['Company'].checkNode(dataScopeTrees['Company'].getNodeByParam("id","SD2"), true, false);
-}catch(e){}
+var roleDataScopeList = [[${roleDataScopeList}]];
+for(var i=0 ; i<roleDataScopeList.length ; i++){
+	try{
+		dataScopeTrees[roleDataScopeList[i].ctrlType].checkNode(dataScopeTrees[roleDataScopeList[i].ctrlType].getNodeByParam("id",roleDataScopeList[i].ctrlData), true, false);
+	}catch(e){}
+}
 </script>
