@@ -17,6 +17,7 @@ public class SysUserCondition {
 	private String companyName;
 	private String postCode;
 	private String status;
+	
 	public Integer getPageNo() {
 		return pageNo;
 	}

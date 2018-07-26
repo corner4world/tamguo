@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamguo.modules.sys.dao.SysUserMapper">
+	
+	<select id="queryByLoginCode" resultType="SysUserEntity">
+		SELECT
+			u.*
+		FROM
+			sys_user u
+		WHERE
+			u.login_code = #{loginCode}
+  	</select>
+  	
+  	<select id="listData" resultType="SysUserEntity">
+		SELECT
+			u.user_code,
+			u.office_code,
+			u.office_name,
+			u.company_code,
+			u.company_name,
+			u.login_code,
+			u.user_name,
+			u.ref_name,
+			u.email,
+			u.mobile,
+			u.phone,
+			u.update_date,
+			u.`status`
+		FROM
+			sys_user u
+		WHERE
+			1 = 1
+		<if test="loginCode != null and loginCode != ''">
+			and u.login_code = #{loginCode}
+		</if>
+		<if test="userName != null and userName != ''">
+			and u.user_name = #{userName}
+		</if>
+		<if test="email != null and email != ''">
+			and u.email = #{email}
+		</if>
+		<if test="mobile != null and mobile != ''">
+			and u.mobile = #{mobile}
+		</if>
+		<if test="phone != null and phone != ''">
+			and u.phone = #{phone}
+		</if>
+		<if test="refName != null and refName != ''">
+			and u.ref_name = #{refName}
+		</if>
+		<if test="officeName != null and officeName != ''">
+			and u.office_name = #{officeName}
+		</if>
+		<if test="officeCode != null and officeCode != ''">
+			and u.office_code = #{officeCode}
+		</if>
+		<if test="companyCode != null and companyCode != ''">
+			and u.company_code = #{companyCode}
+		</if>
+		<if test="companyName != null and companyName != ''">
+			and u.company_name = #{companyName}
+		</if>
+		<if test="postCode != null and postCode != ''">
+			and u.post_code = #{postCode}
+		</if>
+		<if test="status != null and status != ''">
+			and u.status = #{status}
+		</if>
+  	</select>
+
+</mapper>

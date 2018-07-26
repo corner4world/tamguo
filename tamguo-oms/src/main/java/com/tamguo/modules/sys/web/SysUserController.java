@@ -17,7 +17,6 @@ import com.tamguo.modules.sys.utils.Result;
 @RequestMapping(path="sys/user")
 public class SysUserController {
 	
-	
 	@Autowired
 	private ISysUserService iSysUserService;
 
