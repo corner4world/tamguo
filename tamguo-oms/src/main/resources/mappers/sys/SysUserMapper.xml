@@ -2,15 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tamguo.modules.sys.dao.SysUserMapper">
 	
-	<select id="queryByLoginCode" resultType="SysUserEntity">
-		SELECT
-			u.*
-		FROM
-			sys_user u
-		WHERE
-			u.login_code = #{loginCode}
-  	</select>
-  	
   	<select id="listData" resultType="SysUserEntity">
 		SELECT
 			u.user_code,
