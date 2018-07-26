@@ -310,7 +310,7 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="sys/user/detail?userCode='+row.userCode+'&op=edit" class="btnList" title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="sys/user/update?userCode='+row.userCode+'&op=edit" class="btnList" title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == Global.STATUS_NORMAL){
 					actions.push('<a href="/js/a/sys/empUser/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}

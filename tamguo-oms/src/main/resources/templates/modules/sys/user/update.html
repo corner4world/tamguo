@@ -40,8 +40,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 								<span class="required ">*</span> 归属机构：<i class="fa icon-question hide"></i></label>
 									<div class="col-sm-8">
 										<div class="input-group treeselect" id="officeDiv" data-url="/js/a/sys/office/treeData">
-											<input id="officeCode" type="hidden" name="employee.office.officeCode" value="SDQD01" class="isReset"/>
-											<input id="officeName" type="text" name="employee.office.officeName" value="企管部"
+											<input id="officeCode" type="hidden" name="employee.office.officeCode" th:value="${user.officeCode}" class="isReset"/>
+											<input id="officeName" type="text" name="employee.office.officeName" th:value="${user.officeName}"
 												class="form-control required " readonly="readonly"
 											/><span class="input-group-btn"><a id="officeButton" href="javascript:"
 												class="btn btn-default "><i class="fa fa-search"></i></a>
@@ -58,7 +58,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 												shadeClose: true,
 												title: '机构选择',
 												area: ['300px', '400px'],
-												content: '/js/tags/treeselect',
+												content: 'sys/treeselect',
 												contentFormData: {
 													url: $('#officeDiv').attr('data-url'),
 													checkbox: 'false',
@@ -221,7 +221,7 @@ $("#companyButton,#companyName").click(function(){
 								<span class="required ">*</span> 登录账号：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 <input type="hidden" id="oldLoginCode" name="oldLoginCode" value="TEST01"/>
-<input type="text" id="loginCode" name="loginCode" value="TEST01" minlength="4" maxlength="20" class="form-control required userName" remote="/js/a/sys/user/checkLoginCode?oldLoginCode=TEST01" data-msg-remote="登录账号已存在"/>
+<input type="text" id="loginCode" name="loginCode" th:value="${user.loginCode}" minlength="4" maxlength="20" class="form-control required userName" remote="/js/a/sys/user/checkLoginCode?oldLoginCode=TEST01" data-msg-remote="登录账号已存在"/>
 							</div>
 						</div>
 					</div>
@@ -230,7 +230,7 @@ $("#companyButton,#companyName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 用户昵称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="text" id="userName" name="userName" value="TEST01" maxlength="32" class="form-control required "/>
+<input type="text" id="userName" name="userName" th:value="${user.userName}" maxlength="32" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -242,7 +242,7 @@ $("#companyButton,#companyName").click(function(){
 								<span class="required hide">*</span> 电子邮箱：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<div class="input-group">
-<input type="text" id="email" name="email" value="123123@QQ.COM" maxlength="300" class="form-control email"/>
+									<input type="text" id="email" name="email" th:value="${user.email}" maxlength="300" class="form-control email"/>
 									<span class="input-group-addon"><i class="fa fa-fw fa-envelope" style="margin-top:-2px;display:block;"></i></span>
 				                </div>
 							</div>
@@ -254,7 +254,7 @@ $("#companyButton,#companyName").click(function(){
 								<span class="required hide">*</span> 手机号码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<div class="input-group">
-<input type="text" id="mobile" name="mobile" value="15618910786" maxlength="100" class="form-control mobile"/>
+									<input type="text" id="mobile" name="mobile" th:value="${user.mobile}" maxlength="100" class="form-control mobile"/>
 									<span class="input-group-addon"><i class="fa fa-fw fa-mobile" style="margin-top:-2px;display:block;"></i></span>
 				                </div>
 							</div>
@@ -268,7 +268,7 @@ $("#companyButton,#companyName").click(function(){
 								<span class="required hide">*</span> 办公电话：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<div class="input-group">
-<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control phone"/>
+									<input type="text" id="phone" name="phone" th:value="${user.phone}" maxlength="100" class="form-control phone"/>
 									<span class="input-group-addon"><i class="fa fa-fw fa-phone"></i></span>
 				                </div>
 							</div>
@@ -278,9 +278,9 @@ $("#companyButton,#companyName").click(function(){
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 权重(排序)：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-<input type="text" id="userWeight" name="userWeight" value="1" maxlength="8" class="form-control digits" placeholder="权重越大排名越靠前，请填写数字。"/>
-							</div>
+								<div class="col-sm-8">
+									<input type="text" id="userWeight" name="userWeight" th:value="${user.userWeight}" maxlength="8" class="form-control digits" placeholder="权重越大排名越靠前，请填写数字。"/>
+								</div>
 						</div>
 					</div>
 				</div>
@@ -290,18 +290,18 @@ $("#companyButton,#companyName").click(function(){
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 员工编号：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-<input type="text" id="employee_empCode" name="employee.empCode" value="TEST01_miom" maxlength="32" readonly="true" class="form-control userName"/>
-							</div>
+								<div class="col-sm-8">
+									<input type="text" id="employee_empCode" name="employee.empCode" th:value="${user.userCode}" maxlength="32" readonly="true" class="form-control userName"/>
+								</div>
 						</div>
 					</div>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 员工姓名：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-<input type="text" id="employee_empName" name="employee.empName" value="TEST01" maxlength="32" class="form-control "/>
-							</div>
+								<div class="col-sm-8">
+									<input type="text" id="employee_empName" name="employee.empName" th:value="${user.userName}" maxlength="32" class="form-control "/>
+								</div>
 						</div>
 					</div>
 				</div>
@@ -310,20 +310,24 @@ $("#companyButton,#companyName").click(function(){
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 所在岗位：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-<input type="hidden" name="!employee.employeePosts" value=""/>
-
-<select id="employee_employeePosts" name="employee.employeePosts" class="form-control" multiple="true">
-<option value="cfo">财务经理</option><option value="hrm">人力经理</option><option value="dept">部门经理</option><option value="user">普通员工</option></select>							</div>
-						</div>
+									<div class="col-sm-8">
+										<input type="hidden" name="!employee.employeePosts" value=""/>
+										<select id="employee_employeePosts" name="employee.employeePosts" class="form-control" multiple="true">
+											<option value="cfo">财务经理</option>
+											<option value="hrm">人力经理</option>
+											<option value="dept">部门经理</option>
+											<option value="user">普通员工</option>
+										</select>							
+									</div>
+								</div>
 					</div>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 英文名：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-<input type="text" id="employee_empNameEn" name="employee.empNameEn" value="" maxlength="32" class="form-control "/>
-							</div>
+								<div class="col-sm-8">
+									<input type="text" id="employee_empNameEn" name="employee.userNameEn" th:value="${user.userNameEn}" maxlength="32" class="form-control "/>
+								</div>
 						</div>
 					</div>
 				</div>
@@ -333,7 +337,7 @@ $("#companyButton,#companyName").click(function(){
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
-<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control "></textarea>
+								<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control " th:utext="${user.remarks}"></textarea>
 							</div>
 						</div>
 					</div>

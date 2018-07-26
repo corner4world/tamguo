@@ -21,7 +21,7 @@ import com.tamguo.modules.sys.utils.Result;
 public class SysUserController {
 	
 	private final String USER_LIST_PAGE = "modules/sys/user/list";
-	private final String USER_DETAIL_PAGE = "modules/sys/user/detail";
+	private final String USER_DETAIL_PAGE = "modules/sys/user/update";
 	
 	@Autowired
 	private ISysUserService iSysUserService;
@@ -36,10 +36,10 @@ public class SysUserController {
 		return model;
 	}
 	
-	@RequestMapping(path="detail")
-	public ModelAndView detail(String userCode , ModelAndView model) {
+	@RequestMapping(path="update")
+	public ModelAndView update(String userCode , ModelAndView model) {
 		model.setViewName(USER_DETAIL_PAGE);
-		model.addObject("userCode", userCode);
+		model.addObject("user", iSysUserService.selectById(userCode));
 		return model;
 	}
 

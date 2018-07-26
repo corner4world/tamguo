@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 
@@ -17,6 +18,7 @@ import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 public class SysUserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@TableId
 	private String userCode;
 	private String officeCode;
 	private String officeName;
@@ -64,6 +66,7 @@ public class SysUserEntity implements Serializable {
 	private String userType;
 	private BigDecimal userWeight;
 	private String wxOpenid;
+	private String userNameEn;
 
 	public SysUserEntity() {
 	}
@@ -410,6 +413,14 @@ public class SysUserEntity implements Serializable {
 
 	public void setMgrType(String mgrType) {
 		this.mgrType = mgrType;
+	}
+
+	public String getUserNameEn() {
+		return userNameEn;
+	}
+
+	public void setUserNameEn(String userNameEn) {
+		this.userNameEn = userNameEn;
 	}
 
 
