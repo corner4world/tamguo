@@ -372,6 +372,19 @@ $("#companyButton,#companyName").click(function(){
 <script th:src="${setting.domain + 'vue/vue.min.js'}"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.code == 0){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+
 var vm = new Vue({
 	el:'#inputForm',
 	data:{
