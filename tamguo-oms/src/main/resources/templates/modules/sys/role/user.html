@@ -30,9 +30,9 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 		</div>
 		<div class="box-body">
-<form id="searchForm" action="/js/a/sys/user/listData" method="post" class="form-inline " data-page-no="" data-page-size="" data-order-by="">
-<input type="hidden" id="roleCode" name="roleCode" value="dept"/>
-<input type="hidden" id="userType" name="userType" value="employee"/>
+<form id="searchForm" th:action="${setting.domain + 'sys/user/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
+				<input type="hidden" id="roleCode" name="roleCode" value="dept"/>
+				<input type="hidden" id="userType" name="userType" value="employee"/>
 				<div class="form-group">
 					<label class="control-label">账号：</label>
 					<div class="control-inline">

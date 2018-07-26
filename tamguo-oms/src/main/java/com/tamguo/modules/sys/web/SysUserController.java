@@ -21,6 +21,8 @@ public class SysUserController {
 	
 	private final String USER_INDEX_PAGE = "modules/sys/user/index";
 	private final String USER_LIST_PAGE = "modules/sys/user/list";
+	private final String ROLE_USER_LIST_PAGE = "modules/sys/user/userSelect";
+	
 	
 	@Autowired
 	private ISysUserService iSysUserService;
@@ -33,6 +35,11 @@ public class SysUserController {
 	@RequestMapping(path="list")
 	public String list(ModelAndView model) {
 		return USER_LIST_PAGE;
+	}
+	
+	@RequestMapping(path="userSelect")
+	public String userSelect() {
+		return ROLE_USER_LIST_PAGE;
 	}
 	
 	@RequestMapping(path="listData",method=RequestMethod.POST)
