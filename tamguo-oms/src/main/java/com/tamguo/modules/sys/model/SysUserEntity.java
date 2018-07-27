@@ -5,10 +5,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.tamguo.modules.sys.model.enums.SysUserMgrTypeEnum;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
+import com.tamguo.modules.sys.model.enums.SysUserTypeEnum;
 
 
 /**
@@ -36,7 +40,10 @@ public class SysUserEntity implements Serializable {
 	private Date lastLoginDate;
 	private String lastLoginIp;
 	private String loginCode;
-	private String mgrType;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private SysUserMgrTypeEnum mgrType;
+
 	private String mobile;
 	private String mobileImei;
 	private String password;
@@ -60,12 +67,18 @@ public class SysUserEntity implements Serializable {
 	private String remarks;
 	private String sex;
 	private String sign;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysUserStatusEnum status;
+	
 	private String updateBy;
 	private Date updateDate;
 	private String userName;
 	private String empName;
-	private String userType;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private SysUserTypeEnum userType;
+	
 	private BigDecimal userWeight;
 	private String wxOpenid;
 	private String userNameEn;
@@ -358,14 +371,6 @@ public class SysUserEntity implements Serializable {
 		this.userName = userName;
 	}
 
-	public String getUserType() {
-		return this.userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
 	public BigDecimal getUserWeight() {
 		return this.userWeight;
 	}
@@ -414,11 +419,11 @@ public class SysUserEntity implements Serializable {
 		this.companyName = companyName;
 	}
 
-	public String getMgrType() {
+	public SysUserMgrTypeEnum getMgrType() {
 		return mgrType;
 	}
 
-	public void setMgrType(String mgrType) {
+	public void setMgrType(SysUserMgrTypeEnum mgrType) {
 		this.mgrType = mgrType;
 	}
 
@@ -452,6 +457,14 @@ public class SysUserEntity implements Serializable {
 
 	public void setUserRoleString(String userRoleString) {
 		this.userRoleString = userRoleString;
+	}
+
+	public SysUserTypeEnum getUserType() {
+		return userType;
+	}
+
+	public void setUserType(SysUserTypeEnum userType) {
+		this.userType = userType;
 	}
 
 

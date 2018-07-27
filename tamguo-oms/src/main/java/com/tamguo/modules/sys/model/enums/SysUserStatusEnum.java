@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.enums.IEnum;
  */
 public enum SysUserStatusEnum implements IEnum {
 	NORMAL("0", "正常"),
-	DELETE("1" , "禁用"),
+	DELETE("1" , "删除"),
 	DISABLED("2" , "禁用"),
 	LOCKED("3", "锁定"),;
 

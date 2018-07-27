@@ -119,4 +119,7 @@ public class TamguoConstant {
 	
 	/** 题目审核失败*/
 	public static final String TEACHER_ROLE_ID = "2";
+	
+	/** 初始密码*/
+	public static final String INIT_PASSWORD = "123456";
 }

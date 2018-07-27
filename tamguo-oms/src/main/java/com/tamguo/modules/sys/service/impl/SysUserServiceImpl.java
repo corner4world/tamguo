@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +20,12 @@ import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.SysUserPostEntity;
 import com.tamguo.modules.sys.model.SysUserRoleEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
+import com.tamguo.modules.sys.model.enums.SysUserMgrTypeEnum;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
+import com.tamguo.modules.sys.model.enums.SysUserTypeEnum;
 import com.tamguo.modules.sys.service.ISysUserService;
 import com.tamguo.modules.sys.utils.ShiroUtils;
+import com.tamguo.modules.sys.utils.TamguoConstant;
 
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity> implements ISysUserService{
@@ -114,9 +116,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		user.setCreateDate(new Date());
 		user.setStatus(SysUserStatusEnum.NORMAL);
 		// 设置初始密码
-		user.setPassword(new Sha256Hash("123456").toHex());
-		user.setUserType("employee");
-		user.setMgrType("0");
+		user.setPassword(TamguoConstant.INIT_PASSWORD);
+		user.setUserType(SysUserTypeEnum.EMPLOYEE);
+		user.setMgrType(SysUserMgrTypeEnum.NONE_ADMIN);
 		user.setUpdateBy(ShiroUtils.getUserCode());
 		user.setUpdateDate(new Date());
 		sysUserMapper.insert(user);

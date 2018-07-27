@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.enums.IEnum;
  * 用户状态
  */
 public enum SysUserMgrTypeEnum implements IEnum {
-	NONEADMIN("0", "非系统管理员"),
-	SYSTEMADMIN("1", "系统管理员"),
-	SECADMIN("2" , "二级管理员");
+	NONE_ADMIN("0", "非系统管理员"),
+	SYSTEM_ADMIN("1", "系统管理员"),
+	SEC_ADMIN("2" , "二级管理员");
 
     private String value;
     private String desc;
