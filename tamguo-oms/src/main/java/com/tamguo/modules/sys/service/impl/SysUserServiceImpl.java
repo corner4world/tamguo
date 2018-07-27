@@ -23,6 +23,7 @@ import com.tamguo.modules.sys.model.condition.SysUserCondition;
 import com.tamguo.modules.sys.model.enums.SysUserMgrTypeEnum;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 import com.tamguo.modules.sys.model.enums.SysUserTypeEnum;
+import com.tamguo.modules.sys.service.ISysRoleService;
 import com.tamguo.modules.sys.service.ISysUserService;
 import com.tamguo.modules.sys.utils.ShiroUtils;
 import com.tamguo.modules.sys.utils.TamguoConstant;
@@ -36,6 +37,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	public SysUserPostMapper sysUserPostMapper;
 	@Autowired
 	public SysUserRoleMapper sysUserRoleMapper;
+	@Autowired
+	public ISysRoleService iSysRoleService;
 	
 	@Transactional(readOnly=false)
 	@Override
@@ -133,7 +136,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		}
 		
 		// 处理角色
-		if(StringUtils.isEmpty(user.getUserRoleString())) {
+		if(!StringUtils.isEmpty(user.getUserRoleString())) {
+			String[] roleCodes = user.getUserRoleString().split(",");
+			for(String roleCode : roleCodes) {
+				SysUserRoleEntity role = new SysUserRoleEntity();
+				role.setRoleCode(roleCode);
+				role.setUserCode(user.getUserCode());
+				sysUserRoleMapper.insert(role);
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=false)
+	@Override
+	public void allowUserRole(SysUserEntity user) {
+		// 删除角色记录
+		sysUserRoleMapper.delete(Condition.create().eq("user_code", user.getUserCode()));
+		
+		// 处理角色
+		if(!StringUtils.isEmpty(user.getUserRoleString())) {
 			String[] roleCodes = user.getUserRoleString().split(",");
 			for(String roleCode : roleCodes) {
 				SysUserRoleEntity role = new SysUserRoleEntity();

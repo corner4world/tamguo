@@ -22,4 +22,7 @@ public interface ISysUserService extends IService<SysUserEntity>{
 
 	/** 添加用户信息*/
 	public void save(SysUserEntity user);
+
+	/** 分配角色*/
+	public void allowUserRole(SysUserEntity user);
 }

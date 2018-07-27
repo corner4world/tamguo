@@ -21,9 +21,14 @@ import com.tamguo.modules.sys.utils.Result;
 @RequestMapping(path="sys/user")
 public class SysUserController {
 	
+	/** 用户列表*/
 	private final String USER_LIST_PAGE = "modules/sys/user/list";
+	/** 修改*/
 	private final String USER_UPDATE_PAGE = "modules/sys/user/update";
+	/** 新增*/
 	private final String USER_ADD_PAGE = "modules/sys/user/add";
+	/** 分配角色*/
+	private final String USER_ROLE_PAGE = "modules/sys/user/role";
 	
 	@Autowired
 	private ISysUserService iSysUserService;
@@ -43,6 +48,13 @@ public class SysUserController {
 	public ModelAndView add(String userCode , ModelAndView model) {
 		model.setViewName(USER_ADD_PAGE);
 		model.addObject("postList", iSysPostService.selectList(Condition.create().eq("status", "0")));
+		return model;
+	}
+	
+	@RequestMapping(path="role")
+	public ModelAndView role(String userCode , ModelAndView model) {
+		model.setViewName(USER_ROLE_PAGE);
+		model.addObject("user", iSysUserService.selectById(userCode));
 		return model;
 	}
 	
@@ -82,7 +94,7 @@ public class SysUserController {
 	public Result update(SysUserEntity user) {
 		try {
 			iSysUserService.update(user);
-			return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
+			return Result.result(0, null, "保存用户【"+user.getUserName()+"】成功！");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("更新用户", this.getClass(), e);
 		}
@@ -94,9 +106,21 @@ public class SysUserController {
 	public Result save(SysUserEntity user) {
 		try {
 			iSysUserService.save(user);
-			return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
+			return Result.result(0, null, "保存用户【"+user.getUserName()+"】成功！");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("保存用户", this.getClass(), e);
+		}
+	}
+	
+	/** 授权用户角色*/
+	@RequestMapping(path="allowUserRole",method=RequestMethod.POST)
+	@ResponseBody
+	public Result allowUserRole(SysUserEntity user) {
+		try {
+			iSysUserService.allowUserRole(user);
+			return Result.result(0, null, "【"+user.getUserName()+"】分配角色成功！"); 
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("分配角色", this.getClass(), e);
 		}
 	}
 }
