@@ -146,4 +146,27 @@ public class SysUserController {
 			return ExceptionSupport.resolverResult("保存数据权限", this.getClass(), e);
 		}
 	}
+	
+	@RequestMapping(path="disable",method=RequestMethod.POST)
+	@ResponseBody
+	public Result disable(String userCode) {
+		try {
+			return iSysUserService.disable(userCode);
+		} catch (Exception e) {
+			ExceptionSupport.resolverResult("保存数据权限", this.getClass(), e);
+			return null;
+		}
+	}
+	
+	@RequestMapping(path="enable",method=RequestMethod.POST)
+	@ResponseBody
+	public Result enable(String userCode) {
+		try {
+			return iSysUserService.enable(userCode);
+		} catch (Exception e) {
+			ExceptionSupport.resolverResult("保存数据权限", this.getClass(), e);
+			return null;
+		}
+	}
+	
 }

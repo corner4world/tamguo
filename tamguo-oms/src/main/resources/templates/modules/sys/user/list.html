@@ -322,10 +322,10 @@ $('#dataGrid').dataGrid({
 			var actions = [];
 				actions.push('<a href="sys/user/update?userCode='+row.userCode+'&op=edit" class="btnList" title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == Global.STATUS_NORMAL){
-					actions.push('<a href="/js/a/sys/empUser/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'sys/user/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
 				if (row.status == Global.STATUS_DISABLE){
-					actions.push('<a href="/js/a/sys/empUser/enable?userCode='+row.userCode+'" class="btnList" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'sys/user/enable?userCode='+row.userCode+'" class="btnList" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
 				actions.push('<a href="/js/a/sys/empUser/delete?userCode='+row.userCode+'" class="btnList" title="删除用户" data-confirm="确认要删除该用户吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 				actions.push('<a href="javascript:" class="btnMore" title="更多操作"><i class="fa fa-chevron-circle-right"></i></a>&nbsp;');

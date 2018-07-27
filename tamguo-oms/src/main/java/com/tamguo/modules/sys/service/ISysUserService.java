@@ -8,6 +8,7 @@ import com.tamguo.modules.sys.model.SysUserDataScopeEntity;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.SysUserRoleEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
+import com.tamguo.modules.sys.utils.Result;
 
 public interface ISysUserService extends IService<SysUserEntity>{
 	
@@ -38,4 +39,10 @@ public interface ISysUserService extends IService<SysUserEntity>{
 
 	/** 保存用户数据权限*/
 	public void saveUserDataScope(SysUserEntity user);
+
+	/** 停用账号*/
+	public Result disable(String userCode);
+
+	/** 激活账号*/
+	public Result enable(String userCode);
 }

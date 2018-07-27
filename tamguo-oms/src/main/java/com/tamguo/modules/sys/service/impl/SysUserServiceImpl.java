@@ -28,6 +28,7 @@ import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 import com.tamguo.modules.sys.model.enums.SysUserTypeEnum;
 import com.tamguo.modules.sys.service.ISysRoleService;
 import com.tamguo.modules.sys.service.ISysUserService;
+import com.tamguo.modules.sys.utils.Result;
 import com.tamguo.modules.sys.utils.ShiroUtils;
 import com.tamguo.modules.sys.utils.TamguoConstant;
 
@@ -203,6 +204,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 				sysUserDataScopeMapper.insert(entity);
 			}
 		}
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public Result disable(String userCode) {
+		SysUserEntity user = sysUserMapper.selectById(userCode);
+		user.setStatus(SysUserStatusEnum.DISABLED);
+		sysUserMapper.updateById(user);
+		return Result.result(0, null, "停用成功！");
+	}
+
+	@Override
+	public Result enable(String userCode) {
+		SysUserEntity user = sysUserMapper.selectById(userCode);
+		user.setStatus(SysUserStatusEnum.NORMAL);
+		sysUserMapper.updateById(user);
+		return Result.result(0, null, "激活成功！");
 	}
 
 }
