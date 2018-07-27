@@ -14,6 +14,7 @@ import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
 import com.tamguo.modules.sys.service.ISysPostService;
 import com.tamguo.modules.sys.service.ISysUserService;
+import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.Result;
 
 @Controller
@@ -55,30 +56,47 @@ public class SysUserController {
 		return model;
 	}
 
+	/** 列表*/
 	@RequestMapping(path="listData",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> listData(SysUserCondition condition) {
-		Page<SysUserEntity> page = iSysUserService.listData(condition);
-		return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
+		try {
+			Page<SysUserEntity> page = iSysUserService.listData(condition);
+			return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
+		} catch (Exception e) {
+			ExceptionSupport.resolverResult("查询用户列表", this.getClass(), e);
+			return null;
+		}
 	}
 	
+	/** 校验登录账号*/
 	@RequestMapping(path="checkLoginCode",method=RequestMethod.GET)
 	@ResponseBody
 	public Boolean checkLoginCode(String oldLoginCode , String loginCode) {
 		return iSysUserService.checkLoginCode(oldLoginCode , loginCode);
 	}
 	
+	/** 更新用户*/
 	@RequestMapping(path="update",method=RequestMethod.POST)
 	@ResponseBody
 	public Result update(SysUserEntity user) {
-		iSysUserService.update(user);
-		return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
+		try {
+			iSysUserService.update(user);
+			return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("更新用户", this.getClass(), e);
+		}
 	}
 	
+	/** 保存用户*/
 	@RequestMapping(path="save",method=RequestMethod.POST)
 	@ResponseBody
 	public Result save(SysUserEntity user) {
-		iSysUserService.save(user);
-		return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
+		try {
+			iSysUserService.save(user);
+			return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("保存用户", this.getClass(), e);
+		}
 	}
 }

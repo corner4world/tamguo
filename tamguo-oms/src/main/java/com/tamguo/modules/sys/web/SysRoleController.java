@@ -15,6 +15,7 @@ import com.tamguo.modules.sys.model.SysRoleEntity;
 import com.tamguo.modules.sys.model.condition.SysRoleCondition;
 import com.tamguo.modules.sys.service.ISysRoleDataScopeService;
 import com.tamguo.modules.sys.service.ISysRoleService;
+import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.Result;
 
 @Controller
@@ -49,49 +50,79 @@ public class SysRoleController {
 		return model;
 	}
 	
-	/** 列表数据*/
+	/** 角色列表数据*/
 	@RequestMapping(path="listData",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> listData(SysRoleCondition condition) {
-		Page<SysRoleEntity> page = iSysRoleService.listData(condition);
-		return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
+		try {
+			Page<SysRoleEntity> page = iSysRoleService.listData(condition);
+			return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
+		} catch (Exception e) {
+			ExceptionSupport.resolverResult("角色列表", this.getClass(), e);
+			return null;
+		}
 	}
 	
+	/** 菜单树*/
 	@RequestMapping(path="menuTreeData")
 	@ResponseBody
 	public Map<String, Object> menuTreeData(String roleCode) {
-		return iSysRoleService.menuTreeData(roleCode);
+		try {
+			return iSysRoleService.menuTreeData(roleCode);
+		} catch (Exception e) {
+			ExceptionSupport.resolverResult("菜单树", this.getClass(), e);
+			return null;
+		}
+		
 	}
 
 	/** 角色授权功能菜单 */
 	@RequestMapping(path="allowMenuPermission",method=RequestMethod.POST)
 	@ResponseBody
 	public Result allowMenuPermission(SysRoleEntity role) {
-		iSysRoleService.allowMenuPermission(role);
-		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+		try {
+			iSysRoleService.allowMenuPermission(role);
+			return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("授权功能菜单", this.getClass(), e);
+		}
 	}
 	
 	/** 数据权限 */
 	@RequestMapping(path="allowDataScope",method=RequestMethod.POST)
 	@ResponseBody
 	public Result allowDataScope(SysRoleEntity role) {
-		iSysRoleService.allowDataScope(role);
-		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+		try {
+			iSysRoleService.allowDataScope(role);
+			return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("授权数据权限", this.getClass(), e);
+		}
 	}
 	
 	/** 授权用户 */
 	@RequestMapping(path="allowUser",method=RequestMethod.POST)
 	@ResponseBody
 	public Result allowUser(SysRoleEntity role) {
-		iSysRoleService.allowDataScope(role);
-		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+		try {
+			iSysRoleService.allowDataScope(role);
+			return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("授权用户", this.getClass(), e);
+		}
 	}
 	
 	/** 角色树结构*/
 	@RequestMapping(path="treeData",method=RequestMethod.POST)
 	@ResponseBody
 	public List<SysRoleEntity> treeData(String userType){
-		return iSysRoleService.treeDate(userType);
+		try {
+			return iSysRoleService.treeDate(userType);
+		} catch (Exception e) {
+			ExceptionSupport.resolverResult("角色树", this.getClass(), e);
+			return null;
+		}
+		
 	}
 	
 }
