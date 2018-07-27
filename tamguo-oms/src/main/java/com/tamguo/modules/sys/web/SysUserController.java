@@ -55,6 +55,7 @@ public class SysUserController {
 	public ModelAndView role(String userCode , ModelAndView model) {
 		model.setViewName(USER_ROLE_PAGE);
 		model.addObject("user", iSysUserService.selectById(userCode));
+		model.addObject("userRoleList", iSysUserService.findUserRole(userCode));
 		return model;
 	}
 	

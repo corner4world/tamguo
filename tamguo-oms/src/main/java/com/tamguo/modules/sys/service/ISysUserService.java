@@ -1,8 +1,11 @@
 package com.tamguo.modules.sys.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.tamguo.modules.sys.model.SysUserEntity;
+import com.tamguo.modules.sys.model.SysUserRoleEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
 
 public interface ISysUserService extends IService<SysUserEntity>{
@@ -25,4 +28,7 @@ public interface ISysUserService extends IService<SysUserEntity>{
 
 	/** 分配角色*/
 	public void allowUserRole(SysUserEntity user);
+	
+	/** 获取用户角色*/
+	public List<SysUserRoleEntity> findUserRole(String userCode);
 }

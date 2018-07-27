@@ -166,4 +166,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<SysUserRoleEntity> findUserRole(String userCode) {
+		return sysUserRoleMapper.selectList(Condition.create().eq("user_code", userCode));
+	}
+
 }

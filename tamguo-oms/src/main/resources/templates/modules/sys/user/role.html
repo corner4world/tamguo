@@ -84,7 +84,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <script th:src="${setting.domain + 'common/jeesite.js'}"></script>
 <script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'common/common.js'}"></script>
-<script>
+<script type="text/javascript" th:inline="javascript">
 $("#inputForm").validate({
 	submitHandler: function(form){
 		// 获取选中角色
@@ -99,6 +99,7 @@ $("#inputForm").validate({
 		}, "json");
     }
 });
+var userRoleList = [[${userRoleList}]];
 // 加载角色列表
 var roleGrid = $("#roleGrid").dataGrid({
 	url: ctx + 'sys/role/treeData',
@@ -118,7 +119,9 @@ var roleGrid = $("#roleGrid").dataGrid({
 		return $('#inputForm .box-body').width()-20;
 	},
 	ajaxSuccess: function(){
- 		roleGrid.dataGrid('setSelectRow', 'dept');
+		for(var i=0 ; i<userRoleList.length ; i++){
+			roleGrid.dataGrid('setSelectRow', userRoleList[i].roleCode);
+		}
 	}
 });
 </script>
