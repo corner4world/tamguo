@@ -9,13 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.tamguo.modules.sys.dao.SysUserDataScopeMapper;
 import com.tamguo.modules.sys.dao.SysUserMapper;
 import com.tamguo.modules.sys.dao.SysUserPostMapper;
 import com.tamguo.modules.sys.dao.SysUserRoleMapper;
+import com.tamguo.modules.sys.model.SysUserDataScopeEntity;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.SysUserPostEntity;
 import com.tamguo.modules.sys.model.SysUserRoleEntity;
@@ -39,6 +42,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	public SysUserRoleMapper sysUserRoleMapper;
 	@Autowired
 	public ISysRoleService iSysRoleService;
+	@Autowired
+	public SysUserDataScopeMapper sysUserDataScopeMapper;
 	
 	@Transactional(readOnly=false)
 	@Override
@@ -171,6 +176,33 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	@Override
 	public List<SysUserRoleEntity> findUserRole(String userCode) {
 		return sysUserRoleMapper.selectList(Condition.create().eq("user_code", userCode));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public List<SysUserDataScopeEntity> selectUserDataScope(String userCode) {
+		return sysUserDataScopeMapper.selectList(Condition.create().eq("user_code", userCode));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=false)
+	@Override
+	public void saveUserDataScope(SysUserEntity user) {
+		// 删除之前的数据权限
+		sysUserDataScopeMapper.delete(Condition.create().eq("user_code", user.getUserCode()));
+		
+		if(!StringUtils.isEmpty(user.getUserDataScopeListJson())) {
+			JSONArray dataScopeList = JSONArray.parseArray(user.getUserDataScopeListJson());
+			for(int i=0 ; i<dataScopeList.size() ; i++) {
+				SysUserDataScopeEntity entity = new SysUserDataScopeEntity();
+				entity.setCtrlData(dataScopeList.getJSONObject(i).getString("ctrlData"));
+				entity.setCtrlType(dataScopeList.getJSONObject(i).getString("ctrlType"));
+				entity.setUserCode(user.getUserCode());
+				entity.setCtrlPermi("2");
+				sysUserDataScopeMapper.insert(entity);
+			}
+		}
 	}
 
 }

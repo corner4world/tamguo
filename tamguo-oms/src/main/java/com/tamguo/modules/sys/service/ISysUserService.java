@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.tamguo.modules.sys.model.SysUserDataScopeEntity;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.SysUserRoleEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
@@ -31,4 +32,10 @@ public interface ISysUserService extends IService<SysUserEntity>{
 	
 	/** 获取用户角色*/
 	public List<SysUserRoleEntity> findUserRole(String userCode);
+
+	/** 用户数据权限*/
+	public List<SysUserDataScopeEntity> selectUserDataScope(String userCode);
+
+	/** 保存用户数据权限*/
+	public void saveUserDataScope(SysUserEntity user);
 }

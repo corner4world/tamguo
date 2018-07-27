@@ -87,6 +87,8 @@ public class SysUserEntity implements Serializable {
 	private List<String> employeePosts;
 	@TableField(exist=false)
 	private String userRoleString;
+	@TableField(exist=false)
+	private String userDataScopeListJson;
 
 	public SysUserEntity() {
 	}
@@ -465,6 +467,14 @@ public class SysUserEntity implements Serializable {
 
 	public void setUserType(SysUserTypeEnum userType) {
 		this.userType = userType;
+	}
+
+	public String getUserDataScopeListJson() {
+		return userDataScopeListJson;
+	}
+
+	public void setUserDataScopeListJson(String userDataScopeListJson) {
+		this.userDataScopeListJson = userDataScopeListJson;
 	}
 
 

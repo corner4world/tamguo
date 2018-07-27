@@ -331,7 +331,7 @@ $('#dataGrid').dataGrid({
 				actions.push('<a href="javascript:" class="btnMore" title="更多操作"><i class="fa fa-chevron-circle-right"></i></a>&nbsp;');
 				actions.push('<div class="moreItems">');
 					actions.push('<a href="sys/user/role?userCode='+row.userCode+'&op=auth" class="btn btn-default btn-xs btnList" title="用户分配角色"><i class="fa fa-check-square-o"></i> 分配角色</a>&nbsp;');
-					actions.push('<a href="/js/a/sys/empUser/formAuthDataScope?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户分配数据权限"><i class="fa fa-check-circle-o"></i> 数据权限</a>&nbsp;');
+					actions.push('<a href="/sys/user/dataScope?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户分配数据权限"><i class="fa fa-check-circle-o"></i> 数据权限</a>&nbsp;');
 					actions.push('<a href="/js/a/sys/empUser/resetpwd?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户密码重置" data-confirm="确认要将该用户密码重置到初始状态吗？"><i class="fa fa-reply-all"></i> 重置密码</a>&nbsp;');
 				actions.push('</div>');
 			return actions.join('');

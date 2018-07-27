@@ -29,6 +29,8 @@ public class SysUserController {
 	private final String USER_ADD_PAGE = "modules/sys/user/add";
 	/** 分配角色*/
 	private final String USER_ROLE_PAGE = "modules/sys/user/role";
+	/** 数据权限*/
+	private final String USER_DATA_SCOPE_PAGE = "modules/sys/user/dataScope";
 	
 	@Autowired
 	private ISysUserService iSysUserService;
@@ -56,6 +58,14 @@ public class SysUserController {
 		model.setViewName(USER_ROLE_PAGE);
 		model.addObject("user", iSysUserService.selectById(userCode));
 		model.addObject("userRoleList", iSysUserService.findUserRole(userCode));
+		return model;
+	}
+	
+	@RequestMapping(path="dataScope")
+	public ModelAndView dataScope(String userCode , ModelAndView model) {
+		model.setViewName(USER_DATA_SCOPE_PAGE);
+		model.addObject("user", iSysUserService.selectById(userCode));
+		model.addObject("userDataScopeList", iSysUserService.selectUserDataScope(userCode));
 		return model;
 	}
 	
@@ -122,6 +132,18 @@ public class SysUserController {
 			return Result.result(0, null, "【"+user.getUserName()+"】分配角色成功！"); 
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("分配角色", this.getClass(), e);
+		}
+	}
+	
+	/** 保存用户数据权限*/
+	@RequestMapping(path="saveUserDataScope",method=RequestMethod.POST)
+	@ResponseBody
+	public Result saveUserDataScope(SysUserEntity user) {
+		try {
+			iSysUserService.saveUserDataScope(user);
+			return Result.result(0, null, "【"+user.getUserName()+"】保存数据权限成功！"); 
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("保存数据权限", this.getClass(), e);
 		}
 	}
 }
