@@ -1,9 +1,11 @@
 package com.tamguo.modules.sys.service.impl;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +16,14 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.tamguo.modules.sys.dao.SysUserMapper;
 import com.tamguo.modules.sys.dao.SysUserPostMapper;
+import com.tamguo.modules.sys.dao.SysUserRoleMapper;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.SysUserPostEntity;
+import com.tamguo.modules.sys.model.SysUserRoleEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
+import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 import com.tamguo.modules.sys.service.ISysUserService;
+import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity> implements ISysUserService{
@@ -26,6 +32,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	public SysUserMapper sysUserMapper;
 	@Autowired
 	public SysUserPostMapper sysUserPostMapper;
+	@Autowired
+	public SysUserRoleMapper sysUserRoleMapper;
 	
 	@Transactional(readOnly=false)
 	@Override
@@ -97,8 +105,37 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 			userPost.setUserCode(user.getUserCode());
 			sysUserPostMapper.insert(userPost);
 		}
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void save(SysUserEntity user) {
+		user.setCreateBy(ShiroUtils.getUserCode());
+		user.setCreateDate(new Date());
+		user.setStatus(SysUserStatusEnum.NORMAL);
+		// 设置初始密码
+		user.setPassword(new Sha256Hash("123456").toHex());
+		sysUserMapper.insert(user);
 		
+		// 处理岗位
+		List<String> employeePosts = user.getEmployeePosts();
+		for(int i=0 ; i<employeePosts.size() ; i++) {
+			SysUserPostEntity userPost = new SysUserPostEntity();
+			userPost.setPostCode(employeePosts.get(i));
+			userPost.setUserCode(user.getUserCode());
+			sysUserPostMapper.insert(userPost);
+		}
 		
+		// 处理角色
+		if(StringUtils.isEmpty(user.getUserRoleString())) {
+			String[] roleCodes = user.getUserRoleString().split(",");
+			for(String roleCode : roleCodes) {
+				SysUserRoleEntity role = new SysUserRoleEntity();
+				role.setRoleCode(roleCode);
+				role.setUserCode(user.getUserCode());
+				sysUserRoleMapper.insert(role);
+			}
+		}
 	}
 
 }

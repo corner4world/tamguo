@@ -21,7 +21,8 @@ import com.tamguo.modules.sys.utils.Result;
 public class SysUserController {
 	
 	private final String USER_LIST_PAGE = "modules/sys/user/list";
-	private final String USER_DETAIL_PAGE = "modules/sys/user/update";
+	private final String USER_UPDATE_PAGE = "modules/sys/user/update";
+	private final String USER_ADD_PAGE = "modules/sys/user/add";
 	
 	@Autowired
 	private ISysUserService iSysUserService;
@@ -37,9 +38,17 @@ public class SysUserController {
 	}
 	
 	@SuppressWarnings("unchecked")
+	@RequestMapping(path="add")
+	public ModelAndView add(String userCode , ModelAndView model) {
+		model.setViewName(USER_ADD_PAGE);
+		model.addObject("postList", iPostService.selectList(Condition.create().eq("status", "0")));
+		return model;
+	}
+	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path="update")
 	public ModelAndView update(String userCode , ModelAndView model) {
-		model.setViewName(USER_DETAIL_PAGE);
+		model.setViewName(USER_UPDATE_PAGE);
 		model.addObject("user", iSysUserService.selectById(userCode));
 		model.addObject("postList", iPostService.selectList(Condition.create().eq("status", "0")));
 		model.addObject("userPostCode", iSysUserService.queryUserPostByUserCode(userCode));
@@ -63,6 +72,13 @@ public class SysUserController {
 	@ResponseBody
 	public Result update(SysUserEntity user) {
 		iSysUserService.update(user);
+		return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
+	}
+	
+	@RequestMapping(path="save",method=RequestMethod.POST)
+	@ResponseBody
+	public Result save(SysUserEntity user) {
+		iSysUserService.save(user);
 		return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
 	}
 }

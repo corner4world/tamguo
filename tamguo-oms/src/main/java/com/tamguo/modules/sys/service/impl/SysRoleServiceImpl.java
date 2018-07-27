@@ -121,4 +121,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 			}
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SysRoleEntity> treeDate(String userType) {
+		return sysRoleMapper.selectList(Condition.create().eq("user_type", userType));
+	}
 }

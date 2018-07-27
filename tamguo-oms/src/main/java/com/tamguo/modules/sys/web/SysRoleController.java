@@ -1,5 +1,6 @@
 package com.tamguo.modules.sys.web;
 
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -84,6 +85,13 @@ public class SysRoleController {
 	public Result allowUser(SysRoleEntity role) {
 		iSysRoleService.allowDataScope(role);
 		return Result.result(0, null, "保存角色【"+role.getRoleName()+"】成功！");
+	}
+	
+	/** 角色树结构*/
+	@RequestMapping(path="treeData",method=RequestMethod.POST)
+	@ResponseBody
+	public List<SysRoleEntity> treeData(String userType){
+		return iSysRoleService.treeDate(userType);
 	}
 	
 }

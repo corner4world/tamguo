@@ -72,6 +72,8 @@ public class SysUserEntity implements Serializable {
 	
 	@TableField(exist=false)
 	private List<String> employeePosts;
+	@TableField(exist=false)
+	private String userRoleString;
 
 	public SysUserEntity() {
 	}
@@ -442,6 +444,14 @@ public class SysUserEntity implements Serializable {
 
 	public void setEmpName(String empName) {
 		this.empName = empName;
+	}
+
+	public String getUserRoleString() {
+		return userRoleString;
+	}
+
+	public void setUserRoleString(String userRoleString) {
+		this.userRoleString = userRoleString;
 	}
 
 

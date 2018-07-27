@@ -1,5 +1,6 @@
 package com.tamguo.modules.sys.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -20,5 +21,8 @@ public interface ISysRoleService extends IService<SysRoleEntity>{
 
 	/** 授权数据权限*/
 	void allowDataScope(SysRoleEntity role);
+
+	/** 角色树形结构*/
+	List<SysRoleEntity> treeDate(String userType);
 
 }
