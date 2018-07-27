@@ -153,7 +153,7 @@ public class SysUserController {
 		try {
 			return iSysUserService.disable(userCode);
 		} catch (Exception e) {
-			ExceptionSupport.resolverResult("保存数据权限", this.getClass(), e);
+			ExceptionSupport.resolverResult("停用用户", this.getClass(), e);
 			return null;
 		}
 	}
@@ -164,7 +164,18 @@ public class SysUserController {
 		try {
 			return iSysUserService.enable(userCode);
 		} catch (Exception e) {
-			ExceptionSupport.resolverResult("保存数据权限", this.getClass(), e);
+			ExceptionSupport.resolverResult("激活用户", this.getClass(), e);
+			return null;
+		}
+	}
+	
+	@RequestMapping(path="delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Result delete(String userCode) {
+		try {
+			return iSysUserService.delete(userCode);
+		} catch (Exception e) {
+			ExceptionSupport.resolverResult("删除用户", this.getClass(), e);
 			return null;
 		}
 	}

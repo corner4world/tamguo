@@ -45,4 +45,7 @@ public interface ISysUserService extends IService<SysUserEntity>{
 
 	/** 激活账号*/
 	public Result enable(String userCode);
+
+	/** 删除用户*/
+	public Result delete(String userCode);
 }

@@ -215,12 +215,22 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		return Result.result(0, null, "停用成功！");
 	}
 
+	@Transactional(readOnly=false)
 	@Override
 	public Result enable(String userCode) {
 		SysUserEntity user = sysUserMapper.selectById(userCode);
 		user.setStatus(SysUserStatusEnum.NORMAL);
 		sysUserMapper.updateById(user);
 		return Result.result(0, null, "激活成功！");
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public Result delete(String userCode) {
+		SysUserEntity user = sysUserMapper.selectById(userCode);
+		user.setStatus(SysUserStatusEnum.DELETE);
+		sysUserMapper.updateById(user);
+		return Result.result(0, null, "删除成功！");
 	}
 
 }

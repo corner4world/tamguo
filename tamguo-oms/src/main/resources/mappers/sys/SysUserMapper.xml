@@ -22,7 +22,7 @@
 			sys_user u
 		LEFT JOIN sys_user_post up ON u.user_code = up.user_code
 		WHERE
-			1 = 1
+			1 = 1 and u.status != 1
 		<if test="loginCode != null and loginCode != ''">
 			and u.login_code = #{loginCode}
 		</if>
