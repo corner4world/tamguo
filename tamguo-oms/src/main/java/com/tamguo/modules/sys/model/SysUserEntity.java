@@ -3,6 +3,7 @@ package com.tamguo.modules.sys.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -63,10 +64,14 @@ public class SysUserEntity implements Serializable {
 	private String updateBy;
 	private Date updateDate;
 	private String userName;
+	private String empName;
 	private String userType;
 	private BigDecimal userWeight;
 	private String wxOpenid;
 	private String userNameEn;
+	
+	@TableField(exist=false)
+	private List<String> employeePosts;
 
 	public SysUserEntity() {
 	}
@@ -421,6 +426,22 @@ public class SysUserEntity implements Serializable {
 
 	public void setUserNameEn(String userNameEn) {
 		this.userNameEn = userNameEn;
+	}
+
+	public List<String> getEmployeePosts() {
+		return employeePosts;
+	}
+
+	public void setEmployeePosts(List<String> employeePosts) {
+		this.employeePosts = employeePosts;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
 
 

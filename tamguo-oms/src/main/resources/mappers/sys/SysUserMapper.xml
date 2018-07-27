@@ -4,6 +4,7 @@
 	
   	<select id="listData" resultType="SysUserEntity">
 		SELECT
+			distinct
 			u.user_code,
 			u.office_code,
 			u.office_name,

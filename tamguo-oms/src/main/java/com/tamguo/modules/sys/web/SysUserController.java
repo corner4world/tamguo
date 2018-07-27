@@ -36,10 +36,13 @@ public class SysUserController {
 		return model;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path="update")
 	public ModelAndView update(String userCode , ModelAndView model) {
 		model.setViewName(USER_DETAIL_PAGE);
 		model.addObject("user", iSysUserService.selectById(userCode));
+		model.addObject("postList", iPostService.selectList(Condition.create().eq("status", "0")));
+		model.addObject("userPostCode", iSysUserService.queryUserPostByUserCode(userCode));
 		return model;
 	}
 
@@ -50,4 +53,16 @@ public class SysUserController {
 		return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
 	}
 	
+	@RequestMapping(path="checkLoginCode",method=RequestMethod.GET)
+	@ResponseBody
+	public Boolean checkLoginCode(String oldLoginCode , String loginCode) {
+		return iSysUserService.checkLoginCode(oldLoginCode , loginCode);
+	}
+	
+	@RequestMapping(path="update",method=RequestMethod.POST)
+	@ResponseBody
+	public Result update(SysUserEntity user) {
+		iSysUserService.update(user);
+		return Result.result(0, null, "保存用户【"+user.getUserCode()+"】成功！");
+	}
 }

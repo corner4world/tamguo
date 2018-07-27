@@ -27,10 +27,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-		<form id="inputForm" action="/js/a/sys/empUser/save" method="post" class="form-horizontal">
+		<form id="inputForm" th:action="${setting.domain + 'sys/user/update'}" method="post" class="form-horizontal">
 		<input type="hidden" id="op" name="op" value="edit"/>
-		<input type="hidden" id="userType" name="userType" value="employee"/>
-		<input type="hidden" id="userCode" name="userCode" value="TEST01_miom"/>
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
 				<div class="row">
@@ -39,12 +37,10 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 归属机构：<i class="fa icon-question hide"></i></label>
 									<div class="col-sm-8">
-										<div class="input-group treeselect" id="officeDiv" data-url="/js/a/sys/office/treeData">
-											<input id="officeCode" type="hidden" name="employee.office.officeCode" th:value="${user.officeCode}" class="isReset"/>
-											<input id="officeName" type="text" name="employee.office.officeName" th:value="${user.officeName}"
-												class="form-control required " readonly="readonly"
-											/><span class="input-group-btn"><a id="officeButton" href="javascript:"
-												class="btn btn-default "><i class="fa fa-search"></i></a>
+										<div class="input-group treeselect" id="officeDiv" data-url="sys/office/treeData?">
+											<input id="officeCode" type="hidden" name="officeCode" th:value="${user.officeCode}" class="isReset"/>
+											<input id="officeName" type="text" name="officeName" th:value="${user.officeName}" class="form-control required " readonly="readonly"/>
+											<span class="input-group-btn"><a id="officeButton" href="javascript:" class="btn btn-default "><i class="fa fa-search"></i></a>
 											</span>
 										</div>
 										<script>
@@ -125,92 +121,93 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 归属公司：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<div class="input-group treeselect" id="companyDiv" data-url="/js/a/sys/company/treeData">
-	<input id="companyCode" type="hidden" name="employee.company.companyCode" value="" class="isReset"/>
-	<input id="companyName" type="text" name="employee.company.companyName" value=""
-		class="form-control  " readonly="readonly"
-	/><span class="input-group-btn"><a id="companyButton" href="javascript:"
-		class="btn btn-default "><i class="fa fa-search"></i></a>
-	</span>
-</div>
-<script>
-$("#companyButton,#companyName").click(function(){
-	if ($("#companyButton").hasClass("disabled")){
-		return true;
-	}
-	var options = {
-		type: 2,
-		maxmin: true,
-		shadeClose: true,
-		title: '公司选择',
-		area: ['300px', '400px'],
-		content: '/js/tags/treeselect',
-		contentFormData: {
-			url: $('#companyDiv').attr('data-url'),
-			checkbox: 'false',
-			expandLevel: '-1',
-			selectCodes: $("#companyCode").val(),
-			isReturnValue: 'false'
-		},
-		success: function(layero, index){
-			if ($(js.layer.window).width() < 300
-				|| $(js.layer.window).height() < 400){
-				js.layer.full(index);
-			}
-		},
-		btn: ['<i class="fa fa-check"></i> 确定'],
-		btn1: function(index, layero){
-			var win = js.layer.iframeWindow(index);
-			win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
-			if ("false" == "true"){
-				nodes = win.tree.getCheckedNodes(true);
-			}else{
-				nodes = win.tree.getSelectedNodes();
-			}
-			for(var i=0; i<nodes.length; i++) {
-				if (nodes[i].level == 0 && nodes[i].isParent){
-					js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
-					return false;
-				}
-				if (nodes[i].isParent){
-					js.showMessage("不能选择父节点（"+nodes[i].name+"）请重新选择。");
-					return false;
-				}
-				var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
-				codes.push(code.replace(/^u_/g,''));
-				names.push(name.replace(/\([0-9]*\)/g,''));
-				break;
-			}
-			if(typeof treeselectCheck == 'function'){
-				if (!treeselectCheck('company', nodes)){
-					return false;
-				}
-			}
-			$("#companyCode").val(codes.join(',')).change();
-			$("#companyName").val(names.join(',')).change();
-			try { $('#companyCode,#companyName').valid(); }catch(e){}
-			if(typeof treeselectCallback == 'function'){
-				treeselectCallback('company', 'ok', index, layero, nodes);
-			}
-		}
-	};
-	options.btn.push('<i class="fa fa-eraser"></i> 清除');
-	options['btn'+options.btn.length] = function(index, layero){
-		$("#companyCode").val('').change();
-		$("#companyName").val('').change();
-		if(typeof treeselectCallback == 'function'){
-			treeselectCallback('company', 'clear', index, layero);
-		}
-	};
-	options.btn.push('<i class="fa fa-close"></i> 关闭');
-	options['btn'+options.btn.length] = function(index, layero){
-		if(typeof treeselectCallback == 'function'){
-			treeselectCallback('company', 'cancel', index, layero);
-		}
-	};
-	js.layer.open(options);
-});
-</script>							</div>
+						<div class="input-group treeselect" id="companyDiv" data-url="sys/company/treeData?">
+							<input id="companyCode" type="hidden" name="companyCode" th:value="${user.companyCode}" class="isReset"/>
+							<input id="companyName" type="text" name="companyName" th:value="${user.companyName}"
+								class="form-control  " readonly="readonly"
+							/><span class="input-group-btn"><a id="companyButton" href="javascript:"
+								class="btn btn-default "><i class="fa fa-search"></i></a>
+							</span>
+						</div>
+				<script>
+				$("#companyButton,#companyName").click(function(){
+					if ($("#companyButton").hasClass("disabled")){
+						return true;
+					}
+					var options = {
+						type: 2,
+						maxmin: true,
+						shadeClose: true,
+						title: '公司选择',
+						area: ['300px', '400px'],
+						content: 'sys/treeselect',
+						contentFormData: {
+							url: $('#companyDiv').attr('data-url'),
+							checkbox: 'false',
+							expandLevel: '-1',
+							selectCodes: $("#companyCode").val(),
+							isReturnValue: 'false'
+						},
+						success: function(layero, index){
+							if ($(js.layer.window).width() < 300
+								|| $(js.layer.window).height() < 400){
+								js.layer.full(index);
+							}
+						},
+						btn: ['<i class="fa fa-check"></i> 确定'],
+						btn1: function(index, layero){
+							var win = js.layer.iframeWindow(index);
+							win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
+							if ("false" == "true"){
+								nodes = win.tree.getCheckedNodes(true);
+							}else{
+								nodes = win.tree.getSelectedNodes();
+							}
+							for(var i=0; i<nodes.length; i++) {
+								if (nodes[i].level == 0 && nodes[i].isParent){
+									js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
+									return false;
+								}
+								if (nodes[i].isParent){
+									js.showMessage("不能选择父节点（"+nodes[i].name+"）请重新选择。");
+									return false;
+								}
+								var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+								codes.push(code.replace(/^u_/g,''));
+								names.push(name.replace(/\([0-9]*\)/g,''));
+								break;
+							}
+							if(typeof treeselectCheck == 'function'){
+								if (!treeselectCheck('company', nodes)){
+									return false;
+								}
+							}
+							$("#companyCode").val(codes.join(',')).change();
+							$("#companyName").val(names.join(',')).change();
+							try { $('#companyCode,#companyName').valid(); }catch(e){}
+							if(typeof treeselectCallback == 'function'){
+								treeselectCallback('company', 'ok', index, layero, nodes);
+							}
+						}
+					};
+					options.btn.push('<i class="fa fa-eraser"></i> 清除');
+					options['btn'+options.btn.length] = function(index, layero){
+						$("#companyCode").val('').change();
+						$("#companyName").val('').change();
+						if(typeof treeselectCallback == 'function'){
+							treeselectCallback('company', 'clear', index, layero);
+						}
+					};
+					options.btn.push('<i class="fa fa-close"></i> 关闭');
+					options['btn'+options.btn.length] = function(index, layero){
+						if(typeof treeselectCallback == 'function'){
+							treeselectCallback('company', 'cancel', index, layero);
+						}
+					};
+					js.layer.open(options);
+				});
+				</script>							
+				</div>
 						</div>
 					</div>
 				</div>
@@ -220,8 +217,8 @@ $("#companyButton,#companyName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 登录账号：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="hidden" id="oldLoginCode" name="oldLoginCode" value="TEST01"/>
-<input type="text" id="loginCode" name="loginCode" th:value="${user.loginCode}" minlength="4" maxlength="20" class="form-control required userName" remote="/js/a/sys/user/checkLoginCode?oldLoginCode=TEST01" data-msg-remote="登录账号已存在"/>
+								<input type="hidden" id="oldLoginCode" name="oldLoginCode" th:value="${user.loginCode}"/>
+								<input type="text" id="loginCode" name="loginCode" th:value="${user.loginCode}" minlength="4" maxlength="20" class="form-control required userName" th:remote="${setting.domain + 'sys/user/checkLoginCode?oldLoginCode='+user.loginCode}" data-msg-remote="登录账号已存在"/>
 							</div>
 						</div>
 					</div>
@@ -230,7 +227,7 @@ $("#companyButton,#companyName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 用户昵称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="text" id="userName" name="userName" th:value="${user.userName}" maxlength="32" class="form-control required "/>
+								<input type="text" id="userName" name="userName" th:value="${user.userName}" maxlength="32" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -291,7 +288,7 @@ $("#companyButton,#companyName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 员工编号：<i class="fa icon-question hide"></i></label>
 								<div class="col-sm-8">
-									<input type="text" id="employee_empCode" name="employee.empCode" th:value="${user.userCode}" maxlength="32" readonly="true" class="form-control userName"/>
+									<input type="text" id="userCode" name="userCode" th:value="${user.userCode}" maxlength="32" readonly="true" class="form-control userName"/>
 								</div>
 						</div>
 					</div>
@@ -300,7 +297,7 @@ $("#companyButton,#companyName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 员工姓名：<i class="fa icon-question hide"></i></label>
 								<div class="col-sm-8">
-									<input type="text" id="employee_empName" name="employee.empName" th:value="${user.userName}" maxlength="32" class="form-control "/>
+									<input type="text" id="empName" name="empName" th:value="${user.empName}" maxlength="32" class="form-control "/>
 								</div>
 						</div>
 					</div>
@@ -311,12 +308,8 @@ $("#companyButton,#companyName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 所在岗位：<i class="fa icon-question hide"></i></label>
 									<div class="col-sm-8">
-										<input type="hidden" name="!employee.employeePosts" value=""/>
-										<select id="employee_employeePosts" name="employee.employeePosts" class="form-control" multiple="true">
-											<option value="cfo">财务经理</option>
-											<option value="hrm">人力经理</option>
-											<option value="dept">部门经理</option>
-											<option value="user">普通员工</option>
+										<select id="employeePosts" name="employeePosts" class="form-control" multiple="true">
+											<option th:value="${post.postCode}" th:selected="${#strings.contains(userPostCode,post.postCode)}" th:each="post,postStat:${postList}" th:text="${post.postName}">财务经理</option>
 										</select>							
 									</div>
 								</div>
@@ -326,7 +319,7 @@ $("#companyButton,#companyName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 英文名：<i class="fa icon-question hide"></i></label>
 								<div class="col-sm-8">
-									<input type="text" id="employee_empNameEn" name="employee.userNameEn" th:value="${user.userNameEn}" maxlength="32" class="form-control "/>
+									<input type="text" id="employee_empNameEn" name="userNameEn" th:value="${user.userNameEn}" maxlength="32" class="form-control "/>
 								</div>
 						</div>
 					</div>
@@ -373,8 +366,8 @@ $("#companyButton,#companyName").click(function(){
 <script th:src="${setting.domain + 'common/common.js'}"></script>
 
 <!-- VUE -->
-<script th:src="${setting.domain + 'vue/vue.min.js'}"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- <script th:src="${setting.domain + 'vue/vue.min.js'}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 <script type="text/javascript" th:inline="javascript">
 $("#inputForm").validate({
 	submitHandler: function(form){
@@ -388,18 +381,4 @@ $("#inputForm").validate({
 		}, "json");
     }
 });
-
-var vm = new Vue({
-	el:'#inputForm',
-	data:{
-		
-	},
-	methods: {
-		
-	}
-});
-var userCode = [[${userCode}]];
-if(/^(undefined|null|\s*)?$/.test(userCode)){
-	
-}
 </script>
