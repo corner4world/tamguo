@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
-import com.tamguo.modules.sys.service.IPostService;
+import com.tamguo.modules.sys.service.ISysPostService;
 import com.tamguo.modules.sys.service.ISysUserService;
 import com.tamguo.modules.sys.utils.Result;
 
@@ -27,13 +27,13 @@ public class SysUserController {
 	@Autowired
 	private ISysUserService iSysUserService;
 	@Autowired
-	private IPostService iPostService;
+	private ISysPostService iSysPostService;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path="list")
 	public ModelAndView list(ModelAndView model) {
 		model.setViewName(USER_LIST_PAGE);
-		model.addObject("postList", iPostService.selectList(Condition.create().eq("status", "0")));
+		model.addObject("postList", iSysPostService.selectList(Condition.create().eq("status", "0")));
 		return model;
 	}
 	
@@ -41,7 +41,7 @@ public class SysUserController {
 	@RequestMapping(path="add")
 	public ModelAndView add(String userCode , ModelAndView model) {
 		model.setViewName(USER_ADD_PAGE);
-		model.addObject("postList", iPostService.selectList(Condition.create().eq("status", "0")));
+		model.addObject("postList", iSysPostService.selectList(Condition.create().eq("status", "0")));
 		return model;
 	}
 	
@@ -50,7 +50,7 @@ public class SysUserController {
 	public ModelAndView update(String userCode , ModelAndView model) {
 		model.setViewName(USER_UPDATE_PAGE);
 		model.addObject("user", iSysUserService.selectById(userCode));
-		model.addObject("postList", iPostService.selectList(Condition.create().eq("status", "0")));
+		model.addObject("postList", iSysPostService.selectList(Condition.create().eq("status", "0")));
 		model.addObject("userPostCode", iSysUserService.queryUserPostByUserCode(userCode));
 		return model;
 	}

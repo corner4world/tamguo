@@ -1,7 +1,6 @@
 package com.tamguo.modules.sys.web;
 
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.modules.sys.model.SysPostEntity;
 import com.tamguo.modules.sys.model.condition.SysPostCondition;
-import com.tamguo.modules.sys.service.IPostService;
+import com.tamguo.modules.sys.service.ISysPostService;
 import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.Result;
 
@@ -25,7 +24,7 @@ public class SysPostController {
 	private final String POST_ADD_PAGE = "modules/sys/post/add";
 	
 	@Autowired
-	private IPostService iPostService;
+	private ISysPostService iSysPostService;
 
 	@RequestMapping(path="index")
 	public String index() {
@@ -35,7 +34,7 @@ public class SysPostController {
 	@RequestMapping(path="update")
 	public ModelAndView update(ModelAndView model , String id) {
 		model.addObject("title", "修改岗位");
-		model.addObject("post", iPostService.selectById(id));
+		model.addObject("post", iSysPostService.selectById(id));
 		model.setViewName(POST_UPDATE_PAGE);
 		return model;
 	}
@@ -48,7 +47,7 @@ public class SysPostController {
 	@RequestMapping(path="listData",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> listData(SysPostCondition condition) {
-		Page<SysPostEntity> page = iPostService.listData(condition);
+		Page<SysPostEntity> page = iSysPostService.listData(condition);
 		return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
 	}
 	
@@ -56,7 +55,7 @@ public class SysPostController {
 	@ResponseBody
 	public Result save(SysPostEntity post) {
 		try {
-			iPostService.add(post);
+			iSysPostService.add(post);
 			return Result.result(0, null, "操作成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("保存岗位", this.getClass(), e);
@@ -67,7 +66,7 @@ public class SysPostController {
 	@ResponseBody
 	public Result update(SysPostEntity post) {
 		try {
-			iPostService.update(post);
+			iSysPostService.update(post);
 			return Result.result(0, null, "操作成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("修改岗位", this.getClass(), e);

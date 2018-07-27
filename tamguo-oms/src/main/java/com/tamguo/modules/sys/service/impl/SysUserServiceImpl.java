@@ -115,6 +115,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		user.setStatus(SysUserStatusEnum.NORMAL);
 		// 设置初始密码
 		user.setPassword(new Sha256Hash("123456").toHex());
+		user.setUserType("employee");
+		user.setMgrType("0");
+		user.setUpdateBy(ShiroUtils.getUserCode());
+		user.setUpdateDate(new Date());
 		sysUserMapper.insert(user);
 		
 		// 处理岗位
