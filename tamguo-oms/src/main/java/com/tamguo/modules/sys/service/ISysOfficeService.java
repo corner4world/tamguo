@@ -12,4 +12,6 @@ public interface ISysOfficeService {
 
 	JSONArray treeData(String excludeId);
 
+	void save(SysOfficeEntity office);
+
 }
