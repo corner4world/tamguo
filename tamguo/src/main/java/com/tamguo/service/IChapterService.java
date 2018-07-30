@@ -1,9 +1,11 @@
 package com.tamguo.service;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.service.IService;
 import com.tamguo.model.ChapterEntity;
 
-public interface IChapterService {
+public interface IChapterService extends IService<ChapterEntity>{
 
 	// 获取科目章节
 	public List<ChapterEntity> findCourseChapter(String courseId);

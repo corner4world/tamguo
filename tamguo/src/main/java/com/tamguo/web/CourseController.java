@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baomidou.mybatisplus.mapper.Condition;
+import com.tamguo.model.BookEntity;
 import com.tamguo.model.ChapterEntity;
 import com.tamguo.model.CourseEntity;
 import com.tamguo.model.SubjectEntity;
+import com.tamguo.service.IBookService;
 import com.tamguo.service.IChapterService;
 import com.tamguo.service.ICourseService;
 import com.tamguo.service.ISubjectService;
@@ -33,19 +36,26 @@ public class CourseController {
 	ICourseService iCourseService;
 	@Autowired
 	ISubjectService iSubjectService;
+	@Autowired
+	IBookService iBookService;
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"course/{uid}"}, method = RequestMethod.GET)
 	public ModelAndView index(@PathVariable String uid , ModelAndView model) {
 		try {
 			CourseEntity course = iCourseService.find(uid);
+			List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", uid));
+			BookEntity book = bookList.get(0);
 			SubjectEntity subject = iSubjectService.find(course.getSubjectId());
-			List<ChapterEntity> chapterList = iChapterService.findCourseChapter(uid);
+			List<ChapterEntity> chapterList = iChapterService.findCourseChapter(book.getUid());
 			List<CourseEntity> courseList = iCourseService.findBySubjectId(course.getSubjectId());
 			
 			model.addObject("chapterList", chapterList);
 			model.addObject("courseList", courseList);
 			model.addObject("course", course);
 			model.addObject("subject", subject);
+			model.addObject("bookList", bookList);
+			model.addObject("book" , book);
 			
 			model.setViewName("chapter");
 			return model;

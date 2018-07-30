@@ -10,20 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.dao.ChapterMapper;
 import com.tamguo.model.ChapterEntity;
 import com.tamguo.service.IChapterService;
 import com.tamguo.util.TamguoConstant;
 
 @Service
-public class ChapterService implements IChapterService{
+public class ChapterService extends ServiceImpl<ChapterMapper, ChapterEntity> implements IChapterService{
 	
 	@Autowired
 	private ChapterMapper chapterMapper;
 
 	@Override
-	public List<ChapterEntity> findCourseChapter(String courseId) {
-		List<ChapterEntity> chapterList = chapterMapper.findByCourseId(courseId);
+	public List<ChapterEntity> findCourseChapter(String bookId) {
+		List<ChapterEntity> chapterList = chapterMapper.findByBookId(bookId);
 		
 		// 获取根chapter UID
 		String rootUid = StringUtils.EMPTY;
@@ -85,7 +86,7 @@ public class ChapterService implements IChapterService{
 		if(StringUtils.isEmpty(courseId) || "null".equals(courseId)){
 			return rootChapterNode();
 		}
-		List<ChapterEntity> list = chapterMapper.findByCourseId(courseId);
+		List<ChapterEntity> list = chapterMapper.findByBookId(courseId);
 		if(CollectionUtils.isEmpty(list)) {
 			return rootChapterNode();
 		}

@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.mapper.Condition;
+import com.tamguo.model.BookEntity;
 import com.tamguo.model.ChapterEntity;
 import com.tamguo.model.CourseEntity;
 import com.tamguo.model.SubjectEntity;
 import com.tamguo.service.IAreaService;
+import com.tamguo.service.IBookService;
 import com.tamguo.service.IChapterService;
 import com.tamguo.service.ISubjectService;
 import com.tamguo.util.Result;
@@ -38,14 +41,21 @@ public class SubjectController {
 	private IAreaService iAreaService;
 	@Autowired
 	private ISubjectService iSubjectService;
+	@Autowired
+	private IBookService iBookService;
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"subject/{subjectId}.html"}, method = RequestMethod.GET)
     public ModelAndView indexAction(@PathVariable String subjectId , ModelAndView model) {
 		try {
 			SubjectEntity subject = iSubjectService.find(subjectId);
 			// 获取第一个科目
 			CourseEntity course = subject.getCourseList().get(0);
-			List<ChapterEntity> chapterList = iChapterService.findCourseChapter(course.getUid());
+			// 获取第一本书
+			List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", course.getUid()));
+			BookEntity book = bookList.get(0);
+			
+			List<ChapterEntity> chapterList = iChapterService.findCourseChapter(book.getUid());
 	    	model.setViewName("subject");
 	    	model.addObject("subject", subject);
 	    	model.addObject("course" , course);
