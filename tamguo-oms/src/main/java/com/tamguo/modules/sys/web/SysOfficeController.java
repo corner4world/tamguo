@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.tamguo.modules.sys.model.SysOfficeEntity;
@@ -23,9 +25,29 @@ import com.tamguo.modules.sys.utils.Result;
 @Controller
 @RequestMapping(path="sys/office")
 public class SysOfficeController {
+	
+	private final String OFFICE_ADD_PAGE = "modules/sys/office/add";
+	private final String OFFICE_UPDATE_PAGE = "modules/sys/office/update";
 
 	@Autowired
 	private ISysOfficeService iSysOfficeService; 
+	
+	@RequestMapping(path="add")
+	public ModelAndView add(String parentCode , ModelAndView model) {
+		model.setViewName(OFFICE_ADD_PAGE);
+		model.addObject("parentOffice", iSysOfficeService.selectById(parentCode));
+		return model;
+	}
+	
+	@RequestMapping(path="update")
+	public ModelAndView update(String officeCode , ModelAndView model) {
+		model.setViewName(OFFICE_UPDATE_PAGE);
+		SysOfficeEntity office = iSysOfficeService.selectById(officeCode);
+		SysOfficeEntity parentOffice = iSysOfficeService.selectById(office.getParentCode());
+		model.addObject("office", office);
+		model.addObject("parentOffice" , parentOffice);
+		return model;
+	}
 	
 	@RequestMapping(path="listData")
 	@ResponseBody
@@ -49,6 +71,16 @@ public class SysOfficeController {
 			return ExceptionSupport.resolverResult("新增机构", this.getClass(), e);
 		}
 	}
-
+	
+	@RequestMapping(path="update",method=RequestMethod.POST)
+	@ResponseBody
+	public Result update(SysOfficeEntity office) {
+		try {
+			iSysOfficeService.update(office);
+			return Result.result(0, null, "修改机构【"+office.getOfficeName()+"】成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("修改机构", this.getClass(), e);
+		}
+	}
 	
 }

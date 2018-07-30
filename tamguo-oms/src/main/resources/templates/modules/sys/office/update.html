@@ -20,13 +20,13 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa icon-grid"></i> 新增机构
+				<i class="fa icon-grid"></i> 编辑机构
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" th:action="${setting.domain + 'sys/office/save'}" method="post" class="form-horizontal">
+<form id="inputForm" th:action="${setting.domain + 'sys/office/update'}" method="post" class="form-horizontal">
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
 				<div class="row">
@@ -34,12 +34,11 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 						<div class="form-group">
 							<label class="control-label col-sm-4">上级机构：</label>
 							<div class="col-sm-8">
-							<div class="input-group treeselect" id="parentDiv" data-url="sys/office/treeData?excludeCode='">
-								<input id="parentCode" type="hidden" name="parentCode" th:value="${parentOffice == null} ? '' : ${parentOffice.officeCode}" class="isReset"/>
-								<input id="parentName" type="text" name="parentName" th:value="${parentOffice == null} ? '' : ${parentOffice.officeName}"
-									class="form-control  " readonly="readonly"/>
-								<span class="input-group-btn">
-									<a id="parentButton" href="javascript:" class="btn btn-default "><i class="fa fa-search"></i></a>
+							<div class="input-group treeselect" id="parentDiv" data-url="sys/office/treeData?excludeCode=SDJN">
+								<input id="parentCode" type="hidden" name="parentCode" th:value="${parentOffice.officeCode}" class="isReset"/>
+								<input id="parentName" type="text" name="parentName" th:value="${parentOffice.officeName}"
+									class="form-control  " readonly="readonly"/><span class="input-group-btn"><a id="parentButton" href="javascript:"
+									class="btn btn-default "><i class="fa fa-search"></i></a>
 								</span>
 							</div>
 <script>
@@ -121,7 +120,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 机构名称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="officeName" name="officeName" value="" maxlength="100" class="form-control required "/>
+<input type="text" id="officeName" name="officeName" th:value="${office.officeName}" maxlength="100" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -130,9 +129,8 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 机构代码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="hidden" id="isNewRecord" name="isNewRecord" value="true"/>
-								<input type="hidden" id="officeCode" name="officeCode" value=""/>
-								<input type="text" id="viewCode" name="viewCode" value="" maxlength="64" class="form-control required abc"/>
+								<input type="hidden" id="officeCode" name="officeCode" th:value="${office.officeCode}"/>
+								<input type="text" id="viewCode" name="viewCode" th:value="${office.viewCode}" maxlength="64" readonly="true" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -143,7 +141,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 机构全称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="fullName" name="fullName" value="" maxlength="200" class="form-control required "/>
+								<input type="text" id="fullName" name="fullName" th:value="${office.fullName}" maxlength="200" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -152,7 +150,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 排序号：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="treeSort" name="treeSort" value="" maxlength="10" class="form-control required digits"/>
+								<input type="text" id="treeSort" name="treeSort" th:value="${office.treeSort}" maxlength="10" class="form-control required digits"/>
 							</div>
 						</div>
 					</div>
@@ -164,9 +162,9 @@ $("#parentButton,#parentName").click(function(){
 								<span class="required ">*</span> 机构类型：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<select id="officeType" name="officeType" class="form-control required ">
-									<option value="1">省级公司</option>
-									<option value="2">市级公司</option>
-									<option value="3">部门</option>
+									<option value="1" th:selected="${office.officeType == '1'} ? true : false">省级公司</option>
+									<option value="2" th:selected="${office.officeType == '2'} ? true : false">市级公司</option>
+									<option value="3" th:selected="${office.officeType == '3'} ? true : false">部门</option>
 								</select>							
 							</div>
 						</div>
@@ -179,7 +177,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 负责人：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="leader" name="leader" value="" maxlength="100" class="form-control "/>
+								<input type="text" id="leader" name="leader" th:value="${office.leader}" maxlength="100" class="form-control "/>
 							</div>
 						</div>
 					</div>
@@ -188,7 +186,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 办公电话：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control phone"/>
+								<input type="text" id="phone" name="phone" th:value="${office.phone}" maxlength="100" class="form-control phone"/>
 							</div>
 						</div>
 					</div>
@@ -199,7 +197,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 联系地址：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="address" name="address" value="" maxlength="255" class="form-control "/>
+								<input type="text" id="address" name="address" th:value="${office.address}" maxlength="255" class="form-control "/>
 							</div>
 						</div>
 					</div>
@@ -208,7 +206,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 邮政编码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="zipCode" name="zipCode" value="" maxlength="100" class="form-control zipCode"/>
+								<input type="text" id="zipCode" name="zipCode" th:value="${office.zipCode}" maxlength="100" class="form-control zipCode"/>
 							</div>
 						</div>
 					</div>
@@ -219,7 +217,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 电子邮箱：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="email" name="email" value="" maxlength="300" class="form-control email"/>
+								<input type="text" id="email" name="email" th:value="${office.email}" maxlength="300" class="form-control email"/>
 							</div>
 						</div>
 					</div>
@@ -228,7 +226,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
-								<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control "></textarea>
+								<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control " th:utext="${office.remarks}"></textarea>
 							</div>
 						</div>
 					</div>
@@ -267,7 +265,7 @@ $("#inputForm").validate({
 			if(data.code == 0){
 				js.closeCurrentTabPage(function(contentWindow){
 					contentWindow.$('#dataGrid').dataGrid('refreshTreeChildren',
-							$('#parentCode').val(), '');
+							$('#parentCode').val(), 'SDJN');
 				});
 			}
 		}, "json");
@@ -282,7 +280,7 @@ $('#officeName').change(function(){
 function treeselectCallback(id, act, index, layero){
 	if (id == 'parent' && (act == 'ok' || act == 'clear')){
 		// 创建并初始化下一个节点信息，如：排序号、默认值
-		$.get('sys/office/createNextNode?parentCode='
+		$.get('/js/a/sys/office/createNextNode?parentCode='
 				+$('#parentCode').val(), function(data){
 			$('#treeSort').val(data.treeSort);
 		});

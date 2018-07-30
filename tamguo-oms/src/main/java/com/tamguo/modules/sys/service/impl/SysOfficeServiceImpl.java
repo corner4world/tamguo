@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.modules.sys.dao.SysOfficeMapper;
 import com.tamguo.modules.sys.model.SysOfficeEntity;
 import com.tamguo.modules.sys.model.condition.SysOfficeCondition;
@@ -18,7 +19,7 @@ import com.tamguo.modules.sys.service.ISysOfficeService;
 import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Service
-public class SysOfficeServiceImpl implements ISysOfficeService {
+public class SysOfficeServiceImpl extends ServiceImpl<SysOfficeMapper, SysOfficeEntity> implements ISysOfficeService {
 	
 	@Autowired
 	private SysOfficeMapper sysOfficeMapper;
@@ -61,18 +62,61 @@ public class SysOfficeServiceImpl implements ISysOfficeService {
 	@Transactional(readOnly=false)
 	@Override
 	public void save(SysOfficeEntity office) {
+		// 父节点
+		SysOfficeEntity parent = sysOfficeMapper.selectById(office.getParentCode());
+		
 		office.setCreateBy(ShiroUtils.getUserCode());
 		office.setCreateDate(new Date());
 		office.setUpdateBy(ShiroUtils.getUserCode());
 		office.setUpdateDate(new Date());
 		office.setOfficeCode(office.getViewCode());
-		office.setParentCode("0");
-		office.setParentCodes("0,");
+		if(StringUtils.isEmpty(office.getParentCode())) {
+			office.setParentCode("0");
+			office.setParentCodes("0,");
+			office.setTreeLeaf(false);
+			office.setTreeLevel(BigDecimal.valueOf(0));
+		}else {
+			office.setParentCodes(parent.getParentCodes() + parent.getOfficeCode() + ",");
+			office.setTreeLeaf(true);
+			office.setTreeLevel(parent.getTreeLevel().add(BigDecimal.valueOf(1)));
+		}
 		office.setTreeSorts(office.getTreeSort() + ",");
-		office.setTreeLeaf(false);
-		office.setTreeLevel(BigDecimal.valueOf(0));
 		office.setTreeNames(office.getOfficeName() + ",");
 		sysOfficeMapper.insert(office);
+		
+		// 更新父节点
+		parent.setTreeLeaf(false);
+		sysOfficeMapper.updateById(parent);
+	}
+
+	@Override
+	public void update(SysOfficeEntity office) {
+		SysOfficeEntity oldOffice = sysOfficeMapper.selectById(office.getOfficeCode());
+		SysOfficeEntity parentOffice = sysOfficeMapper.selectById(office.getParentCode());
+		
+		oldOffice.setAddress(office.getAddress());
+		oldOffice.setCorpCode(office.getCorpCode());
+		oldOffice.setCorpName(office.getCorpName());
+		oldOffice.setEmail(office.getEmail());
+		oldOffice.setFullName(office.getFullName());
+		oldOffice.setLeader(office.getLeader());
+		oldOffice.setOfficeCode(office.getOfficeCode());
+		oldOffice.setOfficeName(office.getOfficeName());
+		oldOffice.setOfficeType(office.getOfficeType());
+		oldOffice.setParentCode(office.getParentCode());
+		oldOffice.setRemarks(office.getRemarks());
+		oldOffice.setPhone(office.getPhone());
+		if(StringUtils.isEmpty(office.getParentCode())) {
+			oldOffice.setParentCode("0");
+			oldOffice.setParentCodes("0,");
+			oldOffice.setTreeLeaf(false);
+			oldOffice.setTreeLevel(BigDecimal.valueOf(0));
+		}else {
+			oldOffice.setParentCodes(parentOffice.getParentCodes() + parentOffice.getOfficeCode() + ",");
+			oldOffice.setTreeLeaf(true);
+			oldOffice.setTreeLevel(parentOffice.getTreeLevel().add(BigDecimal.valueOf(1)));
+		}
+		sysOfficeMapper.updateById(oldOffice);
 	}
 
 }
