@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.KeySequence;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
@@ -38,6 +39,9 @@ public class SysCompanyEntity implements Serializable {
 	private String updateBy;
 	private Date updateDate;
 	private String viewCode;
+	
+	@TableField(exist=false)
+	private String treeAreaNames;
 
 	public SysCompanyEntity() {
 	}
@@ -204,6 +208,14 @@ public class SysCompanyEntity implements Serializable {
 
 	public void setCompanyCode(String companyCode) {
 		this.companyCode = companyCode;
+	}
+
+	public String getTreeAreaNames() {
+		return treeAreaNames;
+	}
+
+	public void setTreeAreaNames(String treeAreaNames) {
+		this.treeAreaNames = treeAreaNames;
 	}
 
 }

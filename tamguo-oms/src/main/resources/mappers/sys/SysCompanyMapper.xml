@@ -23,9 +23,11 @@
 			c.update_date,
 			c.remarks,
 			c.corp_code,
-			c.corp_name
+			c.corp_name,
+			a.tree_names as tree_area_names
 		FROM
 			sys_company c
+		LEFT JOIN sys_area a ON c.area_code = a.area_code
 		<where>
 			1 = 1
 			<choose>

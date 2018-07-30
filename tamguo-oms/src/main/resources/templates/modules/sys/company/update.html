@@ -20,13 +20,13 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa icon-fire"></i> 新增公司
+				<i class="fa icon-fire"></i> 编辑公司
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" th:action="${setting.domain + 'sys/company/save'}" method="post" class="form-horizontal">
+<form id="inputForm" th:action="${setting.domain + 'sys/company/update'}" method="post" class="form-horizontal">
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
 				<div class="row">
@@ -34,10 +34,11 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 						<div class="form-group">
 							<label class="control-label col-sm-4">上级公司：</label>
 							<div class="col-sm-8">
-<div class="input-group treeselect" id="parentDiv" data-url="sys/company/treeData?excludeCode=">
-	<input id="parentCode" type="hidden" name="parentCode" th:value="${company == null} ? '' : ${company.companyCode}" class="isReset"/>
-	<input id="parentName" type="text" name="parentName" th:value="${company == null} ? '' : ${company.companyName}" class="form-control  " readonly="readonly" />
-	<span class="input-group-btn"><a id="parentButton" href="javascript:"
+<div class="input-group treeselect" id="parentDiv" data-url="sys/company/treeData?excludeCode=SD">
+	<input id="parentCode" type="hidden" name="parentCode" th:value="${parentCompany.companyCode}" class="isReset"/>
+	<input id="parentName" type="text" name="parentName" th:value="${parentCompany.companyName}"
+		class="form-control  " readonly="readonly"
+	/><span class="input-group-btn"><a id="parentButton" href="javascript:"
 		class="btn btn-default "><i class="fa fa-search"></i></a>
 	</span>
 </div>
@@ -120,7 +121,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 公司名称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="text" id="companyName" name="companyName" value="" maxlength="200" class="form-control required "/>
+								<input type="text" id="companyName" name="companyName" th:value="${company.companyName}" maxlength="200" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -129,9 +130,9 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 公司编码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="hidden" id="isNewRecord" name="isNewRecord" value="true"/>
-<input type="hidden" id="companyCode" name="companyCode" value=""/>
-<input type="text" id="viewCode" name="viewCode" value="" maxlength="64" class="form-control required abc"/>
+								<input type="hidden" id="isNewRecord" name="isNewRecord" value="false"/>
+								<input type="hidden" id="companyCode" name="companyCode" th:value="${company.companyCode}"/>
+								<input type="text" id="viewCode" name="viewCode" th:value="${company.viewCode}" maxlength="64" readonly="true" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -142,7 +143,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 公司全称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="text" id="fullName" name="fullName" value="" maxlength="200" class="form-control required "/>
+								<input type="text" id="fullName" name="fullName" th:value="${company.fullName}" maxlength="200" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -151,7 +152,7 @@ $("#parentButton,#parentName").click(function(){
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 排序号：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="text" id="treeSort" name="treeSort" value="" maxlength="10" class="form-control required digits"/>
+								<input type="text" id="treeSort" name="treeSort" th:value="${company.treeSort}" maxlength="10" class="form-control required digits"/>
 							</div>
 						</div>
 					</div>
@@ -163,10 +164,9 @@ $("#parentButton,#parentName").click(function(){
 								<span class="required hide">*</span> 归属区域：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 <div class="input-group treeselect" id="areaDiv" data-url="sys/area/treeData?">
-	<input id="areaCode" type="hidden" name="area.areaCode" value="" class="isReset"/>
-	<input id="areaName" type="text" name="area.areaName" value=""
-		class="form-control   " readonly="readonly"
-	/><span class="input-group-btn"><a id="areaButton" href="javascript:"
+	<input id="areaCode" type="hidden" name="areaCode" th:value="${area == null} ? '' : ${area.areaCode}" class="isReset"/>
+	<input id="areaName" type="text" name="areaName" th:value="${area == null} ? '' : ${area.treeNames}" class="form-control" readonly="readonly"/>
+		<span class="input-group-btn"><a id="areaButton" href="javascript:"
 		class="btn btn-default "><i class="fa fa-search"></i></a>
 	</span>
 </div>
@@ -358,12 +358,12 @@ $("#companyOfficeListButton,#companyOfficeListName").click(function(){
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
-<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control "></textarea>
+								<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control " th:utext="${company.remarks}"></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+		</div>
 			<div class="box-footer">
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-10">
@@ -399,7 +399,7 @@ $("#inputForm").validate({
 			if(data.code == 0){
 				js.closeCurrentTabPage(function(contentWindow){
 					contentWindow.$('#dataGrid').dataGrid('refreshTreeChildren',
-							$('#parentCode').val(), '');
+							$('#parentCode').val(), 'SD');
 				});
 			}
 		}, "json");
@@ -414,7 +414,7 @@ $('#companyName').change(function(){
 function treeselectCallback(id, act, index, layero){
 	if (id == 'parent' && (act == 'ok' || act == 'clear')){
 		// 创建并初始化下一个节点信息，如：排序号、默认值
-		$.get('/js/a/sys/company/createNextNode?parentCode='
+		$.get('sys/company/createNextNode?parentCode='
 				+$('#parentCode').val(), function(data){
 			$('#treeSort').val(data.treeSort);
 		});

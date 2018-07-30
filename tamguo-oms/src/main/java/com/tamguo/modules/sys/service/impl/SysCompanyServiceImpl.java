@@ -100,5 +100,44 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 		}
 		sysCompanyMapper.insert(company);
 	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void update(SysCompanyEntity company) {
+		SysCompanyEntity entity = sysCompanyMapper.selectByCode(company.getCompanyCode());
+		entity.setUpdateBy(ShiroUtils.getUserCode());
+		entity.setUpdateDate(new Date());
+		entity.setAreaCode(company.getAreaCode());
+		entity.setCompanyCode(company.getCompanyCode());
+		entity.setCompanyName(company.getCompanyName());
+		entity.setCorpCode(company.getCorpCode());
+		entity.setCorpName(company.getCorpName());
+		entity.setFullName(company.getFullName());
+		if(StringUtils.isEmpty(company.getParentCode())) {
+			entity.setParentCode("0");
+			entity.setParentCodes("0,");
+			entity.setTreeSorts(company.getTreeSort());
+			entity.setTreeNames(company.getCompanyCode() + ",");
+			entity.setTreeLeaf(true);
+			entity.setTreeLevel(new BigDecimal(0));
+		}else {
+			SysCompanyEntity condition = new SysCompanyEntity();
+			condition.setCompanyCode(company.getParentCode());
+			SysCompanyEntity parentCompany = sysCompanyMapper.selectOne(condition);
+			
+			entity.setTreeLeaf(true);
+			entity.setTreeLevel(parentCompany.getTreeLevel().add(new BigDecimal(1)));
+			entity.setParentCodes(parentCompany.getParentCodes() + parentCompany.getCompanyCode() + ",");
+			entity.setTreeSorts(parentCompany.getTreeSorts() + parentCompany.getTreeSort() + ",");
+			entity.setTreeNames(parentCompany.getTreeNames() + parentCompany.getCompanyName() + ",");
+
+			// 更新
+			parentCompany.setTreeLeaf(false);
+			parentCompany.setUpdateBy(ShiroUtils.getUserCode());
+			parentCompany.setUpdateDate(new Date());
+			sysCompanyMapper.updateById(parentCompany);
+		}
+		sysCompanyMapper.updateById(entity);
+	}
 	
 }

@@ -20,4 +20,7 @@ public interface ISysCompanyService extends IService<SysCompanyEntity>{
 
 	/** 新建公司*/
 	void save(SysCompanyEntity company);
+
+	/** 修改公司*/
+	void update(SysCompanyEntity company);
 }
