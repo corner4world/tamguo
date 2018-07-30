@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.modules.sys.model.enums.SysPostStatusEnum;
 
@@ -13,9 +17,10 @@ import com.tamguo.modules.sys.model.enums.SysPostStatusEnum;
  * 
  */
 @TableName(value="sys_post")
-public class SysPostEntity implements Serializable {
+public class SysPostEntity extends Model<SysPostEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@TableId
 	private String postCode;
 	private String corpCode;
 	private String corpName;
@@ -25,6 +30,8 @@ public class SysPostEntity implements Serializable {
 	private BigDecimal postSort;
 	private String postType;
 	private String remarks;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysPostStatusEnum status;
 	private String updateBy;
 	private Date updateDate;
@@ -126,6 +133,11 @@ public class SysPostEntity implements Serializable {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return getPostCode();
 	}
 
 }

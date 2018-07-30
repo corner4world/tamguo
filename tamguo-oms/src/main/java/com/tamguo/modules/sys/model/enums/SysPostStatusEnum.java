@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.enums.IEnum;
  */
 public enum SysPostStatusEnum implements IEnum {
 	NORMAL("normal", "正常"),
-	DISABLED("disable" , "禁用");
+	DISABLED("disable" , "停用");
 
     private String value;
     private String desc;

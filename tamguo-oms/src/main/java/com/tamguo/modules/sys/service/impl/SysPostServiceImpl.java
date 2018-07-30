@@ -13,6 +13,7 @@ import com.tamguo.modules.sys.model.SysPostEntity;
 import com.tamguo.modules.sys.model.condition.SysPostCondition;
 import com.tamguo.modules.sys.model.enums.SysPostStatusEnum;
 import com.tamguo.modules.sys.service.ISysPostService;
+import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Service
 public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity> implements ISysPostService{
@@ -30,6 +31,8 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity
 	@Override
 	public void add(SysPostEntity post) {
 		post.setCreateDate(new Date());
+		post.setCreateBy(ShiroUtils.getUserCode());
+		post.setUpdateBy(ShiroUtils.getUserCode());
 		post.setUpdateDate(new Date());
 		post.setStatus(SysPostStatusEnum.NORMAL);
 		sysPostMapper.insert(post);
@@ -38,8 +41,16 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity
 	@Transactional(readOnly=false)
 	@Override
 	public void update(SysPostEntity post) {
-		post.setUpdateDate(new Date());
-		sysPostMapper.updateById(post);
+		SysPostEntity entity = sysPostMapper.selectById(post.getPostCode());
+		entity.setUpdateDate(new Date());
+		entity.setUpdateBy(ShiroUtils.getUserCode());
+		entity.setPostName(post.getPostName());
+		entity.setPostCode(post.getPostCode());
+		entity.setPostType(post.getPostType());
+		entity.setPostSort(post.getPostSort());
+		entity.setRemarks(post.getRemarks());
+		
+		sysPostMapper.updateById(entity);
 	}
 
 }
