@@ -1,6 +1,9 @@
 package com.tamguo.web;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +30,8 @@ import com.tamguo.util.Result;
 @Controller
 public class SubjectController {
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private IChapterService iChapterService;
 	@Autowired
@@ -49,7 +54,8 @@ public class SubjectController {
 	    	model.addObject("areaList", iAreaService.findRootArea());
 	        return model;
 		} catch (Exception e) {
-			model.setViewName("404");
+			logger.error(e.getMessage() , e);
+			model.setViewName("500");
 			return model;
 		}
 		

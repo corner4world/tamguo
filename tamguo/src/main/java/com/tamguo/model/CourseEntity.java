@@ -2,8 +2,8 @@ package com.tamguo.model;
 
 import java.io.Serializable;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.tamguo.config.dao.SuperEntity;
 import java.util.List;
 
 
@@ -12,23 +12,18 @@ import java.util.List;
  * 
  */
 @TableName(value="tiku_course")
-public class CourseEntity extends SuperEntity<CourseEntity> implements Serializable {
+public class CourseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@TableId
+	private String uid;
 	private String name;
-
 	private String subjectId;
-	
 	private String pointNum;
-	
 	private String questionNum;
-
 	private Integer orders;
-	
 	private String seoTitle;
-	
 	private String seoKeywords;
-	
 	private String seoDescription;
 	
 	@TableField(exist=false)
@@ -122,6 +117,14 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 }
