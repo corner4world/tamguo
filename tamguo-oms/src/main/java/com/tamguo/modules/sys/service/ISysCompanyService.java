@@ -17,4 +17,7 @@ public interface ISysCompanyService extends IService<SysCompanyEntity>{
 	
 	/** 根据ID查询公司*/
 	SysCompanyEntity selectByCode(String code);
+
+	/** 新建公司*/
+	void save(SysCompanyEntity company);
 }

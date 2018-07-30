@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.KeySequence;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
@@ -16,6 +17,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 public class SysCompanyEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@TableId
 	private String companyCode;
 	private String areaCode;
 	private String companyName;
@@ -31,7 +33,7 @@ public class SysCompanyEntity implements Serializable {
 	private Boolean treeLeaf;
 	private BigDecimal treeLevel;
 	private String treeNames;
-	private BigDecimal treeSort;
+	private String treeSort;
 	private String treeSorts;
 	private String updateBy;
 	private Date updateDate;
@@ -144,11 +146,11 @@ public class SysCompanyEntity implements Serializable {
 		this.treeNames = treeNames;
 	}
 
-	public BigDecimal getTreeSort() {
+	public String getTreeSort() {
 		return this.treeSort;
 	}
 
-	public void setTreeSort(BigDecimal treeSort) {
+	public void setTreeSort(String treeSort) {
 		this.treeSort = treeSort;
 	}
 

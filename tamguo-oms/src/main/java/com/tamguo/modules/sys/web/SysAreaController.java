@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.tamguo.modules.sys.model.SysAreaEntity;
 import com.tamguo.modules.sys.model.condition.SysAreaCondition;
 import com.tamguo.modules.sys.service.ISysAreaService;
@@ -32,5 +33,12 @@ public class SysAreaController {
 		List<SysAreaEntity> list = iSysAreaService.listData(condition);
 		return list;
 	}
+	
+	@RequestMapping(path="treeData")
+	@ResponseBody
+	public JSONArray treeData(String excludeId) {
+		return iSysAreaService.treeData(excludeId);
+	}
+	
 	
 }

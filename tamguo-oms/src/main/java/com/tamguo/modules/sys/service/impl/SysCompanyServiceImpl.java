@@ -1,9 +1,12 @@
 package com.tamguo.modules.sys.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
@@ -14,6 +17,7 @@ import com.tamguo.modules.sys.dao.SysCompanyMapper;
 import com.tamguo.modules.sys.model.SysCompanyEntity;
 import com.tamguo.modules.sys.model.condition.SysCompanyCondition;
 import com.tamguo.modules.sys.service.ISysCompanyService;
+import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Service
 public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysCompanyEntity> implements ISysCompanyService {
@@ -59,6 +63,42 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 			return nodes;
 		}
 		return null;
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void save(SysCompanyEntity company) {
+		
+		company.setCreateBy(ShiroUtils.getUserCode());
+		company.setCreateDate(new Date());
+		company.setUpdateBy(ShiroUtils.getUserCode());
+		company.setUpdateDate(new Date());
+		company.setCompanyCode(company.getViewCode());
+		if(StringUtils.isEmpty(company.getParentCode())) {
+			company.setParentCode("0,");
+			company.setParentCodes("0,");
+			company.setTreeSorts(company.getTreeSort());
+			company.setTreeNames(company.getCompanyCode() + ",");
+			company.setTreeLeaf(true);
+			company.setTreeLevel(new BigDecimal(0));
+		}else {
+			SysCompanyEntity condition = new SysCompanyEntity();
+			condition.setCompanyCode(company.getParentCode());
+			SysCompanyEntity parentCompany = sysCompanyMapper.selectOne(condition);
+			
+			company.setTreeLeaf(true);
+			company.setTreeLevel(parentCompany.getTreeLevel().add(new BigDecimal(1)));
+			company.setParentCodes(parentCompany.getParentCodes() + parentCompany.getCompanyCode() + ",");
+			company.setTreeSorts(parentCompany.getTreeSorts() + parentCompany.getTreeSort() + ",");
+			company.setTreeNames(parentCompany.getTreeNames() + parentCompany.getCompanyName() + ",");
+
+			// 更新
+			parentCompany.setTreeLeaf(false);
+			parentCompany.setUpdateBy(ShiroUtils.getUserCode());
+			parentCompany.setUpdateDate(new Date());
+			sysCompanyMapper.updateById(parentCompany);
+		}
+		sysCompanyMapper.insert(company);
 	}
 	
 }
