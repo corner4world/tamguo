@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.tamguo.modules.sys.model.SysMenuEntity;
 import com.tamguo.modules.sys.model.condition.SysMenuCondition;
 import com.tamguo.modules.sys.service.ISysMenuService;
@@ -31,4 +32,11 @@ public class SysMenuController {
 		List<SysMenuEntity> list = iSysMenuService.listData(condition);
 		return list;
 	}
+	
+	@RequestMapping(path="treeData")
+	@ResponseBody
+	public JSONArray treeData(String excludeId , String sysCode , String isShowNameOrig) {
+		return iSysMenuService.treeData(excludeId);
+	}
+	
 }
