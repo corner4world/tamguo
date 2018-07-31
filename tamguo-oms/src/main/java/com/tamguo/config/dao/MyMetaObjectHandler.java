@@ -1,6 +1,8 @@
 package com.tamguo.config.dao;
 
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
+import com.tamguo.modules.sys.utils.ShiroUtils;
+
 import org.apache.ibatis.reflection.MetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,10 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         logger.info("新增的时候干点不可描述的事情");
+        Object testType = getFieldValByName("createBy", metaObject);
+        if (testType == null) {
+            setFieldValByName("createBy", ShiroUtils.getUser() , metaObject);	//mybatis-plus版本2.0.9+
+        }
     }
 
     @Override

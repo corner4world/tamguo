@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.tamguo.modules.sys.model.enums.SysMenuStatusEnum;
 
 
 /**
@@ -15,6 +19,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 public class SysMenuEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@TableId
 	private String menuCode;
 	private String createBy;
 	private Date createDate;
@@ -25,14 +30,15 @@ public class SysMenuEntity implements Serializable {
 	private String menuName;
 	private String menuTarget;
 	private String menuType;
-	private String moduleCodes;
 	private String parentCode;
 	private String parentCodes;
 	private String permission;
 	private String remarks;
-	private String status;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private SysMenuStatusEnum status;
 	private String sysCode;
-	private String treeLeaf;
+	private Boolean treeLeaf;
 	private BigDecimal treeLevel;
 	private String treeNames;
 	private BigDecimal treeSort;
@@ -124,14 +130,6 @@ public class SysMenuEntity implements Serializable {
 		this.menuType = menuType;
 	}
 
-	public String getModuleCodes() {
-		return this.moduleCodes;
-	}
-
-	public void setModuleCodes(String moduleCodes) {
-		this.moduleCodes = moduleCodes;
-	}
-
 	public String getParentCode() {
 		return this.parentCode;
 	}
@@ -164,13 +162,6 @@ public class SysMenuEntity implements Serializable {
 		this.remarks = remarks;
 	}
 
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	public String getSysCode() {
 		return this.sysCode;
@@ -178,14 +169,6 @@ public class SysMenuEntity implements Serializable {
 
 	public void setSysCode(String sysCode) {
 		this.sysCode = sysCode;
-	}
-
-	public String getTreeLeaf() {
-		return this.treeLeaf;
-	}
-
-	public void setTreeLeaf(String treeLeaf) {
-		this.treeLeaf = treeLeaf;
 	}
 
 	public BigDecimal getTreeLevel() {
@@ -247,6 +230,22 @@ public class SysMenuEntity implements Serializable {
 	// grid tree
 	public String getId() {
 		return getMenuCode();
+	}
+
+	public SysMenuStatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(SysMenuStatusEnum status) {
+		this.status = status;
+	}
+
+	public Boolean getTreeLeaf() {
+		return treeLeaf;
+	}
+
+	public void setTreeLeaf(Boolean treeLeaf) {
+		this.treeLeaf = treeLeaf;
 	}
 
 }

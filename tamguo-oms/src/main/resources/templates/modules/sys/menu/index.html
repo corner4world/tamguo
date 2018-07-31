@@ -88,9 +88,6 @@ $('#dataGrid').dataGrid({
 			return '<i class="'+row.menuIcon+'" style="color:'+row.color+'"></i> <a href="/js/a/sys/menu/form?menuCode='
 					+row.id+'" class="btnList" style="color:'+row.color+'" data-title="编辑菜单">'+val+'</a>';
 		}},
-		{header:'归属模块', name:'moduleCodes', width:100, align:"center", formatter: function(val, obj, row, act){
-			return '<a href="javascript:" title="按模块查询" onclick="$(\'#moduleCodes\').val($(this).text());$(\'#dataGrid\').dataGrid(\'refreshTree\',1);">'+val+'</a>';
-		}},
 		{header:'链接', name:'menuHref', width:150},
 		{header:'排序', name:'treeSort', width:63, align:"center", formatter: function(val, obj, row, act){
 			var html = [];

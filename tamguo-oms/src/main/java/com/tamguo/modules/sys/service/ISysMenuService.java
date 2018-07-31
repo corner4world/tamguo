@@ -14,5 +14,8 @@ public interface ISysMenuService extends IService<SysMenuEntity>{
 
 	/** 树形结构*/
 	JSONArray treeData(String excludeId);
+
+	/** 新增菜单*/
+	void save(SysMenuEntity menu);
 	
 }

@@ -22,7 +22,6 @@
 			m.weight,
 			m.is_show,
 			m.sys_code,
-			m.module_codes,
 			m.`status`,
 			m.create_by,
 			m.update_by,

@@ -31,7 +31,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 					<li><a href="javascript:" onclick="
 							$('#sysCode').val('default');
 							$('#sysCodeName').text('主导航菜单');
-							$('#parentDiv').attr('data-url','/js/a/sys/menu/treeData?excludeCode=&sysCode=default');
+							$('#parentDiv').attr('data-url','sys/menu/treeData?excludeCode=&sysCode=default');
 							$('#parentCode,#parentName').val('');
 						"><i class="fa fa-angle-right"></i> 主导航菜单</a></li>
 				</ul>
@@ -52,11 +52,10 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4">上级菜单：</label>
 							<div class="col-sm-8">
 <div class="input-group treeselect" id="parentDiv" data-url="sys/menu/treeData?excludeCode=&sysCode=default&isShowNameOrig=true">
-	<input id="parentCode" type="hidden" name="parent.id" value="" class="isReset"/>
-	<input id="parentName" type="text" name="parent.menuNameOrig" value=""
-		class="form-control  " readonly="readonly"
-	/><span class="input-group-btn"><a id="parentButton" href="javascript:"
-		class="btn btn-default "><i class="fa fa-search"></i></a>
+	<input id="parentCode" type="hidden" name="parentCode" value="" class="isReset"/>
+	<input id="parentName" type="text" name="parentName" value="" class="form-control  " readonly="readonly"/>
+	<span class="input-group-btn"><a id="parentButton" href="javascript:" class="btn btn-default ">
+		<i class="fa fa-search"></i></a>
 	</span>
 </div>
 <script>
@@ -138,7 +137,7 @@ $("#parentButton,#parentName").click(function(){
 						<div class="form-group">
 							<label class="control-label col-sm-4">菜单名称：</label>
 							<div class="col-sm-8">
-<input type="text" id="menuNameOrig" name="menuNameOrig" value="" maxlength="50" class="form-control required"/>
+<input type="text" id="menuName" name="menuName" value="" maxlength="50" class="form-control required"/>
 							</div>
 						</div>
 					</div>
@@ -327,10 +326,6 @@ $("#menuIconButton").click(function(){
 <script>
 $("#inputForm").validate({
 	submitHandler: function(form){
-		if ($('#moduleCodes').val() == null){
-			js.showMessage('请选择归属模块！');
-			return;
-		}
 		js.ajaxSubmitForm($(form), function(data){
 			js.showMessage(data.message);
 			if(data.result == Global.TRUE){

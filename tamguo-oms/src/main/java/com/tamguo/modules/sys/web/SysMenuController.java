@@ -11,6 +11,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.tamguo.modules.sys.model.SysMenuEntity;
 import com.tamguo.modules.sys.model.condition.SysMenuCondition;
 import com.tamguo.modules.sys.service.ISysMenuService;
+import com.tamguo.modules.sys.utils.ExceptionSupport;
+import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/menu")
@@ -31,6 +33,17 @@ public class SysMenuController {
 	public List<SysMenuEntity> listData(SysMenuCondition condition) {
 		List<SysMenuEntity> list = iSysMenuService.listData(condition);
 		return list;
+	}
+	
+	@RequestMapping(path="save")
+	@ResponseBody
+	public Result save(SysMenuEntity menu) {
+		try {
+			iSysMenuService.save(menu);
+			return Result.result(0, null, "新增菜单【"+menu.getMenuName()+"】成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("新增菜单", this.getClass(), e);
+		}
 	}
 	
 	@RequestMapping(path="treeData")
