@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.code.kaptcha.Constants;
 import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.Result;
 import com.tamguo.modules.sys.utils.ShiroUtils;
+import com.tamguo.modules.sys.utils.TamguoConstant;
 
 @Controller
 public class LoginController {
@@ -37,7 +37,7 @@ public class LoginController {
 	public Result toLogin(HttpServletRequest request, String username, String password, String validCode)
 			throws IOException {
 		try {
-			String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+			String kaptcha = ShiroUtils.getKaptcha(TamguoConstant.KAPTCHA_SESSION_KEY);
 			if (!validCode.equalsIgnoreCase(kaptcha)) {
 				return Result.failResult("验证码错误");
 			}

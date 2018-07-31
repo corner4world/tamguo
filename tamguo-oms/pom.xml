@@ -95,17 +95,6 @@
 		<artifactId>commons-io</artifactId>
 	</dependency>
 	<dependency>
-		<groupId>com.github.penggle</groupId>
-		<artifactId>kaptcha</artifactId>
-		<version>2.3.2</version>
-		<exclusions>
-			<exclusion>
-				<artifactId>javax.servlet-api</artifactId>
-				<groupId>javax.servlet</groupId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-	<dependency>
 		<groupId>com.alibaba</groupId>
 		<artifactId>druid</artifactId>
 		<version>1.0.18</version>
@@ -137,6 +126,12 @@
 		<groupId>com.github.theborakompanioni</groupId>
 		<artifactId>thymeleaf-extras-shiro</artifactId>
 		<version>1.2.1</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.bladejava</groupId>
+		<artifactId>blade-patchca</artifactId>
+		<version>1.0.5</version>
 	</dependency>
 </dependencies>
 
