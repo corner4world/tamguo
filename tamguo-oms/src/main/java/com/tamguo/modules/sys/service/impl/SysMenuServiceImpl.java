@@ -79,7 +79,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
 			
 			menu.setTreeLeaf(true);
 			menu.setTreeLevel(parentMenu.getTreeLevel().add(new BigDecimal(1)));
-			menu.setTreeNames(parentMenu.getTreeNames() + menu.getMenuName() + ",");
+			menu.setTreeNames(parentMenu.getTreeNames() +"/"+ menu.getMenuName());
 			menu.setParentCodes(parentMenu.getParentCodes() + menu.getParentCode() + ",");
 			
 			parentMenu.setTreeLeaf(false);
@@ -87,6 +87,27 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
 		}
 		menu.setTreeSorts(menu.getTreeSort() + ",");
 		sysMenuMapper.insert(menu);	
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void update(SysMenuEntity menu) {
+		SysMenuEntity entity = sysMenuMapper.selectById(menu.getMenuCode());
+		
+		entity.setUpdateBy(ShiroUtils.getUserCode());
+		entity.setUpdateDate(new Date());
+		entity.setIsShow(menu.getIsShow());
+		entity.setMenuCode(menu.getMenuCode());
+		entity.setMenuColor(menu.getMenuColor());
+		entity.setMenuHref(menu.getMenuHref());
+		entity.setMenuIcon(menu.getMenuIcon());
+		entity.setMenuName(menu.getMenuName());
+		entity.setMenuTarget(menu.getMenuTarget());
+		entity.setMenuType(menu.getMenuType());
+		entity.setPermission(menu.getPermission());
+		entity.setRemarks(menu.getRemarks());
+		entity.setWeight(menu.getWeight());
+		sysMenuMapper.updateById(entity);
 	}
 
 }

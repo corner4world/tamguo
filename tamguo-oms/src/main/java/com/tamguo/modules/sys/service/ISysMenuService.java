@@ -17,5 +17,8 @@ public interface ISysMenuService extends IService<SysMenuEntity>{
 
 	/** 新增菜单*/
 	void save(SysMenuEntity menu);
+
+	/** 修改菜单*/
+	void update(SysMenuEntity menu);
 	
 }

@@ -1,0 +1,379 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>菜单管理 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><link rel="stylesheet" th:href="${setting.domain + 'colorpicker/bootstrap-colorpicker.css'}"/>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-book-open"></i> 编辑菜单（
+			</div>
+			<div class="box-title dropdown input-inline">
+				<div class="dropdown-toggle" data-toggle="dropdown">
+					<span id="sysCodeName">主导航菜单</span><b class="caret"></b>
+				</div>
+				<ul class="dropdown-menu">
+					<li><a href="javascript:" onclick="
+							$('#sysCode').val('default');
+							$('#sysCodeName').text('主导航菜单');
+							$('#parentDiv').attr('data-url','sys/menu/treeData?excludeCode=1019065460393922560&sysCode=default');
+							$('#parentCode,#parentName').val('');
+						"><i class="fa fa-angle-right"></i> 主导航菜单</a></li>
+				</ul>
+			</div>
+			<div class="box-title">）</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+<form id="inputForm" th:action="${setting.domain + 'sys/menu/update'}" method="post" class="form-horizontal">
+<input type="hidden" id="sysCode" name="sysCode" value="default"/>
+<input type="hidden" id="menuCode" name="menuCode" th:value="${menu.menuCode}"/>
+			<div class="box-body">
+				<div class="form-unit">基本信息</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4">上级菜单：</label>
+							<div class="col-sm-8">
+<div class="input-group treeselect" id="parentDiv" data-url="sys/menu/treeData?excludeCode=1019065460393922560&sysCode=default&isShowNameOrig=true">
+	<input id="parentCode" type="hidden" name="parentCode" th:value="${parentMenu.menuCode}" class="isReset"/>
+	<input id="parentName" type="text" name="parentName" th:value="${parentMenu.menuName}" class="form-control" readonly="readonly"/>
+	<span class="input-group-btn"><a id="parentButton" href="javascript:"
+		class="btn btn-default "><i class="fa fa-search"></i></a>
+	</span>
+</div>
+<script>
+$("#parentButton,#parentName").click(function(){
+	if ($("#parentButton").hasClass("disabled")){
+		return true;
+	}
+	var options = {
+		type: 2,
+		maxmin: true,
+		shadeClose: true,
+		title: '上级菜单',
+		area: ['300px', '400px'],
+		content: 'sys/treeselect',
+		contentFormData: {
+			url: $('#parentDiv').attr('data-url'),
+			checkbox: 'false',
+			expandLevel: '-1',
+			selectCodes: $("#parentCode").val(),
+			isReturnValue: 'false'
+		},
+		success: function(layero, index){
+			if ($(js.layer.window).width() < 300
+				|| $(js.layer.window).height() < 400){
+				js.layer.full(index);
+			}
+		},
+		btn: ['<i class="fa fa-check"></i> 确定'],
+		btn1: function(index, layero){
+			var win = js.layer.iframeWindow(index);
+			win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
+			if ("false" == "true"){
+				nodes = win.tree.getCheckedNodes(true);
+			}else{
+				nodes = win.tree.getSelectedNodes();
+			}
+			for(var i=0; i<nodes.length; i++) {
+				var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+				codes.push(code.replace(/^u_/g,''));
+				names.push(name.replace(/\([0-9]*\)/g,''));
+				break;
+			}
+			if(typeof treeselectCheck == 'function'){
+				if (!treeselectCheck('parent', nodes)){
+					return false;
+				}
+			}
+			$("#parentCode").val(codes.join(',')).change();
+			$("#parentName").val(names.join(',')).change();
+			try { $('#parentCode,#parentName').valid(); }catch(e){}
+			if(typeof treeselectCallback == 'function'){
+				treeselectCallback('parent', 'ok', index, layero, nodes);
+			}
+		}
+	};
+	options.btn.push('<i class="fa fa-eraser"></i> 清除');
+	options['btn'+options.btn.length] = function(index, layero){
+		$("#parentCode").val('').change();
+		$("#parentName").val('').change();
+		if(typeof treeselectCallback == 'function'){
+			treeselectCallback('parent', 'clear', index, layero);
+		}
+	};
+	options.btn.push('<i class="fa fa-close"></i> 关闭');
+	options['btn'+options.btn.length] = function(index, layero){
+		if(typeof treeselectCallback == 'function'){
+			treeselectCallback('parent', 'cancel', index, layero);
+		}
+	};
+	js.layer.open(options);
+});
+</script>							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4">菜单名称：</label>
+							<div class="col-sm-8">
+<input type="text" id="menuName" name="menuName" th:value="${menu.menuName}" maxlength="50" class="form-control required"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="标识当前是否是个菜单，还是只是设置权限">
+								<span class="required">*</span> 菜单类型：<i class="fa icon-question"></i></label>
+							<div class="col-sm-8">
+
+<span id="menuType" class="icheck">
+<label><input type="radio" id="menuType1" name="menuType"
+			value="1" class="form-control required" th:checked="${menu.menuType == '1'} ? ture : false"> 菜单</label><label><input type="radio" id="menuType2" name="menuType"
+			value="2" class="form-control required" th:checked="${menu.menuType == '2'} ? ture : false"> 权限</label></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="超级链接的URL地址，跟路径在管理路径下，外部链接需加“http://”;
+   1、以  /// 开头，则代表是网站根路径（结果：http://localhost/{href}）
+   2、以  // 开头，则代表是工程根路径（结果：http://localhost/{ctxPath}/{href}）
+   3、以  / 开头，则代表是管理根路径（结果：http://localhost/{ctxPath}{adminPath}/{href}）
+ 可带变量，变量格式  {变量名}
+   1、jeesite.yml中的key可作为变量设置
+   2、{ssoToken} : 单点登录的token编码，url参数中的参数分隔符请使用“%26”进行转义，
+	例如：{projectUrl}/sso/{ssoToken}?url=/sys/user/list?p1=v1%26p2=v2&relogin=true
+   3、{userCode} : 当前用户编码 
+   4、{userName} : 当前用户名称 
+   5、{userType} : 当前用户类型 ">
+								链接(Href)：<i class="fa icon-question"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="menuHref" name="menuHref" th:value="${menu.menuHref}" maxlength="2000" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="链接打开的目标，默认addTabPage方式（新窗口中打开如：_blank）">
+								目标(Target)：<i class="fa icon-question"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="menuTarget" name="menuTarget" th:value="${menu.menuTarget}" maxlength="10" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4">排序(升序)：</label>
+							<div class="col-sm-8">
+<input type="text" id="treeSort" name="treeSort" th:value="${menu.treeSort}" maxlength="50" class="form-control required"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6 isPerm2">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="控制器中定义的权限标识，如：@RequiresPermissions('权限标识')">
+								权限标识：<i class="fa icon-question"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="permission" name="permission" th:value="${menu.permission}" maxlength="100" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6 isMenu">
+						<div class="form-group">
+							<label class="control-label col-sm-4">菜单图标：</label>
+							<div class="col-sm-8">
+<div class="input-group">
+	<span class="input-group-addon"><i id="menuIconIcon" class="icon-grid"></i></span>
+	<input id="menuIcon" name="menuIcon" type="text" th:value="${menu.menuIcon}" class="form-control ">
+	<span class="input-group-btn"><a id="menuIconButton" href="javascript:" class="btn btn-default"
+		><i class="fa fa-search"></i></a></span>
+</div>
+<script>
+$("#menuIconButton").click(function(){
+	js.layer.open({
+		type: 2,
+		maxmin: true,
+		shadeClose: true,
+		title: '图标选择',
+		area: [(js.layer.$(js.layer.window).width() - 100) + 'px',
+		       (js.layer.$(js.layer.window).height() - 100) + 'px'],
+		content: '/js/tags/iconselect?value='+$("#menuIcon").val(),
+		success: function(layero, index){
+			var info = '<font color="red" class="pull-left mt10">提示：双击选择图标。</font>';
+			layero.find('.layui-layer-btn').append(info);
+		},
+		btn: ['<i class="fa fa-close"></i> 关闭',
+			'<i class="fa fa-eraser"></i> 清除'],
+		btn1: function(index, layero){
+			var win = js.layer.iframeWindow(index);
+			var icon = win.$("#icon").val();
+			$("#menuIconIcon").attr("class", 'fa fa-fw ' + icon);
+			$("#menuIcon").val(icon).change();
+			try { $('#menuIcon').valid(); }catch(e){}
+		},
+		btn2: function(index, layero){
+			$("#menuIconIcon").attr("class", "fa fa-fw");
+            $("#menuIcon").val("").change();
+		}
+	});
+});
+</script>							</div>
+						</div>
+					</div>
+					<div class="col-xs-6 isMenu">
+						<div class="form-group">
+							<label class="control-label col-sm-4">字体颜色：</label>
+							<div class="col-sm-8">
+								<div class="input-group input-color" data-color-format="hex">
+<input type="text" id="menuColor" name="menuColor" th:value="${menu.menuColor}" maxlength="50" class="form-control"/>
+									<span class="input-group-addon">
+										<i style="background-color:#ddd;"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row isMenu2">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4">可见：</label>
+							<div class="col-sm-8">
+
+<span id="isShow" class="icheck">
+<label><input type="radio" id="isShow1" name="isShow"
+			value="1" class="form-control required" th:checked="${menu.menuType == '1'} ? ture : false"> 显示</label><label><input type="radio" id="isShow2" name="isShow"
+			value="0" class="form-control required" th:checked="${menu.menuType == '2'} ? ture : false"> 隐藏</label></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="菜单权重：默认20；>=40一般管理员；>=60系统管理员；>=80超级管理员">
+								菜单权重：<i class="fa icon-question"></i></label>
+							<div class="col-sm-8">
+								<select id="weight" name="weight" class="form-control required">
+									<option value="20" th:selected="${menu.weight == 20} ? true : false">默认权重</option>
+									<option value="40" th:selected="${menu.weight == 40} ? true : false">二级管理员</option>
+									<option value="60" th:selected="${menu.weight == 60} ? true : false">系统管理员</option>
+									<option value="80" th:selected="${menu.weight == 80} ? true : false">超级管理员</option>
+								</select>							
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-unit">其它信息</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2">备注：</label>
+							<div class="col-sm-10">
+<textarea id="remarks" name="remarks" rows="3" maxlength="200" class="form-control" th:utext="${menu.remarks}"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+					</div>
+				</div>
+			</div>
+</form>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script th:src="${setting.domain + 'colorpicker/bootstrap-colorpicker.js'}"></script>
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.code == 0){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.$('#dataGrid').dataGrid('refreshTreeChildren',
+							$('#parentCode').val(), '1019065460393922560');
+				});
+			}
+		}, "json");
+    }
+});
+
+// 颜色控件初始化
+$('#inputForm .input-color').colorpicker();
+
+// 根据类型显示不同的元素
+$('#menuType input').on('ifCreated ifChecked', function(){
+	if ($(this).is(':checked')){
+		// 1：菜单；2：权限
+		if ($(this).val() == '1'){
+			$('.isPerm').hide();
+			$('.isMenu').show();
+		}else{
+			$('.isMenu').hide();
+			$('.isPerm').show();
+		}
+	}
+});
+
+// 选择父级菜单回调方法
+function treeselectCallback(id, act, index, layero){
+	if (id == 'parent' && (act == 'ok' || act == 'clear')){
+		// 创建并初始化下一个节点信息，如：排序号、默认值
+		$.get('/js/a/sys/menu/createNextNode?parentCode='
+				+$('#parentCode').val(), function(data){
+			$('#treeSort').val(data.treeSort);
+			$('#menuType input[value="'+data.menuType+'"]').iCheck('check');
+			if (data.moduleCodes){
+				$('#moduleCodes input').iCheck('uncheck');
+				$.each(data.moduleCodes.split(','), function(i, v){
+					$('#moduleCodes input[value="'+v+'"]').iCheck('check');
+				});
+			}
+		});
+	}
+}
+</script>
