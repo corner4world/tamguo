@@ -15,7 +15,10 @@ import com.baomidou.mybatisplus.annotations.TableName;
 @TableName(value="sys_office")
 public class SysOfficeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ROOT_OFFICE_CODE = "0";
+	public static final String TREE_CODE_OFFICE_SEPARATE = ",";
+	public static final String TREE_NAME_OFFICE_SEPARATE = "/";
+	
 	@TableId
 	private String officeCode;
 	private String address;

@@ -62,37 +62,24 @@ public class SysOfficeServiceImpl extends ServiceImpl<SysOfficeMapper, SysOffice
 	@Transactional(readOnly=false)
 	@Override
 	public void save(SysOfficeEntity office) {
-		// 父节点
-		SysOfficeEntity parent = sysOfficeMapper.selectById(office.getParentCode());
-		
 		office.setCreateBy(ShiroUtils.getUserCode());
 		office.setCreateDate(new Date());
 		office.setUpdateBy(ShiroUtils.getUserCode());
 		office.setUpdateDate(new Date());
 		office.setOfficeCode(office.getViewCode());
-		if(StringUtils.isEmpty(office.getParentCode())) {
-			office.setParentCode("0");
-			office.setParentCodes("0,");
-			office.setTreeLeaf(false);
-			office.setTreeLevel(BigDecimal.valueOf(0));
-		}else {
-			office.setParentCodes(parent.getParentCodes() + parent.getOfficeCode() + ",");
-			office.setTreeLeaf(true);
-			office.setTreeLevel(parent.getTreeLevel().add(BigDecimal.valueOf(1)));
-		}
-		office.setTreeSorts(office.getTreeSort() + ",");
-		office.setTreeNames(office.getOfficeName() + ",");
-		sysOfficeMapper.insert(office);
+		// 处理属性结构
+		this.handleTreeData(office);
 		
-		// 更新父节点
-		parent.setTreeLeaf(false);
-		sysOfficeMapper.updateById(parent);
+		sysOfficeMapper.insert(office);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=false)
 	@Override
 	public void update(SysOfficeEntity office) {
 		SysOfficeEntity oldOffice = sysOfficeMapper.selectById(office.getOfficeCode());
-		SysOfficeEntity parentOffice = sysOfficeMapper.selectById(office.getParentCode());
+		
+		String oldParentCode = oldOffice.getParentCode();
 		
 		oldOffice.setAddress(office.getAddress());
 		oldOffice.setCorpCode(office.getCorpCode());
@@ -106,17 +93,52 @@ public class SysOfficeServiceImpl extends ServiceImpl<SysOfficeMapper, SysOffice
 		oldOffice.setParentCode(office.getParentCode());
 		oldOffice.setRemarks(office.getRemarks());
 		oldOffice.setPhone(office.getPhone());
-		if(StringUtils.isEmpty(office.getParentCode())) {
-			oldOffice.setParentCode("0");
-			oldOffice.setParentCodes("0,");
-			oldOffice.setTreeLeaf(false);
-			oldOffice.setTreeLevel(BigDecimal.valueOf(0));
-		}else {
-			oldOffice.setParentCodes(parentOffice.getParentCodes() + parentOffice.getOfficeCode() + ",");
-			oldOffice.setTreeLeaf(true);
-			oldOffice.setTreeLevel(parentOffice.getTreeLevel().add(BigDecimal.valueOf(1)));
-		}
+		
+		// 处理属性结构
+		this.handleTreeData(oldOffice);
 		sysOfficeMapper.updateById(oldOffice);
+		
+		// 更新旧的节点
+		Integer count = sysOfficeMapper.selectCount(Condition.create().eq("parent_code", oldParentCode).ne("office_code", oldParentCode));
+		if(count == 0) {
+		 	SysOfficeEntity oldParentOffice = sysOfficeMapper.selectById(oldParentCode);
+		 	oldParentOffice.setTreeLeaf(true);
+			sysOfficeMapper.updateById(oldParentOffice);
+		}
+	}
+	
+	// 处理树形结构
+	@SuppressWarnings("unchecked")
+	private SysOfficeEntity handleTreeData(SysOfficeEntity office) {
+		if(StringUtils.isEmpty(office.getParentCode())) {
+			office.setParentCode(SysOfficeEntity.ROOT_OFFICE_CODE);
+			office.setParentCodes(SysOfficeEntity.ROOT_OFFICE_CODE + SysOfficeEntity.TREE_CODE_OFFICE_SEPARATE);
+			office.setTreeLeaf(true);
+			office.setTreeLevel(new BigDecimal(0));
+			office.setTreeNames(office.getOfficeName());
+			office.setTreeSorts(office.getTreeSort().multiply(new BigDecimal(10000000)).toString() + SysOfficeEntity.TREE_CODE_OFFICE_SEPARATE);
+		} else {
+			SysOfficeEntity parentOffice = sysOfficeMapper.selectById(office.getParentCode());
+			
+			office.setParentCodes(parentOffice.getParentCodes() + parentOffice.getOfficeCode() + SysOfficeEntity.TREE_CODE_OFFICE_SEPARATE);
+			office.setTreeLeaf(true);
+			
+			office.setTreeLevel(parentOffice.getTreeLevel().add(new BigDecimal(1)));
+			office.setTreeNames(parentOffice.getTreeNames() + SysOfficeEntity.TREE_NAME_OFFICE_SEPARATE + parentOffice.getOfficeName());
+			office.setTreeSorts(parentOffice.getTreeSorts() + office.getTreeSort().multiply(new BigDecimal(10000000)).toString() + SysOfficeEntity.TREE_CODE_OFFICE_SEPARATE);
+			
+			if(parentOffice.getTreeLeaf()) {
+				parentOffice.setTreeLeaf(false);
+				sysOfficeMapper.updateById(parentOffice);
+			}
+		}
+		Integer count = sysOfficeMapper.selectCount(Condition.create().eq("parent_code", office.getOfficeCode()));
+		if(count > 0) {
+			office.setTreeLeaf(false);
+		}else {
+			office.setTreeLeaf(true);
+		}
+		return office;
 	}
 
 }
