@@ -89,10 +89,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
 		sysMenuMapper.insert(menu);	
 	}
 
+	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=false)
 	@Override
 	public void update(SysMenuEntity menu) {
 		SysMenuEntity entity = sysMenuMapper.selectById(menu.getMenuCode());
+		String oldParentCode = entity.getParentCode();
 		
 		entity.setUpdateBy(ShiroUtils.getUserCode());
 		entity.setUpdateDate(new Date());
@@ -107,7 +109,51 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
 		entity.setPermission(menu.getPermission());
 		entity.setRemarks(menu.getRemarks());
 		entity.setWeight(menu.getWeight());
+		entity.setParentCode(menu.getParentCode());
+		this.handleTreeData(entity);
 		sysMenuMapper.updateById(entity);
+		
+		// 更新旧的节点
+		Integer count = sysMenuMapper.selectCount(Condition.create().eq("parent_code", oldParentCode).ne("menu_code", oldParentCode));
+		if(count == 0) {
+		 	SysMenuEntity oldParentMenu = sysMenuMapper.selectById(oldParentCode);
+		 	oldParentMenu.setTreeLeaf(true);
+		 	sysMenuMapper.updateById(oldParentMenu);
+		}
+	}
+	
+	// 处理树形结构
+	@SuppressWarnings("unchecked")
+	private SysMenuEntity handleTreeData(SysMenuEntity menu) {
+		if(StringUtils.isEmpty(menu.getParentCode())) {
+			menu.setParentCode(SysMenuEntity.ROOT_MENU_CODE);
+			menu.setParentCodes(SysMenuEntity.ROOT_MENU_CODE + SysMenuEntity.TREE_CODE_MENU_SEPARATE);
+			menu.setTreeLeaf(true);
+			menu.setTreeLevel(new BigDecimal(0));
+			menu.setTreeNames(menu.getMenuName());
+			menu.setTreeSorts(menu.getTreeSort().multiply(new BigDecimal(10000000)).toString() + SysMenuEntity.TREE_CODE_MENU_SEPARATE);
+		} else {
+			SysMenuEntity parentMenu = sysMenuMapper.selectById(menu.getParentCode());
+			
+			menu.setParentCodes(parentMenu.getParentCodes() + parentMenu.getMenuCode() + SysMenuEntity.TREE_CODE_MENU_SEPARATE);
+			menu.setTreeLeaf(true);
+			
+			menu.setTreeLevel(parentMenu.getTreeLevel().add(new BigDecimal(1)));
+			menu.setTreeNames(parentMenu.getTreeNames() + SysMenuEntity.TREE_NAME_MENU_SEPARATE + parentMenu.getMenuName());
+			menu.setTreeSorts(parentMenu.getTreeSorts() + menu.getTreeSort().multiply(new BigDecimal(10000000)).toString() + SysMenuEntity.TREE_CODE_MENU_SEPARATE);
+			
+			if(parentMenu.getTreeLeaf()) {
+				parentMenu.setTreeLeaf(false);
+				sysMenuMapper.updateById(parentMenu);
+			}
+		}
+		Integer count = sysMenuMapper.selectCount(Condition.create().eq("parent_code", menu.getMenuCode()));
+		if(count > 0) {
+			menu.setTreeLeaf(false);
+		}else {
+			menu.setTreeLeaf(true);
+		}
+		return menu;
 	}
 
 }

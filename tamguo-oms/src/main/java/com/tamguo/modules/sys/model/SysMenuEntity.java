@@ -18,6 +18,10 @@ import com.tamguo.modules.sys.model.enums.SysMenuStatusEnum;
 @TableName(value="sys_menu")
 public class SysMenuEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String ROOT_MENU_CODE = "0";
+	public static final String TREE_CODE_MENU_SEPARATE = ",";
+	public static final String TREE_NAME_MENU_SEPARATE = "/";
 
 	@TableId
 	private String menuCode;
