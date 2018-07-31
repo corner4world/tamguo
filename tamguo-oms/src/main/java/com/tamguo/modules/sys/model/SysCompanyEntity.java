@@ -17,6 +17,10 @@ import com.baomidou.mybatisplus.annotations.TableName;
 @KeySequence
 public class SysCompanyEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String ROOT_COMPANY_CODE = "0";
+	public static final String TREE_CODE_COMPANY_SEPARATE = ",";
+	public static final String TREE_NAME_COMPANY_SEPARATE = "/";
 
 	@TableId
 	private String companyCode;
