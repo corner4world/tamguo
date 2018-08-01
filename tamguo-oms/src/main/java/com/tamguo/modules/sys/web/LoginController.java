@@ -1,8 +1,9 @@
 package com.tamguo.modules.sys.web;
 
 import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -24,17 +25,17 @@ import com.tamguo.modules.sys.utils.TamguoConstant;
 @Controller
 public class LoginController {
 
-	@RequestMapping(path="sysLogin")
+	@RequestMapping(path="login")
 	public String sysLogin(ModelAndView model) {
 		if(ShiroUtils.isLogin()) {
-			return "sysIndex";
+			return "index";
 		}
-		return "sysLogin";
+		return "login";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "sysLogin", method = RequestMethod.POST)
-	public Result toLogin(HttpServletRequest request, String username, String password, String validCode)
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public Result toLogin(HttpServletRequest request, HttpServletResponse response , String username , Boolean rememberUser,  String password, String validCode)
 			throws IOException {
 		try {
 			String kaptcha = ShiroUtils.getKaptcha(TamguoConstant.KAPTCHA_SESSION_KEY);

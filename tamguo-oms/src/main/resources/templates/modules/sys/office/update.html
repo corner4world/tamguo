@@ -35,8 +35,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4">上级机构：</label>
 							<div class="col-sm-8">
 							<div class="input-group treeselect" id="parentDiv" data-url="sys/office/treeData?excludeCode=SDJN">
-								<input id="parentCode" type="hidden" name="parentCode" th:value="${parentOffice.officeCode}" class="isReset"/>
-								<input id="parentName" type="text" name="parentName" th:value="${parentOffice.officeName}"
+								<input id="parentCode" type="hidden" name="parentCode" th:value="${parentOffice == null} ? '' : ${parentOffice.officeCode}" class="isReset"/>
+								<input id="parentName" type="text" name="parentName" th:value="${parentOffice == null} ? '' : ${parentOffice..officeName}"
 									class="form-control  " readonly="readonly"/><span class="input-group-btn"><a id="parentButton" href="javascript:"
 									class="btn btn-default "><i class="fa fa-search"></i></a>
 								</span>

@@ -52,8 +52,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4">上级菜单：</label>
 							<div class="col-sm-8">
 <div class="input-group treeselect" id="parentDiv" data-url="sys/menu/treeData?excludeCode=1019065460393922560&sysCode=default&isShowNameOrig=true">
-	<input id="parentCode" type="hidden" name="parentCode" th:value="${parentMenu.menuCode}" class="isReset"/>
-	<input id="parentName" type="text" name="parentName" th:value="${parentMenu.menuName}" class="form-control" readonly="readonly"/>
+	<input id="parentCode" type="hidden" name="parentCode" th:value="${parentMenu == null} ? '' : ${parentMenu.menuCode}" class="isReset"/>
+	<input id="parentName" type="text" name="parentName" th:value="${parentMenu == null} ? '' : ${parentMenu.menuName}" class="form-control" readonly="readonly"/>
 	<span class="input-group-btn"><a id="parentButton" href="javascript:"
 		class="btn btn-default "><i class="fa fa-search"></i></a>
 	</span>
