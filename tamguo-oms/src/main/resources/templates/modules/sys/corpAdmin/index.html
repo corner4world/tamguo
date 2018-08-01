@@ -25,11 +25,12 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
-					<a href="/js/a/sys/corpAdmin/form?op=addCorp" class="btn btn-default btnTool" title="新增租户管理员"><i class="fa fa-plus"></i> 新增租户管理员</a>
+					<a href="sys/corpAdmin/add?op=addCorp" class="btn btn-default btnTool" title="新增管理员"><i class="fa fa-plus"></i> 新增管理员</a>
 			</div>
 		</div>
 		<div class="box-body">
 <form id="searchForm" th:action="${setting.domain + 'sys/corpAdmin/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
+<input type="hidden" name="mgrType" id="mgrType" value="1"></input>
 				<div class="form-group">
 					<label class="control-label">登录账号：</label>
 					<div class="control-inline">
@@ -94,10 +95,6 @@ $('#dataGrid').dataGrid({
 			return '<a href="/js/a/sys/corpAdmin/form?userCode='+row.userCode+'&op=edit" class="btnList" data-title="编辑用户">'+(val||row.id)+'</a>';
 		}},
 		{header:'用户昵称', name:'userName', index:'a.user_name', width:200, align:"center"},
-		{header:'租户代码', name:'corpCode_', index:'a.corp_code', width:200, align:"center", formatter: function(val, obj, row, act){
-			return '<a href="javascript:" onclick="$(\'#corpCode_\').val(\''+val+'\');$(\'#searchForm\').submit()">'+val+'</a>';
-		}},
-		{header:'租户名称', name:'corpName_', index:'a.corp_name', width:200, align:"center"},
 		{header:'电子邮箱', name:'email', index:'a.email', width:200, align:"center"},
 		{header:'手机号码', name:'mobile', index:'a.mobile', width:200, align:"center"},
 		{header:'办公电话', name:'phone', index:'a.phone', width:200, align:"center"},

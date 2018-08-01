@@ -101,7 +101,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <script th:src="${setting.domain + 'common/jeesite.js'}"></script>
 <script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'common/common.js'}"></script>
-<script>
+<script type="text/javascript" th:inline="javascript">
 $("#inputForm").validate({
 	submitHandler: function(form){
 		// 获取数据权限数据

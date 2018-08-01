@@ -28,7 +28,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 		</div>
 <form id="inputForm" th:action="${setting.domain + 'sys/secAdmin/save'}" method="post" class="form-horizontal">
-<input type="hidden" id="userCode" name="userCode" value="TEST_y6ee"/>
+<input type="hidden" id="userCode" name="userCode" th:value="${user.userCode}"/>
 			<div class="box-body"><br/>
 				<div class="row">
 					<div class="col-xs-6">
@@ -101,7 +101,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <script th:src="${setting.domain + 'common/jeesite.js'}"></script>
 <script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'common/common.js'}"></script>
-<script>
+<script type="text/javascript" th:inline="javascript">
 $("#inputForm").validate({
 	submitHandler: function(form){
 		// 获取数据权限数据
@@ -239,4 +239,10 @@ for (var i=0; i<dataScopes.length; i++){
 	});
 }
 // 默认选择节点
+var userDataScopeList = [[${userDataScopeList}]];
+for(var i=0 ; i<userDataScopeList.length ; i++){
+	try{
+		dataScopeTrees[userDataScopeList[i].ctrlType].checkNode(dataScopeTrees[userDataScopeList[i].ctrlType].getNodeByParam("id",userDataScopeList[i].ctrlData), true, false);
+	}catch(e){}
+}
 </script>

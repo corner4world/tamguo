@@ -233,4 +233,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		return Result.result(0, null, "删除成功！");
 	}
 
+	@Transactional(readOnly=false)
+	@Override
+	public void saveUserDataScope(SysUserEntity user, SysUserMgrTypeEnum mgrType) {
+		this.saveUserDataScope(user);
+		
+		SysUserEntity entity = sysUserMapper.selectById(user.getUserCode());
+		entity.setMgrType(mgrType);
+		sysUserMapper.updateById(entity);
+	}
+
 }
