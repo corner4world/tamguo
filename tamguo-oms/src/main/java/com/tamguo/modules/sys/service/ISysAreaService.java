@@ -13,4 +13,7 @@ public interface ISysAreaService extends IService<SysAreaEntity>{
 
 	JSONArray treeData(String excludeId);
 
+	/** 保存地区*/
+	void save(SysAreaEntity area);
+
 }
