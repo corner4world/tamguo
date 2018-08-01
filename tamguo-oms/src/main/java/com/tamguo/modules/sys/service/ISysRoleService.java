@@ -25,4 +25,7 @@ public interface ISysRoleService extends IService<SysRoleEntity>{
 	/** 角色树形结构*/
 	List<SysRoleEntity> treeDate(String userType);
 
+	/** 修改角色*/
+	void update(SysRoleEntity role);
+
 }

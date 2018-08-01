@@ -1,5 +1,6 @@
 package com.tamguo.modules.sys.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import com.tamguo.modules.sys.model.SysRoleEntity;
 import com.tamguo.modules.sys.model.SysRoleMenuEntity;
 import com.tamguo.modules.sys.model.condition.SysRoleCondition;
 import com.tamguo.modules.sys.service.ISysRoleService;
+import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity> implements ISysRoleService {
@@ -126,5 +128,21 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 	@Override
 	public List<SysRoleEntity> treeDate(String userType) {
 		return sysRoleMapper.selectList(Condition.create().eq("user_type", userType));
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void update(SysRoleEntity role) {
+		SysRoleEntity entity = sysRoleMapper.selectById(role.getRoleCode());
+		entity.setRoleName(role.getRoleName());
+		entity.setRoleSort(role.getRoleSort());
+		entity.setUserType(role.getUserType());
+		entity.setIsSys(role.getIsSys());
+		entity.setRoleType(role.getRoleType());
+		
+		entity.setUpdateBy(ShiroUtils.getUserCode());
+		entity.setUpdateDate(new Date());
+		entity.setRemarks(role.getRemarks());
+		sysRoleMapper.updateById(entity);
 	}
 }

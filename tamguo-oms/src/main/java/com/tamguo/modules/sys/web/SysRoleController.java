@@ -26,6 +26,8 @@ public class SysRoleController {
 	private final String ROLE_MENU_INDEX_PAGE = "modules/sys/role/menu";
 	// 数据权限
 	private final String ROLE_DATA_INDEX_PAGE = "modules/sys/role/dataScope";
+	// 修改角色
+	private final String ROLE_MENU_UPDATE_PAGE = "modules/sys/role/update";
 
 	@Autowired
 	private ISysRoleService iSysRoleService;
@@ -37,6 +39,14 @@ public class SysRoleController {
 	public ModelAndView menu(String roleCode , ModelAndView model) {
 		model.addObject("role", iSysRoleService.selectById(roleCode));
 		model.setViewName(ROLE_MENU_INDEX_PAGE);
+		return model;
+	}
+	
+	/** 修改角色*/
+	@RequestMapping(path="update")
+	public ModelAndView update(String roleCode , ModelAndView model) {
+		model.addObject("role", iSysRoleService.selectById(roleCode));
+		model.setViewName(ROLE_MENU_UPDATE_PAGE);
 		return model;
 	}
 	
@@ -121,6 +131,18 @@ public class SysRoleController {
 		} catch (Exception e) {
 			ExceptionSupport.resolverResult("角色树", this.getClass(), e);
 			return null;
+		}
+	}
+	
+	/** 修改角色*/
+	@RequestMapping(path="update",method=RequestMethod.POST)
+	@ResponseBody
+	public Result update(SysRoleEntity role) {
+		try {
+			iSysRoleService.update(role);
+			return Result.result(0, null, "角色【"+role.getRoleName()+"】修改成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("修改角色", this.getClass(), e);
 		}
 		
 	}

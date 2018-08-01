@@ -15,7 +15,7 @@ $("#loginForm").validate({
         js.ajaxSubmitForm($(c), function(f, e, g) {
             if (f.result.code != 0) {
                 js.loading($("#btnSubmit").data("loading"));
-                location = ctx + "sysIndex"
+                location = ctx + "index"
             } else {
             	js.showMessage(f.message)
             }

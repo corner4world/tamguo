@@ -117,7 +117,7 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="/js/a/sys/role/form?roleCode='+row.roleCode+'&op=edit" class="btnList" title="编辑角色"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="sys/role/update?roleCode='+row.roleCode+'&op=edit" class="btnList" title="编辑角色"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == Global.STATUS_NORMAL){
 					actions.push('<a href="/js/a/sys/role/disable?roleCode='+row.roleCode+'" class="btnList" title="停用角色" data-confirm="确认要停用该角色吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}

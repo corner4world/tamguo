@@ -7,9 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-	@RequestMapping(path="sysIndex")
+	@RequestMapping(path="index")
 	public String sysLogin(ModelAndView model) {
-		return "sysIndex";
+		return "index";
 	}
 	
 }
