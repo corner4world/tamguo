@@ -20,6 +20,7 @@ import com.tamguo.modules.sys.utils.Result;
 public class SecAdminController {
 	
 	private final String SECADMIN_INDEX_PAGE = "modules/sys/secAdmin/index";
+	private final String SECADMIN_ADD_PAGE = "modules/sys/secAdmin/add";
 	
 	@Autowired
 	private ISysUserService iSysUserService;
@@ -27,6 +28,20 @@ public class SecAdminController {
 	@RequestMapping(path="index")
 	public String index(ModelAndView model) {
 		return SECADMIN_INDEX_PAGE;
+	}
+	
+	@RequestMapping(path="add")
+	public ModelAndView add(String userCode , ModelAndView model) {
+		model.setViewName(SECADMIN_ADD_PAGE);
+		model.addObject("user", iSysUserService.selectById(userCode));
+		return model;
+	}
+	
+	@RequestMapping(path="save")
+	@ResponseBody
+	public Result save(SysUserEntity user , ModelAndView model) {
+		iSysUserService.saveUserDataScope(user);
+		return Result.result(0, null, "【"+user.getUserName()+"】保存数据权限成功！"); 
 	}
 	
 	@RequestMapping(path="listData",method=RequestMethod.POST)

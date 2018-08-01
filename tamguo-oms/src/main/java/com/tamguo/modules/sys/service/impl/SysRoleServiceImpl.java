@@ -126,10 +126,27 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<SysRoleEntity> treeDate(String userType) {
-		return sysRoleMapper.selectList(Condition.create().eq("user_type", userType));
+	public JSONArray treeDate(String userType) {
+		if(StringUtils.isEmpty(userType)) {
+			return this.transformTreeDate(sysRoleMapper.selectList(Condition.create().eq("is_sys", "0")));
+		}
+		return this.transformTreeDate(sysRoleMapper.selectList(Condition.create().eq("is_sys", "0").eq("user_type", userType)));
 	}
 
+	private JSONArray transformTreeDate(List<SysRoleEntity> roles) {
+		if(roles != null) {
+			JSONArray entitys = new JSONArray();
+			for(int i=0 ; i<roles.size() ; i++) {
+				JSONObject entity = new JSONObject();
+				entity.put("id", roles.get(i).getRoleCode());
+				entity.put("name", roles.get(i).getRoleName());
+				entitys.add(entity);
+			}
+			return entitys;
+		}
+		return null;
+	}
+	
 	@Transactional(readOnly=false)
 	@Override
 	public void update(SysRoleEntity role) {

@@ -1,6 +1,5 @@
 package com.tamguo.modules.sys.web;
 
-import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.modules.sys.model.SysRoleEntity;
@@ -125,7 +125,7 @@ public class SysRoleController {
 	/** 角色树结构*/
 	@RequestMapping(path="treeData",method=RequestMethod.POST)
 	@ResponseBody
-	public List<SysRoleEntity> treeData(String userType){
+	public JSONArray treeData(String userType){
 		try {
 			return iSysRoleService.treeDate(userType);
 		} catch (Exception e) {
@@ -157,7 +157,6 @@ public class SysRoleController {
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("新增角色", this.getClass(), e);
 		}
-		
 	}
 	
 }

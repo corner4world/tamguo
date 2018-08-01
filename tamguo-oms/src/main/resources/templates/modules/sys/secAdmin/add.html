@@ -1,0 +1,242 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>二级管理员 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jquery-ztree/3.5/css/metro/zTreeStyle.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-people"></i> 二级管理员管理数据权限
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+<form id="inputForm" th:action="${setting.domain + 'sys/secAdmin/save'}" method="post" class="form-horizontal">
+<input type="hidden" id="userCode" name="userCode" value="TEST_y6ee"/>
+			<div class="box-body"><br/>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> 登录账号：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="loginCode" name="loginCode" th:value="${user.loginCode}" maxlength="32" readonly="true" class="form-control required "/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> 用户昵称：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="userName" name="userName" th:value="${user.userName}" maxlength="32" readonly="true" class="form-control required "/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-unit">可管理的数据权限</div>
+				<div id="dataScopeTrees"></div>
+				<script id="dataScopeTpl" type="text/template">
+					<div class="pull-left" style="padding:0 15px;min-width:300px;">
+						<div class="box box-solid" style="background:#FAFAFA">
+							<div class="box-header">
+								<div class="box-title icheck">
+									<label><input type="checkbox" id="checkall_{{d.key}}"
+										class="checkall"/> {{d.label}}</label>
+								</div>
+								<div class="box-tools pull-right" style="top:8px;">
+									<a class="btn btn-box-tool" id="expand_{{d.key}}"
+										value="dataScopeTree_{{d.key}}" >展开</a>/<a
+										class="btn btn-box-tool" id="collapse_{{d.key}}"
+										value="dataScopeTree_{{d.key}}" >折叠</a>
+								</div>
+							</div>
+							<div class="box-body">
+								<div id="dataScopeTree_{{d.key}}" class="ztree"></div>
+							</div>
+						</div>
+					</div>
+				</script>
+<input type="hidden" id="userDataScopeListJson" name="userDataScopeListJson" value=""/>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+					</div>
+				</div>
+			</div>
+</form>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jquery-ztree/3.5/js/jquery.ztree.all-3.5.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		// 获取数据权限数据
+		var dataScopeData = [];
+		$.each(dataScopeTrees, function(key, dataScopeTree){
+			var treeNodes = dataScopeTree.getCheckedNodes(true);
+			for(var i=0; i<treeNodes.length; i++) {
+				dataScopeData.push({
+					ctrlType: key, ctrlData: treeNodes[i].id
+				});
+			}
+		});
+		$("#userDataScopeListJson").val(JSON.stringify(dataScopeData));
+		// 提交表单数据
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.code == 0){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+//加载数据权限树结构
+var setting = {
+	check:{enable:true,nocheckInherit:true},
+	view:{selectedMulti:false,nameIsHTML: true},
+	data:{simpleData:{enable:true},key:{title:"title"}},
+	callback:{
+		beforeClick: function (treeId, treeNode, clickFlag) {
+			var tree = $.fn.zTree.getZTreeObj(treeId);
+			tree.checkNode(treeNode, !treeNode.checked, true, true);
+			return false;
+		},
+		onCheck: function (event, treeId, treeNode){
+			var tid = treeNode.tId;
+			if(!treeNode.checked){
+				$(".checkall[value="+treeId+"]").each(function(){
+					if(this.checked){
+					    $(this).removeAttr("checked").iCheck('update');
+					}
+					return false;
+				}); 
+			}
+		}
+	}
+},
+moduleCodes = '["core","devtools"]';
+dataScopes = [{
+  moduleCode: "core",
+  ctrlPermi: "0",
+  ctrlName: "机构权限",
+  ctrlName_en: "Office",
+  ctrlType: "Office",
+  ctrlDataUrl: "/sys/office/treeData",
+  chkboxType: {"Y":"ps","N":"ps"},
+  expandLevel: -1,
+  remarks: ""
+},{
+  moduleCode: "core",
+  ctrlName: "公司权限",
+  ctrlName_en: "Company",
+  ctrlType: "Company",
+  ctrlPermi: "0",
+  ctrlDataUrl: "/sys/company/treeData",
+  chkboxType: {"Y":"ps","N":"ps"},
+  expandLevel: -1,
+  remarks: ""
+},{
+  moduleCode: "core",
+  ctrlName: "角色权限",
+  ctrlName_en: "Role",
+  ctrlType: "Role",
+  ctrlPermi: "2",
+  ctrlDataUrl: "/sys/role/treeData",
+  chkboxType: {"Y":"ps","N":"ps"},
+  expandLevel: -1,
+  remarks: ""
+}]
+,
+dataScopeTrees = {}; // 用sysCode分类存储所有菜单树
+for (var i=0; i<dataScopes.length; i++){
+	var dataScope = dataScopes[i];
+	// 验证模块是否开启，如果未开启，则跳过
+	if (moduleCodes.indexOf("\""+dataScope.moduleCode+"\"") == -1){
+		continue;
+	}
+	// 控制权限 ctrlPermi: 0全部  1拥有权限  2管理权限
+	if (!(dataScope.ctrlPermi == '0'
+			|| dataScope.ctrlPermi == '2')){
+		continue;
+	}
+ 	$('#dataScopeTrees').append(js.template('dataScopeTpl', {
+ 		key: dataScope.ctrlType, label: dataScope.ctrlName_zh_CN || dataScope.ctrlName}));
+ 	var ctrlDataUrl = dataScope.ctrlDataUrl || '';
+	$.ajax({
+		type: 'POST',
+		url: ctrlDataUrl + (ctrlDataUrl.indexOf("?")!=-1?'&':'?') + "___t=" + new Date().getTime(),
+		data: {ctrlPermi: '2'},
+		dataType: 'json',
+		async: false,
+		error: function(data){
+			js.showErrorMessage(data.responseText);
+		},
+		success: function(data, status, xhr){
+			// 初始化树结构
+			var tree = $.fn.zTree.init($("#dataScopeTree_"+dataScope.ctrlType), setting, data);
+			tree.setting.check.chkboxType = dataScope.chkboxType;
+			// 默认展开节点（如果级别设置为-1，则：如果有1个根节点，则展开一级节点，否则不展开）
+			$.fn.zTree.expandNodeByLevel(tree, dataScope.expandLevel);
+			// 树结构：全选、取消全选
+			$('#checkall_'+dataScope.ctrlType).iCheck({
+		 		checkboxClass:'icheckbox_minimal-grey'
+		 	}).on('ifChecked ifUnchecked', function(){
+	        	var ctrlType = $(this).attr('ctrlType');
+				if(this.checked){
+					dataScopeTrees[ctrlType].checkAllNodes(true);
+				}else{
+					dataScopeTrees[ctrlType].checkAllNodes(false);
+				}
+			}).attr("ctrlType", dataScope.ctrlType);
+			// 展开和折叠按钮绑定
+			$('#expand_'+dataScope.ctrlType).click(function(){
+				var ctrlType = $(this).attr('ctrlType');
+				dataScopeTrees[ctrlType].expandAll(true);
+			}).attr("ctrlType", dataScope.ctrlType);
+			$('#collapse_'+dataScope.ctrlType).click(function(){
+				var ctrlType = $(this).attr('ctrlType');
+				dataScopeTrees[ctrlType].expandAll(false);
+			}).attr("ctrlType", dataScope.ctrlType);
+			// 将树对象存储到全局数组里
+			dataScopeTrees[dataScope.ctrlType] = tree;
+		}
+	});
+}
+// 默认选择节点
+</script>

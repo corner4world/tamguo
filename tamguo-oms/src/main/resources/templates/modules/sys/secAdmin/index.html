@@ -77,11 +77,9 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 		</div>
 	</div>
 </div>
-<div class="hide"><div class="input-group treeselect" id="userSelectDiv" data-url="/js/a/sys/user/userSelect?userType=employee">
+<div class="hide"><div class="input-group treeselect" id="userSelectDiv" data-url="sys/user/userSelect?userType=employee">
 	<input id="userSelectCode" type="hidden" name="" value="" class="isReset"/>
-	<input id="userSelectName" type="text" name="" value=""
-		class="form-control  " readonly="readonly"
-	/><span class="input-group-btn"><a id="userSelectButton" href="javascript:"
+	<input id="userSelectName" type="text" name="" value="" class="form-control  " readonly="readonly"/><span class="input-group-btn"><a id="userSelectButton" href="javascript:"
 		class="btn btn-default "><i class="fa fa-search"></i></a>
 	</span>
 </div>
@@ -179,7 +177,7 @@ $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
 		{header:'登录账号', name:'loginCode', index:'a.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
-			return '<a href="/js/a/sys/secAdmin/form?userCode='+row.userCode+'" class="btnList" data-title="管理数据权限">'+(val||row.id)+'</a>';
+			return '<a href="sys/secAdmin/add?userCode='+row.userCode+'" class="btnList" data-title="管理数据权限">'+(val||row.id)+'</a>';
 		}},
 		{header:'用户昵称', name:'userName', index:'a.user_name', width:200, align:"center"},
 		{header:'电子邮箱', name:'email', index:'a.email', width:200, align:"center"},
@@ -191,8 +189,8 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:150, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="/js/a/sys/secAdmin/form?userCode='+row.userCode+'" class="btnList" title="管理数据权限"><i class="fa fa-pencil"></i></a>&nbsp;');
-				actions.push('<a href="/js/a/sys/secAdmin/delete?userCode='+row.userCode+'" class="btnList" title="取消二级管理员身份" data-confirm="确认要取消该用户的二级管理员身份吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="sys/secAdmin/add?userCode='+row.userCode+'" class="btnList" title="管理数据权限"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="sys/secAdmin/delete?userCode='+row.userCode+'" class="btnList" title="取消二级管理员身份" data-confirm="确认要取消该用户的二级管理员身份吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');
 		}}
 	],
@@ -208,7 +206,7 @@ function listselectCallback(id, action, index, layero){
 	if (id == 'userSelect' && action == 'ok'){
 		if ($('#userSelectCode').val() != ''){
 			js.addTabPage(null, '二级管理员授权',
-					'/js/a/sys/secAdmin/form?userCode='
+					'sys/secAdmin/add?userCode='
 							+$('#userSelectCode').val());
 		}else{
 			js.showMessage('请选择需要设置为二级管理员的用户');
