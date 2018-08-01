@@ -145,4 +145,26 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 		entity.setRemarks(role.getRemarks());
 		sysRoleMapper.updateById(entity);
 	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void save(SysRoleEntity role) {
+		role.setCreateBy(ShiroUtils.getUserCode());
+		role.setCreateDate(new Date());
+		role.setUpdateBy(ShiroUtils.getUserCode());
+		role.setUpdateDate(new Date());
+		
+		sysRoleMapper.insert(role);
+		
+		if(!StringUtils.isEmpty(role.getRoleMenuListJson())) {
+			JSONArray roleMenus = JSONArray.parseArray(role.getRoleMenuListJson());
+			for(int i=0 ; i<roleMenus.size() ; i++) {
+				JSONObject menu = roleMenus.getJSONObject(i);
+				SysRoleMenuEntity roleMenu = new SysRoleMenuEntity();
+				roleMenu.setRoleCode(role.getRoleCode());
+				roleMenu.setMenuCode(menu.getString("menuCode"));
+				sysRoleMenuMapper.insert(roleMenu);
+			}
+		}
+	}
 }

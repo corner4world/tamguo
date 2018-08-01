@@ -147,4 +147,17 @@ public class SysRoleController {
 		
 	}
 	
+	/** 新增角色*/
+	@RequestMapping(path="save",method=RequestMethod.POST)
+	@ResponseBody
+	public Result save(SysRoleEntity role) {
+		try {
+			iSysRoleService.save(role);
+			return Result.result(0, null, "角色【"+role.getRoleName()+"】新增成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("新增角色", this.getClass(), e);
+		}
+		
+	}
+	
 }

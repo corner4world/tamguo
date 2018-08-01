@@ -28,4 +28,7 @@ public interface ISysRoleService extends IService<SysRoleEntity>{
 	/** 修改角色*/
 	void update(SysRoleEntity role);
 
+	/** 新增角色*/
+	void save(SysRoleEntity role);
+
 }
