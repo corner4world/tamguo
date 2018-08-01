@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>系统管理员 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jqGrid/4.7/css/ui.jqgrid.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> 编辑管理员
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+<form id="inputForm" th:action="${setting.domain + 'sys/corpAdmin/update'}" method="post" class="form-horizontal">
+<input type="hidden" id="op" name="op" value="edit"/>
+<input type="hidden" id="userCode" name="userCode" th:value="${user.userCode}"/>
+			<div class="box-body">
+				<div class="form-unit">基本信息</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> 登录账号：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="hidden" id="oldLoginCode" name="oldLoginCode" value="admin"/>
+<input type="text" id="loginCode" name="loginCode" th:value="${user.loginCode}" minlength="4" maxlength="20" class="form-control required userName" data-msg-remote="登录账号已存在"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> 用户昵称：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="userName" name="userName" th:value="${user.userName}" maxlength="32" class="form-control required "/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 电子邮箱：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-fw fa-envelope" style="margin-top:-2px;display:block;"></i></span>
+									<input type="text" id="email" name="email" th:value="${user.email}" maxlength="300" class="form-control email"/>
+				                </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 手机号码：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-fw fa-mobile" style="margin-top:-2px;display:block;"></i></span>
+									<input type="text" id="mobile" name="mobile" th:value="${user.mobile}" maxlength="100" class="form-control mobile"/>
+				                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 办公电话：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-fw fa-phone"></i></span>
+									<input type="text" id="phone" name="phone" th:value="${user.phone}" maxlength="100" class="form-control phone"/>
+				                </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 权重(排序)：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="userWeight" name="userWeight" th:value="${user.userWeight}" maxlength="8" class="form-control digits" placeholder="权重越大排名越靠前，请填写数字。"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control " th:utext="${user.remarks}">客户方使用的系统管理员，用于一些常用的基础数据配置。</textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+					</div>
+				</div>
+			</div>
+</form>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.extend.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result == Global.TRUE){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+$('#corpCode_').change(function(){
+	if ($('#loginCode').val() != ''){
+		$('#loginCode').valid();
+	}else{
+		$('#loginCode').val('admin'+$(this).val()).valid();
+	}
+});
+</script>

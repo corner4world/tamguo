@@ -243,4 +243,36 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		sysUserMapper.updateById(entity);
 	}
 
+	@Transactional(readOnly=false)
+	@Override
+	public void saveAdmin(SysUserEntity user) {
+		user.setCreateBy(ShiroUtils.getUserCode());
+		user.setCreateDate(new Date());
+		user.setUpdateBy(ShiroUtils.getUserCode());
+		user.setUpdateDate(new Date());
+		user.setMgrType(SysUserMgrTypeEnum.SYSTEM_ADMIN);
+		user.setStatus(SysUserStatusEnum.NORMAL);
+		// 设置初始密码
+		user.setPassword(TamguoConstant.INIT_PASSWORD);
+		user.setUserType(SysUserTypeEnum.NONE);
+		sysUserMapper.insert(user);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void updateAdmin(SysUserEntity user) {
+		SysUserEntity entity = sysUserMapper.selectById(user.getUserCode());
+		entity.setUpdateBy(ShiroUtils.getUserCode());
+		entity.setUpdateDate(new Date());
+		entity.setLoginCode(user.getLoginCode());
+		entity.setUserName(user.getUserName());
+		entity.setEmail(user.getEmail());
+		entity.setMobile(user.getMobile());
+		entity.setPhone(user.getPhone());
+		entity.setUserWeight(user.getUserWeight());
+		entity.setRemarks(user.getRemarks());
+		
+		sysUserMapper.updateById(entity);
+	}
+
 }

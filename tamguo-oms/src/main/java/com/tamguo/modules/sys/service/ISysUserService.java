@@ -52,4 +52,10 @@ public interface ISysUserService extends IService<SysUserEntity>{
 
 	/** 删除用户*/
 	public Result delete(String userCode);
+
+	/** 添加管理员*/
+	public void saveAdmin(SysUserEntity user);
+
+	/** 修改管理员*/
+	public void updateAdmin(SysUserEntity user);
 }

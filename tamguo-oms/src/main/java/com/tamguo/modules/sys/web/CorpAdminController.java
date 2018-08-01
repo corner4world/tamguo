@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
 import com.tamguo.modules.sys.service.ISysUserService;
+import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.Result;
 
 @Controller
@@ -20,6 +21,7 @@ import com.tamguo.modules.sys.utils.Result;
 public class CorpAdminController {
 
 	private final String CORPADMIN_INDEX_PAGE = "modules/sys/corpAdmin/index";
+	private final String CORPADMIN_UPDATE_PAGE = "modules/sys/corpAdmin/update";
 	
 	@Autowired
 	private ISysUserService iSysUserService;
@@ -27,6 +29,35 @@ public class CorpAdminController {
 	@RequestMapping(path="index")
 	public String index(ModelAndView model) {
 		return CORPADMIN_INDEX_PAGE;
+	}
+	
+	@RequestMapping(path="update")
+	public ModelAndView update(String userCode , ModelAndView model) {
+		model.addObject("user", iSysUserService.selectById(userCode));
+		model.setViewName(CORPADMIN_UPDATE_PAGE);
+		return model;
+	}
+	
+	@RequestMapping(path="save",method=RequestMethod.POST)
+	@ResponseBody
+	public Result save(SysUserEntity user) {
+		try {
+			iSysUserService.saveAdmin(user);
+			return Result.result(0, null, "管理员【"+user.getUserName()+"】添加成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("添加管理员错误", this.getClass(), e);
+		}
+	}
+	
+	@RequestMapping(path="update",method=RequestMethod.POST)
+	@ResponseBody
+	public Result update(SysUserEntity user) {
+		try {
+			iSysUserService.updateAdmin(user);
+			return Result.result(0, null, "管理员【"+user.getUserName()+"】修改成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("修改管理员错误", this.getClass(), e);
+		}
 	}
 	
 	@RequestMapping(path="listData",method=RequestMethod.POST)

@@ -25,7 +25,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
-					<a href="sys/corpAdmin/add?op=addCorp" class="btn btn-default btnTool" title="新增管理员"><i class="fa fa-plus"></i> 新增管理员</a>
+					<a th:href="${setting.domain + 'sys/corpAdmin/add?op=addCorp'}" class="btn btn-default btnTool" title="新增管理员"><i class="fa fa-plus"></i> 新增管理员</a>
 			</div>
 		</div>
 		<div class="box-body">
@@ -104,18 +104,18 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:250, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="/js/a/sys/corpAdmin/form?userCode='+row.userCode+'&op=edit" class="btnList" title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="'+ctx+'sys/corpAdmin/update?userCode='+row.userCode+'&op=edit" class="btnList" title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == Global.STATUS_NORMAL){
-					actions.push('<a href="/js/a/sys/corpAdmin/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+					actions.push('<a href="sys/corpAdmin/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
 				if (row.status == Global.STATUS_DISABLE){
-					actions.push('<a href="/js/a/sys/corpAdmin/enable?userCode='+row.userCode+'" class="btnList" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+					actions.push('<a href="sys/corpAdmin/enable?userCode='+row.userCode+'" class="btnList" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
-				actions.push('<a href="/js/a/sys/corpAdmin/delete?userCode='+row.userCode+'" class="btnList" title="删除用户" data-confirm="确认要删除该用户吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
-				actions.push('<a href="/js/a/sys/corpAdmin/form?corpCode_='+row.corpCode_+'&corpName_='+row.corpName_+'&op=addAdmin" class="btnList" title="新增管理员"><i class="fa fa-plus-square"></i></a>&nbsp;');
+				actions.push('<a href="sys/corpAdmin/delete?userCode='+row.userCode+'" class="btnList" title="删除用户" data-confirm="确认要删除该用户吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="sys/corpAdmin/add?corpCode_='+row.corpCode_+'&corpName_='+row.corpName_+'&op=addAdmin" class="btnList" title="新增管理员"><i class="fa fa-plus-square"></i></a>&nbsp;');
 				actions.push('<a href="javascript:" class="btnMore" title="更多操作"><i class="fa fa-chevron-circle-right"></i></a>&nbsp;');
 				actions.push('<div class="moreItems">');
-				actions.push('<a href="/js/a/sys/corpAdmin/resetpwd?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户密码重置" data-confirm="确认要将该用户密码重置到初始状态吗？"><i class="fa fa-reply-all"></i> 重置密码</a>&nbsp;');
+				actions.push('<a href="sys/corpAdmin/resetpwd?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户密码重置" data-confirm="确认要将该用户密码重置到初始状态吗？"><i class="fa fa-reply-all"></i> 重置密码</a>&nbsp;');
 				actions.push('</div>');
 			return actions.join('');
 		}}
