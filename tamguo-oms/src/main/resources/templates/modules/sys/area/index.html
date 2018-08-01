@@ -94,7 +94,7 @@ $('#dataGrid').dataGrid({
 		{header:'更新时间', name:'updateDate', index:'a.update_date', width:150, align:"center"},
 		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="/js/a/sys/area/form?areaCode='+row.areaCode+'" class="btnList" title="编辑区域"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="sys/area/update?areaCode='+row.areaCode+'" class="btnList" title="编辑区域"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == Global.STATUS_NORMAL){
 					actions.push('<a href="/js/a/sys/area/disable?areaCode='+row.areaCode+'" class="btnList" title="停用区域" data-confirm="确认要停用该区域吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}

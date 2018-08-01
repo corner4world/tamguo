@@ -18,6 +18,10 @@ import com.tamguo.modules.sys.model.enums.SysAreaStatusEnum;
 @TableName(value="sys_area")
 public class SysAreaEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String ROOT_AREA_CODE = "0";
+	public static final String TREE_CODE_AREA_SEPARATE = ",";
+	public static final String TREE_NAME_AREA_SEPARATE = "/";
 
 	@TableId
 	private String areaCode;

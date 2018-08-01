@@ -21,10 +21,10 @@ public class SysAreaController {
 
 	private final String AREA_INDEX_PAGE = "modules/sys/area/index";
 	private final String AREA_ADD_PAGE = "modules/sys/area/add";
+	private final String AREA_UPDATE_PAGE = "modules/sys/area/update";
 
 	@Autowired
 	private ISysAreaService iSysAreaService; 
-
 	
 	@RequestMapping(path="index")
 	public String index() {
@@ -32,10 +32,19 @@ public class SysAreaController {
 	}
 	
 	@RequestMapping(path="add")
-	@ResponseBody
 	public ModelAndView add(String parentCode , ModelAndView model) {
 		model.setViewName(AREA_ADD_PAGE);
 		model.addObject("parentArea", iSysAreaService.selectById(parentCode));
+		return model;
+	}
+	
+	@RequestMapping(path="update")
+	public ModelAndView update(String areaCode , ModelAndView model) {
+		model.setViewName(AREA_UPDATE_PAGE);
+		SysAreaEntity area = iSysAreaService.selectById(areaCode);
+		SysAreaEntity parentArea = iSysAreaService.selectById(area.getParentCode());
+		model.addObject("area", area);
+		model.addObject("parentArea", parentArea);
 		return model;
 	}
 	
@@ -47,6 +56,17 @@ public class SysAreaController {
 			return Result.result(0, null, "保存【"+area.getAreaName()+"】地区成功！");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("保存地区", this.getClass(), e);
+		}
+	}
+	
+	@RequestMapping(path="update",method=RequestMethod.POST)
+	@ResponseBody
+	public Result update(SysAreaEntity area) {
+		try {
+			iSysAreaService.update(area);
+			return Result.result(0, null, "修改【"+area.getAreaName()+"】地区成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("修改地区", this.getClass(), e);
 		}
 	}
 	

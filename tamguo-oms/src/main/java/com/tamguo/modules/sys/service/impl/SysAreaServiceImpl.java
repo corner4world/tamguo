@@ -14,7 +14,6 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.modules.sys.dao.SysAreaMapper;
 import com.tamguo.modules.sys.model.SysAreaEntity;
-import com.tamguo.modules.sys.model.SysOfficeEntity;
 import com.tamguo.modules.sys.model.condition.SysAreaCondition;
 import com.tamguo.modules.sys.model.enums.SysAreaStatusEnum;
 import com.tamguo.modules.sys.service.ISysAreaService;
@@ -79,21 +78,21 @@ public class SysAreaServiceImpl extends ServiceImpl<SysAreaMapper, SysAreaEntity
 	@SuppressWarnings("unchecked")
 	private SysAreaEntity handleTreeData(SysAreaEntity area) {
 		if(StringUtils.isEmpty(area.getParentCode())) {
-			area.setParentCode(SysOfficeEntity.ROOT_OFFICE_CODE);
-			area.setParentCodes(SysOfficeEntity.ROOT_OFFICE_CODE + SysOfficeEntity.TREE_CODE_OFFICE_SEPARATE);
+			area.setParentCode(SysAreaEntity.ROOT_AREA_CODE);
+			area.setParentCodes(SysAreaEntity.ROOT_AREA_CODE + SysAreaEntity.TREE_CODE_AREA_SEPARATE);
 			area.setTreeLeaf(true);
 			area.setTreeLevel(new BigDecimal(0));
 			area.setTreeNames(area.getAreaName());
-			area.setTreeSorts(area.getTreeSort().multiply(new BigDecimal(10000000)).toString() + SysOfficeEntity.TREE_CODE_OFFICE_SEPARATE);
+			area.setTreeSorts(area.getTreeSort().multiply(new BigDecimal(10000000)).toString() + SysAreaEntity.TREE_CODE_AREA_SEPARATE);
 		} else {
 			SysAreaEntity parentOffice = sysAreaMapper.selectById(area.getParentCode());
 			
-			area.setParentCodes(parentOffice.getParentCodes() + parentOffice.getAreaCode() + SysOfficeEntity.TREE_CODE_OFFICE_SEPARATE);
+			area.setParentCodes(parentOffice.getParentCodes() + parentOffice.getAreaCode() + SysAreaEntity.TREE_CODE_AREA_SEPARATE);
 			area.setTreeLeaf(true);
 			
 			area.setTreeLevel(parentOffice.getTreeLevel().add(new BigDecimal(1)));
-			area.setTreeNames(parentOffice.getTreeNames() + SysOfficeEntity.TREE_NAME_OFFICE_SEPARATE + parentOffice.getAreaName());
-			area.setTreeSorts(parentOffice.getTreeSorts() + area.getTreeSort().multiply(new BigDecimal(10000000)).toString() + SysOfficeEntity.TREE_CODE_OFFICE_SEPARATE);
+			area.setTreeNames(parentOffice.getTreeNames() + SysAreaEntity.TREE_CODE_AREA_SEPARATE + parentOffice.getAreaName());
+			area.setTreeSorts(parentOffice.getTreeSorts() + area.getTreeSort().multiply(new BigDecimal(10000000)).toString() + SysAreaEntity.TREE_CODE_AREA_SEPARATE);
 			
 			if(parentOffice.getTreeLeaf()) {
 				parentOffice.setTreeLeaf(false);
@@ -107,5 +106,33 @@ public class SysAreaServiceImpl extends ServiceImpl<SysAreaMapper, SysAreaEntity
 			area.setTreeLeaf(true);
 		}
 		return area;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=false)
+	@Override
+	public void update(SysAreaEntity area) {
+		SysAreaEntity entity = sysAreaMapper.selectById(area.getAreaCode());
+		
+		String oldParentCode = entity.getParentCode();
+		
+		entity.setUpdateBy(ShiroUtils.getUserCode());
+		entity.setUpdateDate(new Date());
+		entity.setParentCode(area.getParentCode());
+		entity.setAreaName(area.getAreaName());
+		entity.setAreaType(area.getAreaType());
+		entity.setTreeSort(area.getTreeSort());
+		entity.setRemarks(area.getRemarks());
+		
+		this.handleTreeData(area);
+		sysAreaMapper.updateById(entity);
+		
+		// 更新旧的节点
+		Integer count = sysAreaMapper.selectCount(Condition.create().eq("parent_code", oldParentCode).ne("area_code", oldParentCode));
+		if(count == 0) {
+		 	SysAreaEntity oldParentOffice = sysAreaMapper.selectById(oldParentCode);
+		 	oldParentOffice.setTreeLeaf(true);
+		 	sysAreaMapper.updateById(oldParentOffice);
+		}
 	}
 }
