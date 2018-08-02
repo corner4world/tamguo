@@ -1,5 +1,6 @@
 package com.tamguo.modules.sys.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -288,19 +289,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<SysMenuEntity> findUserMenuList() {
+	public List<SysMenuEntity> findUserMenuList() {
 		String userCode = ShiroUtils.getUserCode();
 		if(SystemConstant.SYSTEM_USER_CODE.equals(userCode)) {
 			List<SysMenuEntity> menus = sysMenuMapper.selectList(Condition.create().orderAsc(java.util.Arrays.asList("tree_sort")));
-			return new HashSet<>(menus);
+			return (menus);
 		}
-		Set<SysMenuEntity> menus = new HashSet<>();
+		List<SysMenuEntity> menus = new ArrayList<>();
+		Set<String> menuIds = new HashSet<>();
 		List<SysUserRoleEntity> userRoleList = sysUserRoleMapper.selectList(Condition.create().eq("user_code", userCode));
 		for(SysUserRoleEntity userRole : userRoleList) {
 			List<SysRoleMenuEntity> roleMenuList = sysRoleMenuMapper.selectList(Condition.create().eq("role_code", userRole.getRoleCode()));
 			for(SysRoleMenuEntity roleMenu : roleMenuList) {
 				SysMenuEntity menu = sysMenuMapper.selectById(roleMenu.getMenuCode());
-				menus.add(menu);
+				if(!menuIds.contains(menu.getMenuCode())) {
+					menus.add(menu);
+				}
+				menuIds.add(menu.getMenuCode());
 			}
 		}
 		return menus;

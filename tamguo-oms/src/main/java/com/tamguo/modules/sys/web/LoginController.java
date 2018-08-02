@@ -1,7 +1,6 @@
 package com.tamguo.modules.sys.web;
 
 import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.authc.AuthenticationException;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tamguo.modules.sys.service.ISysUserService;
-import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.Result;
 import com.tamguo.modules.sys.utils.ShiroUtils;
 import com.tamguo.modules.sys.utils.TamguoConstant;
@@ -57,13 +55,13 @@ public class LoginController {
 			request.getSession().setAttribute("userMenuList", iSysUserService.findUserMenuList());
 			request.getSession().setAttribute("currAdmin", ShiroUtils.getUser());
 		} catch (UnknownAccountException e) {
-			return ExceptionSupport.resolverResult("找不到账户", this.getClass(), e);
+			return Result.result(501, null, "找不到账户");
 		} catch (IncorrectCredentialsException e) {
-			return ExceptionSupport.resolverResult("账户验证失败", this.getClass(), e);
+			return Result.result(502, null, "账户验证失败");
 		} catch (LockedAccountException e) {
-			return ExceptionSupport.resolverResult("账户验证失败", this.getClass(), e);
+			return Result.result(503, null, "账户验证失败");
 		} catch (AuthenticationException e) {
-			return ExceptionSupport.resolverResult("账户验证失败", this.getClass(), e);
+			return Result.result(504, null, "账户验证失败");
 		}
 		request.getSession().setAttribute("currAdmin", ShiroUtils.getUser());
 		return Result.successResult(username);

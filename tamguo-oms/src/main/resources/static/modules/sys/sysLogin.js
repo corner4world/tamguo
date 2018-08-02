@@ -13,7 +13,7 @@ $("#loginForm").validate({
           , a = $("#password").val()
           , b = $("#validCode").val();
         js.ajaxSubmitForm($(c), function(f, e, g) {
-            if (f.result.code != 0) {
+            if (f.code == 0) {
                 js.loading($("#btnSubmit").data("loading"));
                 location = ctx + "index"
             } else {

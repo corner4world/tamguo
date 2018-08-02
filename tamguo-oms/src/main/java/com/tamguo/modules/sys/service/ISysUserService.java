@@ -1,8 +1,6 @@
 package com.tamguo.modules.sys.service;
 
 import java.util.List;
-import java.util.Set;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.tamguo.modules.sys.model.SysMenuEntity;
@@ -62,5 +60,5 @@ public interface ISysUserService extends IService<SysUserEntity>{
 	public void updateAdmin(SysUserEntity user);
 
 	/** 当前用户权限菜单*/
-	public Set<SysMenuEntity> findUserMenuList();
+	public List<SysMenuEntity> findUserMenuList();
 }
