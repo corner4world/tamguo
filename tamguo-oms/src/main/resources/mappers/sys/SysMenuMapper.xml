@@ -29,6 +29,17 @@
 			m.remarks
 		FROM
 			sys_menu m
+		<where>
+			1 = 1
+			<choose>
+		        <when test="parentCode != null and parentCode != ''">
+		          	and m.parent_code = #{parentCode}
+		        </when>
+		        <otherwise>
+		            and m.tree_level = 0
+		        </otherwise>
+		    </choose>
+		</where>
 	</select>
 	
 	<select id="selectMenuByRoleId" resultType="SysMenuEntity">
