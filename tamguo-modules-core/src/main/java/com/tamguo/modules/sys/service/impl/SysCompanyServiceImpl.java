@@ -17,7 +17,6 @@ import com.tamguo.modules.sys.dao.SysCompanyMapper;
 import com.tamguo.modules.sys.model.SysCompanyEntity;
 import com.tamguo.modules.sys.model.condition.SysCompanyCondition;
 import com.tamguo.modules.sys.service.ISysCompanyService;
-import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Service
 public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysCompanyEntity> implements ISysCompanyService {
@@ -69,9 +68,7 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 	@Override
 	public void save(SysCompanyEntity company) {
 		
-		company.setCreateBy(ShiroUtils.getUserCode());
 		company.setCreateDate(new Date());
-		company.setUpdateBy(ShiroUtils.getUserCode());
 		company.setUpdateDate(new Date());
 		company.setCompanyCode(company.getViewCode());
 		
@@ -89,7 +86,6 @@ public class SysCompanyServiceImpl extends ServiceImpl<SysCompanyMapper, SysComp
 		
 		String oldParentCode = entity.getParentCode();
 		
-		entity.setUpdateBy(ShiroUtils.getUserCode());
 		entity.setUpdateDate(new Date());
 		entity.setAreaCode(company.getAreaCode());
 		entity.setCompanyCode(company.getCompanyCode());

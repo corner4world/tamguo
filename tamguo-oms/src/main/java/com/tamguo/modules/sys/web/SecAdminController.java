@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
 import com.tamguo.modules.sys.model.enums.SysUserMgrTypeEnum;
 import com.tamguo.modules.sys.service.ISysUserService;
-import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/secAdmin")

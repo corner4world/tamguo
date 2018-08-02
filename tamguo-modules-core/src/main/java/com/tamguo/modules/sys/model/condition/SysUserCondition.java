@@ -18,6 +18,7 @@ public class SysUserCondition {
 	private String postCode;
 	private String status;
 	private String userType;
+	private String mgrType;
 	
 	private String orderBy;
 	
@@ -116,6 +117,12 @@ public class SysUserCondition {
 	}
 	public void setOrderBy(String orderBy) {
 		this.orderBy = orderBy;
+	}
+	public String getMgrType() {
+		return mgrType;
+	}
+	public void setMgrType(String mgrType) {
+		this.mgrType = mgrType;
 	}
 	
 }

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tamguo.common.utils.ExceptionSupport;
+import com.tamguo.common.utils.SystemConstant;
 import com.tamguo.config.image.CaptchaUtils;
-import com.tamguo.modules.sys.utils.ExceptionSupport;
 import com.tamguo.modules.sys.utils.ShiroUtils;
-import com.tamguo.modules.sys.utils.TamguoConstant;
 
 @Controller
 public class ValidCodeController {
@@ -23,14 +23,14 @@ public class ValidCodeController {
 		response.setContentType("image/jpeg");
 		
 		String a = CaptchaUtils.generateCaptcha(response.getOutputStream());
-		ShiroUtils.setSessionAttribute(TamguoConstant.KAPTCHA_SESSION_KEY, a);
+		ShiroUtils.setSessionAttribute(SystemConstant.KAPTCHA_SESSION_KEY, a);
 	}
 	
 	@RequestMapping("checkCode")
 	@ResponseBody
 	public Boolean checkCode(String validCode) throws ServletException, IOException {
 		try {
-			String kaptcha = ShiroUtils.getKaptcha(TamguoConstant.KAPTCHA_SESSION_KEY);
+			String kaptcha = ShiroUtils.getKaptcha(SystemConstant.KAPTCHA_SESSION_KEY);
 			if (validCode.equalsIgnoreCase(kaptcha)) {
 				return true;
 			}

@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tamguo.common.utils.ExceptionSupport;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.model.SysPostEntity;
 import com.tamguo.modules.sys.model.condition.SysPostCondition;
 import com.tamguo.modules.sys.service.ISysPostService;
-import com.tamguo.modules.sys.utils.ExceptionSupport;
-import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/post")

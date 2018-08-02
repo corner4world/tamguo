@@ -11,12 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tamguo.common.utils.ExceptionSupport;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.model.SysRoleEntity;
 import com.tamguo.modules.sys.model.condition.SysRoleCondition;
 import com.tamguo.modules.sys.service.ISysRoleDataScopeService;
 import com.tamguo.modules.sys.service.ISysRoleService;
-import com.tamguo.modules.sys.utils.ExceptionSupport;
-import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/role")

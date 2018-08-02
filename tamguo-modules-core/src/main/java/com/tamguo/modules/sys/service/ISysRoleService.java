@@ -1,8 +1,7 @@
 package com.tamguo.modules.sys.service;
 
-import java.util.List;
 import java.util.Map;
-
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.tamguo.modules.sys.model.SysRoleEntity;
@@ -23,6 +22,12 @@ public interface ISysRoleService extends IService<SysRoleEntity>{
 	void allowDataScope(SysRoleEntity role);
 
 	/** 角色树形结构*/
-	List<SysRoleEntity> treeDate(String userType);
+	JSONArray treeDate(String userType);
+
+	/** 修改角色*/
+	void update(SysRoleEntity role);
+
+	/** 新增角色*/
+	void save(SysRoleEntity role);
 
 }

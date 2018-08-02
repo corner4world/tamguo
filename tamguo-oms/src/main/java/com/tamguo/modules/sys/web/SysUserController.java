@@ -10,12 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tamguo.common.utils.ExceptionSupport;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.condition.SysUserCondition;
 import com.tamguo.modules.sys.service.ISysPostService;
 import com.tamguo.modules.sys.service.ISysUserService;
-import com.tamguo.modules.sys.utils.ExceptionSupport;
-import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/user")

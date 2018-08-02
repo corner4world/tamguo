@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.tamguo.modules.sys.model.enums.SysAreaStatusEnum;
 
 
 /**
@@ -15,6 +18,10 @@ import com.baomidou.mybatisplus.annotations.TableName;
 @TableName(value="sys_area")
 public class SysAreaEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String ROOT_AREA_CODE = "0";
+	public static final String TREE_CODE_AREA_SEPARATE = ",";
+	public static final String TREE_NAME_AREA_SEPARATE = "/";
 
 	@TableId
 	private String areaCode;
@@ -25,7 +32,10 @@ public class SysAreaEntity implements Serializable {
 	private String parentCode;
 	private String parentCodes;
 	private String remarks;
-	private String status;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private SysAreaStatusEnum status;
+	
 	private Boolean treeLeaf;
 	private BigDecimal treeLevel;
 	private String treeNames;
@@ -101,14 +111,6 @@ public class SysAreaEntity implements Serializable {
 		this.remarks = remarks;
 	}
 
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public BigDecimal getTreeLevel() {
 		return this.treeLevel;
 	}
@@ -167,5 +169,13 @@ public class SysAreaEntity implements Serializable {
 
 	public void setTreeLeaf(Boolean treeLeaf) {
 		this.treeLeaf = treeLeaf;
+	}
+
+	public SysAreaStatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(SysAreaStatusEnum status) {
+		this.status = status;
 	}
 }

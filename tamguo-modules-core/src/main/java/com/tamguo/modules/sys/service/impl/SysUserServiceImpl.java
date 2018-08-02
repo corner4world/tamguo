@@ -1,8 +1,11 @@
 package com.tamguo.modules.sys.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +17,16 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.tamguo.common.utils.Result;
+import com.tamguo.common.utils.SystemConstant;
+import com.tamguo.modules.sys.dao.SysMenuMapper;
+import com.tamguo.modules.sys.dao.SysRoleMenuMapper;
 import com.tamguo.modules.sys.dao.SysUserDataScopeMapper;
 import com.tamguo.modules.sys.dao.SysUserMapper;
 import com.tamguo.modules.sys.dao.SysUserPostMapper;
 import com.tamguo.modules.sys.dao.SysUserRoleMapper;
+import com.tamguo.modules.sys.model.SysMenuEntity;
+import com.tamguo.modules.sys.model.SysRoleMenuEntity;
 import com.tamguo.modules.sys.model.SysUserDataScopeEntity;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.SysUserPostEntity;
@@ -28,9 +37,6 @@ import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 import com.tamguo.modules.sys.model.enums.SysUserTypeEnum;
 import com.tamguo.modules.sys.service.ISysRoleService;
 import com.tamguo.modules.sys.service.ISysUserService;
-import com.tamguo.modules.sys.utils.Result;
-import com.tamguo.modules.sys.utils.ShiroUtils;
-import com.tamguo.modules.sys.utils.TamguoConstant;
 
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity> implements ISysUserService{
@@ -45,6 +51,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	public ISysRoleService iSysRoleService;
 	@Autowired
 	public SysUserDataScopeMapper sysUserDataScopeMapper;
+	@Autowired
+	public SysRoleMenuMapper sysRoleMenuMapper;
+	@Autowired
+	public SysMenuMapper sysMenuMapper;
 	
 	@Transactional(readOnly=false)
 	@Override
@@ -121,14 +131,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	@Transactional(readOnly=false)
 	@Override
 	public void save(SysUserEntity user) {
-		user.setCreateBy(ShiroUtils.getUserCode());
 		user.setCreateDate(new Date());
 		user.setStatus(SysUserStatusEnum.NORMAL);
 		// 设置初始密码
-		user.setPassword(TamguoConstant.INIT_PASSWORD);
+		user.setPassword(SystemConstant.INIT_PASSWORD);
 		user.setUserType(SysUserTypeEnum.EMPLOYEE);
 		user.setMgrType(SysUserMgrTypeEnum.NONE_ADMIN);
-		user.setUpdateBy(ShiroUtils.getUserCode());
 		user.setUpdateDate(new Date());
 		sysUserMapper.insert(user);
 		
@@ -231,6 +239,68 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		user.setStatus(SysUserStatusEnum.DELETE);
 		sysUserMapper.updateById(user);
 		return Result.result(0, null, "删除成功！");
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void saveUserDataScope(SysUserEntity user, SysUserMgrTypeEnum mgrType) {
+		this.saveUserDataScope(user);
+		
+		SysUserEntity entity = sysUserMapper.selectById(user.getUserCode());
+		entity.setMgrType(mgrType);
+		sysUserMapper.updateById(entity);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void saveAdmin(SysUserEntity user) {
+		user.setCreateDate(new Date());
+		user.setUpdateDate(new Date());
+		user.setMgrType(SysUserMgrTypeEnum.SYSTEM_ADMIN);
+		user.setStatus(SysUserStatusEnum.NORMAL);
+		// 设置初始密码
+		user.setPassword(SystemConstant.INIT_PASSWORD);
+		user.setUserType(SysUserTypeEnum.NONE);
+		sysUserMapper.insert(user);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void updateAdmin(SysUserEntity user) {
+		SysUserEntity entity = sysUserMapper.selectById(user.getUserCode());
+		entity.setUpdateDate(new Date());
+		entity.setLoginCode(user.getLoginCode());
+		entity.setUserName(user.getUserName());
+		entity.setEmail(user.getEmail());
+		entity.setMobile(user.getMobile());
+		entity.setPhone(user.getPhone());
+		entity.setUserWeight(user.getUserWeight());
+		entity.setRemarks(user.getRemarks());
+		
+		sysUserMapper.updateById(entity);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SysMenuEntity> findUserMenuList(String userCode) {
+		if(SystemConstant.SYSTEM_USER_CODE.equals(userCode)) {
+			List<SysMenuEntity> menus = sysMenuMapper.selectList(Condition.create().orderAsc(java.util.Arrays.asList("tree_sort")));
+			return (menus);
+		}
+		List<SysMenuEntity> menus = new ArrayList<>();
+		Set<String> menuIds = new HashSet<>();
+		List<SysUserRoleEntity> userRoleList = sysUserRoleMapper.selectList(Condition.create().eq("user_code", userCode));
+		for(SysUserRoleEntity userRole : userRoleList) {
+			List<SysRoleMenuEntity> roleMenuList = sysRoleMenuMapper.selectList(Condition.create().eq("role_code", userRole.getRoleCode()));
+			for(SysRoleMenuEntity roleMenu : roleMenuList) {
+				SysMenuEntity menu = sysMenuMapper.selectById(roleMenu.getMenuCode());
+				if(!menuIds.contains(menu.getMenuCode())) {
+					menus.add(menu);
+				}
+				menuIds.add(menu.getMenuCode());
+			}
+		}
+		return menus;
 	}
 
 }

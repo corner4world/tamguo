@@ -16,7 +16,6 @@ import com.tamguo.modules.sys.dao.SysOfficeMapper;
 import com.tamguo.modules.sys.model.SysOfficeEntity;
 import com.tamguo.modules.sys.model.condition.SysOfficeCondition;
 import com.tamguo.modules.sys.service.ISysOfficeService;
-import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Service
 public class SysOfficeServiceImpl extends ServiceImpl<SysOfficeMapper, SysOfficeEntity> implements ISysOfficeService {
@@ -62,9 +61,7 @@ public class SysOfficeServiceImpl extends ServiceImpl<SysOfficeMapper, SysOffice
 	@Transactional(readOnly=false)
 	@Override
 	public void save(SysOfficeEntity office) {
-		office.setCreateBy(ShiroUtils.getUserCode());
 		office.setCreateDate(new Date());
-		office.setUpdateBy(ShiroUtils.getUserCode());
 		office.setUpdateDate(new Date());
 		office.setOfficeCode(office.getViewCode());
 		// 处理属性结构

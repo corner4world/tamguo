@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.tamguo.common.utils.ExceptionSupport;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.model.SysMenuEntity;
 import com.tamguo.modules.sys.model.condition.SysMenuCondition;
 import com.tamguo.modules.sys.service.ISysMenuService;
-import com.tamguo.modules.sys.utils.ExceptionSupport;
-import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/menu")

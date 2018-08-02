@@ -1,7 +1,6 @@
 package com.tamguo.modules.sys.service.impl;
 
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +12,6 @@ import com.tamguo.modules.sys.model.SysPostEntity;
 import com.tamguo.modules.sys.model.condition.SysPostCondition;
 import com.tamguo.modules.sys.model.enums.SysPostStatusEnum;
 import com.tamguo.modules.sys.service.ISysPostService;
-import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Service
 public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity> implements ISysPostService{
@@ -31,8 +29,6 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity
 	@Override
 	public void add(SysPostEntity post) {
 		post.setCreateDate(new Date());
-		post.setCreateBy(ShiroUtils.getUserCode());
-		post.setUpdateBy(ShiroUtils.getUserCode());
 		post.setUpdateDate(new Date());
 		post.setStatus(SysPostStatusEnum.NORMAL);
 		sysPostMapper.insert(post);
@@ -43,7 +39,6 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPostEntity
 	public void update(SysPostEntity post) {
 		SysPostEntity entity = sysPostMapper.selectById(post.getPostCode());
 		entity.setUpdateDate(new Date());
-		entity.setUpdateBy(ShiroUtils.getUserCode());
 		entity.setPostName(post.getPostName());
 		entity.setPostCode(post.getPostCode());
 		entity.setPostType(post.getPostType());

@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tamguo.common.utils.Result;
+import com.tamguo.common.utils.SystemConstant;
 import com.tamguo.modules.sys.service.ISysUserService;
-import com.tamguo.modules.sys.utils.Result;
 import com.tamguo.modules.sys.utils.ShiroUtils;
-import com.tamguo.modules.sys.utils.TamguoConstant;
 
 @Controller
 public class LoginController {
@@ -41,7 +41,7 @@ public class LoginController {
 	public Result toLogin(HttpServletRequest request, HttpServletResponse response , String username , Boolean rememberUser,  String password, String validCode)
 			throws IOException {
 		try {
-			String kaptcha = ShiroUtils.getKaptcha(TamguoConstant.KAPTCHA_SESSION_KEY);
+			String kaptcha = ShiroUtils.getKaptcha(SystemConstant.KAPTCHA_SESSION_KEY);
 			if (!validCode.equalsIgnoreCase(kaptcha)) {
 				return Result.failResult("验证码错误");
 			}
@@ -52,7 +52,7 @@ public class LoginController {
 			subject.login(token);
 			
 			// 获取权限菜单
-			request.getSession().setAttribute("userMenuList", iSysUserService.findUserMenuList());
+			request.getSession().setAttribute("userMenuList", iSysUserService.findUserMenuList(ShiroUtils.getUserCode()));
 			request.getSession().setAttribute("currAdmin", ShiroUtils.getUser());
 		} catch (UnknownAccountException e) {
 			return Result.result(501, null, "找不到账户");

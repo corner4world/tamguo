@@ -1,7 +1,6 @@
 package com.tamguo.modules.sys.web;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,13 +10,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.tamguo.common.utils.ExceptionSupport;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.model.SysAreaEntity;
 import com.tamguo.modules.sys.model.SysCompanyEntity;
 import com.tamguo.modules.sys.model.condition.SysCompanyCondition;
 import com.tamguo.modules.sys.service.ISysAreaService;
 import com.tamguo.modules.sys.service.ISysCompanyService;
-import com.tamguo.modules.sys.utils.ExceptionSupport;
-import com.tamguo.modules.sys.utils.Result;
 
 @Controller
 @RequestMapping(path="sys/company")

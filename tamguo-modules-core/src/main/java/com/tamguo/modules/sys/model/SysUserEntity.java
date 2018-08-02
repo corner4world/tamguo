@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -20,7 +21,7 @@ import com.tamguo.modules.sys.model.enums.SysUserTypeEnum;
  * 
  */
 @TableName(value="sys_user")
-public class SysUserEntity implements Serializable {
+public class SysUserEntity extends Model<SysUserEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@TableId
@@ -475,6 +476,11 @@ public class SysUserEntity implements Serializable {
 
 	public void setUserDataScopeListJson(String userDataScopeListJson) {
 		this.userDataScopeListJson = userDataScopeListJson;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return getUserCode();
 	}
 
 

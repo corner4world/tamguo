@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.tamguo.common.utils.ExceptionSupport;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.model.SysOfficeEntity;
 import com.tamguo.modules.sys.model.condition.SysOfficeCondition;
 import com.tamguo.modules.sys.service.ISysOfficeService;
-import com.tamguo.modules.sys.utils.ExceptionSupport;
-import com.tamguo.modules.sys.utils.Result;
 
 /**
  * Controller - 组织
