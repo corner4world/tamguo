@@ -1,4 +1,4 @@
-package com.tamguo.common.utils;
+package com.tamguo.common.id;
 
 public class IdGen
 {

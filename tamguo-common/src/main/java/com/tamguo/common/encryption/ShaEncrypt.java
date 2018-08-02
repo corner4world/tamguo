@@ -1,4 +1,4 @@
-package com.tamguo.common.utils;
+package com.tamguo.common.encryption;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
