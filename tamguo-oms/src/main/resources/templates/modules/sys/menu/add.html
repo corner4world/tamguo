@@ -328,7 +328,7 @@ $("#inputForm").validate({
 	submitHandler: function(form){
 		js.ajaxSubmitForm($(form), function(data){
 			js.showMessage(data.message);
-			if(data.result == Global.TRUE){
+			if(data.code == 0){
 				js.closeCurrentTabPage(function(contentWindow){
 					contentWindow.$('#dataGrid').dataGrid('refreshTreeChildren',
 							$('#parentCode').val(), '');

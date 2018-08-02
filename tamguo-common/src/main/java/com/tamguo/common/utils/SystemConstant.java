@@ -10,4 +10,5 @@ public class SystemConstant {
 
 	/** 验证码常数*/
 	public static final String SYSTEM_USER_CODE = "system";
+
 }
