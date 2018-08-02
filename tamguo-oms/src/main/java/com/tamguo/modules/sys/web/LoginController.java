@@ -55,6 +55,7 @@ public class LoginController {
 			
 			// 获取权限菜单
 			request.getSession().setAttribute("userMenuList", iSysUserService.findUserMenuList());
+			request.getSession().setAttribute("currAdmin", ShiroUtils.getUser());
 		} catch (UnknownAccountException e) {
 			return ExceptionSupport.resolverResult("找不到账户", this.getClass(), e);
 		} catch (IncorrectCredentialsException e) {
