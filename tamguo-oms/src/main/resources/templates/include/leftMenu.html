@@ -28,7 +28,7 @@
 			     	  	<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 			     	  </a> 
 				      <ul class="treeview-menu"> 
-					       <li th:if="${menu.menuCode == m.parentCode}" class="treeview" th:each="m,index:${session.userMenuList}"><a th:title="${m.menuName}" href="javascript:" th:attr="data-href=${m.menuHref}" class="addTabPage"><i th:class="${m.menuIcon == ''} ? 'fa fa-fw fa-circle-o' : ${'fa fa-fw ' + m.menuIcon}"></i> <span th:text="${m.menuName}">用户管理</span></a></li> 
+					       <li th:if="${menu.menuCode == m.parentCode}" class="treeview" th:each="m,index:${session.userMenuList}"><a th:title="${m.menuName}" href="javascript:" th:attr="data-href=${m.menuHref}" class="addTabPage"><i th:class="${#strings.isEmpty(m.menuIcon)} ? 'fa fa-fw fa-circle-o' : ${'fa fa-fw ' + m.menuIcon}"></i> <span th:text="${m.menuName}">用户管理</span></a></li> 
 				      </ul>
 			     </li> 
 		    </ul>
