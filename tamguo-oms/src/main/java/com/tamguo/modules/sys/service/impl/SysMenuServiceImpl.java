@@ -69,23 +69,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
 		menu.setUpdateBy(ShiroUtils.getUserCode());
 		menu.setUpdateDate(new Date());
 		menu.setStatus(SysMenuStatusEnum.NORMAL);
-		// 父节点
-		if(StringUtils.isEmpty(menu.getParentCode())) {
-			menu.setTreeLeaf(true);
-			menu.setTreeLevel(new BigDecimal(0));
-			menu.setTreeNames(menu.getMenuName() + ",");
-		}else {
-			SysMenuEntity parentMenu = sysMenuMapper.selectById(menu.getParentCode());
-			
-			menu.setTreeLeaf(true);
-			menu.setTreeLevel(parentMenu.getTreeLevel().add(new BigDecimal(1)));
-			menu.setTreeNames(parentMenu.getTreeNames() +"/"+ menu.getMenuName());
-			menu.setParentCodes(parentMenu.getParentCodes() + menu.getParentCode() + ",");
-			
-			parentMenu.setTreeLeaf(false);
-			sysMenuMapper.updateById(parentMenu);
-		}
-		menu.setTreeSorts(menu.getTreeSort() + ",");
+		this.handleTreeData(menu);
 		sysMenuMapper.insert(menu);	
 	}
 
