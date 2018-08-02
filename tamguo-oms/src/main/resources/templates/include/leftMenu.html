@@ -16,16 +16,16 @@
 	<ul class="sidebar-menu" data-widget="tree"> 
 	   <li class="treeview" th:each="userMenu,index:${session.userMenuList}">
 		   	<a th:if="${userMenu.treeLevel == 0}" th:title="${userMenu.menuName}" href="javascript:" data-href="blank" class="addTabPage">
-		   		<i class="fa fa-fw icon-settings"></i> 
+		   		<i th:class="${#strings.isEmpty(userMenu.menuIcon)} ? 'fa fa-fw fa-circle-o' : ${'fa fa-fw ' + userMenu.menuIcon}"></i> 
 		   		<span th:text="${userMenu.menuName}">系统管理</span> 
 		   		<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 		   	</a> 
 		    <ul class="treeview-menu"> 
 			     <li class="treeview" th:if="${menu.parentCode == userMenu.menuCode}" th:each="menu,index:${session.userMenuList}">
-			     	  <a th:title="${menu.menuName}" href="javascript:" data-href="blank" class="addTabPage">
+			     	  <a th:attr="data-href=${menu.menuHref}" th:title="${menu.menuName}" href="javascript:" data-href="blank" class="addTabPage">
 			     	  	<i th:class="${'fa fa-fw ' + menu.menuIcon}"></i> 
 			     	  	<span th:text="${menu.menuName}">组织管理</span> 
-			     	  	<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			     	  	<span th:if="${#strings.isEmpty(menu.menuHref)}" class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 			     	  </a> 
 				      <ul class="treeview-menu"> 
 					       <li th:if="${menu.menuCode == m.parentCode}" class="treeview" th:each="m,index:${session.userMenuList}"><a th:title="${m.menuName}" href="javascript:" th:attr="data-href=${m.menuHref}" class="addTabPage"><i th:class="${#strings.isEmpty(m.menuIcon)} ? 'fa fa-fw fa-circle-o' : ${'fa fa-fw ' + m.menuIcon}"></i> <span th:text="${m.menuName}">用户管理</span></a></li> 
