@@ -1,8 +1,10 @@
 package com.tamguo.modules.sys.service.impl;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,14 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.tamguo.modules.sys.dao.SysMenuMapper;
+import com.tamguo.modules.sys.dao.SysRoleMenuMapper;
 import com.tamguo.modules.sys.dao.SysUserDataScopeMapper;
 import com.tamguo.modules.sys.dao.SysUserMapper;
 import com.tamguo.modules.sys.dao.SysUserPostMapper;
 import com.tamguo.modules.sys.dao.SysUserRoleMapper;
+import com.tamguo.modules.sys.model.SysMenuEntity;
+import com.tamguo.modules.sys.model.SysRoleMenuEntity;
 import com.tamguo.modules.sys.model.SysUserDataScopeEntity;
 import com.tamguo.modules.sys.model.SysUserEntity;
 import com.tamguo.modules.sys.model.SysUserPostEntity;
@@ -30,6 +36,7 @@ import com.tamguo.modules.sys.service.ISysRoleService;
 import com.tamguo.modules.sys.service.ISysUserService;
 import com.tamguo.modules.sys.utils.Result;
 import com.tamguo.modules.sys.utils.ShiroUtils;
+import com.tamguo.modules.sys.utils.SystemConstant;
 import com.tamguo.modules.sys.utils.TamguoConstant;
 
 @Service
@@ -45,6 +52,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 	public ISysRoleService iSysRoleService;
 	@Autowired
 	public SysUserDataScopeMapper sysUserDataScopeMapper;
+	@Autowired
+	public SysRoleMenuMapper sysRoleMenuMapper;
+	@Autowired
+	public SysMenuMapper sysMenuMapper;
 	
 	@Transactional(readOnly=false)
 	@Override
@@ -273,6 +284,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 		entity.setRemarks(user.getRemarks());
 		
 		sysUserMapper.updateById(entity);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Set<SysMenuEntity> findUserMenuList() {
+		String userCode = ShiroUtils.getUserCode();
+		if(SystemConstant.SYSTEM_USER_CODE.equals(userCode)) {
+			List<SysMenuEntity> menus = sysMenuMapper.selectList(Condition.create().orderAsc(java.util.Arrays.asList("tree_sort")));
+			return new HashSet<>(menus);
+		}
+		Set<SysMenuEntity> menus = new HashSet<>();
+		List<SysUserRoleEntity> userRoleList = sysUserRoleMapper.selectList(Condition.create().eq("user_code", userCode));
+		for(SysUserRoleEntity userRole : userRoleList) {
+			List<SysRoleMenuEntity> roleMenuList = sysRoleMenuMapper.selectList(Condition.create().eq("role_code", userRole.getRoleCode()));
+			for(SysRoleMenuEntity roleMenu : roleMenuList) {
+				SysMenuEntity menu = sysMenuMapper.selectById(roleMenu.getMenuCode());
+				menus.add(menu);
+			}
+		}
+		return menus;
 	}
 
 }

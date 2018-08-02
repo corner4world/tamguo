@@ -7,4 +7,7 @@ public class SystemConstant {
 	
 	/** 验证码常数*/
 	public static final String KAPTCHA_SESSION_KEY = "KAPTCHA_SESSION_KEY";
+
+	/** 验证码常数*/
+	public static final String SYSTEM_USER_CODE = "system";
 }
