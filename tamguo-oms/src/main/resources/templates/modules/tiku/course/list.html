@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>科目管理 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jqGrid/4.7/css/ui.jqgrid.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-trophy"></i> 科目管理
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+					<a th:href="${setting.domain + 'tiku/course/add'}" class="btn btn-default btnTool" title="新增科目"><i class="fa fa-plus"></i> 新增</a>
+			</div>
+		</div>
+		<div class="box-body">
+<form id="searchForm" th:action="${setting.domain + 'tiku/course/listData'}" method="post" class="form-inline hide" data-page-no="1" data-page-size="10" data-order-by="">
+				<div class="form-group">
+					<label class="control-label">科目编码：</label>
+					<div class="control-inline">
+<input type="text" id="uid" name="uid" value="" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">科目名称：</label>
+					<div class="control-inline">
+<input type="text" id="name" name="name" value="" maxlength="100" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">状态：</label>
+					<div class="control-inline width-60">
+						<select id="status" name="status" class="form-control">
+							<option value="">&nbsp;</option>
+							<option value="normal">正常</option>
+							<option value="disabled">停用</option>
+						</select>					
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+</form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.extend.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script type="text/javascript">
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'类型名称', name:'name', index:'a.post_name', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="'+ctx+'tiku/subject/update?uid='+row.uid+'" class="btnList" data-title="编辑岗位">'+(val||row.uid)+'</a>';
+		}},
+		{header:'类型编码', name:'uid', index:'a.post_code', width:200, align:"center"},
+		{header:'排序号', name:'sort', index:'a.post_sort', width:80, align:"center"},
+		{header:'更新时间', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'备注信息', name:'remarks', index:'a.remarks', width:200, align:"left"},
+		{header:'状态', name:'status', index:'a.status', width:80, align:"center", formatter: function(val, obj, row, act){
+			if(val == "normal"){
+				return '正常';
+			}else if(val == "disabled"){
+				return '<span style="color:red;">停用</span>';
+			}else{
+				return '<span style="color:red;">未知</span>';
+			}
+		}},
+		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+				actions.push('<a href="'+ctx+'tiku/subject/update?uid='+row.uid+'" class="btnList" title="编辑分类"><i class="fa fa-pencil"></i></a>&nbsp;');
+				if (row.status == "normal"){
+					actions.push('<a href="'+ctx+'tiku/subject/disabled?uid='+row.uid+'" class="btnList" title="停用分类" data-confirm="确认要停用该分类吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+				}
+				if (row.status == "disabled"){
+					actions.push('<a href="'+ctx+'tiku/subject/enable?uid='+row.uid+'" class="btnList" title="启用分类" data-confirm="确认要启用该分类吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+				}
+				actions.push('<a href="'+ctx+'tiku/subject/delete?uid='+row.uid+'" class="btnList" title="删除分类" data-confirm="确认要删除该分类吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

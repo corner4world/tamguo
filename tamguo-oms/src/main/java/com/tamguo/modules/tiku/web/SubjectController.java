@@ -21,7 +21,7 @@ import com.tamguo.modules.tiku.service.ISubjectService;
 public class SubjectController {
 
 	/** 题库分类*/
-	private final String SUBJECT_INDEX_PAGE = "modules/tiku/subject/index";
+	private final String SUBJECT_INDEX_PAGE = "modules/tiku/subject/list";
 	private final String SUBJECT_UPDATE_PAGE = "modules/tiku/subject/update";
 	
 	@Autowired
