@@ -41,7 +41,7 @@ public class SysUserController {
 	@RequestMapping(path="list")
 	public ModelAndView list(ModelAndView model) {
 		model.setViewName(USER_LIST_PAGE);
-		model.addObject("postList", iSysPostService.selectList(Condition.create().eq("status", "0")));
+		model.addObject("postList", iSysPostService.selectList(Condition.create().eq("status", "normal")));
 		return model;
 	}
 	
@@ -49,7 +49,7 @@ public class SysUserController {
 	@RequestMapping(path="add")
 	public ModelAndView add(String userCode , ModelAndView model) {
 		model.setViewName(USER_ADD_PAGE);
-		model.addObject("postList", iSysPostService.selectList(Condition.create().eq("status", "0")));
+		model.addObject("postList", iSysPostService.selectList(Condition.create().eq("status", "normal")));
 		return model;
 	}
 	

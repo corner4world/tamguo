@@ -2,10 +2,13 @@ package com.tamguo.modules.tiku.model;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
+import com.tamguo.modules.tiku.model.enums.CourseStatusEnum;
 
 @TableName(value="tiku_course")
 public class CourseEntity {
@@ -17,6 +20,7 @@ public class CourseEntity {
 	private Integer sort;
 	private Integer questionNum;
 	private Integer pointNum;
+	private String remarks;
 	
 	@TableField(fill = FieldFill.INSERT)
 	private String createBy;
@@ -26,6 +30,9 @@ public class CourseEntity {
 	private Date createDate;
 	@TableField(fill = FieldFill.INSERT)
 	private Date updateDate;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private CourseStatusEnum status;
 	
 	public String getUid() {
 		return uid;
@@ -86,6 +93,18 @@ public class CourseEntity {
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	public CourseStatusEnum getStatus() {
+		return status;
+	}
+	public void setStatus(CourseStatusEnum status) {
+		this.status = status;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 }
