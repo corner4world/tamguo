@@ -11,11 +11,12 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.modules.tiku.dao.SubjectMapper;
 import com.tamguo.modules.tiku.model.SubjectEntity;
 import com.tamguo.modules.tiku.model.condition.SubjectCondition;
-import com.tamguo.modules.tiku.model.enums.SysSubjectStatusEnum;
+import com.tamguo.modules.tiku.model.enums.SubjectStatusEnum;
 import com.tamguo.modules.tiku.service.ISubjectService;
 
 @Service
 public class SubjectService extends ServiceImpl<SubjectMapper, SubjectEntity> implements ISubjectService{
+	
 	@Autowired
 	private SubjectMapper subjectMapper;
 
@@ -32,14 +33,49 @@ public class SubjectService extends ServiceImpl<SubjectMapper, SubjectEntity> im
 		}else if(!StringUtils.isEmpty(condition.getStatus())) {
 			query.eq("status", condition.getStatus());
 		}
+		query.ne("status", SubjectStatusEnum.DELETE.getValue());
 		return page.setRecords(subjectMapper.selectPage(page, query));
 	}
 
 	@Transactional(readOnly=false)
 	@Override
 	public void save(SubjectEntity subject) {
-		subject.setStatus(SysSubjectStatusEnum.NORMAL);
+		subject.setStatus(SubjectStatusEnum.NORMAL);
 		subjectMapper.insert(subject);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void update(SubjectEntity subject) {
+		SubjectEntity entity = subjectMapper.selectById(subject.getUid());
+		entity.setName(subject.getName());
+		entity.setRemarks(subject.getRemarks());
+		entity.setSort(subject.getSort());
+		subjectMapper.updateById(entity);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void enable(String uid) {
+		SubjectEntity entity = subjectMapper.selectById(uid);
+		entity.setStatus(SubjectStatusEnum.NORMAL);
+		subjectMapper.updateById(entity);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void disabled(String uid) {
+		SubjectEntity entity = subjectMapper.selectById(uid);
+		entity.setStatus(SubjectStatusEnum.DISABLED);
+		subjectMapper.updateById(entity);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void delete(String uid) {
+		SubjectEntity entity = subjectMapper.selectById(uid);
+		entity.setStatus(SubjectStatusEnum.DELETE);
+		subjectMapper.updateById(entity);
 	}
 
 }

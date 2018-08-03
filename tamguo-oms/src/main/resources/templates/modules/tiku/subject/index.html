@@ -29,7 +29,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 		</div>
 		<div class="box-body">
-<form id="searchForm" th:action="${setting.domain + 'tiku/subject/listData'}" method="post" class="form-inline hide" data-page-no="1" data-page-size="20" data-order-by="">
+<form id="searchForm" th:action="${setting.domain + 'tiku/subject/listData'}" method="post" class="form-inline hide" data-page-no="1" data-page-size="10" data-order-by="">
 				<div class="form-group">
 					<label class="control-label">类型编码：</label>
 					<div class="control-inline">
@@ -82,7 +82,7 @@ $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
 		{header:'类型名称', name:'name', index:'a.post_name', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
-			return '<a href="'+ctx+'tk/post/detail?id='+row.id+'" class="btnList" data-title="编辑岗位">'+(val||row.id)+'</a>';
+			return '<a href="'+ctx+'tiku/subject/update?uid='+row.uid+'" class="btnList" data-title="编辑岗位">'+(val||row.uid)+'</a>';
 		}},
 		{header:'类型编码', name:'uid', index:'a.post_code', width:200, align:"center"},
 		{header:'排序号', name:'sort', index:'a.post_sort', width:80, align:"center"},
@@ -91,22 +91,22 @@ $('#dataGrid').dataGrid({
 		{header:'状态', name:'status', index:'a.status', width:80, align:"center", formatter: function(val, obj, row, act){
 			if(val == "normal"){
 				return '正常';
-			}else if(val == "disable"){
-				return '停用';
+			}else if(val == "disabled"){
+				return '<span style="color:red;">停用</span>';
 			}else{
-				return '未知';
+				return '<span style="color:red;">未知</span>';
 			}
 		}},
 		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="'+ctx+'sys/post/update?id='+row.postCode+'" class="btnList" title="编辑岗位"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="'+ctx+'tiku/subject/update?uid='+row.uid+'" class="btnList" title="编辑分类"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == "normal"){
-					actions.push('<a href="'+ctx+'sys/post/detail?id='+row.id+'" class="btnList" title="停用岗位" data-confirm="确认要停用该岗位吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'tiku/subject/disabled?uid='+row.uid+'" class="btnList" title="停用分类" data-confirm="确认要停用该分类吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
 				if (row.status == "disabled"){
-					actions.push('<a href="/js/a/sys/post/enable?postCode='+row.id+'" class="btnList" title="启用岗位" data-confirm="确认要启用该岗位吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'tiku/subject/enable?uid='+row.uid+'" class="btnList" title="启用分类" data-confirm="确认要启用该分类吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
-				actions.push('<a href="/js/a/sys/post/delete?postCode='+row.id+'" class="btnList" title="删除岗位" data-confirm="确认要删除该岗位吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="'+ctx+'tiku/subject/delete?uid='+row.uid+'" class="btnList" title="删除分类" data-confirm="确认要删除该分类吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');
 		}}
 	],

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.enums.IEnum;
 /**
  * 类型状态
  */
-public enum SysSubjectStatusEnum implements IEnum {
+public enum SubjectStatusEnum implements IEnum {
 	NORMAL("normal", "正常"),
 	DELETE("delete", "删除"),
 	DISABLED("disabled" , "停用");
@@ -14,7 +14,7 @@ public enum SysSubjectStatusEnum implements IEnum {
     private String value;
     private String desc;
 
-    SysSubjectStatusEnum(final String value, final String desc) {
+    SubjectStatusEnum(final String value, final String desc) {
         this.value = value;
         this.desc = desc;
     }

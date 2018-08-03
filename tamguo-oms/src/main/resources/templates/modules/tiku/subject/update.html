@@ -14,19 +14,19 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
 <link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
 <link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
-<link rel="stylesheet" th:href="${setting.domain + 'static/common/common.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
 </head><body class="hold-transition ">
 <div class="wrapper"><div class="main-content">
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa icon-trophy"></i> 新增岗位
+				<i class="fa icon-trophy"></i> 编辑岗位
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" th:action="${setting.domain + 'tiku/subject/save'}" method="post" class="form-horizontal">
+		<form id="inputForm" th:action="${setting.domain + 'tiku/subject/update'}" method="post" class="form-horizontal">
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
 				<div class="row">
@@ -35,7 +35,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 分类名称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="name" name="name" value="" maxlength="100" class="form-control required "/>
+								<input type="text" id="name" name="name" th:value="${subject.name}" maxlength="100" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -44,7 +44,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 分类编码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="uid" name="uid" value="" maxlength="64" class="form-control required abc" th:remote="${setting.domain + 'tiku/subject/checkSubjectCode'}" data-msg-remote="岗位名称已存在"/>
+								<input type="text" id="uid" name="uid" th:value="${subject.uid}" maxlength="64" readonly="true" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -55,7 +55,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 排序号：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-<input type="text" id="postSort" name="postSort" value="" maxlength="10" class="form-control digits"/>
+								<input type="text" id="sort" name="sort" th:value="${subject.sort}" maxlength="10" class="form-control digits"/>
 							</div>
 						</div>
 					</div>
@@ -66,7 +66,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
-<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control "></textarea>
+								<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control " th:utext="${subject.remarks}"></textarea>
 							</div>
 						</div>
 					</div>
@@ -102,7 +102,7 @@ $("#inputForm").validate({
 	submitHandler: function(form){
 		js.ajaxSubmitForm($(form), function(data){
 			js.showMessage(data.message);
-			if(data.result == Global.TRUE){
+			if(data.code == 0){
 				js.closeCurrentTabPage(function(contentWindow){
 					contentWindow.page();
 				});

@@ -1,14 +1,13 @@
 package com.tamguo.modules.tiku.model;
 
 import java.util.Date;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
-import com.tamguo.modules.tiku.model.enums.SysSubjectStatusEnum;
+import com.tamguo.modules.tiku.model.enums.SubjectStatusEnum;
 
 @TableName(value="tiku_subject")
 public class SubjectEntity {
@@ -30,7 +29,7 @@ public class SubjectEntity {
 	private String remarks;
 	
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
-	private SysSubjectStatusEnum status;
+	private SubjectStatusEnum status;
 	
 	public String getUid() {
 		return uid;
@@ -74,10 +73,10 @@ public class SubjectEntity {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	public SysSubjectStatusEnum getStatus() {
+	public SubjectStatusEnum getStatus() {
 		return status;
 	}
-	public void setStatus(SysSubjectStatusEnum status) {
+	public void setStatus(SubjectStatusEnum status) {
 		this.status = status;
 	}
 	public String getRemarks() {

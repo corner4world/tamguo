@@ -12,4 +12,16 @@ public interface ISubjectService extends IService<SubjectEntity>{
 	/** 保存分类*/
 	void save(SubjectEntity subject);
 
+	/** 修改分类*/
+	void update(SubjectEntity subject);
+
+	/** 激活分类*/
+	void enable(String uid);
+	
+	/** 停用分类*/
+	void disabled(String uid);
+
+	/** 删除分类*/
+	void delete(String uid);
+
 }
