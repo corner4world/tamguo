@@ -1,5 +1,6 @@
 package com.tamguo.modules.tiku.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.tamguo.modules.tiku.model.CourseEntity;
@@ -23,5 +24,8 @@ public interface ICourseService extends IService<CourseEntity>{
 
 	/** 停用科目*/
 	void disabled(String uid);
+
+	/** 科目树形*/
+	JSONArray treeData();
 
 }

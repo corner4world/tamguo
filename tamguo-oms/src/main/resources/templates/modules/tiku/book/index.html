@@ -4,7 +4,7 @@ content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta ht
 content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
 content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
 content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
-<title>用户管理 - JeeSite Demo</title>
+<title>书籍管理 - JeeSite Demo</title>
 <script th:src="${setting.domain + 'global.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
@@ -24,10 +24,10 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 		<div class="box box-main">
 			<div class="box-header">
 				<div class="box-title">
-					<i class="fa icon-grid"></i> 组织机构
+					<i class="fa icon-grid"></i> 书籍管理
 				</div>
 				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool addTabPage" data-href="/js/a/sys/office/list" title="机构管理"><i class="fa fa-edit"></i></button>
+					<button type="button" class="btn btn-box-tool addTabPage" data-href="sys/course/list" title="科目管理"><i class="fa fa-edit"></i></button>
 					<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>
 					<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>
 					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新"><i class="fa fa-refresh"></i></button>
@@ -74,13 +74,13 @@ var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData: 
 		win.page();
 	}}
 }, tree, loadTree = function(){
-	js.ajaxSubmit(ctx + "sys/company/treeData?___t=" + new Date().getTime(), {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
+	js.ajaxSubmit(ctx + "tiku/course/treeData?___t=" + new Date().getTime(), {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
 		tree = $.fn.zTree.init($("#tree"), setting, data);//.expandAll(true);
 		// 展开第一级节点
-		var nodes = tree.getNodesByParam("level", 0);
+		/* var nodes = tree.getNodesByParam("level", 0);
 		for(var i=0; i<nodes.length; i++) {
 			tree.expandNode(nodes[i], true, false, false);
-		}
+		} */
 		// 展开第二级节点
 // 		nodes = tree.getNodesByParam("level", 1);
 // 		for(var i=0; i<nodes.length; i++) {
