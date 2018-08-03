@@ -4,8 +4,10 @@ import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.tamguo.modules.tiku.model.enums.SysSubjectStatusEnum;
 
 @TableName(value="tiku_subject")
@@ -16,9 +18,13 @@ public class SubjectEntity {
 	private String name;
 	private String sort;
 	
+	@TableField(fill = FieldFill.INSERT)
 	private String createBy;
+	@TableField(fill = FieldFill.INSERT)
 	private String updateBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDate;
+	@TableField(fill = FieldFill.INSERT)
 	private Date updateDate;
 	
 	private String remarks;

@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SysPageController {
 	
 	@RequestMapping("sys/{fn}/{page}")
-	public String page(@PathVariable("fn") String fn , @PathVariable("page") String page){
+	public String sys(@PathVariable("fn") String fn , @PathVariable("page") String page){
 		return "modules/sys/" + fn + "/" + page;
+	}
+	
+	@RequestMapping("tiku/{fn}/{page}")
+	public String ti(@PathVariable("fn") String fn , @PathVariable("page") String page){
+		return "modules/tiku/" + fn + "/" + page;
 	}
 	
 }

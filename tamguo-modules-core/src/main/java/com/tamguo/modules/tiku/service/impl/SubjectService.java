@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.modules.tiku.dao.SubjectMapper;
 import com.tamguo.modules.tiku.model.SubjectEntity;
 import com.tamguo.modules.tiku.model.condition.SubjectCondition;
+import com.tamguo.modules.tiku.model.enums.SysSubjectStatusEnum;
 import com.tamguo.modules.tiku.service.ISubjectService;
 
 @Service
@@ -32,6 +33,13 @@ public class SubjectService extends ServiceImpl<SubjectMapper, SubjectEntity> im
 			query.eq("status", condition.getStatus());
 		}
 		return page.setRecords(subjectMapper.selectPage(page, query));
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void save(SubjectEntity subject) {
+		subject.setStatus(SysSubjectStatusEnum.NORMAL);
+		subjectMapper.insert(subject);
 	}
 
 }

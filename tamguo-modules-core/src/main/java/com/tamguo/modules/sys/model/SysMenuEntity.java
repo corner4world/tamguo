@@ -6,8 +6,10 @@ import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.tamguo.modules.sys.model.enums.SysMenuStatusEnum;
 
 
@@ -25,7 +27,9 @@ public class SysMenuEntity implements Serializable {
 
 	@TableId
 	private String menuCode;
+	@TableField(fill = FieldFill.INSERT)
 	private String createBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDate;
 	private String isShow;
 	private String menuColor;
@@ -47,7 +51,9 @@ public class SysMenuEntity implements Serializable {
 	private String treeNames;
 	private BigDecimal treeSort;
 	private String treeSorts;
+	@TableField(fill = FieldFill.INSERT)
 	private String updateBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date updateDate;
 	private BigDecimal weight;
 

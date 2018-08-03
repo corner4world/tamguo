@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 
 
 /**
@@ -24,7 +26,9 @@ public class SysOfficeEntity implements Serializable {
 	private String address;
 	private String corpCode;
 	private String corpName;
+	@TableField(fill = FieldFill.INSERT)
 	private String createBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDate;
 	private String email;
 	private String fullName;
@@ -41,7 +45,9 @@ public class SysOfficeEntity implements Serializable {
 	private String treeNames;
 	private BigDecimal treeSort;
 	private String treeSorts;
+	@TableField(fill = FieldFill.INSERT)
 	private String updateBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date updateDate;
 	private String viewCode;
 	private String zipCode;

@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.tamguo.modules.sys.model.enums.SysUserMgrTypeEnum;
 import com.tamguo.modules.sys.model.enums.SysUserStatusEnum;
 import com.tamguo.modules.sys.model.enums.SysUserTypeEnum;
@@ -33,7 +34,9 @@ public class SysUserEntity extends Model<SysUserEntity> implements Serializable 
 	private String avatar;
 	private String corpCode;
 	private String corpName;
+	@TableField(fill = FieldFill.INSERT)
 	private String createBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDate;
 	private String email;
 	private String freezeCause;
@@ -72,7 +75,9 @@ public class SysUserEntity extends Model<SysUserEntity> implements Serializable 
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysUserStatusEnum status;
 	
+	@TableField(fill = FieldFill.INSERT)
 	private String updateBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date updateDate;
 	private String userName;
 	private String empName;

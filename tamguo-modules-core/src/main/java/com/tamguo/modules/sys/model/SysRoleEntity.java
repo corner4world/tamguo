@@ -7,6 +7,7 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 
 
 /**
@@ -21,7 +22,9 @@ public class SysRoleEntity implements Serializable {
 	private String roleCode;
 	private String corpCode;
 	private String corpName;
+	@TableField(fill = FieldFill.INSERT)
 	private String createBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDate;
 	private String dataScope;
 	private String isSys;
@@ -30,7 +33,9 @@ public class SysRoleEntity implements Serializable {
 	private BigDecimal roleSort;
 	private String roleType;
 	private String status;
+	@TableField(fill = FieldFill.INSERT)
 	private String updateBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date updateDate;
 	private String userType;
 	

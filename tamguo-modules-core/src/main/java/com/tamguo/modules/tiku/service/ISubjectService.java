@@ -9,4 +9,7 @@ public interface ISubjectService extends IService<SubjectEntity>{
 
 	Page<SubjectEntity> listData(SubjectCondition condition);
 
+	/** 保存分类*/
+	void save(SubjectEntity subject);
+
 }

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotations.KeySequence;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 
 /**
  * The persistent class for the sys_company database table.
@@ -28,7 +29,9 @@ public class SysCompanyEntity implements Serializable {
 	private String companyName;
 	private String corpCode;
 	private String corpName;
+	@TableField(fill = FieldFill.INSERT)
 	private String createBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDate;
 	private String fullName;
 	private String parentCode;
@@ -40,7 +43,9 @@ public class SysCompanyEntity implements Serializable {
 	private String treeNames;
 	private String treeSort;
 	private String treeSorts;
+	@TableField(fill = FieldFill.INSERT)
 	private String updateBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date updateDate;
 	private String viewCode;
 	

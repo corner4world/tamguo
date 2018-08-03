@@ -7,8 +7,10 @@ import java.util.Date;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.tamguo.modules.sys.model.enums.SysPostStatusEnum;
 
 
@@ -24,7 +26,9 @@ public class SysPostEntity extends Model<SysPostEntity> implements Serializable 
 	private String postCode;
 	private String corpCode;
 	private String corpName;
+	@TableField(fill = FieldFill.INSERT)
 	private String createBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDate;
 	private String postName;
 	private BigDecimal postSort;
@@ -33,7 +37,9 @@ public class SysPostEntity extends Model<SysPostEntity> implements Serializable 
 	
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysPostStatusEnum status;
+	@TableField(fill = FieldFill.INSERT)
 	private String updateBy;
+	@TableField(fill = FieldFill.INSERT)
 	private Date updateDate;
 
 	public SysPostEntity() {
