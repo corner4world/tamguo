@@ -1,0 +1,200 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>书籍管理 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jqGrid/4.7/css/ui.jqgrid.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-user"></i> 书籍管理
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+					<a href="sys/user/add" class="btn btn-default btnTool" title="新增用户"><i class="fa fa-plus"></i> 新增</a>
+				<div class="btn-group">
+					<a href="javascript:" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-navicon"></i> <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="javascript:" id="btnExport"><i class="glyphicon glyphicon-export"></i> 导出</a></li>
+						<li><a href="javascript:" id="btnImport"><i class="glyphicon glyphicon-import"></i> 导入</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="box-body">
+			<form id="searchForm" th:action="${setting.domain + 'tiku/book/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
+				<div class="form-group">
+					<label class="control-label">书籍名称：</label>
+					<div class="control-inline">
+						<input type="text" id="name" name="name" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">出版社：</label>
+					<div class="control-inline">
+						<input type="text" id="publishingHouse" name="publishingHouse" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">题库分类：</label>
+					<div class="control-inline width-120">
+						<select id="subjectId" name="subjectId" class="form-control">
+							<option value="">&nbsp;</option>
+							<option th:value="${subject.uid}" th:each="subject,subjectStat:${subjectList}" th:text="${subject.name}">财务经理</option>
+						</select>					
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+</form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.extend.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'书籍编号', name:'uid', index:'u.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="sys/user/update?userCode='+row.userCode+'&op=edit" class="btnList" data-title="编辑用户">'+(val||row.id)+'</a>';
+		}},
+		{header:'分类', name:'subjectName', index:'u.courseName', width:200, align:"center"},
+		{header:'科目', name:'courseName', index:'u.courseName', width:200, align:"center"},
+		{header:'书籍名称', name:'name', index:'u.user_name', width:200, align:"center"},
+		{header:'出版社', name:'publishingHouse', index:'u.ref_name', width:200, align:"center"},
+		{header:'归属机构', name:'officeName', index:'u.office_name', width:200, align:"center"},
+		{header:'更新时间', name:'updateDate', index:'u.update_date', width:200, align:"center"},
+		{header:'状态', name:'status', index:'u.status', width:140, align:"center", formatter: function(val, obj, row, act){
+			if(val == "normal"){
+				return "<span>正常</span>";
+			}else if(val == "delete"){
+				return "<span style='color:red;'>删除</span>";
+			}else if(val == "disabled"){
+				return "<span style='color:red;'>禁用</span>";
+			}else if(val == "locked"){
+				return "<span style='color:red;'>锁定</span>";
+			}else{
+				return "<span style='color:red;'>未知</span>";
+			}
+		}},
+		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+				actions.push('<a href="sys/user/update?userCode='+row.userCode+'&op=edit" class="btnList" title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
+				if (row.status == Global.STATUS_NORMAL){
+					actions.push('<a href="'+ctx+'sys/user/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+				}
+				if (row.status == Global.STATUS_DISABLE){
+					actions.push('<a href="'+ctx+'sys/user/enable?userCode='+row.userCode+'" class="btnList" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+				}
+				actions.push('<a href="'+ctx+'sys/user/delete?userCode='+row.userCode+'" class="btnList" title="删除用户" data-confirm="确认要删除该用户吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="javascript:" class="btnMore" title="更多操作"><i class="fa fa-chevron-circle-right"></i></a>&nbsp;');
+				actions.push('<div class="moreItems">');
+					actions.push('<a href="sys/user/role?userCode='+row.userCode+'&op=auth" class="btn btn-default btn-xs btnList" title="用户分配角色"><i class="fa fa-check-square-o"></i> 分配角色</a>&nbsp;');
+					actions.push('<a href="/sys/user/dataScope?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户分配数据权限"><i class="fa fa-check-circle-o"></i> 数据权限</a>&nbsp;');
+					actions.push('<a href="/js/a/sys/empUser/resetpwd?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户密码重置" data-confirm="确认要将该用户密码重置到初始状态吗？"><i class="fa fa-reply-all"></i> 重置密码</a>&nbsp;');
+				actions.push('</div>');
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+$('#btnExport').click(function(){
+	js.ajaxSubmitForm($('#searchForm'), {
+		url:'/js/a/sys/empUser/exportData',
+		downloadFile:true
+	});
+});
+$('#btnImport').click(function(){
+	js.layer.open({
+		type: 1,
+		area: ['400px'],
+		title: '导入用户数据',
+		resize: false,
+		scrollbar: true,
+		content: js.template('importTpl'),
+		success: function(layero, index){
+			layero.find('input[type="checkbox"]').iCheck();
+		},
+		btn: ['<i class="fa fa-check"></i> 导入',
+			'<i class="fa fa-remove"></i> 取消'],
+		btn1: function(index, layero){
+			var form = {
+				inputForm: layero.find('#inputForm'),
+				file: layero.find('#file').val()
+			};
+		    if (form.file == '' || (!js.endWith(form.file, '.xls') && !js.endWith(form.file, '.xlsx'))){
+		    	js.showMessage("文件不正确，请选择后缀为 “xls”或“xlsx”的文件。", null, 'warning');
+		        return false;
+		    }
+			js.ajaxSubmitForm(form.inputForm, function(data){
+				js.showMessage(data.message);
+				if(data.result == Global.TRUE){
+					js.layer.closeAll();
+				}
+				page();
+			}, "json");
+			return true;
+		}
+	});
+});
+</script>
+<script id="importTpl" type="text/template">
+//<!--
+<form id="inputForm" action="/js/a/sys/empUser/importData" method="post" enctype="multipart/form-data"
+	class="form-horizontal mt20 mb10" style="overflow:auto;max-height:200px;">
+	<div class="row">
+		<div class="col-xs-12 col-xs-offset-1">
+			<input type="file" id="file" name="file" class="form-file"/>
+			<div class="mt10 pt5">
+
+<span id="updateSupport" class="icheck" class="form-control" title="如果用户编码已经存在，更新这条数据。">
+<label><input type="checkbox" id="updateSupport1" name="updateSupport"
+			value="1" class="form-control" title="如果用户编码已经存在，更新这条数据。"> 否更新已经存在的用户数据</label><input type="hidden" name="!updateSupport" value="0"/></span>
+ &nbsp;				<a href="/js/a/sys/empUser/importTemplate" class="btn btn-default btn-xs"><i class="fa fa-file-excel-o"></i> 下载模板</a>
+			</div>
+			<font color="red" class="pull-left mt10">
+				提示：仅允许导入“xls”或“xlsx”格式文件！
+			</font>
+		</div>
+	</div>
+</form>
+//-->
+</script>

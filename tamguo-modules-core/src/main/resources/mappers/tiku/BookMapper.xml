@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamguo.modules.tiku.dao.BookMapper">
+	
+	<select id="listData" resultType="BookEntity">
+		SELECT
+			b.uid,
+			b.subject_id,
+			b.course_id,
+			b.name,
+			b.publishing_house,
+			b.question_num,
+			b.point_num,
+			b.sort,
+			b.create_by,
+			b.update_by,
+			b.update_by,
+			b.update_date,
+			b.`status`,
+			s.name AS subject_name,
+			c.name AS course_name
+		FROM
+			tiku_book b
+		LEFT JOIN tiku_subject s ON s.uid = b.subject_id
+		LEFT JOIN tiku_course c ON c.uid = b.course_id
+		WHERE
+			1 = 1 
+		<if test="name != null and name != ''">
+			and b.name = #{name}
+		</if>
+		<if test="publishingHouse != null and publishingHouse != ''">
+			and b.publishing_house = #{publishingHouse}
+		</if>
+		<if test="subjectId != null and subjectId != ''">
+			and b.subject_id = #{subjectId}
+		</if>
+		<if test="courseId != null and courseId != ''">
+			and b.course_id = #{courseId}
+		</if>
+	</select>
+</mapper>
