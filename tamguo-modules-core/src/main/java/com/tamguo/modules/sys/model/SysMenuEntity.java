@@ -27,9 +27,9 @@ public class SysMenuEntity implements Serializable {
 
 	@TableId
 	private String menuCode;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date createDate;
 	private String isShow;
 	private String menuColor;
@@ -51,9 +51,9 @@ public class SysMenuEntity implements Serializable {
 	private String treeNames;
 	private BigDecimal treeSort;
 	private String treeSorts;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDate;
 	private BigDecimal weight;
 

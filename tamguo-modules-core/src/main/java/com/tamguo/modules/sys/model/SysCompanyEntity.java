@@ -29,9 +29,9 @@ public class SysCompanyEntity implements Serializable {
 	private String companyName;
 	private String corpCode;
 	private String corpName;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date createDate;
 	private String fullName;
 	private String parentCode;

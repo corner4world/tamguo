@@ -15,4 +15,13 @@ public interface ICourseService extends IService<CourseEntity>{
 	/** 修改科目*/
 	void update(CourseEntity course);
 
+	/** 删除科目*/
+	void delete(String uid);
+
+	/** 激活科目*/
+	void enable(String uid);
+
+	/** 停用科目*/
+	void disabled(String uid);
+
 }

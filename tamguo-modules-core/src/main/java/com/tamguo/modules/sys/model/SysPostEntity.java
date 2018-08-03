@@ -26,9 +26,9 @@ public class SysPostEntity extends Model<SysPostEntity> implements Serializable 
 	private String postCode;
 	private String corpCode;
 	private String corpName;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date createDate;
 	private String postName;
 	private BigDecimal postSort;
@@ -37,9 +37,9 @@ public class SysPostEntity extends Model<SysPostEntity> implements Serializable 
 	
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysPostStatusEnum status;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDate;
 
 	public SysPostEntity() {

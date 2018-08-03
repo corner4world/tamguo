@@ -26,9 +26,9 @@ public class SysOfficeEntity implements Serializable {
 	private String address;
 	private String corpCode;
 	private String corpName;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date createDate;
 	private String email;
 	private String fullName;
@@ -45,9 +45,9 @@ public class SysOfficeEntity implements Serializable {
 	private String treeNames;
 	private BigDecimal treeSort;
 	private String treeSorts;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDate;
 	private String viewCode;
 	private String zipCode;

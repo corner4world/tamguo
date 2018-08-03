@@ -34,9 +34,9 @@ public class SysUserEntity extends Model<SysUserEntity> implements Serializable 
 	private String avatar;
 	private String corpCode;
 	private String corpName;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date createDate;
 	private String email;
 	private String freezeCause;
@@ -75,9 +75,9 @@ public class SysUserEntity extends Model<SysUserEntity> implements Serializable 
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private SysUserStatusEnum status;
 	
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDate;
 	private String userName;
 	private String empName;

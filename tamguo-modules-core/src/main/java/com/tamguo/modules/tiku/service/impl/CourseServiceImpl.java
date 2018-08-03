@@ -54,7 +54,36 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
 	@Transactional(readOnly=false)
 	@Override
 	public void update(CourseEntity course) {
-		courseMapper.updateById(course);
+		CourseEntity entity = courseMapper.selectById(course.getUid());
+		entity.setName(course.getName());
+		entity.setSubjectId(course.getSubjectId());
+		entity.setSort(course.getSort());
+		entity.setRemarks(course.getRemarks());
+		courseMapper.updateById(entity);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void delete(String uid) {
+		CourseEntity entity = courseMapper.selectById(uid);
+		entity.setStatus(CourseStatusEnum.DELETE);
+		courseMapper.updateById(entity);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void enable(String uid) {
+		CourseEntity entity = courseMapper.selectById(uid);
+		entity.setStatus(CourseStatusEnum.NORMAL);
+		courseMapper.updateById(entity);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void disabled(String uid) {
+		CourseEntity entity = courseMapper.selectById(uid);
+		entity.setStatus(CourseStatusEnum.DISABLED);
+		courseMapper.updateById(entity);
 	}
 
 }

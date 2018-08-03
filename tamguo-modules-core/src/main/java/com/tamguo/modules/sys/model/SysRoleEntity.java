@@ -22,9 +22,9 @@ public class SysRoleEntity implements Serializable {
 	private String roleCode;
 	private String corpCode;
 	private String corpName;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date createDate;
 	private String dataScope;
 	private String isSys;
@@ -33,9 +33,9 @@ public class SysRoleEntity implements Serializable {
 	private BigDecimal roleSort;
 	private String roleType;
 	private String status;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDate;
 	private String userType;
 	

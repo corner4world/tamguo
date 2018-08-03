@@ -85,4 +85,37 @@ public class CourseController {
 			return ExceptionSupport.resolverResult("修改科目", this.getClass(), e);
 		}
 	}
+	
+	@RequestMapping(path="delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Result delete(String uid) {
+		try {
+			iCourseService.delete(uid);
+			return Result.result(0, null, "删除科目成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("删除科目", this.getClass(), e);
+		}
+	}
+	
+	@RequestMapping(path="enable",method=RequestMethod.POST)
+	@ResponseBody
+	public Result enable(String uid) {
+		try {
+			iCourseService.enable(uid);
+			return Result.result(0, null, "激活科目成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("激活科目", this.getClass(), e);
+		}
+	}
+	
+	@RequestMapping(path="disabled",method=RequestMethod.POST)
+	@ResponseBody
+	public Result disabled(String uid) {
+		try {
+			iCourseService.disabled(uid);
+			return Result.result(0, null, "停用科目成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("停用科目", this.getClass(), e);
+		}
+	}
 }

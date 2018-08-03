@@ -29,9 +29,9 @@ public class SysAreaEntity implements Serializable {
 	private String areaCode;
 	private String areaName;
 	private String areaType;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date createDate;
 	private String parentCode;
 	private String parentCodes;
@@ -45,9 +45,9 @@ public class SysAreaEntity implements Serializable {
 	private String treeNames;
 	private BigDecimal treeSort;
 	private String treeSorts;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateBy;
-	@TableField(fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDate;
 
 	public SysAreaEntity() {
