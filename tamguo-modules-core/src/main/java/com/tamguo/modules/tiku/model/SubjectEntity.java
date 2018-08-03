@@ -2,8 +2,11 @@ package com.tamguo.modules.tiku.model;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.tamguo.modules.tiku.model.enums.SysSubjectStatusEnum;
 
 @TableName(value="tiku_subject")
 public class SubjectEntity {
@@ -17,6 +20,12 @@ public class SubjectEntity {
 	private String updateBy;
 	private Date createDate;
 	private Date updateDate;
+	
+	private String remarks;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private SysSubjectStatusEnum status;
+	
 	public String getUid() {
 		return uid;
 	}
@@ -58,6 +67,18 @@ public class SubjectEntity {
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	public SysSubjectStatusEnum getStatus() {
+		return status;
+	}
+	public void setStatus(SysSubjectStatusEnum status) {
+		this.status = status;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 	
 }

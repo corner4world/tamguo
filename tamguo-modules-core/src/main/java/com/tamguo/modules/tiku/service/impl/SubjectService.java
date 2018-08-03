@@ -2,6 +2,8 @@ package com.tamguo.modules.tiku.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -16,11 +18,20 @@ public class SubjectService extends ServiceImpl<SubjectMapper, SubjectEntity> im
 	@Autowired
 	private SubjectMapper subjectMapper;
 
+	@Transactional(readOnly=false)
 	@SuppressWarnings("unchecked")
 	@Override
 	public Page<SubjectEntity> listData(SubjectCondition condition) {
 		Page<SubjectEntity> page = new Page<>(condition.getPageNo(), condition.getPageSize());
-		return page.setRecords(subjectMapper.selectPage(page, Condition.EMPTY));
+		Condition query = Condition.create();
+		if(!StringUtils.isEmpty(condition.getUid())) {
+			query.eq("uid", condition.getUid());
+		}else if(!StringUtils.isEmpty(condition.getName())) {
+			query.eq("name", condition.getName());
+		}else if(!StringUtils.isEmpty(condition.getStatus())) {
+			query.eq("status", condition.getStatus());
+		}
+		return page.setRecords(subjectMapper.selectPage(page, query));
 	}
 
 }
