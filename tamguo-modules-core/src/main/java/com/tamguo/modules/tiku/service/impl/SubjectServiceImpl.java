@@ -47,7 +47,7 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, SubjectEntity
 	@Transactional(readOnly=false)
 	@Override
 	public void update(SubjectEntity subject) {
-		SubjectEntity entity = subjectMapper.selectById(subject.getUid());
+		SubjectEntity entity = subjectMapper.selectById(subject.getId());
 		entity.setName(subject.getName());
 		entity.setRemarks(subject.getRemarks());
 		entity.setSort(subject.getSort());

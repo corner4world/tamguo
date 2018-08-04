@@ -62,7 +62,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
 	@Transactional(readOnly=false)
 	@Override
 	public void update(CourseEntity course) {
-		CourseEntity entity = courseMapper.selectById(course.getUid());
+		CourseEntity entity = courseMapper.selectById(course.getId());
 		entity.setName(course.getName());
 		entity.setSubjectId(course.getSubjectId());
 		entity.setSort(course.getSort());
@@ -106,14 +106,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
 		JSONArray entitys = new JSONArray();
 		for(int i=0 ; i<subjectList.size() ; i++) {
 			JSONObject entity = new JSONObject();
-			entity.put("id", subjectList.get(i).getUid());
+			entity.put("id", subjectList.get(i).getId());
 			entity.put("name", subjectList.get(i).getName());
 			entity.put("pId", "0");
 			entitys.add(entity);
 		}
 		for(int i=0 ; i<courseList.size() ; i++) {
 			JSONObject entity = new JSONObject();
-			entity.put("id", courseList.get(i).getUid());
+			entity.put("id", courseList.get(i).getId());
 			entity.put("name", courseList.get(i).getName());
 			entity.put("pId", courseList.get(i).getSubjectId());
 			entitys.add(entity);

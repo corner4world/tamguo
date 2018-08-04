@@ -5,6 +5,7 @@ import java.util.Date;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.tamguo.modules.tiku.model.enums.CourseStatusEnum;
@@ -12,7 +13,8 @@ import com.tamguo.modules.tiku.model.enums.CourseStatusEnum;
 @TableName(value="tiku_book")
 public class BookEntity {
 
-	private String uid;
+	@TableId
+	private String id;
 	private String subjectId;
 	private String courseId;
 	private String name;
@@ -38,13 +40,6 @@ public class BookEntity {
 	@TableField(exist=false)
 	private String courseName;
 	
-	public String getUid() {
-		return uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
 
 	public String getSubjectId() {
 		return subjectId;
@@ -156,6 +151,14 @@ public class BookEntity {
 
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

@@ -13,7 +13,7 @@ import com.tamguo.modules.tiku.model.enums.CourseStatusEnum;
 public class CourseEntity {
 	
 	@TableId
-	private String uid;
+	private String id;
 	private String subjectId;
 	private String name;
 	private Integer sort;
@@ -33,12 +33,6 @@ public class CourseEntity {
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
 	private CourseStatusEnum status;
 	
-	public String getUid() {
-		return uid;
-	}
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
 	public String getSubjectId() {
 		return subjectId;
 	}
@@ -104,6 +98,12 @@ public class CourseEntity {
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }
