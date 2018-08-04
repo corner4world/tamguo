@@ -15,7 +15,7 @@ import com.tamguo.modules.tiku.model.enums.SubjectStatusEnum;
 import com.tamguo.modules.tiku.service.ISubjectService;
 
 @Service
-public class SubjectService extends ServiceImpl<SubjectMapper, SubjectEntity> implements ISubjectService{
+public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, SubjectEntity> implements ISubjectService{
 	
 	@Autowired
 	private SubjectMapper subjectMapper;

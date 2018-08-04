@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>探果题库_聪明的学生都在这里</title>
+	<meta name="description" content="探果题库携手高校名师为考生提供高效的智能备考服务，涵括领域有高考、财会类、建筑工程、职业资格、医卫类、计算机类和学历类等热门考试题库。拥有高校名师丰富的经验，优质的学习资料和备考全阶段的高效服务，助您丰富自我，不断前行！"/>
+	<meta name="keyword" content="探果题库,数学试卷,高校试题,名校,名校试题,名校试卷,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
+	<meta name="author" content="Tamguo Team" />
+	<meta name="copyright" content="Tamguo" />
+	<meta name="keywords" th:content="${paper.seoKeywords}" />
+	<meta name="description" th:content="${paper.seoDescription}" />
+	<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/main.css'}"></link>
+	<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/reset.css'}" />
+	<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/iconfont.css'}" />
+	<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/footer.css'}" />
+	<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/paper.css'}" />
+	<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/member/minilogin.css'}" />
+	<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+</head>
+<body>
+	<!-- 头部-->
+	<div th:replace="include/header :: header"></div>
+		
+	<div class="content-wp">
+         <div class="main">
+                    
+		    <div class="title-bar">
+			    <div class="title-inner">
+			        <ul class="paper-title clearfix">
+			            <li class="title" th:text="${paper.name}">物理 丰台区2017年高三第二次模拟考试</li>
+			            <li class="learnnum" th:text="${paper.openHits}">77052</li>
+			            <li class="down-num" th:text="${paper.downHits}">15921</li>
+			            
+			        </ul>
+			        <ul class="quic-nav clearfix">
+			            <li class="first " th:each="qi,qtStat:${paper.queInfo}">
+			                <a data-type="sc" th:text="${qi.name}">单选题</a>
+			            </li>
+			        </ul>
+			        <a class="download-btn-wrap">
+			            <span class="download-btn">
+			                <span class="donwload-text">立即下载</span>
+			            </span>
+			        </a>
+			    </div>
+			</div>
+			<div class="quic-nav-wrap">
+			    <div class="quic-nav-inner">
+			        <ul class="quic-nav clearfix">
+			            <li class="first " th:each="qi,qtStat:${paper.queInfo}">
+			                <a data-type="sc" th:text="${qi}">单选题</a>
+			            </li>
+			        </ul>
+			        <a class="download-btn-wrap">
+			            <span class="download-btn">
+			                <span class="donwload-text">立即下载</span>
+			            </span>
+			        </a>
+			    </div>
+			</div>
+			
+			<!-- 下载模版 -->
+			<div class="downleader">
+			    <span class="download-icon d-ok"></span>
+			    <span class="download-icon d-no-word"></span>
+			    <span class="download-icon d-no-count"></span>
+			    <div class="downleader-hotpaper">
+			        <h1 class="paper-title">物理 热门试卷</h1>
+			        <ul class="paper-ul">
+			            
+			            <li class="paper-li" th:each="hot,hotStat:${hotPaperList}">
+			                <i class="paper-icon paper-1"></i>
+			                <a th:href="${setting.domain + 'paper/' + hot.uid + '.html'}" class="paper-contain" th:text="${hot.name}">
+			                    2017年高考真题 物理 (海南卷)
+			                </a>
+			            </li>
+			            
+			        </ul>
+			    </div>
+			    <span class="downleader-close">X</span>
+			    <!-- <span class="downleader-ok">知道啦</span> -->
+			    <span th:if="${paper.subjectId != ''}">
+			    	<a class="downleader-more" th:href="${setting.domain + 'paperlist/'+paper.subjectId+'/0-0-0-0-0.html'}">查看更多试卷</a>
+			    </span>
+			</div>
+
+			<!-- 主体内容 -->
+    		<div class="bd-content" style="visibility: visible;">
+	        	<div class="quelist-wrap">
+	        	<div class="ques-container" th:each="p,pStat:${paper.queInfo}">
+	        			<div class="ques-info-wrap">
+			            <span class="que-type">单选题</span>
+			            <span class="que-info" th:text="${p.title}">本大题共<span class="count">15</span>小题，每小题<span class="score">1</span>分，共<span class="total-score">15</span>分。在每小题给出的4个选项中，有且只有一项是符合题目要求。</span>
+			        </div>
+	                <div th:attr="data-id=${q.uid},data-index=${q.uid}" class="question-box que-multi" th:if="${q.questionType == p.type}" th:each="q,qStat:${questionList}">
+						    <div class="question-box-inner" >
+						        <span class="queindex-wrap"><span class="queindex" th:text="${qStat.index + 1}">1</span></span>
+						        <span class="pieces">
+						                多选题
+						        </span>
+						        <div class="que-stem">
+						            <div class="questem-inner bdjson" th:utext="${q.content }"><p><span>社会工作专业化是在长期社会服务实践中形成，在实践中被接受的。在专业化过程中，社会工作发展的重要特点包括(  )。</span><br><br><span>                A．专业理论的完善</span><br><span>B．专业方法的发展</span><br><span>C．目标模式的变化</span><br><span>D．工作对象的拓展</span><br><span>E．理论派别的形成</span><br></p></div>
+						        </div>
+						        <div class="view-analyse">
+								    <a class="view-link" th:href="${setting.domain + 'question/' + q.uid + '.html'}">查看题目解析 &gt;</a>
+								</div>
+						    </div>	
+					</div>
+				</div>
+				
+				<!-- 推荐试卷 -->
+			    <div class="recpaper">
+				    <ul class="recp-title clearfix">
+				        <li class="recp-li repc-curr" data-class="zhenti">真题试卷</li>
+				        <li class="recp-border"></li>
+				        <li class="recp-li" data-class="moni">模拟试卷</li>
+				        <li class="recp-border"></li>
+				        <li class="recp-li" data-class="yuce">预测试卷</li>
+				    </ul>
+				    <div class="recp-contain recp-dis-zhenti" style="display: block;">
+				        <ul class="clearfix">
+				            <li class="recp-contain-li" th:each="zhenti,zhentiStat:${zhentiPaperList}">
+				                <i class="recp-icon repc-zhen"></i>
+				                <a th:href="${setting.domain + 'paper/'+zhenti.uid+'.html'}" class="recp-link" data-class="zhenti" th:text="${zhenti.name}">
+				                    2017年高考真题 英语 (浙江卷)
+				                </a>
+				            </li>
+				            <a th:if="${paper.subjectId != null}" th:href="${setting.domain + 'paperlist/'+paper.subjectId+'/0-0-0-0-0.html'}" class="recp-more" data-class="zhenti">查看更多真题试卷 &gt;</a>
+				        </ul>
+				    </div>
+				    <div class="recp-contain recp-dis-moni" style="display: none;">
+				        <ul class="clearfix">
+				            <li class="recp-contain-li" th:each="moni,moniStat:${moniPaperList}">
+				                <i class="recp-icon repc-mo"></i>
+				                <a th:href="${setting.domain + 'paper/'+moni.uid+'.html'}" class="recp-link" data-class="moni" th:text="${moni.name}">
+				                    英语 2017年期末考试
+				                </a>
+				            </li>
+				            <a th:if="${paper.subjectId != null}" th:href="${setting.domain + 'paperlist/'+paper.subjectId+'/0-1-0-0-0.html'}" class="recp-more" data-class="moni">查看更多模拟试卷 &gt;</a>
+				        </ul>
+				    </div>
+				    <div class="recp-contain recp-dis-yuce" style="display: none;">
+				        <ul class="clearfix">
+				            <li class="recp-contain-li" th:each="yati,yatiStat:${yatiPaperList}">
+				                <i class="recp-icon repc-ya"></i>
+				                <a th:href="${setting.domain + 'paper/'+yati.uid+'.html'}" class="recp-link" data-class="yuce" th:text="${yati.name}">
+				                    2015年高考权威预测卷 英语 (大纲全国卷)
+				                </a>
+				            </li>
+				        </ul>
+				        <a th:if="${paper.subjectId != null}" th:href="${setting.domain + 'paperlist/'+paper.subjectId+'/0-2-0-0-0.html'}" class="recp-more" data-class="yuce">查看更多预测试卷 &gt;</a>
+				    </div>
+				</div>
+                <div class="crumbs">
+                    <a th:href="${setting.domain}" th:text="${subject != null}">探果题库</a>
+                    <span th:if="${subject != null}">
+                        <a th:href="${setting.domain + 'subject/' + subject.uid + '.html'}" th:utext="${'&gt;' +subject.name}">社会工作师</a>
+                    </span>
+                    <span th:if="${subject != null && course != null}">
+                        <a th:if="${course != null}" th:href="${setting.domain + 'chapter/' + subject.uid + '/'+course.uid+'.html'}" th:utext="${course != null} ? '&gt;' + ${course.name}:''">综合能力（中级）</a>
+                    </span>
+                    <span th:utext="${'&gt;' +paper.name}">中国社会工作在不同发展阶段的特点</span>
+                 </div>
+	        </div>
+	        <div class="queanalyse-wrap" style="position: fixed; left: 1151.5px; top: 162px; height: 757px; display: none;">
+			   <div class="close-btn"></div>
+			   <div class="content-wrap" id="queanalyse-content" style="overflow: hidden; position: relative; outline: none;" tabindex="0">
+			   <div class="analyse-content" style="transform: translate3d(0px, 0px, 0px);">
+			   <div class="que-title-wrap"> 
+			   <div class="title"> 
+				   <span class="content-wrap"> 
+				   	   <span class="dt-index">1</span> 
+					   <span class="content"> 
+					   <span style="display:  none "> 第(0)小题</span>正确答案及相关解析 </span> 
+				   </span> 
+			   </div> 
+			   <hr style="display:  none ">
+			   </div>
+			   <div class="exam-answer"> 
+			   		<h3 class="exam-answer-title">正确答案</h3>  
+			   		<div class="answer-item"> 
+			   		<div class="content exam-answer-content bdjson"><p>见解析。</p></div> 
+			   		</div> 
+			   	</div>
+			   	<div class="exam-analysis exam-info"> 
+			   		<h3 class="exam-analysis-title">
+			   		<span class="ic analysis-ic">解析</span></h3> 
+			   		<div class="content exam-analysis-content bdjson"><p><span>设</span></p></div>
+			   	</div> 
+			   	</div>
+			    <div class="nicescroll-rails nicescroll-rails-vr" id="ascrail2000" style="width: 5px; z-index: 5555; cursor: default; position: absolute; top: 0px; right: 0px; touch-action: none; height: 859px; opacity: 0; display: none;"><div class="nicescroll-cursors" style="position: relative; top: 0px; float: right; width: 5px; height: 0px; background-color: rgb(219, 219, 219); border: 0px; background-clip: padding-box; border-radius: 5px; touch-action: none;"></div></div><div class="nicescroll-rails nicescroll-rails-hr" id="ascrail2000-hr" style="height: 5px; z-index: 5555; position: absolute; left: 0px; bottom: 0px; cursor: default; width: 354px; opacity: 0; display: none;"><div class="nicescroll-cursors" style="position: absolute; top: 0px; height: 5px; width: 0px; background-color: rgb(219, 219, 219); border: 0px; background-clip: padding-box; border-radius: 5px; left: 0px;"></div></div></div>
+			    <div class="toolbar ui-border-top">
+			        <ul class="toolbar-ul">
+			            <li class="pre-li disable"><span class="pre">上一题</span></li>
+			            <li class="center-li">
+			                <span class="current">1</span>/<span class="total">2</span>
+			            </li>
+			            <li class="next-li"><span class="next">下一题</span></li>
+			        </ul>
+			    </div>
+			</div>
+   	 	</div>
+ 	</div>
+</div>
+<div class="mask firstleader"></div>
+
+<!--尾部-->
+<div th:replace="include/footer :: footer"></div>
+	
+<!-- 登录 -->
+<div th:replace="include/minilogin :: minilogin"></div>	
+</body>
+<script type="text/javascript" src="http://static.tamguo.com/static/js/jquery-1.8.3.min.js" ></script>
+<script type="text/javascript" src="http://static.tamguo.com/static/js/jquery.iDialog.js"></script>
+<script type="text/javascript" th:src="${setting.domain + 'js/main.js'}" ></script>
+<script type="text/javascript" th:src="${setting.domain + 'js/paper.js'}" ></script>
+<script type="text/javascript" th:src="${setting.domain + 'js/member/minlogin.js'}"></script>
+</html>
