@@ -7,13 +7,13 @@
 		<meta name="keyword" content="探果题库,数学试卷,高校试题,名校,名校试题,名校试卷,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
 		<meta name="author" content="Tamguo Team" />
 		<meta name="copyright" content="Tamguo" />				
-		<link rel="stylesheet" th:href="${setting.domain + 'css/main.css'}"></link>
-		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/iconfont.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/question.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/footer.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/minilogin.css'}" />
-		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/main.css'}"></link>
+		<link rel="stylesheet" th:href="${domainName + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/iconfont.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/question.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/footer.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/minilogin.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
 	</head>
 	<body>
 		
@@ -47,7 +47,7 @@
 							<h3 class="point-title">相关例题</h3>
 							<ul class="recq-contain">
 								<li class="recq bdjson" th:each="q,qStat:${featuredQuestionList}">
-									<a class="recq-link " th:href="${setting.domain + 'question/' + q.uid + '.html'}" th:utext="${q.content}">
+									<a class="recq-link " th:href="${domainName + 'question/' + q.id + '.html'}" th:utext="${q.content}">
 										<p><span>在青少年社会工作中，社区层面的社会工作方法的运用包含一些特点，即(  )。</span><br><br><span>                A．以社区为对象，强调居民的参与</span><br><span>B．以结构导向的角度分析问题</span><br><span>C．介入的层面比较广泛</span><br><span>D．社会资源的广泛运用</span><br><span>E．以问题导向开展服务</span><br></p>
 									</a>
 								</li>
@@ -81,34 +81,34 @@
 						<h1 class="hotexam-title">热门考试</h1>
 						<ul class="hotexam-content clearfix">
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">高考</a>
+								<a th:href="${domainName}">高考</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">一级建造师</a>
+								<a th:href="${domainName}">一级建造师</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">二级建造师</a>
+								<a th:href="${domainName}">二级建造师</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">初级经济师</a>
+								<a th:href="${domainName}">初级经济师</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">中级经济师</a>
+								<a th:href="${domainName}">中级经济师</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">教师资格证</a>
+								<a th:href="${domainName}">教师资格证</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">企业法律顾问</a>
+								<a th:href="${domainName}">企业法律顾问</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">注册会计师CPA</a>
+								<a th:href="${domainName}">注册会计师CPA</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">中级会计师</a>
+								<a th:href="${domainName}">中级会计师</a>
 							</li>
 							<li class="hotexam-item">
-								<a th:href="${setting.domain}">考研</a>
+								<a th:href="${domainName}">考研</a>
 							</li>
 						</ul>
 					</div>
@@ -127,6 +127,6 @@
 </body>
 <script type="text/javascript" src="http://static.tamguo.com/static/js/jquery-1.8.3.min.js" ></script>
 <script type="text/javascript" src="http://static.tamguo.com/static/js/jquery.iDialog.js"></script>
-<script type="text/javascript" th:src="${setting.domain + 'js/main.js'}" ></script>
-<script type="text/javascript" th:src="${setting.domain + 'js/member/minlogin.js'}"></script>
+<script type="text/javascript" th:src="${domainName + 'js/main.js'}" ></script>
+<script type="text/javascript" th:src="${domainName + 'js/member/minlogin.js'}"></script>
 </html>
