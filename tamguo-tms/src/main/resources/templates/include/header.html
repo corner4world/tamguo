@@ -32,7 +32,7 @@
 	</div>
 	<div class="clearfix submenu-container" data-id="submenu">
 	    <div class="submenu clearfix" id="submenu" data-id="submenu">
-	        <ul th:class="${m.pinyin + ' subm-ul dis-none'}" th:each="m,mStat:${menuList}" data-id="submenu">
+	        <ul th:class="${m.pinyin + ' subm-ul dis-none'}" th:each="m,mStat:${application.menuList}" data-id="submenu">
 	            <li class="subm-li" th:each="c,cmStat:${m.childSubjects}"><a th:href="${domainName + c.url}" target="_blank" th:text="${c.name}">高考</a></li>
 	        </ul>
 	        <div class="all-exm all dis-none" data-id="submenu">

@@ -24,8 +24,7 @@ public class AdServiceService extends ServiceImpl<AdMapper, AdEntity> implements
 	@Override
 	public List<AdEntity> findAll() {
 		List<AdEntity> adList = (List<AdEntity>) cacheService.getObject(SystemConstant.ALL_AD);
-		adList = null;
-		if(adList == null || adList.isEmpty()){
+		if(adList == null){
 			adList = adMapper.selectList(Condition.EMPTY);
 			cacheService.setObject(SystemConstant.ALL_AD, adList , 2 * 60 * 60);
 		}

@@ -34,7 +34,7 @@ public class SchoolService extends ServiceImpl<SchoolMapper, SchoolEntity> imple
 	public List<SchoolEntity> findEliteSchoolPaper(String shcoolId) {
 		List<SchoolEntity> schoolList = (List<SchoolEntity>) cacheService.getObject(SystemConstant.ELITE_SCHOOL_PAPER);
 		// 获取名校试卷
-		if(schoolList == null || schoolList.isEmpty()){
+		if(schoolList == null){
 			Page<SchoolEntity> page = new Page<>(1 , 3);
 			schoolList = schoolMapper.selectPage(page, Condition.create().eq("id", shcoolId));
 			for(SchoolEntity school : schoolList){
@@ -51,7 +51,7 @@ public class SchoolService extends ServiceImpl<SchoolMapper, SchoolEntity> imple
 	@Override
 	public List<SchoolEntity> findEliteSchool() {
 		List<SchoolEntity> schoolList = (List<SchoolEntity>) cacheService.getObject(SystemConstant.ELITE_PAPER);
-		if(schoolList == null || schoolList.isEmpty()){
+		if(schoolList == null){
 			RowBounds row = new RowBounds(1 , 6);
 			schoolList = schoolMapper.selectPage(row, Condition.EMPTY);
 			cacheService.setObject(SystemConstant.ELITE_PAPER, schoolList , 2 * 60 * 60);

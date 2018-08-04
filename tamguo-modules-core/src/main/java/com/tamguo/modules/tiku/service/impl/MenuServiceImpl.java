@@ -25,7 +25,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
 	@Override
 	public List<MenuEntity> findMenus() {
 		List<MenuEntity> menuList = ((List<MenuEntity>) cacheService.getObject(SystemConstant.INDEX_MENU));
-		if (menuList == null || menuList.isEmpty()) {
+		if (menuList == null) {
 			menuList = menuMapper.selectList(Condition.create().eq("parent_id", 1).eq("is_show", 1).orderDesc(Arrays.asList("orders")));
 			for(MenuEntity menu : menuList){
 				List<MenuEntity> childSubjects = menuMapper.selectList(Condition.create().eq("parent_id", menu.getId()).orderDesc(Arrays.asList("orders")));
@@ -40,7 +40,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
 	@Override
 	public List<MenuEntity> findAllMenus() {
 		List<MenuEntity> allMenuList = ((List<MenuEntity>) cacheService.getObject(SystemConstant.ALL_INDEX_MENU));
-		if(allMenuList == null || allMenuList.isEmpty()){
+		if(allMenuList == null){
 			allMenuList = menuMapper.selectList(Condition.create().eq("parent_id", 1).orderDesc(Arrays.asList("orders")));
 			for(MenuEntity menu : allMenuList){
 				List<MenuEntity> childSubjects = menuMapper.selectList(Condition.create().eq("parent_id", menu.getId()).orderDesc(Arrays.asList("orders")));
@@ -55,7 +55,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
 	@Override
 	public List<MenuEntity> findLeftMenus() {
 		List<MenuEntity> leftMenuList = ((List<MenuEntity>) cacheService.getObject(SystemConstant.LEFT_INDEX_MENU));
-		if(leftMenuList == null || leftMenuList.isEmpty()){
+		if(leftMenuList == null){
 			leftMenuList = menuMapper.selectList(Condition.create().eq("parent_id", 2).orderDesc(Arrays.asList("orders")));
 			for(MenuEntity menu : leftMenuList){
 				List<MenuEntity> childSubjects = menuMapper.selectList(Condition.create().eq("parent_id", menu.getId()).orderDesc(Arrays.asList("orders")));
@@ -71,7 +71,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
 	@Override
 	public List<MenuEntity> findChapterMenus() {
 		List<MenuEntity> chapterMenuList = ((List<MenuEntity>) cacheService.getObject(SystemConstant.CHAPTER_INDEX_MENU));
-		if(chapterMenuList == null || chapterMenuList.isEmpty()){
+		if(chapterMenuList == null){
 			chapterMenuList = menuMapper.selectList(Condition.create().eq("parent_id", 4).orderDesc(Arrays.asList("orders")));
 			for(MenuEntity menu : chapterMenuList){
 				List<MenuEntity> childSubjects = menuMapper.selectList(Condition.create().eq("parent_id", menu.getId()).orderDesc(Arrays.asList("orders")));
@@ -87,8 +87,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
 	@Override
 	public List<MenuEntity> findFooterMenus() {
 		List<MenuEntity> footerMenuList = ((List<MenuEntity>) cacheService.getObject(SystemConstant.FOOTER_INDEX_MENU));
-		footerMenuList = null;
-		if(footerMenuList == null || footerMenuList.isEmpty()){
+		if(footerMenuList == null){
 			footerMenuList = menuMapper.selectList(Condition.create().eq("parent_id", 3).orderDesc(Arrays.asList("orders")));
 			for(MenuEntity menu : footerMenuList){
 				List<MenuEntity> childSubjects = menuMapper.selectList(Condition.create().eq("parent_id", menu.getId()).orderDesc(Arrays.asList("orders")));

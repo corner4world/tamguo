@@ -24,10 +24,10 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 	@Override
 	public List<PaperEntity> findHistoryPaper() {
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.HISTORY_PAPER);
-		if(paperList == null || paperList.isEmpty()){
+		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 6);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.ZHENGTI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID));
-			cacheService.setObject(SystemConstant.ZHENGTI_PAPER_ID, paperList , 2 * 60 * 60);
+			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.HISTORY_PAPER).eq("area_id", SystemConstant.BEIJING_AREA_ID));
+			cacheService.setObject(SystemConstant.HISTORY_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
 	}
@@ -36,9 +36,9 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 	@Override
 	public List<PaperEntity> findSimulationPaper() {
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.SIMULATION_PAPER);
-		if(paperList == null || paperList.isEmpty()){
+		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 6);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.MONI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID));
+			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.SIMULATION_PAPER).eq("area_id", SystemConstant.BEIJING_AREA_ID));
 			cacheService.setObject(SystemConstant.SIMULATION_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
@@ -48,8 +48,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 	@Override
 	public List<PaperEntity> findHotPaper(String areaId) {
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.HOT_PAPER);
-		paperList = null;
-		if(paperList == null || paperList.isEmpty()){
+		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 10);
 			paperList = paperMapper.selectPage(page, Condition.create().eq("area_id", areaId));
 			cacheService.setObject(SystemConstant.HOT_PAPER, paperList , 2 * 60 * 60);
