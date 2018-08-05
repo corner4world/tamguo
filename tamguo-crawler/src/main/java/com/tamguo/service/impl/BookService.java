@@ -1,74 +1,224 @@
 package com.tamguo.service.impl;
 
+import com.baomidou.mybatisplus.plugins.Page;
+import com.tamguo.config.redis.CacheService;
 import com.tamguo.dao.ChapterMapper;
+import com.tamguo.dao.CourseMapper;
+import com.tamguo.dao.CrawlerQuestionMapper;
+import com.tamguo.dao.QuestionMapper;
+import com.tamguo.dao.SubjectMapper;
 import com.tamguo.model.ChapterEntity;
-import com.tamguo.model.vo.ChapterVo;
+import com.tamguo.model.CourseEntity;
+import com.tamguo.model.CrawlerQuestionEntity;
+import com.tamguo.model.QuestionEntity;
+import com.tamguo.model.SubjectEntity;
+import com.tamguo.model.enums.QuestionType;
+import com.tamguo.model.vo.QuestionVo;
 import com.tamguo.service.IBookService;
 import com.xuxueli.crawler.XxlCrawler;
+import com.xuxueli.crawler.conf.XxlCrawlerConf;
 import com.xuxueli.crawler.parser.PageParser;
+import com.xuxueli.crawler.parser.strategy.HtmlUnitPageLoader;
+import com.xuxueli.crawler.rundata.RunData;
+import com.xuxueli.crawler.util.FileUtil;
+
+import java.io.File;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class BookService implements IBookService {
 
-
-    @Autowired
-    ChapterMapper chapterMapper;
-
-    private Logger logger = LoggerFactory.getLogger(getClass());
+	private RunData runData;
+	@Autowired
+	QuestionMapper questionMapper;
+	@Autowired
+	CrawlerQuestionMapper crawlerQuestionMapper;
+	@Autowired
+	ChapterMapper chapterMapper;
+	@Autowired
+	CourseMapper courseMapper;
+	@Autowired
+	SubjectMapper subjectMapper;
+	@Autowired
+	CacheService cacheService;
+	private static final String FILES_NO_FORMAT = "0000000";
+	private static final String FILES_PREFIX = "LIKESHUXUE";
+	private static final String DOMAIN = "http://www.tamguo.com";
 
 
     @Override
     public void crawlerBook() {
-        XxlCrawler crawler = new XxlCrawler.Builder()
-                .setUrls("https://tiku.baidu.com/tikupc/chapterlist/1bfd700abb68a98271fefa04-27-jiaocai-11")
-                .setAllowSpread(false)
-                .setFailRetryCount(5)
-                .setThreadCount(20)
-                .setPageParser(new PageParser<ChapterVo>() {
-                    @Override
-                    public void parse(Document html, Element pageVoElement, ChapterVo chapterVo) {
-                        // 解析封装 PageVo 对象
-                        String parentName = chapterVo.getName();
-                        ChapterEntity chapterEntity = new ChapterEntity();
-                        String uid = UUID.randomUUID().toString().replace("-", "");
-                        chapterEntity.setUid(uid);
-                        chapterEntity.setName(parentName);
-                        chapterEntity.setCourseId("0");
-                        chapterEntity.setCourseId("0");
-                        chapterEntity.setParentId("-1");
-                        chapterEntity.setQuestionNum(0);
-                        chapterEntity.setPointNum(0);
-                        chapterMapper.insert(chapterEntity);
+		XxlCrawler crawler = new XxlCrawler.Builder()
+	            .setAllowSpread(false)
+	            .setThreadCount(20)
+	            .setFailRetryCount(5)
+	            .setPageLoader(new HtmlUnitPageLoader())
+	            .setPageParser(new PageParser<QuestionVo>() {
+	            	
+	                @Override
+	                public void parse(Document html, Element pageVoElement, QuestionVo questionVo) {
+	                	if(StringUtils.isEmpty(questionVo.getContent())) {
+	                		runData.addUrl(html.baseUri());
+	                		return;
+	                	}
+                		CrawlerQuestionEntity condition = new CrawlerQuestionEntity();
+	                	condition.setQuestionUrl(html.baseUri());
+	                	CrawlerQuestionEntity crawlerQuestion = crawlerQuestionMapper.selectOne(condition);
+	                	ChapterEntity chapter = chapterMapper.selectById(crawlerQuestion.getChapterId());
+	                	CourseEntity course = courseMapper.selectById(chapter.getCourseId());
+	                	SubjectEntity subject = subjectMapper.selectById(course.getSubjectId());
+	                	
+	                	QuestionType questionType = QuestionType.getQuestionType(questionVo.getQuestionType());
+	                	
 
-                        List<String> sonChapters = chapterVo.getSonChapters();
-                        sonChapters.forEach(s -> {
-                            ChapterEntity sonChapterEntity = new ChapterEntity();
-                            sonChapterEntity.setName(s);
-                            sonChapterEntity.setCourseId("0");
-                            sonChapterEntity.setCourseId("0");
-                            sonChapterEntity.setParentId(uid);
-                            sonChapterEntity.setQuestionNum(0);
-                            sonChapterEntity.setPointNum(0);
-                            chapterMapper.insert(sonChapterEntity);
-                        });
+	                	QuestionEntity question = new QuestionEntity();
+	                	if(questionType == QuestionType.DANXUANTI) {
+	                		if(!StringUtils.isEmpty(questionVo.getQueoptions())) {
+	                			question.setContent(questionVo.getContent() + questionVo.getQueoptions());	
+	                		}else {
+	                			question.setContent(questionVo.getContent());
+	                		}
+	                	}else {
+	                		question.setContent(questionVo.getContent());
+	                	}
+	                	question.setAnalysis(questionVo.getAnalysis());
+	                	if(StringUtils.isEmpty(question.getAnswer())) {
+	                		question.setAnalysis("<p> <span> 略 </span> <br> </p>");
+	                	}
+	                	question.setAnswer(questionVo.getAnswer());
+	                	question.setAuditStatus("1");
+	                	question.setChapterId(chapter.getUid());
+	                	question.setCourseId(course.getUid());
+	                	question.setPaperId(null);
+	                	question.setQuestionType(questionType.getValue().toString());
+	                	if(questionVo.getReviewPoint() != null && questionVo.getReviewPoint().size() > 0) {
+		                	question.setReviewPoint(StringUtils.join(questionVo.getReviewPoint().toArray(), ","));
+	                	}
+	                	// 处理分数
+	                	if(questionVo.getScore() != null) {
+	                		if(questionVo.getScore().contains("分")) {
+		                		question.setScore(questionVo.getScore());
+		                	}
+		                	if(questionVo.getScore().contains("年")) {
+		                		question.setYear(questionVo.getScore());
+		                	}
+	                	}
+	                	if(questionVo.getYear() != null) {
+	                		if(questionVo.getYear().contains("年")) {
+	                			question.setYear(questionVo.getYear());
+	                		}
+	                	}
+	                	question.setSubjectId(subject.getUid());
+	                	
+	                	if (questionVo.getAnswerImages()!=null && questionVo.getAnswerImages().size() > 0) {
+                            Set<String> imagesSet = new HashSet<>(questionVo.getAnswerImages());
+                            for (String img: imagesSet) {
 
-                    }
+                                // 下载图片文件
+                            	String fileName = getFileName(img);
+                                File dir = new File(getFilePath());
+                				if (!dir.exists())
+                					dir.mkdirs();
+                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, getFilePath(), fileName);
+                                System.out.println("down images " + (ret?"success":"fail") + "：" + img);
+                                
+                                // 替换URL
+                                questionVo.setAnswer(questionVo.getAnswer().replace(img, DOMAIN + getFilePath() + fileName));
+                            }
+                            question.setAnswer(questionVo.getAnswer());
+                        }
+	                	
+	                	if (questionVo.getAnalysisImages()!=null && questionVo.getAnalysisImages().size() > 0) {
+                            Set<String> imagesSet = new HashSet<>(questionVo.getAnalysisImages());
+                            for (String img: imagesSet) {
 
+                                // 下载图片文件
+                                String fileName = getFileName(img);
+                                File dir = new File(getFilePath());
+                				if (!dir.exists())
+                					dir.mkdirs();
+                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, getFilePath(), fileName);
+                                System.out.println("down images " + (ret?"success":"fail") + "：" + img);
+                                
+                                // 替换URL
+                                questionVo.setAnalysis(questionVo.getAnalysis().replace(img, DOMAIN + getFilePath() + fileName));
+                            }
+                            question.setAnalysis(questionVo.getAnalysis());
+                        }
+	                	
+	                	if (questionVo.getContentImages()!=null && questionVo.getContentImages().size() > 0) {
+                            Set<String> imagesSet = new HashSet<>(questionVo.getContentImages());
+                            for (String img: imagesSet) {
 
-//                    }
-                }).build();
+                                // 下载图片文件
+                                String fileName = getFileName(img);
+                                File dir = new File(getFilePath());
+                				if (!dir.exists())
+                					dir.mkdirs();
+                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, getFilePath(), fileName);
+                                System.out.println("down images " + (ret?"success":"fail") + "：" + img);
+                                
+                                // 替换URL
+                                questionVo.setContent(questionVo.getContent().replace(img, DOMAIN + getFilePath() + fileName));
+                            }
+                            question.setContent(questionVo.getContent());
+                        }
+	                	
+	                	
+	                	// 处理图片
+	                	question.setSourceType("baidu");
+	                	question.setSourceUrl(html.baseUri());
+	                	questionMapper.insert(question);
+	                }
+	                
+	                public String getFileName(String img) {
+	            		return getFileNo() + img.substring(img.lastIndexOf("."));
+	            	}
+	                
+	                private String getFilePath() {
+	                	SimpleDateFormat sdf = new SimpleDateFormat("ddHHmm");
+	            		String format = sdf.format(new Date());
+	            		return "/images/question/" + format + "/";
+	                }
 
-        // 获取科目
-        crawler.start(true);
-    }
+	            	private String getFileNo() {
+	            		SimpleDateFormat sdf = new SimpleDateFormat("ddHHmm");
+	            		String format = sdf.format(new Date());
+	            		DecimalFormat df = new DecimalFormat(FILES_NO_FORMAT);
+	            		String key = FILES_PREFIX + format;
+	            		Long incr = cacheService.incr(key);
+	            		String avatorNo = FILES_PREFIX + df.format(incr);
+	            		return avatorNo;
+	            	}
+	        }).build();
+			
+			runData = crawler.getRunData();
+			int page = 1;
+			int pageSize = 1000;
+			while(true) {
+				Page<CrawlerQuestionEntity> questionPage = new Page<CrawlerQuestionEntity>(page , pageSize);
+				List<CrawlerQuestionEntity> questionList = crawlerQuestionMapper.queryPageOrderUid(questionPage);
+				for(int i=0 ;i<questionList.size() ; i++) {
+					runData.addUrl(questionList.get(i).getQuestionUrl());
+				}
+				page++;
+				if(questionList.size() < 100) {
+					break;
+				}
+			}
+			// 获取科目
+			crawler.start(true);
+	}
 
 }

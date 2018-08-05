@@ -11,7 +11,7 @@ public class SuperEntity<T extends Model<?>> extends Model<T> {
 
 	private static final long serialVersionUID = 1L;
 
-    @TableId("uid")
+    @TableId("id")
     private String uid;
 
     @Override

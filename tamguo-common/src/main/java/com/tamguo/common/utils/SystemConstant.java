@@ -79,4 +79,7 @@ public class SystemConstant {
 	
 	/** ALIYUN*/
 	public static final String ALIYUN_ACCESS_KEY_SECRET = "ONUKuCz85kU4In07y4dvpM28mfWOGa";
+	
+	/** 默认的章节根目录*/
+	public static final String CHAPTER_DEFAULT_ROOT_UID = "-1";
 }

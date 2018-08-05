@@ -47,6 +47,9 @@ public class SubjectVo {
 	@PageFieldSelect(cssQuery = ".bd-content .question-box .question-box-inner .view-analyse a", selectType = XxlCrawlerConf.SelectType.ATTR, selectVal = "abs:href")
 	private List<String> questionUrls;
 	
+	@PageFieldSelect(cssQuery = ".nexttolearn .next-inner .tolearn", selectType = XxlCrawlerConf.SelectType.ATTR, selectVal = "abs:href")
+	private String nextQuestionPage;
+	
 	// 单个题目数据
 	@PageFieldSelect(cssQuery=".question-box-inner .questem-inner", selectType = XxlCrawlerConf.SelectType.HTML)
 	private String content;
@@ -181,6 +184,14 @@ public class SubjectVo {
 
 	public void setAnswer(List<String> answer) {
 		this.answer = answer;
+	}
+
+	public String getNextQuestionPage() {
+		return nextQuestionPage;
+	}
+
+	public void setNextQuestionPage(String nextQuestionPage) {
+		this.nextQuestionPage = nextQuestionPage;
 	}
 
 }

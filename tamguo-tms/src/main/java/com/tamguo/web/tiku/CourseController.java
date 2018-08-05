@@ -45,7 +45,7 @@ public class CourseController {
 			BookEntity book = null;
 			if(bookList.size() > 0) {
 				book = bookList.get(0);
-				chapterList = iChapterService.selectList(Condition.create().eq("book_id", book.getId()));
+				chapterList = iChapterService.findChapterTree(book.getId());
 			}
 			SubjectEntity subject = iSubjectService.selectById(course.getSubjectId());
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", course.getSubjectId()));
