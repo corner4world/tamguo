@@ -7,10 +7,10 @@
 		<meta name="keyword" content="探果题库,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
 		<meta name="author" content="Tamguo Team" />
 		<meta name="copyright" content="Tamguo" />
-		<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/reset.css'}" />
-		<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/footer.css'}" />
-		<link rel="stylesheet" type="text/css" th:href="${setting.domain + 'css/teacher/joinus.css'}" />
-		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<link rel="stylesheet" type="text/css" th:href="${domainName + 'css/reset.css'}" />
+		<link rel="stylesheet" type="text/css" th:href="${domainName + 'css/footer.css'}" />
+		<link rel="stylesheet" type="text/css" th:href="${domainName + 'css/teacher/joinus.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
 		<!-- 引入样式 -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
 	</head>
@@ -18,8 +18,8 @@
 		<div id="wrapper" class="">
 		    <div id="head">
 		        <div class="mod-header">
-		            <a th:href="${setting.domain}" style="display: block;">
-		                <img th:src="${setting.domain + 'images/logo_731bc32.png'}" alt="logo"></a>
+		            <a th:href="${domainName}" style="display: block;">
+		                <img th:src="${domainName + 'images/logo_731bc32.png'}" alt="logo"></a>
 		        </div>
 		    </div>
 		    <div id="nav">
@@ -143,7 +143,7 @@
 					</div>
 		            <div class="login-link" id="login_link">
 		                <span>我已加入，现在就</span>
-		                <button class="login-btn" id="login_btn"><a th:href="${setting.adminDomain}">登录</a></button></div>
+		                <button class="login-btn" id="login_btn"><a th:href="${adminDomain}">登录</a></button></div>
 		        	</div>
 				    <div id="foot">
 				        <div class="mod-footer">
@@ -156,11 +156,11 @@
 			<div th:replace="include/footer :: footer"></div>
 	</body>
 	<script type="text/javascript" th:inline="javascript">
-	var mainHttp = [[${setting.domain}]];
+	var mainHttp = [[${domainName}]];
 	</script>
 	<!-- 引入组件库 -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
 	<script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
-	<script type="text/javascript" th:src="${setting.domain + 'js/teacher/joinus.js'}"></script>
+	<script type="text/javascript" th:src="${domainName + 'js/teacher/joinus.js'}"></script>
 </html>
