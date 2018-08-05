@@ -11,7 +11,7 @@ public class QuestionVo {
 	@PageFieldSelect(cssQuery=".question-box-inner .questem-inner", selectType = XxlCrawlerConf.SelectType.HTML)
 	private String content;
 	
-	@PageFieldSelect(cssQuery = ".question-box-inner .questem-inner img", selectType = XxlCrawlerConf.SelectType.ATTR, selectVal = "abs:src")
+	@PageFieldSelect(cssQuery = ".question-box-inner img", selectType = XxlCrawlerConf.SelectType.ATTR, selectVal = "abs:src")
     private List<String> contentImages;
 	
 	@PageFieldSelect(cssQuery=".que-options", selectType = XxlCrawlerConf.SelectType.HTML)

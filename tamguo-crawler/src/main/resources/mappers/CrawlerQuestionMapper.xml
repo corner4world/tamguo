@@ -3,6 +3,6 @@
 <mapper namespace="com.tamguo.dao.CrawlerQuestionMapper">
 
 	<select id="queryPageOrderUid" resultType="CrawlerQuestionEntity">
-		select * from crawler_question order by uid desc
+		select * from crawler_question order by id desc
 	</select>
 </mapper>

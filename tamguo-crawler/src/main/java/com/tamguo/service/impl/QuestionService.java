@@ -51,8 +51,8 @@ public class QuestionService implements IQuestionService{
 	SubjectMapper subjectMapper;
 	@Autowired
 	CacheService cacheService;
-	private static final String FILES_NO_FORMAT = "000000";
-	private static final String FILES_PREFIX = "FPIMAGE";
+	private static final String FILES_NO_FORMAT = "000000000";
+	private static final String FILES_PREFIX = "likeshuxue";
 	private static final String DOMAIN = "http://www.tamguo.com";
 	
 	private RunData runData;
@@ -75,6 +75,7 @@ public class QuestionService implements IQuestionService{
 	                	}
                 		CrawlerQuestionEntity condition = new CrawlerQuestionEntity();
 	                	condition.setQuestionUrl(html.baseUri());
+	                	System.out.println(html.baseUri());
 	                	CrawlerQuestionEntity crawlerQuestion = crawlerQuestionMapper.selectOne(condition);
 	                	ChapterEntity chapter = chapterMapper.selectById(crawlerQuestion.getChapterId());
 	                	CourseEntity course = courseMapper.selectById(chapter.getCourseId());
@@ -94,7 +95,7 @@ public class QuestionService implements IQuestionService{
 	                		question.setContent(questionVo.getContent());
 	                	}
 	                	question.setAnalysis(questionVo.getAnalysis());
-	                	if(StringUtils.isEmpty(question.getAnswer())) {
+	                	if(StringUtils.isEmpty(question.getAnalysis())) {
 	                		question.setAnalysis("<p> <span> 略 </span> <br> </p>");
 	                	}
 	                	question.setAnswer(questionVo.getAnswer());
@@ -128,16 +129,19 @@ public class QuestionService implements IQuestionService{
 
                                 // 下载图片文件
                             	String fileName = getFileName(img);
-                                File dir = new File(getFilePath());
+                                String filePath = getFilePath();
+                                String fileDatePath = getFileDatePath();
+                                
+                                File dir = new File(filePath +fileDatePath+ "/");
                 				if (!dir.exists())
                 					dir.mkdirs();
-                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, getFilePath(), fileName);
+                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, filePath +fileDatePath+ "/", fileName);
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                questionVo.setAnswer(questionVo.getAnswer().replace(img, DOMAIN + getFilePath() + fileName));
+                                question.setAnswer(question.getAnswer().replace(img, DOMAIN +  "/files/question/" + fileDatePath + "/" + fileName));
                             }
-                            question.setAnswer(questionVo.getAnswer());
+                            question.setAnswer(question.getAnswer());
                         }
 	                	
 	                	if (questionVo.getAnalysisImages()!=null && questionVo.getAnalysisImages().size() > 0) {
@@ -146,16 +150,19 @@ public class QuestionService implements IQuestionService{
 
                                 // 下载图片文件
                                 String fileName = getFileName(img);
-                                File dir = new File(getFilePath());
+                                String filePath = getFilePath();
+                                String fileDatePath = getFileDatePath();
+                                
+                                File dir = new File(filePath +fileDatePath+ "/");
                 				if (!dir.exists())
                 					dir.mkdirs();
-                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, getFilePath(), fileName);
+                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, filePath +fileDatePath+ "/", fileName);
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                questionVo.setAnalysis(questionVo.getAnalysis().replace(img, DOMAIN + getFilePath() + fileName));
+                                question.setAnalysis(question.getAnalysis().replace(img, DOMAIN + "/files/question/" + fileDatePath + "/" + fileName));
                             }
-                            question.setAnalysis(questionVo.getAnalysis());
+                            question.setAnalysis(question.getAnalysis());
                         }
 	                	
 	                	if (questionVo.getContentImages()!=null && questionVo.getContentImages().size() > 0) {
@@ -164,16 +171,19 @@ public class QuestionService implements IQuestionService{
 
                                 // 下载图片文件
                                 String fileName = getFileName(img);
-                                File dir = new File(getFilePath());
-                				if (!dir.exists())
+                                String filePath = getFilePath();
+                                String fileDatePath = getFileDatePath();
+                                File dir = new File(filePath +fileDatePath+ "/");
+                				if (!dir.exists()) {
                 					dir.mkdirs();
-                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, getFilePath(), fileName);
+                				}
+                                boolean ret = FileUtil.downFile(img, XxlCrawlerConf.TIMEOUT_MILLIS_DEFAULT, filePath +fileDatePath+ "/", fileName);
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                questionVo.setContent(questionVo.getContent().replace(img, DOMAIN + getFilePath() + fileName));
+                                question.setContent(question.getContent().replace(img, DOMAIN + "/files/question/" + fileDatePath + "/" + fileName));
                             }
-                            question.setContent(questionVo.getContent());
+                            question.setContent(question.getContent());
                         }
 	                	
 	                	
@@ -188,9 +198,13 @@ public class QuestionService implements IQuestionService{
 	            	}
 	                
 	                private String getFilePath() {
+	            		return "/home/webdata/files/question/";
+	                }
+	                
+	                private String getFileDatePath() {
 	                	SimpleDateFormat sdf = new SimpleDateFormat("ddHHmm");
 	            		String format = sdf.format(new Date());
-	            		return "/images/question/" + format + "/";
+	            		return format;
 	                }
 
 	            	private String getFileNo() {
@@ -214,7 +228,7 @@ public class QuestionService implements IQuestionService{
 					runData.addUrl(questionList.get(i).getQuestionUrl());
 				}
 				page++;
-				if(questionList.size() < 100) {
+				if(questionList.size() < 1000) {
 					break;
 				}
 			}

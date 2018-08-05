@@ -20,13 +20,8 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 	
 	private Integer questionNum;
 
-	private Integer orders;
+	private Integer sort;
 	
-	private String seoTitle;
-	
-	private String seoKeywords;
-	
-	private String seoDescription;
 	
 	public CourseEntity() {
 	}
@@ -63,40 +58,15 @@ public class CourseEntity extends SuperEntity<CourseEntity> implements Serializa
 		this.pointNum = pointNum;
 	}
 
-	public Integer getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Integer orders) {
-		this.orders = orders;
-	}
-
-
-	public String getSeoTitle() {
-		return seoTitle;
-	}
-
-	public void setSeoTitle(String seoTitle) {
-		this.seoTitle = seoTitle;
-	}
-
-	public String getSeoKeywords() {
-		return seoKeywords;
-	}
-
-	public void setSeoKeywords(String seoKeywords) {
-		this.seoKeywords = seoKeywords;
-	}
-
-	public String getSeoDescription() {
-		return seoDescription;
-	}
-
-	public void setSeoDescription(String seoDescription) {
-		this.seoDescription = seoDescription;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 }

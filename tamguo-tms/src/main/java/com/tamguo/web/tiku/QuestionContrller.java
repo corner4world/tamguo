@@ -81,7 +81,7 @@ public class QuestionContrller {
 			model.addObject("question", question);
 			
 			// 推荐试题
-			model.addObject("featuredQuestionList", iQuestionService.selectList(Condition.create().eq("subject_id", question.getSubjectId()).eq("course_id", question.getCourseId())));
+			model.addObject("featuredQuestionList", iQuestionService.selectPage(new Page<>(1, 3), Condition.create().eq("subject_id", question.getSubjectId()).eq("course_id", question.getCourseId())).getRecords());
 			return model;
 		} catch (Exception e) {
 			model.setViewName("404");
