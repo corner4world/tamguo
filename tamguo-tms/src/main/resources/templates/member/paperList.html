@@ -3,11 +3,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>会员中心-试卷列表</title>
-		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/iconfont.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/paperList.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/memberMain.css'}" />
-		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/iconfont.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/paperList.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/memberMain.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
 		<!-- 引入样式 -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
 	</head>
@@ -16,20 +16,20 @@
 		<div class="head" th:fragment="memberHeader">
 			<div class="head-bar public">
 				<div class="logo">
-					<a target="_blank" th:href="${setting.domain}">
-						<img th:src="${setting.domain + 'images/logo_731bc32.png'}">
+					<a target="_blank" th:href="${domainName}">
+						<img th:src="${domainName + 'images/logo_731bc32.png'}">
 					</a>
 					<p><span>考试中心</span></p>
 				</div>
 				<ul class="nav">
-					<li><a th:href="${setting.domain + 'member/index.html'}">首页</a></li>
-					<li class="active"><a th:href="${setting.domain + 'member/paper.html'}">试卷</a></li>
-					<li><a th:href="${setting.domain + 'member/account.html'}">帐号</a></li>
+					<li><a th:href="${domainName + 'member/index.html'}">首页</a></li>
+					<li class="active"><a th:href="${domainName + 'member/paper.html'}">试卷</a></li>
+					<li><a th:href="${domainName + 'member/account.html'}">帐号</a></li>
 				</ul>
 				<div class="mguser">
 					<div class="mguser-box">
 						<span th:text="${session.currMember.username}">tamguo</span>
-						<a th:href="${setting.domain + 'logout.html'}">退出</a>
+						<a th:href="${domainName + 'logout.html'}">退出</a>
 					</div>
 				</div>
 			</div>
@@ -88,7 +88,7 @@
 		                <tbody>
 		                <tr align="center" valign="middle" style="height:66px">
 		                    <td width="300" class="plist-bt">
-		                        <span @click="openPaperInfo(paper.uid)">{{paper.uid == currPaperUid ? '-' : '+'}}</span>
+		                        <span @click="openPaperInfo(paper.id)">{{paper.id == currPaperUid ? '-' : '+'}}</span>
 		                        <div class="M ng-binding" style="line-height: 40px;" title="软件JAVA">{{paper.name}}
                         		</div>
 		                    </td>
@@ -103,10 +103,10 @@
 		
 		                    <td class="plist-x">
 		                    <span>
-		                    	<a href="javascript:void(0)" v-on:click="updatePaper(paper.uid , paper.name)">编辑</a>|<a href="javascript:void(0)" v-on:click="showDeleteDialog(paper.uid , paper.name)">删除</a>
+		                    	<a href="javascript:void(0)" v-on:click="updatePaper(paper.id , paper.name)">编辑</a>|<a href="javascript:void(0)" v-on:click="showDeleteDialog(paper.id , paper.name)">删除</a>
 		                	</span>
 		                        <ul class="testPaper-list">
-		                            <li><a class="addPaperQuestionInfoBtn" v-on:click="showPaperInfo(paper.uid,paper.queInfo)">添加子卷</a>
+		                            <li><a class="addPaperQuestionInfoBtn" v-on:click="showPaperInfo(paper.id,paper.queInfo)">添加子卷</a>
 		                            </li>
 		                            <li><a href="#" target="_blank" class="ng-scope">预览试卷</a>
 		                        </ul>
@@ -114,7 +114,7 @@
 		                </tr>
 		                </tbody>
 		            </table>
-		            <div v-bind:style="{ display: paper.uid == currPaperUid ? 'block' : 'none'}">
+		            <div v-bind:style="{ display: paper.id == currPaperUid ? 'block' : 'none'}">
 			           <table class="plist-ctab2 able">
 			                <tbody>
 			                <tr class="tr_header" align="center" valign="middle">
@@ -132,13 +132,13 @@
 			                    <td class="plist-x" style="float:none">
 			                        <div>
 			                        <span style="margin-left:0;">
-			                            <a href="javascript:void(0)" class="update_paper2" v-on:click="showUpdatePaperInfo(paper.uid, qInfo.type,qInfo.title,qInfo.uid)">编辑</a>|
-			                            <a href="javascript:void(0)" class="del" v-on:click="showPaperInfoDeleteDialog(paper.uid , qInfo.title , qInfo.uid)">删除</a>
+			                            <a href="javascript:void(0)" class="update_paper2" v-on:click="showUpdatePaperInfo(paper.id, qInfo.type,qInfo.title,qInfo.id)">编辑</a>|
+			                            <a href="javascript:void(0)" class="del" v-on:click="showPaperInfoDeleteDialog(paper.id , qInfo.title , qInfo.id)">删除</a>
 			                        </span>
 			                            <ul class="addQuestion" style="margin:-3px 0 0;float:none">
-			                                <li class="ng-scope"><a class="add able" v-on:click="addPaperQuestionFn(paper.uid)" href="javascript:(0);">添加试题</a>
+			                                <li class="ng-scope"><a class="add able" v-on:click="addPaperQuestionFn(paper.id)" href="javascript:(0);">添加试题</a>
 			                                </li>
-			                                <li class="ng-scope"><a class="edit able" :href="'questionList.html?paperId=' + paper.uid">管理试题</a>
+			                                <li class="ng-scope"><a class="edit able" :href="'questionList.html?paperId=' + paper.id">管理试题</a>
 			                                </li>
 			                            </ul>
 			                        </div>
@@ -174,9 +174,9 @@
 						      <el-select v-model="paper.schoolIdList" multiple placeholder="请选择">
 							    <el-option
 							      v-for="school in schools"
-							      :key="school.uid"
+							      :key="school.id"
 							      :label="school.name"
-							      :value="school.uid">
+							      :value="school.id">
 							    </el-option>
 							  </el-select>
 						  </el-form-item>
@@ -243,11 +243,11 @@
 		
 	</body>
 	<script type="text/javascript" th:inline="javascript">
-		var mainHttp = [[${setting.domain}]];
+		var mainHttp = [[${domainName}]];
 	</script>
     <!-- import JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
     <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
-	<script type="text/javascript" th:src="${setting.domain + 'js/member/paperList.js'}" ></script>
+	<script type="text/javascript" th:src="${domainName + 'js/member/paperList.js'}" ></script>
 </html>

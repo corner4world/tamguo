@@ -177,7 +177,7 @@
 					<p class="title-detail">一考知底，高分必刷，全面提分</p>
 					<div class="title-underline"></div>
 					<div class="cityArea">
-						<a th:class="${a.id == '1'} ? 'cityname selected' : 'cityname'" th:attr="provinceid=${a.id},data-provinceid=${a.id}" th:each="a,aStat:${areaList}" th:text="${a.name}">北京</a>
+						<a th:class="${a.id == '1'} ? 'cityname selected' : 'cityname'" th:attr="provinceid=${a.id},data-provinceid=${a.id}" th:each="a,aStat:${areaList}" th:text="${a.areaName}">北京</a>
 					</div>
 					<div class="paper-main">
 						<div class="paper-box zhenti-box homepage-zhenti-box">
@@ -192,8 +192,9 @@
 										</p>
 										<p class="list-item-detail">
 											<a class="list-item-link list-item-link-jiexi" th:href="${domainName + 'paper/'+h.id+'.html'}" data-paperid="d08fb966f5335a8102d220a5" target="_blank">解析</a><span class="item-separate">|</span>
-											<a th:href="${domainName + 'paper/'+h.id+'.html'}" class=" list-item-link  list-item-link-xiazai" "=" " data-paperid="d08fb966f5335a8102d220a5 " target="_blank ">下载</a>
-										</li>
+											<a th:href="${domainName + 'paper/'+h.id+'.html'}" class=" list-item-link  list-item-link-xiazai" data-paperid="d08fb966f5335a8102d220a5 " target="_blank ">下载</a>
+										</p>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -209,7 +210,7 @@
 										</p>
 										<p class="list-item-detail">
 											<a class="list-item-link list-item-link-jiexi" th:href="${domainName + 'paper/'+s.id+'.html'}" data-paperid="19f2517101f69e31433294f3" target="_blank">解析</a><span class="item-separate">|</span>
-											<a th:href="${domainName + 'paper/'+s.id+'.html'}" class=" list-item-link  list-item-link-xiazai" "=" " data-paperid="19f2517101f69e31433294f3 " target="_blank ">下载</a></p>
+											<a th:href="${domainName + 'paper/'+s.id+'.html'}" class=" list-item-link  list-item-link-xiazai" data-paperid="19f2517101f69e31433294f3 " target="_blank ">下载</a></p>
 									</li>
 								</ul>
 							</div>

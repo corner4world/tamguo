@@ -58,4 +58,25 @@ public class SystemConstant {
 	
 	/** 名校缓存KEY*/
 	public static final String ELITE_PAPER = "ElitePaper:";
+	
+	/** 安全验证前缀*/
+	public static final String SECURITY_CHECK_PREFIX = "securityCheck:";
+	
+	/** 短信找回密码前缀*/
+	public static final String ALIYUN_MOBILE_SMS_PREFIX = "MOBILE_SMS_PREKEY_";
+	
+	/** 邮箱找回密码前缀*/
+	public static final String ALIYUN_MAIL_FIND_PASSWORD_PREFIX = "EMAIL_FIND_PASSWORD_";
+	
+	/** 默认会员头像*/
+	public static final String DEFAULT_MEMBER_AVATAR = "images/avatar.png";
+	
+	/** 登录错误次数*/
+	public static final String LOGIN_FAILURE_COUNT = "loginFailureCount:";
+	
+	/** ALIYUN */
+	public static final String ALIYUN_ACCESS_KEY_ID = "LTAINGkheMeWtxUR";
+	
+	/** ALIYUN*/
+	public static final String ALIYUN_ACCESS_KEY_SECRET = "ONUKuCz85kU4In07y4dvpM28mfWOGa";
 }

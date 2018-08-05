@@ -64,6 +64,11 @@
 			<artifactId>spring-session-data-redis</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.github.theborakompanioni</groupId>
+			<artifactId>thymeleaf-extras-shiro</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.32</version>
@@ -124,18 +129,13 @@
 			<artifactId>commons-email</artifactId>
 			<version>1.5</version>
 		</dependency>
-		<dependency>
-			<groupId>com.github.theborakompanioni</groupId>
-			<artifactId>thymeleaf-extras-shiro</artifactId>
-			<version>1.2.1</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-patchca</artifactId>
 			<version>1.0.5</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>com.tamguo</groupId>
 			<artifactId>tamguo-modules-core</artifactId>

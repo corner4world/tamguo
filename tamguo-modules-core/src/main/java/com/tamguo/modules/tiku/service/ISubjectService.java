@@ -1,5 +1,6 @@
 package com.tamguo.modules.tiku.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.tamguo.modules.tiku.model.SubjectEntity;
@@ -23,5 +24,7 @@ public interface ISubjectService extends IService<SubjectEntity>{
 
 	/** 删除分类*/
 	void delete(String uid);
+
+	JSONArray getCourseCascaderTree();
 
 }

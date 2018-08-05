@@ -10,6 +10,23 @@
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.25</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.bladejava</groupId>
+			<artifactId>blade-patchca</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-core</artifactId>
+			<version>3.2.8</version>
+		</dependency>
   </dependencies>
   
   <build>

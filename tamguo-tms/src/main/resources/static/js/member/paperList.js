@@ -77,10 +77,10 @@ var vm = new Vue({
 	methods: {
 		reload: function (currPage) {
 			vm.loading = true;
-			axios({method: 'get',url: mainHttp + "/member/paper/list.html?name="+vm.q.name+"&page="+currPage+"&limit=6"}).then(function(response){
+			axios({method: 'get',url: mainHttp + "member/paper/list.html?name="+vm.q.name+"&page="+currPage+"&limit=6"}).then(function(response){
 				vm.paperList = response.data.list;
 				if(vm.paperList != null && vm.paperList.length > 0 ){
-					vm.currPaperUid = vm.paperList[0].uid;
+					vm.currPaperUid = vm.paperList[0].id;
 				}
 				vm.totalCount = response.data.totalCount;
 				vm.loading = false;
@@ -126,7 +126,7 @@ var vm = new Vue({
 			    		vm.paper.schoolId = vm.paper.schoolIdList.join(",");
 		    		}
 		    		var url = null;
-		    		if(/^(undefined|null|\s*)?$/.test(vm.paper.uid)){
+		    		if(/^(undefined|null|\s*)?$/.test(vm.paper.id)){
 		    			url = mainHttp + 'member/paperList/addPaper.html';
 		    		}else {
 		    			url = mainHttp + 'member/paperList/updatePaper.html';
@@ -176,7 +176,7 @@ var vm = new Vue({
 		showPaperInfo:function(uid , queInfo){
 			vm.paperInfo.flag = true;
 			
-			vm.paperInfo.uid = uid;
+			vm.paperInfo.id = uid;
 			
 			vm.paperInfo.queInfo = queInfo;
 			
@@ -216,7 +216,7 @@ var vm = new Vue({
 		// 实现修改试卷
 		showUpdatePaperInfo:function(uid , type , title , infoUid){
 			vm.paperInfo.flag = false;
-			vm.paperInfo.uid = uid;
+			vm.paperInfo.id = uid;
 			vm.paperInfoDialogFormVisible = true
 			
 			vm.paperInfo.name = name;

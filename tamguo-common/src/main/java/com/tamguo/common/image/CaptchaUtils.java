@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-Now http://jeesite.com All rights reserved.
  */
-package com.tamguo.config.image;
+package com.tamguo.common.image;
 
 import java.awt.Color;
 import java.awt.Graphics;

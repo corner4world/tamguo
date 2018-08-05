@@ -1,14 +1,19 @@
 package com.tamguo.modules.tiku.service.impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.tamguo.modules.tiku.dao.CourseMapper;
 import com.tamguo.modules.tiku.dao.SubjectMapper;
+import com.tamguo.modules.tiku.model.CourseEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
 import com.tamguo.modules.tiku.model.condition.SubjectCondition;
 import com.tamguo.modules.tiku.model.enums.SubjectStatusEnum;
@@ -19,6 +24,8 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, SubjectEntity
 	
 	@Autowired
 	private SubjectMapper subjectMapper;
+	@Autowired
+	private CourseMapper courseMapper;
 
 	@Transactional(readOnly=false)
 	@SuppressWarnings("unchecked")
@@ -76,6 +83,33 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, SubjectEntity
 		SubjectEntity entity = subjectMapper.selectById(uid);
 		entity.setStatus(SubjectStatusEnum.DELETE);
 		subjectMapper.updateById(entity);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public JSONArray getCourseCascaderTree() {
+		JSONArray courseTree = new JSONArray();
+		List<SubjectEntity> subjectList = subjectMapper.selectList(Condition.EMPTY);
+		for(int i=0 ; i<subjectList.size() ; i++){
+			SubjectEntity subject = subjectList.get(i);
+			JSONObject node = new JSONObject();
+			node.put("value", subject.getId());
+			node.put("label", subject.getName());
+			
+			JSONArray children = new JSONArray();
+			List<CourseEntity> courseList = courseMapper.selectList(Condition.create().eq("subject_id", subject.getId()));
+			for(int k=0 ; k<courseList.size() ; k++){
+				CourseEntity course = courseList.get(k);
+				
+				JSONObject no = new JSONObject();
+				no.put("value", course.getId());
+				no.put("label", course.getName());
+				children.add(no);
+			}
+			node.put("children", children);
+			courseTree.add(node);
+		}
+		return courseTree;
 	}
 
 }

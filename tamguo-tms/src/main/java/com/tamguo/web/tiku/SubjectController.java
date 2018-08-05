@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.service.ISysAreaService;
 import com.tamguo.modules.tiku.model.BookEntity;
 import com.tamguo.modules.tiku.model.ChapterEntity;
@@ -71,6 +74,13 @@ public class SubjectController {
 			model.setViewName("500");
 			return model;
 		}
-		
     }
+	
+	// [{"value":"11","label":"北京市","children":[{"value":"1101","label":"市辖区"}]}]
+	@RequestMapping(value = {"subject/getCourseCascaderTree.html"}, method = RequestMethod.GET)
+	@ResponseBody
+	public Result getCourseCascaderTree() {
+		JSONArray list = iSubjectService.getCourseCascaderTree();
+		return Result.successResult(list);
+	}
 }

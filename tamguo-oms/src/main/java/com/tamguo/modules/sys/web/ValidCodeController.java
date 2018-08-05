@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tamguo.common.image.CaptchaUtils;
 import com.tamguo.common.utils.ExceptionSupport;
 import com.tamguo.common.utils.SystemConstant;
-import com.tamguo.config.image.CaptchaUtils;
 import com.tamguo.modules.sys.utils.ShiroUtils;
 
 @Controller

@@ -7,17 +7,17 @@
 		<meta name="keyword" content="探果题库,数学试卷,高校试题,名校,名校试题,名校试卷,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
 		<meta name="author" content="Tamguo Team" />
 		<meta name="copyright" content="Tamguo" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/register.css'}" />
-		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/register.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
 	</head>
 	<body>
 		<div id="wrapper" class="">
 		    <div id="head">
 		        <div class="mod-header">
-		            <a th:href="${setting.domain}" style="display: block;">
-		                <img th:src="${setting.domain + 'images/logo_731bc32.png'}" alt="logo"></a>
+		            <a th:href="${domainName}" style="display: block;">
+		                <img th:src="${domainName + 'images/logo_731bc32.png'}" alt="logo"></a>
 		        </div>
 		    </div>
 		    <div id="nav">
@@ -64,7 +64,7 @@
 		            </div>
 		            <div class="login-link" id="login_link">
 		                <span>我已注册，现在就</span>
-		                <button class="login-btn" id="login_btn"><a title="探果网登录" th:href="${setting.domain + 'login.html'}">登录</a></button></div>
+		                <button class="login-btn" id="login_btn"><a title="探果网登录" th:href="${domainName + 'login.html'}">登录</a></button></div>
 		        </div>
 			    <div id="foot">
 			        <div class="mod-footer">
@@ -74,11 +74,11 @@
 	</div>
 	</body>
 	<script type="text/javascript" th:inline="javascript">
-	var mainHttp = [[${setting.domain}]];
+	var mainHttp = [[${domainName}]];
 	</script>
     <!-- import JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
     <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
-	<script type="text/javascript" th:src="${setting.domain + 'js/member/register.js'}"></script>
+	<script type="text/javascript" th:src="${domainName + 'js/member/register.js'}"></script>
 </html>
