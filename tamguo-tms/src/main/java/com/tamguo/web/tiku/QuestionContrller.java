@@ -33,7 +33,7 @@ public class QuestionContrller {
 	private ICourseService iCourseService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = {"questionlist/{chapterId}-{offset}-{limit}"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"questionlist/{chapterId}-{offset}-{limit}.html"}, method = RequestMethod.GET)
 	public ModelAndView questionList(@PathVariable String chapterId , @PathVariable Integer offset , 
 			@PathVariable Integer limit , ModelAndView model){
 		try {
@@ -90,7 +90,7 @@ public class QuestionContrller {
 		
 	}
 	
-	@RequestMapping(value = {"question/getQuestion/{uid}"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"question/getQuestion/{uid}.html"}, method = RequestMethod.GET)
 	@ResponseBody
 	public Result getQuestion(@PathVariable String uid , ModelAndView model){
 		return Result.successResult(iQuestionService.selectById(uid));
