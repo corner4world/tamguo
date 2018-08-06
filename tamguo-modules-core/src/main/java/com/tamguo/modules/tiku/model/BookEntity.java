@@ -1,14 +1,13 @@
 package com.tamguo.modules.tiku.model;
 
 import java.util.Date;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
-import com.tamguo.modules.tiku.model.enums.CourseStatusEnum;
+import com.tamguo.modules.tiku.model.enums.BookStatusEnum;
 
 @TableName(value="tiku_book")
 public class BookEntity {
@@ -22,6 +21,7 @@ public class BookEntity {
 	private Integer questionNum;
 	private Integer pointNum;
 	private Integer sort;
+	private String remarks;
 	
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
@@ -33,7 +33,7 @@ public class BookEntity {
 	private Date updateDate;
 	
 	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
-	private CourseStatusEnum status;
+	private BookStatusEnum status;
 
 	@TableField(exist=false)
 	private String subjectName;
@@ -129,14 +129,6 @@ public class BookEntity {
 		this.updateDate = updateDate;
 	}
 
-	public CourseStatusEnum getStatus() {
-		return status;
-	}
-
-	public void setStatus(CourseStatusEnum status) {
-		this.status = status;
-	}
-
 	public String getSubjectName() {
 		return subjectName;
 	}
@@ -159,6 +151,22 @@ public class BookEntity {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public BookStatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(BookStatusEnum status) {
+		this.status = status;
 	}
 	
 }

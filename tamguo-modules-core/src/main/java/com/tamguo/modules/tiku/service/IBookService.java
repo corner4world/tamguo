@@ -9,4 +9,6 @@ public interface IBookService extends IService<BookEntity>{
 
 	Page<BookEntity> listData(BookCondition condition);
 
+	void save(BookEntity book);
+
 }

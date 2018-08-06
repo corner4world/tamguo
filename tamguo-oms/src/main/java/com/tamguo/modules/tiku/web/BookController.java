@@ -1,7 +1,6 @@
 package com.tamguo.modules.tiku.web;
 
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tamguo.common.utils.ExceptionSupport;
 import com.tamguo.common.utils.Result;
 import com.tamguo.modules.tiku.model.BookEntity;
 import com.tamguo.modules.tiku.model.condition.BookCondition;
@@ -45,5 +45,14 @@ public class BookController {
 		return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
 	}
 
-	
+	@RequestMapping(path="save",method=RequestMethod.POST)
+	@ResponseBody
+	public Result save(BookEntity book) {
+		try {
+			iBookService.save(book);
+			return Result.result(0, null, "保存书籍【"+book.getName()+"】成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("保存书籍", this.getClass(), e);
+		}
+	}
 }
