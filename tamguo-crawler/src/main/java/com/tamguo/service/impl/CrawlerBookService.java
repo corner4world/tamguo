@@ -28,10 +28,12 @@ public class CrawlerBookService implements ICrawlerBookService {
     @Autowired
     BookMapper bookMapper;
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    @SuppressWarnings("unused")
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void crawlerBook() {
         List<BookEntity> bookEntities = bookMapper.selectList(Condition.EMPTY);
         for (BookEntity bookEntity : bookEntities) {
@@ -48,7 +50,7 @@ public class CrawlerBookService implements ICrawlerBookService {
                     .setPageParser(new PageParser<CrawlerBookVo>() {
                         @Override
                         public void parse(Document html, Element pageVoElement, CrawlerBookVo crawlerBookVo) {
-                            String pageUrl = html.baseUri();
+                        //  String pageUrl = html.baseUri();
                             // 解析封装 PageVo 对象
                             String img = crawlerBookVo.getBookImage();
                             if (StringUtils.isNoneBlank(img)) {

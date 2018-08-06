@@ -73,14 +73,14 @@ public class SubjectService implements ISubjectService{
                     	
                     	ChapterEntity rootChapter = new ChapterEntity();
                     	rootChapter.setCourseId(COURSE_ID);
-                    	rootChapter.setParentId("-1");
+                    	rootChapter.setParentCode("-1");
                     	rootChapter.setName(subjectVo.getChapterCurrName());
                     	rootChapter.setQuestionNum(0);
                     	rootChapter.setPointNum(0);
                     	rootChapter.setOrders(0);
                     	rootChapter.setTreeLeaf(false);
                     	rootChapter.setTreeLevel(0);
-                    	rootChapter.setParentIds("-1,");
+                    	rootChapter.setParentCodes("-1,");
                     	rootChapter.setBookId(BOOK_ID);
                 		chapterMapper.insert(rootChapter);
                 		
@@ -91,7 +91,7 @@ public class SubjectService implements ISubjectService{
                     		logger.info(chapterName);
                     		ChapterEntity chapter = new ChapterEntity();
                     		chapter.setCourseId(COURSE_ID);
-                    		chapter.setParentId(rootChapter.getUid());
+                    		chapter.setParentCode(rootChapter.getUid());
                     		chapter.setName(chapterName);
                     		chapter.setQuestionNum(0);
                     		chapter.setPointNum(0);
@@ -100,7 +100,7 @@ public class SubjectService implements ISubjectService{
                     		chapter.setTreeLeaf(false);
                     		chapter.setTreeLevel(1);
                     		chapterMapper.insert(chapter);
-                    		chapter.setParentIds(rootChapter.getParentIds() + chapter.getUid() + ",");
+                    		chapter.setParentCodes(rootChapter.getParentCodes() + chapter.getUid() + ",");
                     		chapterMapper.updateById(chapter);
                     		
                     		Elements detailKpoint1s = element.getElementsByClass("detail-kpoint-1");
@@ -114,7 +114,7 @@ public class SubjectService implements ISubjectService{
                         			ChapterEntity chapter1 = new ChapterEntity();
                         			chapter1.setCourseId(COURSE_ID);
                         			chapter1.setBookId(BOOK_ID);
-                        			chapter1.setParentId(chapter.getUid());
+                        			chapter1.setParentCode(chapter.getUid());
                         			chapter1.setName(chapterName1);
                         			chapter1.setQuestionNum(0);
                         			chapter1.setPointNum(0);
@@ -123,7 +123,7 @@ public class SubjectService implements ISubjectService{
                         			chapter1.setTreeLeaf(false);
                         			chapter1.setTreeLevel(2);
                             		chapterMapper.insert(chapter1);
-                        			chapter1.setParentIds(chapter.getParentIds() + chapter1.getUid() + ",");
+                        			chapter1.setParentCodes(chapter.getParentCodes() + chapter1.getUid() + ",");
                         			chapterMapper.updateById(chapter1);
                         			
                         			
@@ -136,7 +136,7 @@ public class SubjectService implements ISubjectService{
                         				ChapterEntity chapter2 = new ChapterEntity();
                         				chapter2.setCourseId(COURSE_ID);
                         				chapter2.setBookId(BOOK_ID);
-                        				chapter2.setParentId(chapter1.getUid());
+                        				chapter2.setParentCode(chapter1.getUid());
                         				chapter2.setName(chapterName2);
                         				chapter2.setQuestionNum(0);
                         				chapter2.setPointNum(0);
@@ -144,7 +144,7 @@ public class SubjectService implements ISubjectService{
                         				chapter2.setTreeLeaf(true);
                         				chapter2.setTreeLevel(3);
                                 		chapterMapper.insert(chapter2);
-                        				chapter2.setParentIds(chapter1.getParentIds() + chapter2.getUid() + ",");
+                        				chapter2.setParentCodes(chapter1.getParentCodes() + chapter2.getUid() + ",");
                                 		chapterMapper.updateById(chapter2);
                                 		
                                 		Elements maskList = detailKpoint.getElementsByClass("mask");

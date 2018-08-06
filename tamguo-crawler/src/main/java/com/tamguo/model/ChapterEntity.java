@@ -17,9 +17,9 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 
 	private String name;
 
-	private String parentId;
+	private String parentCode;
 	
-	private String parentIds;
+	private String parentCodes;
 	
 	private Integer treeLevel;
 	
@@ -50,14 +50,6 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getParentId() {
-		return this.parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 
 	public Integer getQuestionNum() {
@@ -92,14 +84,6 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 		this.bookId = bookId;
 	}
 
-	public String getParentIds() {
-		return parentIds;
-	}
-
-	public void setParentIds(String parentIds) {
-		this.parentIds = parentIds;
-	}
-
 	public Integer getTreeLevel() {
 		return treeLevel;
 	}
@@ -114,6 +98,22 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 
 	public void setTreeLeaf(Boolean treeLeaf) {
 		this.treeLeaf = treeLeaf;
+	}
+
+	public String getParentCode() {
+		return parentCode;
+	}
+
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
+	}
+
+	public String getParentCodes() {
+		return parentCodes;
+	}
+
+	public void setParentCodes(String parentCodes) {
+		this.parentCodes = parentCodes;
 	}
 
 }
