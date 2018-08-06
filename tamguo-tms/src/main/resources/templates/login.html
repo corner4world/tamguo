@@ -7,15 +7,15 @@
 		<meta name="keyword" content="探果题库,数学试卷,高校试题,名校,名校试题,名校试卷,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
 		<meta name="author" content="Tamguo Team" />
 		<meta name="copyright" content="Tamguo" />	
-		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/login.css'}" />
-		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/login.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
 	</head>
 	<body>
 		<div id="wrapper" class="">
 			<div id="head">
 				<div class="mod-header">
-					<a th:href="${setting.domain + 'login.html'}"><img th:src="${setting.domain + 'images/logo_731bc32.png'}" alt="logo"></a>
+					<a th:href="${domainName + 'login.html'}"><img th:src="${domainName + 'images/logo_731bc32.png'}" alt="logo"></a>
 				</div>
 			</div>
 			<div id="nav">
@@ -30,7 +30,7 @@
 					<div class="login-form">
 						<div class="login-wrapper">
 							<div id="login" class="tang-pass-login animation" style="display: block; visibility: visible; opacity: 1;">
-								<form id="TANGRAM__PSP_3__form" th:action="${setting.domain + 'submitLogin.html'}" class="pass-form pass-form-normal" method="POST" autocomplete="off">
+								<form id="TANGRAM__PSP_3__form" th:action="${domainName + 'submitLogin.html'}" class="pass-form pass-form-normal" method="POST" autocomplete="off">
 									<p class="pass-form-logo">用户名密码登录</p>
 									<p id="TANGRAM__PSP_3__errorWrapper" class="pass-generalErrorWrapper">
 										<span id="TANGRAM__PSP_3__error" class="pass-generalError pass-generalError-error" th:text="${msg}"></span>
@@ -49,11 +49,11 @@
 										<input id="TANGRAM__PSP_3__verifyCode" type="text" name="verifyCode" class="pass-text-input pass-text-input-verifyCode" maxlength="6" placeholder="验证码" autocomplete="off">
 										<span id="TANGRAM__PSP_3__verifyCode_clearbtn" class="pass-clearbtn pass-clearbtn-verifyCode" style="display:none;"></span>
 										<span id="TANGRAM__PSP_3__verifyCodeImgParent" class="pass-verifyCodeImgParent">
-											<img id="TANGRAM__PSP_3__verifyCodeImg" class="pass-verifyCode" th:src="${setting.domain + 'captcha.jpg'}"></span>
+											<img id="TANGRAM__PSP_3__verifyCodeImg" class="pass-verifyCode" th:src="${domainName + 'captcha.jpg'}"></span>
 										<a id="TANGRAM__PSP_3__verifyCodeChange" href="#" class="pass-change-verifyCode">换一张</a><span id="TANGRAM__PSP_3__verifyCodeError" class="pass-error pass-error-verifyCode"></span><span id="TANGRAM__PSP_3__verifyCodeTip" class="pass-tip pass-tip-verifyCode"></span><span id="TANGRAM__PSP_3__verifyCodeSuccess" class="pass-success pass-success-verifyCode"></span></p>
 									<p id="TANGRAM__PSP_3__memberPassWrapper" class="pass-form-item pass-form-item-memberPass"><input id="TANGRAM__PSP_3__memberPass" type="checkbox" name="memberPass" class="pass-checkbox-input pass-checkbox-memberPass" checked="checked"><label for="TANGRAM__PSP_3__memberPass" id="TANGRAM__PSP_3__memberPassLabel" class="">下次自动登录</label></p>
 									<p id="TANGRAM__PSP_3__submitWrapper" class="pass-form-item pass-form-item-submit"><input id="TANGRAM__PSP_3__submit" type="submit" value="登录" class="pass-button pass-button-submit">
-										<a class="pass-fgtpwd pass-link" th:href="${setting.domain + 'password/find.html'}" target="_blank">忘记密码？</a>
+										<a class="pass-fgtpwd pass-link" th:href="${domainName + 'password/find.html'}" target="_blank">忘记密码？</a>
 									</p>
 								</form>
 							</div>
@@ -81,7 +81,7 @@
 										</div>
 									</div>
 								</div>
-								<a class="pass-reglink pass-link" th:href="${setting.domain + 'register.html'}" target="_blank">立即注册</a>
+								<a class="pass-reglink pass-link" th:href="${domainName + 'register.html'}" target="_blank">立即注册</a>
 							</div>
 						</div>
 					</div>
@@ -95,8 +95,8 @@
 		</div>
 	</body>
 	<script type="text/javascript" th:inline="javascript">
-	var mainHttp = [[${setting.domain}]];
+	var mainHttp = [[${domainName}]];
 	</script>
 	<script type="text/javascript" src="http://static.tamguo.com/static/js/jquery-1.8.3.min.js" ></script>
-	<script type="text/javascript" th:src="${setting.domain + 'js/member/login.js'}"></script>
+	<script type="text/javascript" th:src="${domainName + 'js/member/login.js'}"></script>
 </html>
