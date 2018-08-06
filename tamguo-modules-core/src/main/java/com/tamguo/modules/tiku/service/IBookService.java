@@ -11,4 +11,6 @@ public interface IBookService extends IService<BookEntity>{
 
 	void save(BookEntity book);
 
+	void update(BookEntity book);
+
 }

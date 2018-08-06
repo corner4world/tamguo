@@ -39,4 +39,21 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, BookEntity> impleme
 		bookMapper.insert(book);
 	}
 
+	@Transactional(readOnly=false)
+	@Override
+	public void update(BookEntity book) {
+		CourseEntity course = courseMapper.selectById(book.getCourseId());
+		BookEntity entity = bookMapper.selectById(book.getId());
+		
+		entity.setName(book.getName());
+		entity.setPointNum(book.getPointNum());
+		entity.setQuestionNum(book.getQuestionNum());
+		entity.setRemarks(book.getRemarks());
+		entity.setPublishingHouse(book.getPublishingHouse());
+		entity.setSort(book.getSort());
+		entity.setCourseId(course.getId());
+		
+		bookMapper.updateById(entity);
+	}
+
 }

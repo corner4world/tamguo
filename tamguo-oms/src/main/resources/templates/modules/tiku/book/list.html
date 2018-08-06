@@ -170,8 +170,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'书籍编号', name:'uid', index:'u.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
-			return '<a href="sys/user/update?userCode='+row.userCode+'&op=edit" class="btnList" data-title="编辑用户">'+(val||row.id)+'</a>';
+		{header:'书籍编号', name:'id', index:'u.id', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="tiku/book/update?id='+row.id+'&op=edit" class="btnList" data-title="编辑书籍">'+(val||row.id)+'</a>';
 		}},
 		{header:'分类', name:'subjectName', index:'u.courseName', width:200, align:"center"},
 		{header:'科目', name:'courseName', index:'u.courseName', width:200, align:"center"},
@@ -194,7 +194,7 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="sys/user/update?userCode='+row.userCode+'&op=edit" class="btnList" title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="tiku/book/update?id='+row.id+'&op=edit" class="btnList" title="编辑书籍"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == Global.STATUS_NORMAL){
 					actions.push('<a href="'+ctx+'sys/user/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
