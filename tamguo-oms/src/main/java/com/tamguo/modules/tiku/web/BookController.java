@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.common.utils.ExceptionSupport;
 import com.tamguo.common.utils.Result;
@@ -107,5 +108,11 @@ public class BookController {
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("停用书籍", this.getClass(), e);
 		}
+	}
+	
+	@RequestMapping(path="treeData",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONArray treeData() {
+		return iBookService.treeData();
 	}
 }

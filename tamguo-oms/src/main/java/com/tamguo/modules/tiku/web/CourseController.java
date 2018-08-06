@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.common.utils.ExceptionSupport;
@@ -120,9 +119,4 @@ public class CourseController {
 		}
 	}
 	
-	@RequestMapping(path="treeData",method=RequestMethod.GET)
-	@ResponseBody
-	public JSONArray treeData() {
-		return iCourseService.treeData();
-	}
 }

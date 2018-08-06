@@ -42,7 +42,7 @@ public class QuestionContrller {
 			ChapterEntity chapter = iChapterService.selectById(chapterId);
 			CourseEntity course = iCourseService.selectById(chapter.getCourseId());
 			SubjectEntity subject = iSubjectService.selectById(course.getSubjectId());
-			ChapterEntity parentChapter = iChapterService.selectById(chapter.getParentId());
+			ChapterEntity parentChapter = iChapterService.selectById(chapter.getParentCode());
 			ChapterEntity nextChapter = iChapterService.selectById(chapter.getId());
 			
 			Page<QuestionEntity> page = new Page<>();

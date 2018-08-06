@@ -17,16 +17,14 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	private String courseId;
-
 	private String name;
-
-	private String parentId;
-	
+	private String parentCode;
+	private String parentCodes;
 	private Integer questionNum;
-	
 	private Integer pointNum;
-	
 	private Integer orders;
+	private Boolean treeLeaf;
+	private String treeLevel; 
 	
 	@TableField(exist=false)
 	private List<ChapterEntity> childChapterList;
@@ -48,14 +46,6 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getParentId() {
-		return this.parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 
 	public List<ChapterEntity> getChildChapterList() {
@@ -88,6 +78,38 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 
 	public void setOrders(Integer orders) {
 		this.orders = orders;
+	}
+
+	public String getParentCode() {
+		return parentCode;
+	}
+
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
+	}
+
+	public String getParentCodes() {
+		return parentCodes;
+	}
+
+	public void setParentCodes(String parentCodes) {
+		this.parentCodes = parentCodes;
+	}
+
+	public Boolean getTreeLeaf() {
+		return treeLeaf;
+	}
+
+	public void setTreeLeaf(Boolean treeLeaf) {
+		this.treeLeaf = treeLeaf;
+	}
+
+	public String getTreeLevel() {
+		return treeLevel;
+	}
+
+	public void setTreeLevel(String treeLevel) {
+		this.treeLevel = treeLevel;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +13,14 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.common.utils.SystemConstant;
 import com.tamguo.modules.tiku.dao.ChapterMapper;
 import com.tamguo.modules.tiku.model.ChapterEntity;
+import com.tamguo.modules.tiku.model.condition.ChapterCondition;
 import com.tamguo.modules.tiku.service.IChapterService;
 
 @Service
 public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity> implements IChapterService{
+	
+	@Autowired
+	ChapterMapper chapterMapper;
 
 	@Transactional(readOnly=false)
 	@SuppressWarnings("unchecked")
@@ -27,7 +32,7 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 		String rootUid = StringUtils.EMPTY;
 		for(int i=0 ; i<chapterList.size() ; i++){
 			ChapterEntity chapter = chapterList.get(i);
-			if(chapter.getParentId().equals(SystemConstant.CHAPTER_DEFAULT_ROOT_UID)){
+			if(chapter.getParentCode().equals(SystemConstant.CHAPTER_DEFAULT_ROOT_UID)){
 				rootUid = chapter.getId();
 			}
 		}
@@ -35,7 +40,7 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 		List<ChapterEntity> entitys = new ArrayList<>();
 		for(int i=0 ; i<chapterList.size() ; i++){
 			ChapterEntity chapter = chapterList.get(i);
-			if(rootUid.equals(chapter.getParentId())){
+			if(rootUid.equals(chapter.getParentCode())){
 				entitys.add(chapter);
 			}
 		}
@@ -44,7 +49,7 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 			List<ChapterEntity> childs = new ArrayList<>();
 			for(int k=0 ; k<chapterList.size() ; k++){
 				ChapterEntity chapter = chapterList.get(k);
-				if(entity.getId().equals(chapter.getParentId())){
+				if(entity.getId().equals(chapter.getParentCode())){
 					childs.add(chapter);
 				}
 			}
@@ -57,7 +62,7 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 				List<ChapterEntity> tmpChilds = new ArrayList<>();
 				for(int n=0 ; n<chapterList.size() ; n++){
 					ChapterEntity chapter = chapterList.get(n);
-					if(child.getId().equals(chapter.getParentId())){
+					if(child.getId().equals(chapter.getParentCode())){
 						tmpChilds.add(chapter);
 					}
 				}
@@ -65,6 +70,18 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 			}
 		}
 		return entitys;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ChapterEntity> listData(ChapterCondition condition) {
+		Condition query = Condition.create();
+		if(!StringUtils.isEmpty(condition.getParentCode())) {
+			query.eq("parent_code", condition.getParentCode());
+		}else {
+			query.eq("tree_level", "0");
+		}
+		return chapterMapper.selectList(query);
 	}
 	
 }
