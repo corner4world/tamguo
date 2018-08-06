@@ -40,6 +40,12 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 		<div class="box-body">
 			<form id="searchForm" th:action="${setting.domain + 'tiku/book/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
 				<div class="form-group">
+					<label class="control-label">书籍编号：</label>
+					<div class="control-inline">
+						<input type="text" id="id" name="id" value="" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
 					<label class="control-label">书籍名称：</label>
 					<div class="control-inline">
 						<input type="text" id="name" name="name" value="" maxlength="100" class="form-control width-90"/>
@@ -52,12 +58,86 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">题库分类：</label>
-					<div class="control-inline width-120">
-						<select id="subjectId" name="subjectId" class="form-control">
-							<option value="">&nbsp;</option>
-							<option th:value="${subject.id}" th:each="subject,subjectStat:${subjectList}" th:text="${subject.name}">财务经理</option>
-						</select>					
+					<label class="control-label">科目：</label>
+					<div class="control-inline width-90">
+					<div class="input-group treeselect" id="officeDiv" data-url="tiku/course/treeData?">
+						<input id="courseId" type="hidden" name="courseId" value="" class="isReset"/>
+						<input id="courseName" type="text" name="courseName" value=""
+							class="form-control  " readonly="readonly"
+						/><span class="input-group-btn"><a id="officeButton" href="javascript:"
+							class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
+						</span>
+					</div>
+					<script>
+					$("#officeButton,#courseName").click(function(){
+						if ($("#officeButton").hasClass("disabled")){
+							return true;
+						}
+						var options = {
+							type: 2,
+							maxmin: true,
+							shadeClose: true,
+							title: '机构选择',
+							area: ['300px', '400px'],
+							content: 'sys/treeselect',
+							contentFormData: {
+								url: $('#officeDiv').attr('data-url'),
+								checkbox: 'false',
+								expandLevel: '-1',
+								selectCodes: $("#courseId").val(),
+								isReturnValue: 'false'
+							},
+							success: function(layero, index){
+								if ($(js.layer.window).width() < 300
+									|| $(js.layer.window).height() < 400){
+									js.layer.full(index);
+								}
+							},
+							btn: ['<i class="fa fa-check"></i> 确定'],
+							btn1: function(index, layero){
+								var win = js.layer.iframeWindow(index);
+								win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
+								if ("false" == "true"){
+									nodes = win.tree.getCheckedNodes(true);
+								}else{
+									nodes = win.tree.getSelectedNodes();
+								}
+								for(var i=0; i<nodes.length; i++) {
+									var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+									codes.push(code.replace(/^u_/g,''));
+									names.push(name.replace(/\([0-9]*\)/g,''));
+									break;
+								}
+								if(typeof treeselectCheck == 'function'){
+									if (!treeselectCheck('office', nodes)){
+										return false;
+									}
+								}
+								$("#courseId").val(codes.join(',')).change();
+								$("#courseName").val(names.join(',')).change();
+								try { $('#courseId,#courseName').valid(); }catch(e){}
+								if(typeof treeselectCallback == 'function'){
+									treeselectCallback('office', 'ok', index, layero, nodes);
+								}
+							}
+						};
+						options.btn.push('<i class="fa fa-eraser"></i> 清除');
+						options['btn'+options.btn.length] = function(index, layero){
+							$("#courseId").val('').change();
+							$("#courseName").val('').change();
+							if(typeof treeselectCallback == 'function'){
+								treeselectCallback('office', 'clear', index, layero);
+							}
+						};
+						options.btn.push('<i class="fa fa-close"></i> 关闭');
+						options['btn'+options.btn.length] = function(index, layero){
+							if(typeof treeselectCallback == 'function'){
+								treeselectCallback('office', 'cancel', index, layero);
+							}
+						};
+						js.layer.open(options);
+					});
+					</script>					
 					</div>
 				</div>
 

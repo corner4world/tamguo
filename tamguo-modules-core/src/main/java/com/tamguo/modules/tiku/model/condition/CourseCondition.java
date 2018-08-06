@@ -5,7 +5,7 @@ public class CourseCondition {
 	private Integer pageNo;
 	private Integer pageSize;
 	
-	private String uid;
+	private String id;
 	private String name;
 	private String status;
 	private String subjectId;
@@ -21,12 +21,6 @@ public class CourseCondition {
 	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
-	}
-	public String getUid() {
-		return uid;
-	}
-	public void setUid(String uid) {
-		this.uid = uid;
 	}
 	public String getName() {
 		return name;
@@ -45,6 +39,12 @@ public class CourseCondition {
 	}
 	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

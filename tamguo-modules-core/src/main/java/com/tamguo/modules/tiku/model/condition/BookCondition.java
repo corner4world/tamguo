@@ -5,9 +5,9 @@ public class BookCondition {
 	private Integer pageNo;
 	private Integer pageSize;
 	
+	private String id;
 	private String publishingHouse;
 	private String name;
-	private String subjectId;
 	private String courseId;
 	
 	public Integer getPageNo() {
@@ -21,12 +21,6 @@ public class BookCondition {
 	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
-	}
-	public String getSubjectId() {
-		return subjectId;
-	}
-	public void setSubjectId(String subjectId) {
-		this.subjectId = subjectId;
 	}
 	public String getCourseId() {
 		return courseId;
@@ -45,6 +39,12 @@ public class BookCondition {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

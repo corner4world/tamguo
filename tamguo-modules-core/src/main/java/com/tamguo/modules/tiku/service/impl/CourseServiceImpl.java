@@ -36,8 +36,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
 	public Page<CourseEntity> listData(CourseCondition condition) {
 		Page<CourseEntity> page = new Page<>(condition.getPageNo() , condition.getPageSize());
 		Condition query = Condition.create();
-		if(!StringUtils.isEmpty(condition.getUid())) {
-			query.eq("uid", condition.getUid());
+		if(!StringUtils.isEmpty(condition.getId())) {
+			query.eq("id", condition.getId());
 		}
 		if(!StringUtils.isEmpty(condition.getName())) {
 			query.like("name", condition.getName());

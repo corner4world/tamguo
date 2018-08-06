@@ -25,17 +25,17 @@
 		LEFT JOIN tiku_course c ON c.id = b.course_id
 		WHERE
 			1 = 1 
+		<if test="id != null and id != ''">
+			and b.id = #{id}
+		</if>
 		<if test="name != null and name != ''">
 			and b.name = #{name}
 		</if>
 		<if test="publishingHouse != null and publishingHouse != ''">
 			and b.publishing_house = #{publishingHouse}
 		</if>
-		<if test="subjectId != null and subjectId != ''">
-			and b.subject_id = #{subjectId}
-		</if>
 		<if test="courseId != null and courseId != ''">
-			and b.course_id = #{courseId}
+			and (b.course_id = #{courseId} or b.subject_id = #{courseId})
 		</if>
 	</select>
 </mapper>

@@ -120,7 +120,7 @@ public class CourseController {
 		}
 	}
 	
-	@RequestMapping(path="treeData",method=RequestMethod.POST)
+	@RequestMapping(path="treeData",method=RequestMethod.GET)
 	@ResponseBody
 	public JSONArray treeData() {
 		return iCourseService.treeData();
