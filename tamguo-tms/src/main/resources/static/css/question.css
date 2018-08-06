@@ -197,3 +197,15 @@
     color: #666;
     text-decoration: none;
 }
+.single .question .question-box .opt-item {
+    display: inline-block;
+    padding-right: 20px;
+}
+.single .question .question-box .opt-item .prefix {
+    padding-right: 10px;
+}
+.single .question .question-box .opt-item {
+    color: #828386;
+    margin-top: 20px;
+    line-height: 1.5;
+}
