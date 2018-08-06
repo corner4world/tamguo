@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.common.utils.SystemConstant;
 import com.tamguo.modules.tiku.dao.ChapterMapper;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.condition.ChapterCondition;
+import com.tamguo.modules.tiku.model.enums.ChapterStatusEnum;
 import com.tamguo.modules.tiku.service.IChapterService;
 
 @Service
@@ -83,5 +86,49 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 		}
 		return chapterMapper.selectList(query);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public JSONArray treeData(String courseId, String excludeId) {
+		List<ChapterEntity> chapterList = null;
+		if(StringUtils.isEmpty(excludeId)) {
+			chapterList = chapterMapper.selectList(Condition.EMPTY);
+		} else {
+			chapterList = chapterMapper.selectList(Condition.create().notLike("parent_codes", excludeId).eq("id", excludeId));
+		}
+		return turnZTreeData(chapterList);
+	}
 	
+	private JSONArray turnZTreeData(List<ChapterEntity> chapterList) {
+		if(chapterList != null) {
+			JSONArray nodes = new JSONArray();
+			for(int i=0 ; i<chapterList.size() ; i++) {
+				JSONObject node = new JSONObject();
+				
+				ChapterEntity office = chapterList.get(i);
+				node.put("name", office.getName());
+				node.put("id", office.getId());
+				node.put("pId", office.getParentCode());
+				node.put("title", office.getName());
+				nodes.add(node);
+			}
+			return nodes;
+		}
+		return null;
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void save(ChapterEntity chapter) {
+		ChapterEntity parentChapter = chapterMapper.selectById(chapter.getParentCode());
+		
+		chapter.setStatus(ChapterStatusEnum.NORMAL);
+		chapter.setTreeLeaf(true);
+		chapter.setTreeLevel(parentChapter.getTreeLevel() + 1);
+		chapter.setBookId(parentChapter.getBookId());
+		chapterMapper.insert(chapter);
+		
+		chapter.setParentCodes(parentChapter.getParentCodes() + chapter.getId() + ",");
+		chapterMapper.updateById(chapter);
+	}
 }

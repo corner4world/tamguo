@@ -26,14 +26,15 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" th:action="${setting.domain + 'tiku/book/save'}" method="post" class="form-horizontal">
+<form id="inputForm" th:action="${setting.domain + 'tiku/chapter/save'}" method="post" class="form-horizontal">
+		<input type="hidden" id="courseId" name="courseId" th:value="${parentChapter.courseId}"/>
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
 				<div class="row">
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
-								<span class="required ">*</span> 书籍名称：<i class="fa icon-question hide"></i></label>
+								<span class="required ">*</span> 章节名称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<input type="text" id="name" name="name" value="" maxlength="100" class="form-control required "/>
 							</div>
@@ -42,44 +43,33 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
-								<span class="required ">*</span> 出版社：<i class="fa icon-question hide"></i></label>
+								<span class="required">*</span> 上级章节：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="publishingHouse" name="publishingHouse" value="" maxlength="64" class="form-control required"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-6">
-						<div class="form-group">
-							<label class="control-label col-sm-4" title="">
-								<span class="required">*</span> 归属科目：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-							<div class="input-group treeselect" id="companyDiv" data-url="tiku/course/treeData?">
-								<input id="courseId" type="hidden" name="courseId" value="" class="isReset"/>
-								<input id="courseName" type="text" name="courseName" value=""
+							<div class="input-group treeselect" id="chapterDiv" data-url="tiku/chapter/treeData?">
+								<input id="parentCode" type="hidden" name="parentCode" th:value="${parentChapter.id}" class="isReset"/>
+								<input id="parentName" type="text" name="parentName" th:value="${parentChapter.name}"
 									class="form-control  " readonly="readonly"
-								/><span class="input-group-btn"><a id="companyButton" href="javascript:"
+								/><span class="input-group-btn"><a id="chapterButton" href="javascript:"
 									class="btn btn-default "><i class="fa fa-search"></i></a>
 								</span>
 							</div>
 							<script>
-							$("#companyButton,#courseName").click(function(){
-								if ($("#companyButton").hasClass("disabled")){
+							$("#chapterButton,#parentName").click(function(){
+								if ($("#chapterButton").hasClass("disabled")){
 									return true;
 								}
 								var options = {
 									type: 2,
 									maxmin: true,
 									shadeClose: true,
-									title: '公司选择',
+									title: '章节选择',
 									area: ['300px', '400px'],
 									content: 'sys/treeselect',
 									contentFormData: {
-										url: $('#companyDiv').attr('data-url'),
+										url: $('#chapterDiv').attr('data-url'),
 										checkbox: 'false',
 										expandLevel: '-1',
-										selectCodes: $("#courseId").val(),
+										selectCodes: $("#parentCode").val(),
 										isReturnValue: 'false'
 									},
 									success: function(layero, index){
@@ -98,14 +88,14 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 											nodes = win.tree.getSelectedNodes();
 										}
 										for(var i=0; i<nodes.length; i++) {
-											if (nodes[i].level == 0 && nodes[i].isParent){
+											/* if (nodes[i].level == 0 && nodes[i].isParent){
 												js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
 												return false;
 											}
 											if (nodes[i].isParent){
 												js.showMessage("不能选择父节点（"+nodes[i].name+"）请重新选择。");
 												return false;
-											}
+											} */
 											var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
 											codes.push(code.replace(/^u_/g,''));
 											names.push(name.replace(/\([0-9]*\)/g,''));
@@ -116,39 +106,31 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 												return false;
 											}
 										}
-										$("#courseId").val(codes.join(',')).change();
-										$("#courseName").val(names.join(',')).change();
-										try { $('#courseId,#courseName').valid(); }catch(e){}
+										$("#parentCode").val(codes.join(',')).change();
+										$("#parentName").val(names.join(',')).change();
+										try { $('#parentCode,#parentName').valid(); }catch(e){}
 										if(typeof treeselectCallback == 'function'){
-											treeselectCallback('course', 'ok', index, layero, nodes);
+											treeselectCallback('chapter', 'ok', index, layero, nodes);
 										}
 									}
 								};
 								options.btn.push('<i class="fa fa-eraser"></i> 清除');
 								options['btn'+options.btn.length] = function(index, layero){
-									$("#courseId").val('').change();
-									$("#courseName").val('').change();
+									$("#parentCode").val('').change();
+									$("#parentName").val('').change();
 									if(typeof treeselectCallback == 'function'){
-										treeselectCallback('course', 'clear', index, layero);
+										treeselectCallback('chapter', 'clear', index, layero);
 									}
 								};
 								options.btn.push('<i class="fa fa-close"></i> 关闭');
 								options['btn'+options.btn.length] = function(index, layero){
 									if(typeof treeselectCallback == 'function'){
-										treeselectCallback('course', 'cancel', index, layero);
+										treeselectCallback('chapter', 'cancel', index, layero);
 									}
 								};
 								js.layer.open(options);
 							});
-							</script>							</div>
-													</div>
-												</div>
-					<div class="col-xs-6">
-						<div class="form-group">
-							<label class="control-label col-sm-4" title="">
-								<span class="required hide">*</span> 排序号：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-								<input type="text" id="sort" name="sort" value="" maxlength="10" class="form-control digits"/>
+							</script>							
 							</div>
 						</div>
 					</div>
@@ -169,6 +151,17 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 								<span class="required hide">*</span> 知识点数量：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<input type="text" id="pointNum" name="pointNum" value="" maxlength="10" class="form-control digits"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 排序：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<input type="text" id="orders" name="orders" value="" maxlength="64" class="form-control required"/>
 							</div>
 						</div>
 					</div>

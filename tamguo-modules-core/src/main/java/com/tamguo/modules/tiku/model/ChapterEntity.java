@@ -1,9 +1,13 @@
 package com.tamguo.modules.tiku.model;
 
 import java.io.Serializable;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
+import com.tamguo.modules.tiku.model.enums.ChapterStatusEnum;
 
 import java.util.List;
 
@@ -17,6 +21,7 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	private String courseId;
+	private String bookId;
 	private String name;
 	private String parentCode;
 	private String parentCodes;
@@ -24,10 +29,13 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 	private Integer pointNum;
 	private Integer orders;
 	private Boolean treeLeaf;
-	private String treeLevel; 
+	private Integer treeLevel; 
 	
 	@TableField(exist=false)
 	private List<ChapterEntity> childChapterList;
+	
+	@JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+	private ChapterStatusEnum status;
 
 	public ChapterEntity() {
 	}
@@ -104,12 +112,28 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 		this.treeLeaf = treeLeaf;
 	}
 
-	public String getTreeLevel() {
+	public Integer getTreeLevel() {
 		return treeLevel;
 	}
 
-	public void setTreeLevel(String treeLevel) {
+	public void setTreeLevel(Integer treeLevel) {
 		this.treeLevel = treeLevel;
+	}
+
+	public ChapterStatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(ChapterStatusEnum status) {
+		this.status = status;
+	}
+
+	public String getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
 	}
 
 }

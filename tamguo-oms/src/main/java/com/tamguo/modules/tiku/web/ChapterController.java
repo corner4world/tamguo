@@ -6,6 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSONArray;
+import com.tamguo.common.utils.ExceptionSupport;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.condition.ChapterCondition;
 import com.tamguo.modules.tiku.service.IChapterService;
@@ -14,12 +19,40 @@ import com.tamguo.modules.tiku.service.IChapterService;
 @RequestMapping(path="tiku/chapter")
 public class ChapterController {
 	
+	private final String ADD_CHAPTER_PAGE = "modules/tiku/chapter/add";
+	
 	@Autowired
 	private IChapterService iChapterService;
+	
+	@RequestMapping(path="add",method=RequestMethod.GET)
+	public ModelAndView add(String parentChapterId , ModelAndView model) {
+	 	ChapterEntity parentChapter = iChapterService.selectById(parentChapterId);
+	 	model.addObject("parentChapter", parentChapter);
+		model.setViewName(ADD_CHAPTER_PAGE);
+		return model;
+	}
 
 	@RequestMapping(path="listData",method=RequestMethod.POST)
 	@ResponseBody
 	public List<ChapterEntity> listData(ChapterCondition condition) {
 		return iChapterService.listData(condition);
 	}
+	
+	@RequestMapping(path="treeData")
+	@ResponseBody
+	public JSONArray treeData(String courseId , String excludeId) {
+		return iChapterService.treeData(courseId , excludeId);
+	}
+	
+	@RequestMapping(path="save")
+	@ResponseBody
+	public Result save(ChapterEntity chapter) {
+		try {
+			iChapterService.save(chapter);
+			return Result.result(0, null, "章节【"+chapter.getName()+"】添加成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("保存章节", this.getClass(), e);
+		}
+	}
+	
 }
