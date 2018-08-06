@@ -75,4 +75,37 @@ public class BookController {
 			return ExceptionSupport.resolverResult("修改书籍", this.getClass(), e);
 		}
 	}
+	
+	@RequestMapping(path="delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Result delete(String id) {
+		try {
+			iBookService.delete(id);
+			return Result.result(0, null, "删除书籍成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("删除书籍", this.getClass(), e);
+		}
+	}
+	
+	@RequestMapping(path="enable",method=RequestMethod.POST)
+	@ResponseBody
+	public Result enable(String id) {
+		try {
+			iBookService.enable(id);
+			return Result.result(0, null, "激活书籍成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("激活书籍", this.getClass(), e);
+		}
+	}
+	
+	@RequestMapping(path="disabled",method=RequestMethod.POST)
+	@ResponseBody
+	public Result disabled(String id) {
+		try {
+			iBookService.disabled(id);
+			return Result.result(0, null, "停用书籍成功");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("停用书籍", this.getClass(), e);
+		}
+	}
 }

@@ -170,44 +170,33 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'书籍编号', name:'id', index:'u.id', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+		{header:'书籍编号', name:'id', index:'u.id', width:300, align:"center", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="tiku/book/update?id='+row.id+'&op=edit" class="btnList" data-title="编辑书籍">'+(val||row.id)+'</a>';
 		}},
-		{header:'分类', name:'subjectName', index:'u.courseName', width:200, align:"center"},
-		{header:'科目', name:'courseName', index:'u.courseName', width:200, align:"center"},
-		{header:'书籍名称', name:'name', index:'u.user_name', width:200, align:"center"},
+		{header:'分类', name:'subjectName', index:'u.courseName', width:100, align:"center"},
+		{header:'科目', name:'courseName', index:'u.courseName', width:100, align:"center"},
+		{header:'书籍名称', name:'name', index:'u.user_name', width:400, align:"center"},
 		{header:'出版社', name:'publishingHouse', index:'u.ref_name', width:200, align:"center"},
-		{header:'归属机构', name:'officeName', index:'u.office_name', width:200, align:"center"},
 		{header:'更新时间', name:'updateDate', index:'u.update_date', width:200, align:"center"},
-		{header:'状态', name:'status', index:'u.status', width:140, align:"center", formatter: function(val, obj, row, act){
+		{header:'状态', name:'status', index:'b.status', width:80, align:"center", formatter: function(val, obj, row, act){
 			if(val == "normal"){
-				return "<span>正常</span>";
-			}else if(val == "delete"){
-				return "<span style='color:red;'>删除</span>";
+				return '正常';
 			}else if(val == "disabled"){
-				return "<span style='color:red;'>禁用</span>";
-			}else if(val == "locked"){
-				return "<span style='color:red;'>锁定</span>";
+				return '<span style="color:red;">停用</span>';
 			}else{
-				return "<span style='color:red;'>未知</span>";
+				return '<span style="color:red;">未知</span>';
 			}
 		}},
-		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){
+		{header:'操作', name:'actions', width:160, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
 				actions.push('<a href="tiku/book/update?id='+row.id+'&op=edit" class="btnList" title="编辑书籍"><i class="fa fa-pencil"></i></a>&nbsp;');
-				if (row.status == Global.STATUS_NORMAL){
-					actions.push('<a href="'+ctx+'sys/user/disable?userCode='+row.userCode+'" class="btnList" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+				if (row.status == "normal"){
+					actions.push('<a href="'+ctx+'tiku/book/disabled?id='+row.id+'" class="btnList" title="停用书籍" data-confirm="确认要停用该书籍吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
-				if (row.status == Global.STATUS_DISABLE){
-					actions.push('<a href="'+ctx+'sys/user/enable?userCode='+row.userCode+'" class="btnList" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+				if (row.status == "disabled"){
+					actions.push('<a href="'+ctx+'tiku/book/enable?id='+row.id+'" class="btnList" title="启用书籍" data-confirm="确认要启用该书籍吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
-				actions.push('<a href="'+ctx+'sys/user/delete?userCode='+row.userCode+'" class="btnList" title="删除用户" data-confirm="确认要删除该用户吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
-				actions.push('<a href="javascript:" class="btnMore" title="更多操作"><i class="fa fa-chevron-circle-right"></i></a>&nbsp;');
-				actions.push('<div class="moreItems">');
-					actions.push('<a href="sys/user/role?userCode='+row.userCode+'&op=auth" class="btn btn-default btn-xs btnList" title="用户分配角色"><i class="fa fa-check-square-o"></i> 分配角色</a>&nbsp;');
-					actions.push('<a href="/sys/user/dataScope?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户分配数据权限"><i class="fa fa-check-circle-o"></i> 数据权限</a>&nbsp;');
-					actions.push('<a href="/js/a/sys/empUser/resetpwd?userCode='+row.userCode+'" class="btn btn-default btn-xs btnList" title="用户密码重置" data-confirm="确认要将该用户密码重置到初始状态吗？"><i class="fa fa-reply-all"></i> 重置密码</a>&nbsp;');
-				actions.push('</div>');
+				actions.push('<a href="'+ctx+'tiku/book/delete?id='+row.id+'" class="btnList" title="删除书籍" data-confirm="确认要删除该书籍吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');
 		}}
 	],

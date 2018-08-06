@@ -56,4 +56,28 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, BookEntity> impleme
 		bookMapper.updateById(entity);
 	}
 
+	@Transactional(readOnly=false)
+	@Override
+	public void delete(String id) {
+		BookEntity book = bookMapper.selectById(id);
+		book.setStatus(BookStatusEnum.DELETE);
+		bookMapper.updateById(book);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void enable(String id) {
+		BookEntity book = bookMapper.selectById(id);
+		book.setStatus(BookStatusEnum.NORMAL);
+		bookMapper.updateById(book);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void disabled(String id) {
+		BookEntity book = bookMapper.selectById(id);
+		book.setStatus(BookStatusEnum.DISABLED);
+		bookMapper.updateById(book);
+	}
+
 }

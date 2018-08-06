@@ -13,4 +13,10 @@ public interface IBookService extends IService<BookEntity>{
 
 	void update(BookEntity book);
 
+	void delete(String id);
+
+	void enable(String id);
+
+	void disabled(String id);
+
 }
