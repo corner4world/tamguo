@@ -44,7 +44,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 科目编码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="uid" name="uid" th:value="${course.uid}" maxlength="64" readonly="true" class="form-control required abc"/>
+								<input type="text" id="id" name="id" th:value="${course.id}" maxlength="64" readonly="true" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -57,7 +57,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<div class="col-sm-8">
 								<select id="subjectId" name="subjectId" class="form-control">
 									<option value="">&nbsp;</option>
-									<option th:selected="${subject.uid eq course.subjectId} ? true : false" th:value="${subject.uid}" th:each="subject,subjectStat:${subjectList}" th:text="${subject.name}">财务经理</option>
+									<option th:selected="${subject.id eq course.subjectId} ? true : false" th:value="${subject.id}" th:each="subject,subjectStat:${subjectList}" th:text="${subject.name}">财务经理</option>
 								</select>	
 							</div>
 						</div>

@@ -51,10 +51,10 @@ public class CourseController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path="update")
-	public ModelAndView update(String uid, ModelAndView model) {
+	public ModelAndView update(String id, ModelAndView model) {
 		model.setViewName(COURSE_UPDATE_PAGE);
 		model.addObject("subjectList", iSubjectService.selectList(Condition.create().eq("status", SubjectStatusEnum.NORMAL.getValue())));
-		model.addObject("course", iCourseService.selectById(uid));
+		model.addObject("course", iCourseService.selectById(id));
 		return model;
 	}
 
@@ -89,9 +89,9 @@ public class CourseController {
 	
 	@RequestMapping(path="delete",method=RequestMethod.POST)
 	@ResponseBody
-	public Result delete(String uid) {
+	public Result delete(String id) {
 		try {
-			iCourseService.delete(uid);
+			iCourseService.delete(id);
 			return Result.result(0, null, "删除科目成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("删除科目", this.getClass(), e);
@@ -100,9 +100,9 @@ public class CourseController {
 	
 	@RequestMapping(path="enable",method=RequestMethod.POST)
 	@ResponseBody
-	public Result enable(String uid) {
+	public Result enable(String id) {
 		try {
-			iCourseService.enable(uid);
+			iCourseService.enable(id);
 			return Result.result(0, null, "激活科目成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("激活科目", this.getClass(), e);
@@ -111,9 +111,9 @@ public class CourseController {
 	
 	@RequestMapping(path="disabled",method=RequestMethod.POST)
 	@ResponseBody
-	public Result disabled(String uid) {
+	public Result disabled(String id) {
 		try {
-			iCourseService.disabled(uid);
+			iCourseService.disabled(id);
 			return Result.result(0, null, "停用科目成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("停用科目", this.getClass(), e);

@@ -69,7 +69,7 @@ var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData: 
 	callback:{onClick:function(event, treeId, treeNode){
 		tree.expandNode(treeNode);
 		win.$('input[type=reset]').click();
-		win.$('#companyCode').val(treeNode.uid);
+		win.$('#companyCode').val(treeNode.id);
 		win.$('#companyName').val(treeNode.name);
 		win.page();
 	}}

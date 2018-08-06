@@ -4,7 +4,7 @@
 	
 	<select id="listData" resultType="BookEntity">
 		SELECT
-			b.uid,
+			b.id,
 			b.subject_id,
 			b.course_id,
 			b.name,
@@ -21,8 +21,8 @@
 			c.name AS course_name
 		FROM
 			tiku_book b
-		LEFT JOIN tiku_subject s ON s.uid = b.subject_id
-		LEFT JOIN tiku_course c ON c.uid = b.course_id
+		LEFT JOIN tiku_subject s ON s.id = b.subject_id
+		LEFT JOIN tiku_course c ON c.id = b.course_id
 		WHERE
 			1 = 1 
 		<if test="name != null and name != ''">
