@@ -13,7 +13,7 @@ public class IndexController {
     	model.setViewName("index");
         return model;
     }
-    
+	
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView mainAction(ModelAndView model) {
     	model.setViewName("index");
@@ -35,6 +35,18 @@ public class IndexController {
     @RequestMapping(value = "/sogousiteverification", method = RequestMethod.GET)
     public ModelAndView sogousiteverification(ModelAndView model) {
     	model.setViewName("thirdparty/sogousiteverification");
+        return model;
+    }
+	
+	@RequestMapping(value = "error404", method = RequestMethod.GET)
+    public ModelAndView error404(ModelAndView model) {
+    	model.setViewName("404");
+        return model;
+    }
+
+	@RequestMapping(value = "error500", method = RequestMethod.GET)
+    public ModelAndView error500(ModelAndView model) {
+    	model.setViewName("500");
         return model;
     }
 }
