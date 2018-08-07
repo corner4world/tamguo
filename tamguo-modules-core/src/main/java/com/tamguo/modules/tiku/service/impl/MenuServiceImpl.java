@@ -72,7 +72,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
 	public List<MenuEntity> findChapterMenus() {
 		List<MenuEntity> chapterMenuList = ((List<MenuEntity>) cacheService.getObject(SystemConstant.CHAPTER_INDEX_MENU));
 		if(chapterMenuList == null){
-			chapterMenuList = menuMapper.selectList(Condition.create().eq("parent_id", 4).orderDesc(Arrays.asList("orders")));
+			chapterMenuList = menuMapper.selectList(Condition.create().eq("parent_id", 4).orderAsc(Arrays.asList("orders")));
 			for(MenuEntity menu : chapterMenuList){
 				List<MenuEntity> childSubjects = menuMapper.selectList(Condition.create().eq("parent_id", menu.getId()).orderDesc(Arrays.asList("orders")));
 				menu.setChildSubjects(childSubjects);
