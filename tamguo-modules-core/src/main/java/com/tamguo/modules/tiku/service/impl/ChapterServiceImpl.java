@@ -121,6 +121,8 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 	@Override
 	public void save(ChapterEntity chapter) {
 		ChapterEntity parentChapter = chapterMapper.selectById(chapter.getParentCode());
+		parentChapter.setTreeLeaf(false);
+		chapterMapper.updateById(parentChapter);
 		
 		chapter.setStatus(ChapterStatusEnum.NORMAL);
 		chapter.setTreeLeaf(true);
@@ -130,5 +132,35 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 		
 		chapter.setParentCodes(parentChapter.getParentCodes() + chapter.getId() + ",");
 		chapterMapper.updateById(chapter);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=false)
+	@Override
+	public void update(ChapterEntity chapter) {
+		ChapterEntity entity = chapterMapper.selectById(chapter.getId());
+		ChapterEntity parentChapter = chapterMapper.selectById(chapter.getParentCode());
+		parentChapter.setTreeLeaf(false);
+		chapterMapper.updateById(parentChapter);
+		
+		entity.setName(chapter.getName());
+		entity.setParentCode(chapter.getParentCode());
+		entity.setParentCodes(parentChapter.getParentCodes() + entity.getId() + ",");
+		entity.setQuestionNum(chapter.getQuestionNum());
+		entity.setPointNum(chapter.getPointNum());
+		entity.setOrders(chapter.getOrders());
+		entity.setTreeLevel(entity.getParentCodes().split(",").length - 1);
+		
+		// 更新子集章节
+		List<ChapterEntity> chapterList = chapterMapper.selectList(Condition.create().like("parent_codes", entity.getId()));
+		for(int i=0 ; i<chapterList.size() ; i++) {
+			ChapterEntity child = chapterList.get(i);
+			
+			String subParentCodes = child.getParentCodes().substring(child.getParentCodes().indexOf(entity.getId()) + entity.getId().length() + 1);
+			child.setParentCodes(entity.getParentCodes() + subParentCodes);
+			child.setTreeLevel(child.getParentCodes().split(",").length - 1);
+			chapterMapper.updateById(child);
+		}
+		chapterMapper.updateById(entity);
 	}
 }

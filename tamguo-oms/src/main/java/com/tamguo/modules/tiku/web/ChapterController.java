@@ -20,6 +20,7 @@ import com.tamguo.modules.tiku.service.IChapterService;
 public class ChapterController {
 	
 	private final String ADD_CHAPTER_PAGE = "modules/tiku/chapter/add";
+	private final String UPDATE_CHAPTER_PAGE = "modules/tiku/chapter/update";
 	
 	@Autowired
 	private IChapterService iChapterService;
@@ -29,6 +30,16 @@ public class ChapterController {
 	 	ChapterEntity parentChapter = iChapterService.selectById(parentChapterId);
 	 	model.addObject("parentChapter", parentChapter);
 		model.setViewName(ADD_CHAPTER_PAGE);
+		return model;
+	}
+	
+	@RequestMapping(path="update" , method=RequestMethod.GET)
+	public ModelAndView update(String id , ModelAndView model) {
+		ChapterEntity chapter = iChapterService.selectById(id);
+		ChapterEntity parentChapter = iChapterService.selectById(chapter.getParentCode());
+		model.addObject("chapter", chapter);
+		model.addObject("parentChapter", parentChapter);
+		model.setViewName(UPDATE_CHAPTER_PAGE);
 		return model;
 	}
 
@@ -55,4 +66,14 @@ public class ChapterController {
 		}
 	}
 	
+	@RequestMapping(path="update")
+	@ResponseBody
+	public Result update(ChapterEntity chapter) {
+		try {
+			iChapterService.update(chapter);
+			return Result.result(0, null, "章节【"+chapter.getName()+"】修改成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("修改章节", this.getClass(), e);
+		}
+	}
 }

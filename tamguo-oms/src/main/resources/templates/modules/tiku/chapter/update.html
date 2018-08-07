@@ -1,0 +1,209 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
+content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
+content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
+content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<title>书籍管理 - JeeSite Demo</title>
+<script th:src="${setting.domain + 'global.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
+<script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
+<!--[if lt IE 9]><script src="/js/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" th:href="${setting.domain + 'fonts/font-icons.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
+</head><body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-trophy"></i> 修改书籍
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+<form id="inputForm" th:action="${setting.domain + 'tiku/chapter/update'}" method="post" class="form-horizontal">
+		<input type="hidden" id="courseId" name="courseId" th:value="${parentChapter.courseId}"/>
+		<input type="hidden" id="id" name="id" th:value="${chapter.id}"/>
+			<div class="box-body">
+				<div class="form-unit">基本信息</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> 章节名称：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<input type="text" id="name" name="name" th:value="${chapter.name}" maxlength="100" class="form-control required "/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required">*</span> 上级章节：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+							<div class="input-group treeselect" id="chapterDiv" data-url="tiku/chapter/treeData?">
+								<input id="parentCode" type="hidden" name="parentCode" th:value="${parentChapter.id}" class="isReset"/>
+								<input id="parentName" type="text" name="parentName" th:value="${parentChapter.name}"
+									class="form-control  " readonly="readonly"
+								/><span class="input-group-btn"><a id="chapterButton" href="javascript:"
+									class="btn btn-default "><i class="fa fa-search"></i></a>
+								</span>
+							</div>
+							<script>
+							$("#chapterButton,#parentName").click(function(){
+								if ($("#chapterButton").hasClass("disabled")){
+									return true;
+								}
+								var options = {
+									type: 2,
+									maxmin: true,
+									shadeClose: true,
+									title: '章节选择',
+									area: ['300px', '400px'],
+									content: 'sys/treeselect',
+									contentFormData: {
+										url: $('#chapterDiv').attr('data-url'),
+										checkbox: 'false',
+										expandLevel: '-1',
+										selectCodes: $("#parentCode").val(),
+										isReturnValue: 'false'
+									},
+									success: function(layero, index){
+										if ($(js.layer.window).width() < 300
+											|| $(js.layer.window).height() < 400){
+											js.layer.full(index);
+										}
+									},
+									btn: ['<i class="fa fa-check"></i> 确定'],
+									btn1: function(index, layero){
+										var win = js.layer.iframeWindow(index);
+										win.$('#keyword').val('').change(); 			var codes = [], names = [], nodes;
+										if ("false" == "true"){
+											nodes = win.tree.getCheckedNodes(true);
+										}else{
+											nodes = win.tree.getSelectedNodes();
+										}
+										for(var i=0; i<nodes.length; i++) {
+											/* if (nodes[i].level == 0 && nodes[i].isParent){
+												js.showMessage("不能选择根节点（"+nodes[i].name+"）请重新选择。");
+												return false;
+											}
+											if (nodes[i].isParent){
+												js.showMessage("不能选择父节点（"+nodes[i].name+"）请重新选择。");
+												return false;
+											} */
+											var code = nodes[i]['false'=='true'?'value':'id'], name = nodes[i]['name'];
+											codes.push(code.replace(/^u_/g,''));
+											names.push(name.replace(/\([0-9]*\)/g,''));
+											break;
+										}
+										if(typeof treeselectCheck == 'function'){
+											if (!treeselectCheck('course', nodes)){
+												return false;
+											}
+										}
+										$("#parentCode").val(codes.join(',')).change();
+										$("#parentName").val(names.join(',')).change();
+										try { $('#parentCode,#parentName').valid(); }catch(e){}
+										if(typeof treeselectCallback == 'function'){
+											treeselectCallback('chapter', 'ok', index, layero, nodes);
+										}
+									}
+								};
+								options.btn.push('<i class="fa fa-eraser"></i> 清除');
+								options['btn'+options.btn.length] = function(index, layero){
+									$("#parentCode").val('').change();
+									$("#parentName").val('').change();
+									if(typeof treeselectCallback == 'function'){
+										treeselectCallback('chapter', 'clear', index, layero);
+									}
+								};
+								options.btn.push('<i class="fa fa-close"></i> 关闭');
+								options['btn'+options.btn.length] = function(index, layero){
+									if(typeof treeselectCallback == 'function'){
+										treeselectCallback('chapter', 'cancel', index, layero);
+									}
+								};
+								js.layer.open(options);
+							});
+							</script>							
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 问题数量：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<input type="text" id="questionNum" name="questionNum" th:value="${chapter.questionNum}" maxlength="64" class="form-control required abc"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 知识点数量：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<input type="text" id="pointNum" name="pointNum" th:value="${chapter.pointNum}" maxlength="10" class="form-control digits"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> 排序：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<input type="text" id="orders" name="orders" th:value="${chapter.orders}" maxlength="64" class="form-control required"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+					</div>
+				</div>
+			</div>
+</form>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script th:src="${setting.domain + 'bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/select2.js'}"></script>
+<script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
+<script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
+<script th:src="${setting.domain + 'common/jeesite.js'}"></script>
+<script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
+<script th:src="${setting.domain + 'common/common.js'}"></script>
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.code == 0){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+</script>

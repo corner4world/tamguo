@@ -21,4 +21,7 @@ public interface IChapterService extends IService<ChapterEntity>{
 	// 保存章节
 	public void save(ChapterEntity chapter);
 
+	// 修改章节
+	public void update(ChapterEntity chapter);
+
 }
