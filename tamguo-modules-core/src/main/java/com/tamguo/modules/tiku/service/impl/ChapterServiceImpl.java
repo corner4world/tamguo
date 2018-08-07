@@ -163,4 +163,20 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 		}
 		chapterMapper.updateById(entity);
 	}
+
+	@Transactional(readOnly=false)
+	@SuppressWarnings("unchecked")
+	@Override
+	public void delete(String id) {
+		ChapterEntity chapter = chapterMapper.selectById(id);
+		chapter.setStatus(ChapterStatusEnum.DELETE);
+		chapterMapper.updateById(chapter);
+		// 删除子章节
+		List<ChapterEntity> childs = chapterMapper.selectList(Condition.create().like("parent_codes", id));
+		for(int i=0 ; i<childs.size() ; i++) {
+			ChapterEntity child = childs.get(i);
+			child.setStatus(ChapterStatusEnum.DELETE);
+			chapterMapper.updateById(child);
+		}
+	}
 }

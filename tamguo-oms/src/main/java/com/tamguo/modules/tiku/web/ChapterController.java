@@ -76,4 +76,15 @@ public class ChapterController {
 			return ExceptionSupport.resolverResult("修改章节", this.getClass(), e);
 		}
 	}
+	
+	@RequestMapping(path="delete" , method=RequestMethod.POST)
+	@ResponseBody
+	public Result delete(String id) {
+		try {
+			iChapterService.delete(id);
+			return Result.result(0, null, "章节删除成功！");
+		} catch (Exception e) {
+			return ExceptionSupport.resolverResult("删除章节", this.getClass(), e);
+		}
+	}
 }
