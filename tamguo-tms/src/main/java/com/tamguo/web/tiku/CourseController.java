@@ -1,5 +1,6 @@
 package com.tamguo.web.tiku;
 
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,7 +50,7 @@ public class CourseController {
 				chapterList = iChapterService.findChapterTree(book.getId());
 			}
 			SubjectEntity subject = iSubjectService.selectById(course.getSubjectId());
-			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", course.getSubjectId()));
+			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", course.getSubjectId()).orderAsc(Arrays.asList("sort")));
 			
 			model.addObject("chapterList", chapterList);
 			model.addObject("courseList", courseList);

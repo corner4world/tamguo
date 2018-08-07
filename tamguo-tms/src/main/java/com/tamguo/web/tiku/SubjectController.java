@@ -1,5 +1,6 @@
 package com.tamguo.web.tiku;
 
+import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public class SubjectController {
     public ModelAndView indexAction(@PathVariable String subjectId , ModelAndView model) {
 		try {
 			SubjectEntity subject = iSubjectService.selectById(subjectId);
-			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId));
+			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId).orderAsc(Arrays.asList("sort")));
 			// 获取第一个科目
 			CourseEntity course = courseList.get(0);
 			// 获取第一本书
