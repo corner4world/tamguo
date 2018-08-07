@@ -40,7 +40,7 @@ public class BookController {
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subject.getId()).orderAsc(Arrays.asList("sort")));
 			List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", book.getCourseId()));
 			CourseEntity course = iCourseService.selectById(book.getCourseId());
-			List<ChapterEntity> chapterList = iChapterService.selectList(Condition.create().eq("book_id", uid));
+			List<ChapterEntity> chapterList = iChapterService.findChapterTree(book.getId());
 			model.addObject("book", book);
 			model.addObject("subject", subject);
 			model.addObject("course", course);
