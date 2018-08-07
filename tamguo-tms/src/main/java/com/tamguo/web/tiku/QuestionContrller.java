@@ -35,9 +35,9 @@ public class QuestionContrller {
 	private ICourseService iCourseService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = {"questionlist/{chapterId}-{offset}-{limit}.html"}, method = RequestMethod.GET)
-	public ModelAndView questionList(@PathVariable String chapterId , @PathVariable Integer offset , 
-			@PathVariable Integer limit , ModelAndView model){
+	@RequestMapping(value = {"questionlist/{chapterId}-{current}-{size}.html"}, method = RequestMethod.GET)
+	public ModelAndView questionList(@PathVariable String chapterId , @PathVariable Integer current , 
+			@PathVariable Integer size , ModelAndView model){
 		try {
 			model.setViewName("questionList");
 
@@ -48,8 +48,8 @@ public class QuestionContrller {
 			ChapterEntity nextChapter = iChapterService.selectById(chapter.getId());
 			
 			Page<QuestionEntity> page = new Page<>();
-			page.setCurrent(offset);
-			page.setSize(limit);
+			page.setCurrent(current);
+			page.setSize(size);
 			Page<QuestionEntity> questionList = iQuestionService.selectPage(page , Condition.create().eq("chapter_id", chapterId).orderDesc(Arrays.asList("id")));
 			model.addObject("subject", subject);
 			model.addObject("course", course);
