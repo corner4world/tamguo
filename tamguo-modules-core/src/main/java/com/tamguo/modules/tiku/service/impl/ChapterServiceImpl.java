@@ -11,9 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.common.utils.SystemConstant;
+import com.tamguo.modules.tiku.dao.BookMapper;
 import com.tamguo.modules.tiku.dao.ChapterMapper;
+import com.tamguo.modules.tiku.dao.CourseMapper;
+import com.tamguo.modules.tiku.model.BookEntity;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.condition.ChapterCondition;
 import com.tamguo.modules.tiku.model.enums.ChapterStatusEnum;
@@ -24,6 +28,10 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 	
 	@Autowired
 	ChapterMapper chapterMapper;
+	@Autowired
+	CourseMapper courseMapper;
+	@Autowired
+	BookMapper bookMapper;
 
 	@Transactional(readOnly=false)
 	@SuppressWarnings("unchecked")
@@ -187,5 +195,20 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 			child.setStatus(ChapterStatusEnum.DELETE);
 			chapterMapper.updateById(child);
 		}
+	}
+
+	@Transactional(readOnly=true)
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ChapterEntity> findCourseChapter(String courseId) {
+		List<BookEntity> bookList = bookMapper.selectList(Condition.create().eq("course_id", courseId));
+		if(bookList.size() == 0) {
+			return null;
+		}
+		Condition condition = Condition.create();
+		condition.eq("tree_level", 1);
+		condition.eq("book_id", bookList.get(0).getId());
+		List<ChapterEntity> list = chapterMapper.selectPage(new Page<>(1, 5), condition);
+		return list;
 	}
 }

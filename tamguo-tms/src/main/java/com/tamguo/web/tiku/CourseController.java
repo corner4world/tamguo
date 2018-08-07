@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.tamguo.modules.tiku.model.BookEntity;
@@ -63,6 +64,12 @@ public class CourseController {
 			model.setViewName("404");
 			return model;
 		}
+	}
+	
+	@RequestMapping(value = {"course/findChapter.html"}, method = RequestMethod.GET)
+	@ResponseBody
+	public List<ChapterEntity> findChapterByCourseId(String courseId){
+		return iChapterService.findCourseChapter(courseId);
 	}
 	
 }

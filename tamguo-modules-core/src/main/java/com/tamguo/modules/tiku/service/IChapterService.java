@@ -27,4 +27,7 @@ public interface IChapterService extends IService<ChapterEntity>{
 	// 删除章节
 	public void delete(String id);
 
+	// 科目章节
+	public List<ChapterEntity> findCourseChapter(String courseId);
+
 }
