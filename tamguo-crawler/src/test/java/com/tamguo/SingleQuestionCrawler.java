@@ -81,16 +81,16 @@ public class SingleQuestionCrawler {
 	                	question.setAnalysis(questionVo.getAnalysis());
 	                	question.setAnswer(questionVo.getAnswer());
 	                	question.setAuditStatus("1");
-	                	question.setChapterId(chapter.getUid());
+	                	question.setChapterId(chapter.getId());
 	                	question.setContent(questionVo.getContent());
-	                	question.setCourseId(course.getUid());
+	                	question.setCourseId(course.getId());
 	                	question.setPaperId(null);
 	                	question.setQuestionType("1");
 	                	if(questionVo.getReviewPoint() != null && questionVo.getReviewPoint().size() > 0) {
 		                	question.setReviewPoint(StringUtils.join(questionVo.getReviewPoint().toArray(), ","));
 	                	}
 	                	question.setScore(questionVo.getScore());
-	                	question.setSubjectId(subject.getUid());
+	                	question.setSubjectId(subject.getId());
 	                	question.setYear(questionVo.getYear());
 	                	
 	                	if (questionVo.getAnswerImages()!=null && questionVo.getAnswerImages().size() > 0) {

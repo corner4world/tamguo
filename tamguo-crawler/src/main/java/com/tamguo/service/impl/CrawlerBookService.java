@@ -38,7 +38,7 @@ public class CrawlerBookService implements ICrawlerBookService {
         List<BookEntity> bookEntities = bookMapper.selectList(Condition.EMPTY);
         for (BookEntity bookEntity : bookEntities) {
             String url = bookEntity.getReserveField1();
-            String bookId = bookEntity.getUid();
+            String bookId = bookEntity.getId();
             String regexs = url.replaceAll("\\d+", "\\\\d+").replaceAll("\\.","\\\\.");
 
             XxlCrawler crawler = new XxlCrawler.Builder()

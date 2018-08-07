@@ -91,7 +91,7 @@ public class SubjectService implements ISubjectService{
                     		logger.info(chapterName);
                     		ChapterEntity chapter = new ChapterEntity();
                     		chapter.setCourseId(COURSE_ID);
-                    		chapter.setParentCode(rootChapter.getUid());
+                    		chapter.setParentCode(rootChapter.getId());
                     		chapter.setName(chapterName);
                     		chapter.setQuestionNum(0);
                     		chapter.setPointNum(0);
@@ -100,7 +100,7 @@ public class SubjectService implements ISubjectService{
                     		chapter.setTreeLeaf(false);
                     		chapter.setTreeLevel(1);
                     		chapterMapper.insert(chapter);
-                    		chapter.setParentCodes(rootChapter.getParentCodes() + chapter.getUid() + ",");
+                    		chapter.setParentCodes(rootChapter.getParentCodes() + chapter.getId() + ",");
                     		chapterMapper.updateById(chapter);
                     		
                     		Elements detailKpoint1s = element.getElementsByClass("detail-kpoint-1");
@@ -114,7 +114,7 @@ public class SubjectService implements ISubjectService{
                         			ChapterEntity chapter1 = new ChapterEntity();
                         			chapter1.setCourseId(COURSE_ID);
                         			chapter1.setBookId(BOOK_ID);
-                        			chapter1.setParentCode(chapter.getUid());
+                        			chapter1.setParentCode(chapter.getId());
                         			chapter1.setName(chapterName1);
                         			chapter1.setQuestionNum(0);
                         			chapter1.setPointNum(0);
@@ -123,7 +123,7 @@ public class SubjectService implements ISubjectService{
                         			chapter1.setTreeLeaf(false);
                         			chapter1.setTreeLevel(2);
                             		chapterMapper.insert(chapter1);
-                        			chapter1.setParentCodes(chapter.getParentCodes() + chapter1.getUid() + ",");
+                        			chapter1.setParentCodes(chapter.getParentCodes() + chapter1.getId() + ",");
                         			chapterMapper.updateById(chapter1);
                         			
                         			
@@ -136,7 +136,7 @@ public class SubjectService implements ISubjectService{
                         				ChapterEntity chapter2 = new ChapterEntity();
                         				chapter2.setCourseId(COURSE_ID);
                         				chapter2.setBookId(BOOK_ID);
-                        				chapter2.setParentCode(chapter1.getUid());
+                        				chapter2.setParentCode(chapter1.getId());
                         				chapter2.setName(chapterName2);
                         				chapter2.setQuestionNum(0);
                         				chapter2.setPointNum(0);
@@ -144,7 +144,7 @@ public class SubjectService implements ISubjectService{
                         				chapter2.setTreeLeaf(true);
                         				chapter2.setTreeLevel(3);
                                 		chapterMapper.insert(chapter2);
-                        				chapter2.setParentCodes(chapter1.getParentCodes() + chapter2.getUid() + ",");
+                        				chapter2.setParentCodes(chapter1.getParentCodes() + chapter2.getId() + ",");
                                 		chapterMapper.updateById(chapter2);
                                 		
                                 		Elements maskList = detailKpoint.getElementsByClass("mask");
@@ -178,7 +178,7 @@ public class SubjectService implements ISubjectService{
                         		if(crawlerQuestionMapper.selectOne(condition) == null) {
                             		CrawlerQuestionEntity crawlerQuestion = new CrawlerQuestionEntity();
                             		crawlerQuestion.setQuestionUrl(questionUrl);
-                            		crawlerQuestion.setChapterId(chapterEntity.getUid());
+                            		crawlerQuestion.setChapterId(chapterEntity.getId());
                             		crawlerQuestion.setStatus("0");
                             		crawlerQuestionMapper.insert(crawlerQuestion);
                         		}else {

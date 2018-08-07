@@ -51,19 +51,19 @@ public class ChapterService implements IChapterService{
 	@Override
 	public void modifyQuestionNum() {
 		int page = 1;
-		int pageSize = 1000;
+		int pageSize = 100;
 		while(true) {
 			Page<ChapterEntity> chapterPage = new Page<ChapterEntity>(page , pageSize);
 			List<ChapterEntity> chapterList = chapterMapper.queryList(chapterPage);
 			for(int i=0 ;i<chapterList.size() ; i++) {
 				// 处理数据
 				ChapterEntity chapter = chapterList.get(i);
-				Integer count = chapterMapper.queryCount(chapter.getUid());
+				Integer count = chapterMapper.queryCount(chapter.getId());
 				chapter.setQuestionNum(count);
 				chapterMapper.updateById(chapter);
 			}
 			page++;
-			if(chapterList.size() < 1000) {
+			if(chapterList.size() < 100) {
 				break;
 			}
 		}
@@ -105,7 +105,7 @@ public class ChapterService implements IChapterService{
 	                    	CourseEntity course = courseMapper.selectById(chapterEntity.getCourseId());
 	                    	
 	                    	CrawlerChapterEntity crawlerChapter = new CrawlerChapterEntity();
-	                    	crawlerChapter.setChapterUid(chapterEntity.getUid());
+	                    	crawlerChapter.setChapterUid(chapterEntity.getId());
 	                    	crawlerChapter.setChapterUrl(pageUrl);
 	                    	crawlerChapter.setCourseUid(chapterEntity.getCourseId());
 	                    	crawlerChapter.setSubjectUid(course.getSubjectId());
@@ -120,7 +120,7 @@ public class ChapterService implements IChapterService{
 	                        		}
 	                        		if(!urls.contains(url)) {
 	                        			crawlerChapter = new CrawlerChapterEntity();
-	        	                    	crawlerChapter.setChapterUid(chapterEntity.getUid());
+	        	                    	crawlerChapter.setChapterUid(chapterEntity.getId());
 	        	                    	crawlerChapter.setChapterUrl(url);
 	        	                    	crawlerChapter.setCourseUid(chapterEntity.getCourseId());
 	        	                    	crawlerChapter.setSubjectUid(course.getSubjectId());

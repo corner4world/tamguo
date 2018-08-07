@@ -3,7 +3,7 @@
 <mapper namespace="com.tamguo.dao.ChapterMapper">
 
 	<select id="queryList" resultType="ChapterEntity">
-		select * from tiku_chapter order by uid desc
+		select * from tiku_chapter order by id desc
 	</select>
 	
 	<select id="queryCount" resultType="java.lang.Integer">

@@ -100,8 +100,8 @@ public class QuestionService implements IQuestionService{
 	                	}
 	                	question.setAnswer(questionVo.getAnswer());
 	                	question.setAuditStatus("1");
-	                	question.setChapterId(chapter.getUid());
-	                	question.setCourseId(course.getUid());
+	                	question.setChapterId(chapter.getId());
+	                	question.setCourseId(course.getId());
 	                	question.setPaperId(null);
 	                	question.setQuestionType(questionType.getValue().toString());
 	                	if(questionVo.getReviewPoint() != null && questionVo.getReviewPoint().size() > 0) {
@@ -121,7 +121,7 @@ public class QuestionService implements IQuestionService{
 	                			question.setYear(questionVo.getYear());
 	                		}
 	                	}
-	                	question.setSubjectId(subject.getUid());
+	                	question.setSubjectId(subject.getId());
 	                	
 	                	if (questionVo.getAnswerImages()!=null && questionVo.getAnswerImages().size() > 0) {
                             Set<String> imagesSet = new HashSet<>(questionVo.getAnswerImages());
