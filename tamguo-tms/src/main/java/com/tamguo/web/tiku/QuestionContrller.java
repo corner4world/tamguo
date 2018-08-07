@@ -1,5 +1,7 @@
 package com.tamguo.web.tiku;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +50,7 @@ public class QuestionContrller {
 			Page<QuestionEntity> page = new Page<>();
 			page.setCurrent(offset);
 			page.setSize(limit);
-			Page<QuestionEntity> questionList = iQuestionService.selectPage(page , Condition.create().eq("chapter_id", chapterId));
+			Page<QuestionEntity> questionList = iQuestionService.selectPage(page , Condition.create().eq("chapter_id", chapterId).orderDesc(Arrays.asList("id")));
 			model.addObject("subject", subject);
 			model.addObject("course", course);
 			model.addObject("chapter", chapter);
