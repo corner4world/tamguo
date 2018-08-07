@@ -84,6 +84,15 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 		}else {
 			query.eq("tree_level", "0");
 		}
+		if(!StringUtils.isEmpty(condition.getId())) {
+			query.eq("id", condition.getId());
+		}
+		if(!StringUtils.isEmpty(condition.getName())) {
+			query.like("name", condition.getName());
+		}
+		if(!StringUtils.isEmpty(condition.getBookId())) {
+			query.andNew().eq("course_id", condition.getBookId()).or().eq("book_id", condition.getBookId()).or().eq("subject_id", condition.getBookId());;
+		}
 		return chapterMapper.selectList(query);
 	}
 

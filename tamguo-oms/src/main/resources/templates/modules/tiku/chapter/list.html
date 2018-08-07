@@ -36,6 +36,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 		</div>
 		<div class="box-body">
 			<form id="searchForm" th:action="${setting.domain + 'tiku/chapter/listData'}" method="post" class="form-inline hide" data-page-no="" data-page-size="" data-order-by="">
+				<input type="hidden" id="bookId" name="bookId" value=""></input>
+				<input type="hidden" id="bookName" name="bookName" value=""></input>
 				<div class="form-group">
 					<label class="control-label">章节代码：</label>
 					<div class="control-inline">

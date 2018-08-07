@@ -16,6 +16,8 @@ import java.util.List;
 public class ChapterEntity extends SuperEntity<ChapterEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private String subjectId;
+	
 	private String courseId;
 
 	private String name;
@@ -88,6 +90,14 @@ public class ChapterEntity extends SuperEntity<ChapterEntity> implements Seriali
 
 	public void setOrders(Integer orders) {
 		this.orders = orders;
+	}
+
+	public String getSubjectId() {
+		return subjectId;
+	}
+
+	public void setSubjectId(String subjectId) {
+		this.subjectId = subjectId;
 	}
 
 }

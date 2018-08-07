@@ -68,8 +68,8 @@ var setting = {view:{selectedMulti:false},data:{key:{title:"title"},simpleData: 
 	callback:{onClick:function(event, treeId, treeNode){
 		tree.expandNode(treeNode);
 		win.$('input[type=reset]').click();
-		win.$('#companyCode').val(treeNode.id);
-		win.$('#companyName').val(treeNode.name);
+		win.$('#bookId').val(treeNode.id);
+		win.$('#bookName').val(treeNode.name);
 		win.page();
 	}}
 }, tree, loadTree = function(){
