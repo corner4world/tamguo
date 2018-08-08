@@ -1,6 +1,5 @@
 package com.tamguo;
 
-import com.tamguo.service.IBookService;
 import com.tamguo.service.ICrawlerBookService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
