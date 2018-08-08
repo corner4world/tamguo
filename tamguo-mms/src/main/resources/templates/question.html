@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+        <title>探果题库为老师创造价值-探果题库</title>
+        <!-- 引入 FrozenUI -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">
+		<style type="text/css">
+			.mu-appbar-header {
+			    position: fixed;
+			    left: 0;
+			    right: 0;
+			    top: 0;
+			    z-index: 101;
+			    overflow: hidden
+			}
+			.mu-appbar-footer {
+			    position: fixed;
+			    left: 0;
+			    right: 0;
+			    bottom:0px;
+			    z-index: 101;
+			    overflow: hidden
+			}
+		</style>
+    </head>
+    <body>
+    	<div id="app">
+	    	<mu-appbar style="width: 100%;" color="primary" class="mu-appbar-header">
+			  <mu-button icon slot="left" @click="open = true">
+			    <mu-icon value="menu"></mu-icon>
+			  </mu-button>
+				探果题库
+				
+			  <mu-button flat slot="right">登录</mu-button>
+			  <mu-button flat slot="right">注册</mu-button>
+			</mu-appbar>
+			
+			
+			<mu-container>
+				<mu-card style="width: 100%;margin-top: 80px;margin-bottom:80px;" raised="true" th:each="question,status:${page.records}">
+				  <mu-card-text th:utext="${question.content}">
+					  无
+				  </mu-card-text>
+				  <mu-card-title sub-title="答案"></mu-card-title>
+				  <mu-card-text th:utext="${question.answer}">
+				    <span> B </span>
+				  </mu-card-text>
+				  <mu-card-title sub-title="解析"></mu-card-title>
+				  <mu-card-text th:utext="${question.analysis}">
+				    <p> 苯巴比妥属于巴比妥类镇静催眠药；佐匹克隆属于环吡咯酮类镇静催眠药；阿普唑仑属于苯二氮䓬类镇静催眠药，同类药物还有地西泮等，苯妥英钠属于乙内酰脲类抗癫痫药。 </p>
+				  </mu-card-text>
+				</mu-card>
+				
+				
+				<mu-drawer :open.sync="open" :docked="true" :right="position === 'right'">
+				    <mu-list>
+				    	
+				      <mu-list-item :href="mainHttp" button>
+				        <mu-list-item-title>首页</mu-list-item-title>
+				      </mu-list-item>
+				      
+				      <mu-list-item button v-for="course in courseList" :href="course.url" @click="open = false">
+				        <mu-list-item-title>{{course.name}}</mu-list-item-title>
+				      </mu-list-item>
+				      
+				      <mu-list-item  @click="open = false" button>
+				        <mu-list-item-title>关闭</mu-list-item-title>
+				      </mu-list-item>
+				    </mu-list>
+				  </mu-drawer>
+			<mu-container>
+			
+			<mu-bottom-nav class="mu-appbar-footer">
+				    <mu-bottom-nav-item title="上一页"  icon="keyboard_arrow_left" th:href="${domainName + 'chapter/' + chapter.id + '-'+prePage+'-5.html'}"></mu-bottom-nav-item>
+				    <mu-bottom-nav-item th:title="${page.current + '/' + page.pages + '页'}"></mu-bottom-nav-item>
+				    <mu-bottom-nav-item title="下一页" icon="keyboard_arrow_right" th:href="${domainName + 'chapter/' + chapter.id + '-'+nextPage+'-5.html'}" :disabled="true"></mu-bottom-nav-item>
+			</mu-bottom-nav>
+		</div>
+    </body>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${domainName}]];
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+    <script src="https://cdn.jsdelivr.net/npm/muse-ui@3.0.0-rc.5/dist/muse-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+    <script th:src="${domainName + 'js/question/main.js'}"></script>
+</html>
