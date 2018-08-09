@@ -22,19 +22,21 @@ $(function(){
 			dataType : "json",
 			success : function(data) {// 返回数据根据结果进行相应的处理,无论请求成功还是失败，都会走这个方法的
 				var html = "";
-				for(var i=0 ; i<data.length ; i++){
-					if(i >= 5){
-						break;
+				if(data != null){
+					for(var i=0 ; i<data.length ; i++){
+						if(i >= 5){
+							break;
+						}
+						html += '<li class="chapterlist-item">';
+						html += '<p class="chapterlist-item-name">';
+						html += '<a class="chapterlist-item-name-link" data-kp="a9d6195f312b3169a451a405" href="'+mainHttp+'course/'+courseId+'.html">';
+						html += '<span>'+data[i].name+'</span>';
+						html += '</a>';
+						html += '</p>';
+						html += '<p class="chapterlist-detail"><span>'+data[i].pointNum+'</span>知识点 | <span>'+data[i].questionNum+'</span>试题</p>';
+						html += '<a class="chapterlist-item-btn" href="'+mainHttp+'course/'+courseId+'.html">开始学习</a>';
+						html += '</li>';
 					}
-					html += '<li class="chapterlist-item">';
-					html += '<p class="chapterlist-item-name">';
-					html += '<a class="chapterlist-item-name-link" data-kp="a9d6195f312b3169a451a405" href="'+mainHttp+'course/'+courseId+'.html">';
-					html += '<span>'+data[i].name+'</span>';
-					html += '</a>';
-					html += '</p>';
-					html += '<p class="chapterlist-detail"><span>'+data[i].pointNum+'</span>知识点 | <span>'+data[i].questionNum+'</span>试题</p>';
-					html += '<a class="chapterlist-item-btn" href="'+mainHttp+'course/'+courseId+'.html">开始学习</a>';
-					html += '</li>';
 				}
 				$(".course-container .chapter-list ul").html(html);
 			}
@@ -54,18 +56,20 @@ $(function(){
 			dataType : "json",
 			success : function(data) {// 返回数据根据结果进行相应的处理,无论请求成功还是失败，都会走这个方法的
 				var html = "";
-				for(var i=0 ; i<data.length ; i++){
-					if(i >= 6){
-						break;
+				if(data != null){
+					for(var i=0 ; i<data.length ; i++){
+						if(i >= 6){
+							break;
+						}
+						html += '<li class="list-item">';
+						html += '<p class="list-item-name">';
+						html += '<a class="list-item-name-link" data-paperid="d08fb966f5335a8102d220a5" href="/tikupc/paperdetail/d08fb966f5335a8102d220a5">'+data[i].name+'</a>';
+						html += '</p>';
+						html += '<p class="list-item-detail">';
+						html += '<a class="list-item-link list-item-link-jiexi" data-paperid="d08fb966f5335a8102d220a5" href="/tikupc/paperdetail/d08fb966f5335a8102d220a5?showan=1" target="_blank">解析</a><span class="item-separate">|</span>';
+						html += '<a "=" " class=" list-item-link  list-item-link-xiazai" data-paperid="d08fb966f5335a8102d220a5 " href="/tikupc/paperdetail/d08fb966f5335a8102d220a5" target="_blank ">下载</a><span class="item-separate ">|</span><a class="list-item-link list-item-link-gufen " data-paperid="d08fb966f5335a8102d220a5 " href="/gaokaogufen/paperdetail/d08fb966f5335a8102d220a5 ">估分</a></p>';
+						html += '</li>';
 					}
-					html += '<li class="list-item">';
-					html += '<p class="list-item-name">';
-					html += '<a class="list-item-name-link" data-paperid="d08fb966f5335a8102d220a5" href="/tikupc/paperdetail/d08fb966f5335a8102d220a5">'+data[i].name+'</a>';
-					html += '</p>';
-					html += '<p class="list-item-detail">';
-					html += '<a class="list-item-link list-item-link-jiexi" data-paperid="d08fb966f5335a8102d220a5" href="/tikupc/paperdetail/d08fb966f5335a8102d220a5?showan=1" target="_blank">解析</a><span class="item-separate">|</span>';
-					html += '<a "=" " class=" list-item-link  list-item-link-xiazai" data-paperid="d08fb966f5335a8102d220a5 " href="/tikupc/paperdetail/d08fb966f5335a8102d220a5" target="_blank ">下载</a><span class="item-separate ">|</span><a class="list-item-link list-item-link-gufen " data-paperid="d08fb966f5335a8102d220a5 " href="/gaokaogufen/paperdetail/d08fb966f5335a8102d220a5 ">估分</a></p>';
-					html += '</li>';
 				}
 				$(".gaokaopaper-container .paper-main .paper-list-zhenti").html(html);
 			}
