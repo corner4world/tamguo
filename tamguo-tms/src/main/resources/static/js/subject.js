@@ -28,12 +28,12 @@ $(function(){
 					}
 					html += '<li class="chapterlist-item">';
 					html += '<p class="chapterlist-item-name">';
-					html += '<a class="chapterlist-item-name-link" data-kp="a9d6195f312b3169a451a405" href="/tikupc/chapterlist/1bfd700abb68a98271fefa04-16-knowpoint-11#dct-0">';
+					html += '<a class="chapterlist-item-name-link" data-kp="a9d6195f312b3169a451a405" href="'+mainHttp+'course/'+courseId+'.html">';
 					html += '<span>'+data[i].name+'</span>';
 					html += '</a>';
 					html += '</p>';
 					html += '<p class="chapterlist-detail"><span>'+data[i].pointNum+'</span>知识点 | <span>'+data[i].questionNum+'</span>试题</p>';
-					html += '<a class="chapterlist-item-btn" data-kp="a9d6195f312b3169a451a405" href="/tikupc/chapterlist/1bfd700abb68a98271fefa04-16-knowpoint-11#dct-0">开始学习</a>';
+					html += '<a class="chapterlist-item-btn" href="'+mainHttp+'course/'+courseId+'.html">开始学习</a>';
 					html += '</li>';
 				}
 				$(".course-container .chapter-list ul").html(html);
