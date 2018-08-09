@@ -58,6 +58,9 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, SubjectEntity
 		entity.setName(subject.getName());
 		entity.setRemarks(subject.getRemarks());
 		entity.setSort(subject.getSort());
+		entity.setSeoTitle(subject.getSeoTitle());
+		entity.setSeoKeywords(subject.getSeoKeywords());
+		entity.setSeoDescription(subject.getSeoDescription());
 		subjectMapper.updateById(entity);
 	}
 

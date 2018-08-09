@@ -84,7 +84,7 @@ $('#dataGrid').dataGrid({
 		{header:'类型名称', name:'name', index:'a.post_name', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="'+ctx+'tiku/subject/update?uid='+row.uid+'" class="btnList" data-title="编辑类型">'+(val||row.uid)+'</a>';
 		}},
-		{header:'类型编码', name:'uid', index:'a.post_code', width:200, align:"center"},
+		{header:'类型编码', name:'id', index:'a.post_code', width:200, align:"center"},
 		{header:'排序号', name:'sort', index:'a.post_sort', width:80, align:"center"},
 		{header:'更新时间', name:'updateDate', index:'a.update_date', width:150, align:"center"},
 		{header:'备注信息', name:'remarks', index:'a.remarks', width:200, align:"left"},
@@ -99,14 +99,14 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:130, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="'+ctx+'tiku/subject/update?uid='+row.uid+'" class="btnList" title="编辑分类"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="'+ctx+'tiku/subject/update?uid='+row.id+'" class="btnList" title="编辑分类"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == "normal"){
-					actions.push('<a href="'+ctx+'tiku/subject/disabled?uid='+row.uid+'" class="btnList" title="停用分类" data-confirm="确认要停用该分类吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'tiku/subject/disabled?uid='+row.id+'" class="btnList" title="停用分类" data-confirm="确认要停用该分类吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
 				if (row.status == "disabled"){
-					actions.push('<a href="'+ctx+'tiku/subject/enable?uid='+row.uid+'" class="btnList" title="启用分类" data-confirm="确认要启用该分类吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'tiku/subject/enable?uid='+row.id+'" class="btnList" title="启用分类" data-confirm="确认要启用该分类吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
-				actions.push('<a href="'+ctx+'tiku/subject/delete?uid='+row.uid+'" class="btnList" title="删除分类" data-confirm="确认要删除该分类吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="'+ctx+'tiku/subject/delete?uid='+row.id+'" class="btnList" title="删除分类" data-confirm="确认要删除该分类吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');
 		}}
 	],

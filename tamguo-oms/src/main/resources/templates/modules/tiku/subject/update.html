@@ -42,9 +42,9 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
-								<span class="required ">*</span> 分类编码：<i class="fa icon-question hide"></i></label>
+								<span class="required">*</span> 分类编码：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="uid" name="uid" th:value="${subject.uid}" maxlength="64" readonly="true" class="form-control required abc"/>
+								<input type="text" id="id" name="id" th:value="${subject.id}" maxlength="64" readonly="true" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -53,9 +53,40 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
-								<span class="required hide">*</span> 排序号：<i class="fa icon-question hide"></i></label>
+								<span class="required">*</span> 排序号：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<input type="text" id="sort" name="sort" th:value="${subject.sort}" maxlength="10" class="form-control digits"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> SEO标题：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<input type="text" id="seoTitle" name="seoTitle" th:value="${subject.seoTitle}" maxlength="100" class="form-control required "/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> SEO关键字：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<input type="text" id="seoKeywords" name="seoKeywords" th:value="${subject.seoKeywords}" maxlength="100" class="form-control required"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required">*</span> SEO描述：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+								<textarea id="seoDescription" name="seoDescription" rows="4" maxlength="500" class="form-control required" th:text="${subject.seoDescription}"></textarea>
 							</div>
 						</div>
 					</div>
