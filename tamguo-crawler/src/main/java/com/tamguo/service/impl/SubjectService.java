@@ -30,8 +30,9 @@ import com.xuxueli.crawler.rundata.RunData;
 @Service
 public class SubjectService implements ISubjectService{
 	
-	private final static String COURSE_ID = "likeshuxue";
-	private final static String BOOK_ID = "1025976567395184642";
+	private final static String COURSE_ID = "shengwu";
+	private final static String BOOK_ID = "1025976567395184645";
+	private final static String SUBJECT_ID = "gaokao";
 	@Autowired
 	SubjectMapper subjectMapper;
 	@Autowired
@@ -52,7 +53,7 @@ public class SubjectService implements ISubjectService{
 	@Override
 	public void crawlerSubject() {
 		XxlCrawler crawler = new XxlCrawler.Builder()
-            .setUrls("https://tiku.baidu.com/tikupc/chapterlist/1bfd700abb68a98271fefa04-16-knowpoint-11")
+            .setUrls("https://tiku.baidu.com/tikupc/chapterlist/1bfd700abb68a98271fefa04-20-knowpoint-11")
             .setAllowSpread(false)
             .setFailRetryCount(5)
             .setThreadCount(20)
@@ -62,7 +63,7 @@ public class SubjectService implements ISubjectService{
                 public void parse(Document html, Element pageVoElement, SubjectVo subjectVo) {
                     // 解析封装 PageVo 对象
                     String pageUrl = html.baseUri();
-                    if(pageUrl.contains("https://tiku.baidu.com/tikupc/chapterlist/")) {
+                    if(pageUrl.contains("https://tiku.baidu.com/tikupc/chapterlist/1bfd700abb68a98271fefa04-20-knowpoint-11")) {
                     	logger.info("开始解析书籍：{}" , pageUrl);
                     	ChapterEntity chapterCondition = new ChapterEntity();
                     	chapterCondition.setName(subjectVo.getChapterCurrName());
@@ -82,6 +83,7 @@ public class SubjectService implements ISubjectService{
                     	rootChapter.setTreeLevel(0);
                     	rootChapter.setParentCodes("-1,");
                     	rootChapter.setBookId(BOOK_ID);
+                    	rootChapter.setSubjectId(SUBJECT_ID);
                 		chapterMapper.insert(rootChapter);
                 		
                     	Elements elements = pageVoElement.getElementsByClass("detail-chapter");
@@ -99,6 +101,7 @@ public class SubjectService implements ISubjectService{
                     		chapter.setBookId(BOOK_ID);
                     		chapter.setTreeLeaf(false);
                     		chapter.setTreeLevel(1);
+                    		chapter.setSubjectId(SUBJECT_ID);
                     		chapterMapper.insert(chapter);
                     		chapter.setParentCodes(rootChapter.getParentCodes() + chapter.getId() + ",");
                     		chapterMapper.updateById(chapter);
@@ -119,6 +122,7 @@ public class SubjectService implements ISubjectService{
                         			chapter1.setQuestionNum(0);
                         			chapter1.setPointNum(0);
                         			chapter1.setOrders(i+1);
+                        			chapter1.setSubjectId(SUBJECT_ID);
                         			
                         			chapter1.setTreeLeaf(false);
                         			chapter1.setTreeLevel(2);
@@ -143,6 +147,7 @@ public class SubjectService implements ISubjectService{
                         				chapter2.setOrders(k+1);
                         				chapter2.setTreeLeaf(true);
                         				chapter2.setTreeLevel(3);
+                        				chapter2.setSubjectId(SUBJECT_ID);
                                 		chapterMapper.insert(chapter2);
                         				chapter2.setParentCodes(chapter1.getParentCodes() + chapter2.getId() + ",");
                                 		chapterMapper.updateById(chapter2);

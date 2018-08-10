@@ -52,7 +52,8 @@ public class QuestionService implements IQuestionService{
 	@Autowired
 	CacheService cacheService;
 	private static final String FILES_NO_FORMAT = "000000000";
-	private static final String FILES_PREFIX = "likeshuxue";
+	private static final String FILES_PREFIX = "shengwu";
+	private static final String COURSE_ID = "shengwu";
 	private static final String DOMAIN = "http://www.tamguo.com";
 	
 	private RunData runData;
@@ -139,7 +140,7 @@ public class QuestionService implements IQuestionService{
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setAnswer(question.getAnswer().replace(img, DOMAIN +  "/files/question/" + fileDatePath + "/" + fileName));
+                                question.setAnswer(question.getAnswer().replace(img, DOMAIN +  "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setAnswer(question.getAnswer());
                         }
@@ -160,7 +161,7 @@ public class QuestionService implements IQuestionService{
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setAnalysis(question.getAnalysis().replace(img, DOMAIN + "/files/question/" + fileDatePath + "/" + fileName));
+                                question.setAnalysis(question.getAnalysis().replace(img, DOMAIN + "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setAnalysis(question.getAnalysis());
                         }
@@ -181,7 +182,7 @@ public class QuestionService implements IQuestionService{
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setContent(question.getContent().replace(img, DOMAIN + "/files/question/" + fileDatePath + "/" + fileName));
+                                question.setContent(question.getContent().replace(img, DOMAIN + "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setContent(question.getContent());
                         }
@@ -198,7 +199,7 @@ public class QuestionService implements IQuestionService{
 	            	}
 	                
 	                private String getFilePath() {
-	            		return "/home/webdata/files/question/";
+	            		return "/home/webdata/files/question/" + COURSE_ID + "/";
 	                }
 	                
 	                private String getFileDatePath() {
