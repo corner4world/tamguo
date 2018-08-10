@@ -1,5 +1,6 @@
 package com.tamguo.service.impl;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.dao.ChapterMapper;
 import com.tamguo.dao.CourseMapper;
@@ -48,13 +50,14 @@ public class ChapterService implements IChapterService{
 	@Autowired
 	private CrawlerChapterMapper crawlerChapterMapper;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void modifyQuestionNum() {
 		int page = 1;
 		int pageSize = 100;
 		while(true) {
-			Page<ChapterEntity> chapterPage = new Page<ChapterEntity>(page , pageSize);
-			List<ChapterEntity> chapterList = chapterMapper.queryList(chapterPage);
+			Page<ChapterEntity> chapterPage = new Page<>(page, pageSize);
+			List<ChapterEntity> chapterList =  chapterMapper.selectPage(chapterPage, Condition.create().orderAsc(Arrays.asList("id")));
 			for(int i=0 ;i<chapterList.size() ; i++) {
 				// 处理数据
 				ChapterEntity chapter = chapterList.get(i);
