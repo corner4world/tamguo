@@ -107,7 +107,7 @@
 					<p class="title">试卷资源
 						<span class="detail">一考知底，高分必刷，全面提分</span>
 						<span class="area-content">当前位置：
-						<a class="more-area-link" th:href="${domainName+'paperlist/gaokao-0-0-0-1-1.html'}" target="_blank">更多地区 &gt; </a>
+						<a class="more-area-link" th:href="${domainName+'paperlist/gaokao-0-0-0-0-1.html'}" target="_blank">更多地区 &gt; </a>
 						</span>
 					</p>
 					<div class="paper-main">
@@ -119,11 +119,11 @@
 								<ul class="paper-list paper-list-zhenti">
 									<li class="list-item" th:each="p,pStat:${historyPaperList}">
 										<p class="list-item-name">
-											<a class="list-item-name-link" th:href="${domainName + 'paper/' + p.uid + '.html'}" th:text="${p.name}">2017年高考真题 语文 (北京卷)</a>
+											<a class="list-item-name-link" th:href="${domainName + 'paper/' + p.id + '.html'}" th:text="${p.name}">2017年高考真题 语文 (北京卷)</a>
 										</p>
 										<p class="list-item-detail">
-											<a class="list-item-link list-item-link-jiexi" th:href="${domainName + 'paper/' + p.uid + '.html'}" target="_blank">解析</a><span class="item-separate">|</span>
-											<a th:href="${domainName + 'paper/' + p.uid + '.html'}" class=" list-item-link  list-item-link-xiazai" target="_blank ">下载</a>
+											<a class="list-item-link list-item-link-jiexi" th:href="${domainName + 'paper/' + p.id + '.html'}" target="_blank">解析</a><span class="item-separate">|</span>
+											<a th:href="${domainName + 'paper/' + p.id + '.html'}" class=" list-item-link  list-item-link-xiazai" target="_blank ">下载</a>
 									</li>
 								</ul>
 							</div>
@@ -136,11 +136,11 @@
 								<ul class="paper-list paper-list-moni">
 									<li class="list-item" th:each="p,pStat:${simulationPaperList}">
 										<p class="list-item-name">
-											<a class="list-item-name-link" th:href="${domainName + 'paper/' + p.uid + '.html'}" th:text="${p.name}">英语 西城区2017年高三期末考试</a>
+											<a class="list-item-name-link" th:href="${domainName + 'paper/' + p.id + '.html'}" th:text="${p.name}">英语 西城区2017年高三期末考试</a>
 										</p>
 										<p class="list-item-detail">
-											<a class="list-item-link list-item-link-jiexi" th:href="${domainName + 'paper/' + p.uid + '.html'}" target="_blank">解析</a><span class="item-separate">|</span>
-											<a th:href="${domainName + 'paper/' + p.uid + '.html'}" class=" list-item-link  list-item-link-xiazai" target="_blank ">下载</a></p>
+											<a class="list-item-link list-item-link-jiexi" th:href="${domainName + 'paper/' + p.id + '.html'}" target="_blank">解析</a><span class="item-separate">|</span>
+											<a th:href="${domainName + 'paper/' + p.id + '.html'}" class=" list-item-link  list-item-link-xiazai" target="_blank ">下载</a></p>
 									</li>
 								</ul>
 							</div>
@@ -151,7 +151,7 @@
 								</h3>
 								<ul class="hotpaper-list">
 									<li class="hotpaper-list-item" th:each="p,pStat:${hotPaperList}">
-										<a class="hotpaper-name" th:href="${domainName + 'paper/' + p.uid + '.html'}">
+										<a class="hotpaper-name" th:href="${domainName + 'paper/' + p.id + '.html'}">
 											<span th:class="${'rank-'+(pStat.index+1) + ' hotpaper-rank'}"></span><span th:text="${p.name}">2017年高考真题 语文 (北京卷)</span>
 										</a>
 									</li>
@@ -183,7 +183,7 @@
 									</div>
 									<ul class="paper-wrap">
 										<li class="paper-item" th:each="p,pStat:${s.paperList}">
-											<a class="paper-item-name" th:href="${domainName + 'paper/' +p.uid+'.html'}" th:text="${p.name}">
+											<a class="paper-item-name" th:href="${domainName + 'paper/' +p.id+'.html'}" th:text="${p.name}">
 												语文 海淀区2016年高三期末试卷
 											</a>
 										</li>

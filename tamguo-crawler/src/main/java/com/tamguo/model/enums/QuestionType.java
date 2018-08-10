@@ -36,6 +36,8 @@ public enum QuestionType {
     		return WENDATI;
     	}else if("选择题".equals(value)) {
     		return DANXUANTI;
+    	}else if("简答题（综合题）".equals(value)) {
+    		return WENDATI;
     	}
     	return WENDATI;
     }

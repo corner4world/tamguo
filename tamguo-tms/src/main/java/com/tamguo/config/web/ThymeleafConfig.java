@@ -9,6 +9,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import com.tamguo.common.utils.SystemConstant;
+
 @Component
 public class ThymeleafConfig implements EnvironmentAware{
 
@@ -21,10 +23,10 @@ public class ThymeleafConfig implements EnvironmentAware{
 	        Map<String, Object> vars = new HashMap<>();
 	        vars.put("domainName", env.getProperty("domain.name"));
 	        vars.put("adminDomain", env.getProperty("admin.domain.name"));
-	        vars.put("PAPER_TYPE_ZHENTI", "1");
-	        vars.put("PAPER_TYPE_MONI", "2");
-	        vars.put("PAPER_TYPE_YATI", "3");
-	        vars.put("PAPER_TYPE_MINGXIAO", "4");
+	        vars.put("PAPER_TYPE_ZHENTI", SystemConstant.ZHENGTI_PAPER_ID);
+	        vars.put("PAPER_TYPE_MONI", SystemConstant.MONI_PAPER_ID);
+	        vars.put("PAPER_TYPE_YATI", SystemConstant.YATI_PAPER_ID);
+	        vars.put("PAPER_TYPE_MINGXIAO", SystemConstant.MINGXIAO_PAPER_ID);
 	        viewResolver.setStaticVariables(vars);
 	    }
 	}
