@@ -61,6 +61,7 @@ public class CourseController {
 			model.addObject("subject", subject);
 			model.addObject("bookList", bookList);
 			model.addObject("book" , book);
+			model.setViewName("chapter");
 			return model;
 		} catch (Exception e) {
 			model.setViewName("404");
