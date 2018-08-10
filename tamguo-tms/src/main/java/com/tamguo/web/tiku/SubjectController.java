@@ -2,6 +2,9 @@ package com.tamguo.web.tiku;
 
 import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ import com.tamguo.modules.tiku.service.IBookService;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.ISubjectService;
+import com.tamguo.utils.BrowserUtils;
 
 /**
  * Controller - 考试（高考，建造师，医药师）
@@ -46,11 +50,10 @@ public class SubjectController {
 	private ICourseService iCourseService;
 	@Autowired
 	private IBookService iBookService;
-	
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"subject/{subjectId}.html"}, method = RequestMethod.GET)
-    public ModelAndView indexAction(@PathVariable String subjectId , ModelAndView model) {
+    public ModelAndView indexAction(@PathVariable String subjectId , HttpServletRequest request , ModelAndView model) {
 		try {
 			SubjectEntity subject = iSubjectService.selectById(subjectId);
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId).orderAsc(Arrays.asList("sort")));
@@ -63,12 +66,17 @@ public class SubjectController {
 				BookEntity book = bookList.get(0);
 				chapterList = iChapterService.selectList(Condition.create().eq("book_id", book.getId()));
 			}
-	    	model.setViewName("subject");
 	    	model.addObject("subject", subject);
 	    	model.addObject("course" , course);
 	    	model.addObject("courseList", courseList);
 	    	model.addObject("chapterList" , chapterList);
 	    	model.addObject("areaList", iSysAreaService.selectList(Condition.create().eq("tree_level", "0")));
+	    	if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+	    		model.setViewName("mobile/subject");
+	    	}else {
+	    		model.setViewName("subject");
+	    	}
+	    	
 	        return model;
 		} catch (Exception e) {
 			logger.error(e.getMessage() , e);

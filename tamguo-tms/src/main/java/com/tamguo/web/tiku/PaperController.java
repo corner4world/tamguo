@@ -1,6 +1,9 @@
 package com.tamguo.web.tiku;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,7 @@ import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.IPaperService;
 import com.tamguo.modules.tiku.service.IQuestionService;
 import com.tamguo.modules.tiku.service.ISubjectService;
+import com.tamguo.utils.BrowserUtils;
 import com.tamguo.utils.PageUtils;
 
 /**
@@ -45,11 +49,9 @@ public class PaperController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"paperlist/{subjectId}-{courseId}-{paperType}-{year}-{area}-{pageNum}.html"}, method = RequestMethod.GET)
-    public ModelAndView indexAction(@PathVariable String subjectId , @PathVariable String courseId , @PathVariable String paperType,
+    public ModelAndView indexAction(HttpServletRequest request , @PathVariable String subjectId , @PathVariable String courseId , @PathVariable String paperType,
     		@PathVariable String year , @PathVariable String area , @PathVariable Integer pageNum, ModelAndView model) {
     	try {
-    		model.setViewName("paperlist");
-        	
         	CourseEntity course = iCourseService.selectById(courseId);
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId));
         	SubjectEntity subject = iSubjectService.selectById(subjectId);
@@ -84,6 +86,13 @@ public class PaperController {
         	model.addObject("paperType", paperType);
         	model.addObject("year", year);
         	model.addObject("area", area);
+        	
+
+			if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+	    		model.setViewName("mobile/paperlist");
+	    	}else {
+	    		model.setViewName("paperlist");
+	    	}
             return model;
 		} catch (Exception e) {
 			model.setViewName("404");
@@ -94,7 +103,7 @@ public class PaperController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"/paper/{paperId}.html"}, method = RequestMethod.GET)
-	public ModelAndView indexAction(@PathVariable String paperId , ModelAndView model){
+	public ModelAndView indexAction(HttpServletRequest request , @PathVariable String paperId , ModelAndView model){
 		try {
 			model.setViewName("paper");
 			PaperEntity paper = iPaperService.selectById(paperId);
@@ -108,6 +117,13 @@ public class PaperController {
 			model.addObject("moniPaperList", iPaperService.selectList(Condition.create().eq("subject_id", paper.getSubjectId()).eq("type",SystemConstant.MONI_PAPER_ID)));
 			model.addObject("yatiPaperList", iPaperService.selectList(Condition.create().eq("subject_id", paper.getSubjectId()).eq("type",SystemConstant.YATI_PAPER_ID)));
 			model.addObject("hotPaperList", iPaperService.selectList(Condition.create().eq("subject_id", paper.getSubjectId()).eq("course_id", paper.getCourseId())));
+			
+
+			if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+	    		model.setViewName("mobile/paper");
+	    	}else {
+	    		model.setViewName("paper");
+	    	}
 			return model;
 		} catch (Exception e) {
 			model.setViewName("404");
