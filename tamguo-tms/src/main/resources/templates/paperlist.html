@@ -98,6 +98,9 @@
 				<li th:class="${year == '0'} ? 'selected' : ''">
 					<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-0-' + area + '-1.html'}">全部</a>
 				</li>
+				<li th:class="${year == '2018'} ? 'selected' : ''">
+					<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-2018-' + area + '-1.html'}">2018</a>
+				</li>
 				<li th:class="${year == '2017'} ? 'selected' : ''">
 					<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-2017-' + area + '-1.html'}">2017</a>
 				</li>
