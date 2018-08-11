@@ -21,6 +21,7 @@ import com.xuxueli.crawler.parser.PageParser;
 import com.xuxueli.crawler.parser.strategy.HtmlUnitPageLoader;
 import com.xuxueli.crawler.rundata.RunData;
 
+// 北京模拟试卷，真题试卷已经爬取完毕
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PaperCrawler {
@@ -32,11 +33,11 @@ public class PaperCrawler {
 	// 110000 北京
 	private final String AREA_ID = "110000";
 	// 年份
-	private final String YEAR = "2017";
+	private final String YEAR = "2013";
 	// 真题试卷             类型(1:真题试卷,2:模拟试卷,3:押题预测,4:名校精品)
-	private final String PAPER_TYPE = "1";
+	private final String PAPER_TYPE = "2";
 	// 开始采集的URL
-	private final String START_URL = "https://tiku.baidu.com/tikupc/paperlist/1bfd700abb68a98271fefa04-16-1-2017-37-1-download";
+	private final String START_URL = "https://tiku.baidu.com/tikupc/paperlist/1bfd700abb68a98271fefa04-16-4-2013-37-1-download";
 	
 	private RunData runData;
 	

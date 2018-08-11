@@ -215,13 +215,13 @@ public class PaperQuestionCrawler {
 	                }
 	                
 	                private String getFileDatePath() {
-	                	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+	                	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
 	            		String format = sdf.format(new Date());
 	            		return format;
 	                }
 
 	            	private String getFileNo() {
-	            		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+	            		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
 	            		String format = sdf.format(new Date());
 	            		DecimalFormat df = new DecimalFormat(FILES_NO_FORMAT);
 	            		String key = FILES_PREFIX + format;
@@ -236,7 +236,7 @@ public class PaperQuestionCrawler {
 			int pageSize = 1000;
 			while(true) {
 				Page<CrawlerPaperEntity> questionPage = new Page<CrawlerPaperEntity>(page , pageSize);
-				List<CrawlerPaperEntity> questionList = crawlerPaperMapper.selectPage(questionPage, Condition.create().orderAsc(Arrays.asList("queindex")));
+				List<CrawlerPaperEntity> questionList = crawlerPaperMapper.selectPage(questionPage, Condition.create().orderAsc(Arrays.asList("paper_id" , "queindex")));
 				for(int i=0 ;i<questionList.size() ; i++) {
 					runData.addUrl(questionList.get(i).getQuestionUrl());
 				}
