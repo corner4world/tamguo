@@ -118,12 +118,13 @@
             <div class="kpoint-1-content clearfix">
                     <div class="detail-kpoint-2" th:each="cc,ccStat:${cc.childChapterList}">
                     <h5 th:text="${cc.name}">1.1 集合的含义</h5>
-                    <p>
+                    <p th:if="${cc.questionNum > 0}">
                         <span class="">
                                 <span class="count" th:text="${cc.questionNum}">531</span> 道题
                         </span>
                     </p>
-                    <div class="mask" style="display: none;">
+                    <p><span class=" no-que " th:if="${cc.questionNum <= 0}">本知识点暂无试题, 敬请期待!</span></p>
+                    <div class="mask" style="display: none;" th:if="${cc.questionNum > 0}">
                         <a target="_blank" th:href="${domainName + 'questionlist/' + cc.id + '-1-5.html'}" class="do">
                           	  马上做题
                         </a>

@@ -27,6 +27,7 @@ public class ThymeleafConfig implements EnvironmentAware{
 	        vars.put("PAPER_TYPE_MONI", SystemConstant.MONI_PAPER_ID);
 	        vars.put("PAPER_TYPE_YATI", SystemConstant.YATI_PAPER_ID);
 	        vars.put("PAPER_TYPE_MINGXIAO", SystemConstant.MINGXIAO_PAPER_ID);
+	        vars.put("BEIJING_AREA_ID", SystemConstant.BEIJING_AREA_ID);
 	        viewResolver.setStaticVariables(vars);
 	    }
 	}

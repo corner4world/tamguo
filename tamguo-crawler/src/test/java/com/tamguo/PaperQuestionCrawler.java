@@ -75,7 +75,7 @@ public class PaperQuestionCrawler {
 		
 		XxlCrawler crawler = new XxlCrawler.Builder()
 	            .setAllowSpread(false)
-	            .setThreadCount(20)
+	            .setThreadCount(1)
 	            .setFailRetryCount(5)
 	            .setPageLoader(new HtmlUnitPageLoader())
 	            .setPageParser(new PageParser<QuestionVo>() {
@@ -215,13 +215,13 @@ public class PaperQuestionCrawler {
 	                }
 	                
 	                private String getFileDatePath() {
-	                	SimpleDateFormat sdf = new SimpleDateFormat("ddHHmm");
+	                	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 	            		String format = sdf.format(new Date());
 	            		return format;
 	                }
 
 	            	private String getFileNo() {
-	            		SimpleDateFormat sdf = new SimpleDateFormat("ddHHmm");
+	            		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 	            		String format = sdf.format(new Date());
 	            		DecimalFormat df = new DecimalFormat(FILES_NO_FORMAT);
 	            		String key = FILES_PREFIX + format;
@@ -236,7 +236,7 @@ public class PaperQuestionCrawler {
 			int pageSize = 1000;
 			while(true) {
 				Page<CrawlerPaperEntity> questionPage = new Page<CrawlerPaperEntity>(page , pageSize);
-				List<CrawlerPaperEntity> questionList = crawlerPaperMapper.selectPage(questionPage, Condition.create().orderDesc(Arrays.asList("id")));
+				List<CrawlerPaperEntity> questionList = crawlerPaperMapper.selectPage(questionPage, Condition.create().orderAsc(Arrays.asList("queindex")));
 				for(int i=0 ;i<questionList.size() ; i++) {
 					runData.addUrl(questionList.get(i).getQuestionUrl());
 				}

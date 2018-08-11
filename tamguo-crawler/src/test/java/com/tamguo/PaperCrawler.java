@@ -18,6 +18,7 @@ import com.tamguo.model.enums.QuestionType;
 import com.tamguo.model.vo.PaperVo;
 import com.xuxueli.crawler.XxlCrawler;
 import com.xuxueli.crawler.parser.PageParser;
+import com.xuxueli.crawler.parser.strategy.HtmlUnitPageLoader;
 import com.xuxueli.crawler.rundata.RunData;
 
 @RunWith(SpringRunner.class)
@@ -31,11 +32,11 @@ public class PaperCrawler {
 	// 110000 北京
 	private final String AREA_ID = "110000";
 	// 年份
-	private final String YEAR = "2018";
+	private final String YEAR = "2017";
 	// 真题试卷             类型(1:真题试卷,2:模拟试卷,3:押题预测,4:名校精品)
 	private final String PAPER_TYPE = "1";
 	// 开始采集的URL
-	private final String START_URL = "https://tiku.baidu.com/tikupc/paperlist/1bfd700abb68a98271fefa04-16-0-2018-37-1-download";
+	private final String START_URL = "https://tiku.baidu.com/tikupc/paperlist/1bfd700abb68a98271fefa04-16-1-2017-37-1-download";
 	
 	private RunData runData;
 	
@@ -51,6 +52,7 @@ public class PaperCrawler {
 	            .setAllowSpread(false)
 	            .setFailRetryCount(5)
 	            .setThreadCount(1)
+	            .setPageLoader(new HtmlUnitPageLoader())
 	            .setPageParser(new PageParser<PaperVo>() {
 	            	
 	                @Override
@@ -89,11 +91,13 @@ public class PaperCrawler {
 	                    	paper.setQuestionInfo(entitys.toJSONString());
 	                    	paperMapper.insert(paper);
 	                    	
-	                    	// 插入图片
+	                    	// 插入
 	                    	for(int i=0 ; i<paperVo.getQuestionUrls().size() ; i++) {
 	                    		CrawlerPaperEntity cp = new CrawlerPaperEntity();
 	                    		cp.setPaperId(paper.getId());
 	                    		cp.setQuestionUrl(paperVo.getQuestionUrls().get(i));
+	                    		cp.setQueindex(paperVo.getQueindexs().get(i));
+	                    	
 	                    		crawlerPaperMapper.insert(cp);
 	                    	}
 	                    }

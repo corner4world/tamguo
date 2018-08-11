@@ -24,6 +24,9 @@ public class PaperVo {
 	
 	@PageFieldSelect(cssQuery = ".view-analyse .view-link", selectType = XxlCrawlerConf.SelectType.ATTR, selectVal = "abs:href")
 	private List<String> questionUrls;
+	
+	@PageFieldSelect(cssQuery = ".question-box-inner .queindex-wrap .queindex")
+	private List<Integer> queindexs;
 
 	public String getPaperName() {
 		return paperName;
@@ -63,6 +66,14 @@ public class PaperVo {
 
 	public void setQuestionUrls(List<String> questionUrls) {
 		this.questionUrls = questionUrls;
+	}
+
+	public List<Integer> getQueindexs() {
+		return queindexs;
+	}
+
+	public void setQueindexs(List<Integer> queindexs) {
+		this.queindexs = queindexs;
 	}
 	
 }

@@ -12,6 +12,8 @@ public class CrawlerPaperEntity extends SuperEntity<CrawlerChapterEntity>{
 	
 	private String paperId;
 	
+	private Integer queindex;
+	
 	public String getQuestionUrl() {
 		return questionUrl;
 	}
@@ -30,5 +32,13 @@ public class CrawlerPaperEntity extends SuperEntity<CrawlerChapterEntity>{
 
 	public void setPaperId(String paperId) {
 		this.paperId = paperId;
+	}
+
+	public Integer getQueindex() {
+		return queindex;
+	}
+
+	public void setQueindex(Integer queindex) {
+		this.queindex = queindex;
 	}
 }
