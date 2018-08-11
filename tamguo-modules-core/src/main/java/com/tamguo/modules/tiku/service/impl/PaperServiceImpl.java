@@ -36,7 +36,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.HISTORY_PAPER);
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 6);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.HISTORY_PAPER).eq("area_id", SystemConstant.BEIJING_AREA_ID));
+			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.ZHENGTI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID));
 			cacheService.setObject(SystemConstant.HISTORY_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
@@ -48,7 +48,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.SIMULATION_PAPER);
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 6);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.SIMULATION_PAPER).eq("area_id", SystemConstant.BEIJING_AREA_ID));
+			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.MONI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID));
 			cacheService.setObject(SystemConstant.SIMULATION_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
