@@ -35,19 +35,19 @@
 			</div>
 			<div class="content" id='page-index'>
 				<div class="content-inner">
-					<div class="content-block-title">试卷</div>
+					<div class="content-padded content-title"><h4 th:text="${paper.name}"></h4></div>
 					<div class="card" th:each="question,status:${questionList}">
 					      <div class="card-content no-border">
 					      		<div class="card-header">题干</div>
-					        	<div class="card-content-inner" th:utext="${question.content}">这是一个用纯文本的简单卡片。但卡片可以包含自己的页头，页脚，列表视图，图像，和里面的任何元素。</div>
+					        	<div class="card-content-inner card-content-inner" th:utext="${question.content}">这是一个用纯文本的简单卡片。但卡片可以包含自己的页头，页脚，列表视图，图像，和里面的任何元素。</div>
 					      </div>
 					      <div class="card-content no-border">
 					      		<div class="card-header">答案</div>
-					        	<div class="card-content-inner" th:utext="${question.answer}">这是一个用纯文本的简单卡片。但卡片可以包含自己的页头，页脚，列表视图，图像，和里面的任何元素。</div>
+					        	<div class="card-content-inner" ><div th:utext="${question.answer}"></div></div>
 					      </div>
 					      <div class="card-content no-border">
 					      		<div class="card-header">解析</div>
-					        	<div class="card-content-inner" th:utext="${question.analysis}">这是一个用纯文本的简单卡片。但卡片可以包含自己的页头，页脚，列表视图，图像，和里面的任何元素。</div>
+					        	<div class="card-content-inner" ><div th:utext="${question.analysis}"></div></div>
 					      </div>
 					      <div class="card-footer">
 						        <span class="link">赞</span>
