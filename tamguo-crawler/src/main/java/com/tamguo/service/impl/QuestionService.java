@@ -52,8 +52,8 @@ public class QuestionService implements IQuestionService{
 	@Autowired
 	CacheService cacheService;
 	private static final String FILES_NO_FORMAT = "000000000";
-	private static final String FILES_PREFIX = "shengwu";
-	private static final String COURSE_ID = "shengwu";
+	private static final String FILES_PREFIX = "zz";
+	private static final String COURSE_ID = "zhengzhi";
 	private static final String DOMAIN = "http://www.tamguo.com";
 	
 	private RunData runData;
