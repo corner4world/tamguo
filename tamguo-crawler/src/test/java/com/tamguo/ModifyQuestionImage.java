@@ -29,13 +29,13 @@ public class ModifyQuestionImage {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void modify() {
-		Integer current = 1 ; 
+		Integer current = 98 ; 
 		Integer size = 100;
 		
 		while(true) {
 			Page<QuestionEntity> page = new Page<>(current , size);
 			Page<QuestionEntity> entitys = iQuestionService.selectPage(page , Condition.create().orderAsc(Arrays.asList("id")));
-			if(entitys.getPages() > 759) {
+			if(entitys.getCurrent() > 759) {
 				break;
 			}
 			// 处理数据
@@ -43,6 +43,9 @@ public class ModifyQuestionImage {
 				QuestionEntity question = entitys.getRecords().get(i);
 				question.setAnalysis(question.getAnalysis().replaceAll("http://www.tamguo.com/", ""));
 				question.setContent(question.getContent().replaceAll("http://www.tamguo.com/", ""));
+				if(question.getAnswer() == null) {
+					question.setAnswer("");
+				}
 				question.setAnswer(question.getAnswer().replaceAll("http://www.tamguo.com/", ""));
 			}
 			iQuestionService.updateAllColumnBatchById(entitys.getRecords());

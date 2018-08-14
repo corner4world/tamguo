@@ -21,6 +21,10 @@ public class CourseEntity {
 	private Integer pointNum;
 	private String remarks;
 	
+	private String seoTitle;
+	private String seoKeywords;
+	private String seoDescription;
+	
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String createBy;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
@@ -104,6 +108,24 @@ public class CourseEntity {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getSeoTitle() {
+		return seoTitle;
+	}
+	public void setSeoTitle(String seoTitle) {
+		this.seoTitle = seoTitle;
+	}
+	public String getSeoKeywords() {
+		return seoKeywords;
+	}
+	public void setSeoKeywords(String seoKeywords) {
+		this.seoKeywords = seoKeywords;
+	}
+	public String getSeoDescription() {
+		return seoDescription;
+	}
+	public void setSeoDescription(String seoDescription) {
+		this.seoDescription = seoDescription;
 	}
 
 }
