@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>探果-管理试题</title>
-		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css' }" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/questionList.css' }" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/memberMain.css'}" />
-		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/reset.css' }" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/questionList.css' }" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/memberMain.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
 		<!-- 引入样式 -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
 	</head>
@@ -15,20 +15,20 @@
 		<div class="head" th:fragment="memberHeader">
 			<div class="head-bar public">
 				<div class="logo">
-					<a target="_blank" th:href="${setting.domain}">
-						<img th:src="${setting.domain + 'images/logo_731bc32.png'}">
+					<a target="_blank" th:href="${domainName}">
+						<img th:src="${domainName + 'images/logo_731bc32.png'}">
 					</a>
 					<p><span>考试中心</span></p>
 				</div>
 				<ul class="nav">
-					<li><a th:href="${setting.domain + 'member/index.html'}">首页</a></li>
-					<li class="active"><a th:href="${setting.domain + 'member/paper.html'}">试卷</a></li>
-					<li><a th:href="${setting.domain + 'member/account.html'}">帐号</a></li>
+					<li><a th:href="${domainName + 'member/index.html'}">首页</a></li>
+					<li class="active"><a th:href="${domainName + 'member/paper.html'}">试卷</a></li>
+					<li><a th:href="${domainName + 'member/account.html'}">帐号</a></li>
 				</ul>
 				<div class="mguser">
 					<div class="mguser-box">
 						<span th:text="${session.currMember.username}">tamguo</span>
-						<a th:href="${setting.domain + 'logout.html'}">退出</a>
+						<a th:href="${domainName + 'logout.html'}">退出</a>
 					</div>
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 	    </div>
 	    
 	    <div id="container" class="plist test_public  prof_t ng-scope" v-cloak  v-loading="loading">
-    		<div class="pronext" style="margin-right: 16px;"><a th:href="${setting.domain + 'member/paper.html'}" class="backM">返回试卷列表页</a></div>
+    		<div class="pronext" style="margin-right: 16px;"><a th:href="${domainName + 'member/paper.html'}" class="backM">返回试卷列表页</a></div>
 		    <div class="topbt topbt-2">
 		        <h3>管理试题</h3>
 		    </div>
@@ -62,7 +62,7 @@
 		        <span style="margin-right: 10px;display: inline-block;line-height:20px;">试卷：<span style="font-weight: bolder;font-size: 16px;    display: inline-block;overflow: hidden; white-space: nowrap;text-overflow: ellipsis;max-width: 304px;position:relative;top:5px;" th:title="${paper.name}" class="ng-binding" th:text="${paper.name}">赛码样卷（示例）</span></span>
 		    </div>
 		    <div class="addQues_btn">
-		        <span><a th:href="${setting.domain + 'member/addQuestion.html?paperId=' + paper.uid}">+ 添加试题</a></span>
+		        <span><a th:href="${domainName + 'member/addQuestion.html?paperId=' + paper.uid}">+ 添加试题</a></span>
 		    </div>
 		    <div class="apa_ri">
 		        <div class="apa_ri-tab">
@@ -156,8 +156,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
 	<script type="text/javascript" th:inline="javascript">
-		var mainHttp = [[${setting.domain}]];
+		var mainHttp = [[${domainName}]];
 		var paperId = [[${paper.uid}]];
 	</script>
-	<script type="text/javascript" th:src="${setting.domain + 'js/member/questionList.js'}" ></script>
+	<script type="text/javascript" th:src="${domainName + 'js/member/questionList.js'}" ></script>
 </html>

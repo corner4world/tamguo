@@ -3,30 +3,30 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>会员中心-添加试题</title>
-		<link rel="stylesheet" th:href="${setting.domain + 'css/reset.css'}" />
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/addQuestion.css'}">
-		<link rel="stylesheet" th:href="${setting.domain + 'css/member/memberMain.css'}" />
-		<link type="favicon" rel="shortcut icon" th:href="${setting.domain + 'images/favicon.png'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/addQuestion.css'}">
+		<link rel="stylesheet" th:href="${domainName + 'css/member/memberMain.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
 	</head>
 	<body>
 		<!-- 头部-->
 		<div class="head" th:fragment="memberHeader">
 			<div class="head-bar public">
 				<div class="logo">
-					<a target="_blank" th:href="${setting.domain}">
-						<img th:src="${setting.domain + 'images/logo_731bc32.png'}">
+					<a target="_blank" th:href="${domainName}">
+						<img th:src="${domainName + 'images/logo_731bc32.png'}">
 					</a>
 					<p><span>考试中心</span></p>
 				</div>
 				<ul class="nav">
-					<li><a th:href="${setting.domain + 'member/index.html'}">首页</a></li>
-					<li class="active"><a th:href="${setting.domain + 'member/paper.html'}">试卷</a></li>
-					<li><a th:href="${setting.domain + 'member/account.html'}">帐号</a></li>
+					<li><a th:href="${domainName + 'member/index.html'}">首页</a></li>
+					<li class="active"><a th:href="${domainName + 'member/paper.html'}">试卷</a></li>
+					<li><a th:href="${domainName + 'member/account.html'}">帐号</a></li>
 				</ul>
 				<div class="mguser">
 					<div class="mguser-box">
 						<span th:text="${session.currMember.username}">tamguo</span>
-						<a th:href="${setting.domain + 'logout.html'}">退出</a>
+						<a th:href="${domainName + 'logout.html'}">退出</a>
 					</div>
 				</div>
 			</div>
@@ -130,15 +130,15 @@
 		<!-- 尾部-->
 		<div th:replace="include/memberFooter :: memberFooter"></div>
 		
-		<script type="text/javascript" th:src="${setting.domain + 'js/jquery-1.8.3.min.js'}" ></script>
-		<script type="text/javascript" th:src="${setting.domain + 'js/plugins/ueditor/ueditor.config.js'}"></script>
-		<script type="text/javascript" th:src="${setting.domain + 'js/plugins/ueditor/ueditor.all.min.js'}"></script>
+		<script type="text/javascript" th:src="${domainName + 'js/jquery-1.8.3.min.js'}" ></script>
+		<script type="text/javascript" th:src="${domainName + 'js/plugins/ueditor/ueditor.config.js'}"></script>
+		<script type="text/javascript" th:src="${domainName + 'js/plugins/ueditor/ueditor.all.min.js'}"></script>
 		<script type="text/javascript" th:inline="javascript">
-			var mainHttp = [[${setting.domain}]];
+			var mainHttp = [[${domainName}]];
 		</script>
-		<script type="text/javascript" th:src="${setting.domain + 'libs/vue.min.js'}"></script>
-		<script th:src="${setting.domain + 'js/plugins/layer/layer.js'}"></script>
-		<script type="text/javascript" th:src="${setting.domain + 'js/member/addQuestion.js'}"></script>
+		<script type="text/javascript" th:src="${domainName + 'libs/vue.min.js'}"></script>
+		<script th:src="${domainName + 'js/plugins/layer/layer.js'}"></script>
+		<script type="text/javascript" th:src="${domainName + 'js/member/addQuestion.js'}"></script>
 		<script type="text/javascript">
 			$(function(){
 			    window.tiganUE =  UE.getEditor('tigan',{
