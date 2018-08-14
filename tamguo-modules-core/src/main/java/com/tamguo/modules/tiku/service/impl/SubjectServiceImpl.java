@@ -115,4 +115,20 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, SubjectEntity
 		return courseTree;
 	}
 
+	@Transactional(readOnly=true)
+	@SuppressWarnings("unchecked")
+	@Override
+	public JSONArray getSubjectTree() {
+		JSONArray courseTree = new JSONArray();
+		List<SubjectEntity> subjectList = subjectMapper.selectList(Condition.EMPTY);
+		for(int i=0 ; i<subjectList.size() ; i++){
+			SubjectEntity subject = subjectList.get(i);
+			JSONObject node = new JSONObject();
+			node.put("value", subject.getId());
+			node.put("label", subject.getName());
+			courseTree.add(node);
+		}
+		return courseTree;
+	}
+
 }

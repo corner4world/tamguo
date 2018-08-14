@@ -109,7 +109,6 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 		entity.setUsername(member.getUsername());
 		entity.setNickName(member.getUsername());
 		entity.setSubjectId(member.getSubjectId());
-		entity.setCourseId(member.getCourseId());
 		entity.setEmail(member.getEmail());
 		memberMapper.insert(entity);
 		return Result.result(200, entity, "注册成功");
@@ -190,7 +189,6 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 		entity.setAvatar(member.getAvatar());
 		entity.setEmail(member.getEmail());
 		entity.setMobile(member.getMobile());
-		entity.setCourseId(member.getCourseId());
 		entity.setSubjectId(member.getSubjectId());
 		entity.setNickName(member.getNickName());
 		

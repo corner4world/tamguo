@@ -62,7 +62,7 @@ var vm = new Vue({
 		          });
 		      },
 		      getCourses:function(){
-		    	  axios.get(mainHttp + 'subject/getCourseCascaderTree.html').then(function(response){
+		    	  axios.get(mainHttp + 'subject/getSubjectTree.html').then(function(response){
 		    		  vm.courses = response.data.result;
 		    	  });  
 		      },

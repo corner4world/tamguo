@@ -25,6 +25,10 @@ public interface ISubjectService extends IService<SubjectEntity>{
 	/** 删除分类*/
 	void delete(String uid);
 
+	/** 科目树*/
 	JSONArray getCourseCascaderTree();
+
+	/** 分类树*/
+	JSONArray getSubjectTree();
 
 }

@@ -78,7 +78,6 @@ var vm = new Vue({
          this.$refs[formName].validate((valid) => {
 	          if (valid) {
 	        	vm.loading = true;
-	        	vm.member.courseId = vm.member.kemuId[1];
 	    		vm.member.subjectId = vm.member.kemuId[0];
 	            axios({method: 'post',url: mainHttp + 'subRegister.html',data: vm.member}).then(function(response){
 	      		    if(response.data.code == 200){
@@ -102,7 +101,7 @@ var vm = new Vue({
         this.$refs[formName].resetFields();
       },
       getCourses:function(){
-    	  axios.get(mainHttp + 'subject/getCourseCascaderTree.html').then(function(response){
+    	  axios.get(mainHttp + 'subject/getSubjectTree.html').then(function(response){
     		  vm.courses = response.data.result;
     	  });  
       },

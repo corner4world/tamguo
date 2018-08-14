@@ -16,8 +16,6 @@ public class MemberEntity extends SuperEntity<MemberEntity> implements Serializa
 	private static final long serialVersionUID = 1L;
 	
 	private String subjectId;
-	
-	private String courseId;
 
 	private String username;
 	
@@ -169,14 +167,6 @@ public class MemberEntity extends SuperEntity<MemberEntity> implements Serializa
 
 	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
-	}
-
-	public String getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(String courseId) {
-		this.courseId = courseId;
 	}
 
 	public String getNowPassword() {
