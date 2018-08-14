@@ -32,6 +32,12 @@ public class IndexController {
         return model;
     }
     
+    @RequestMapping(value = "/shenma-site-verification.txt", method = RequestMethod.GET)
+    public ModelAndView shenma_site_verification(ModelAndView model) {
+    	model.setViewName("thirdparty/shenma-site-verification");
+        return model;
+    }
+    
     @RequestMapping(value = "/sogousiteverification", method = RequestMethod.GET)
     public ModelAndView sogousiteverification(ModelAndView model) {
     	model.setViewName("thirdparty/sogousiteverification");
