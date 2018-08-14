@@ -65,7 +65,6 @@ public class PaperQuestionCrawler {
 	private static final String FILES_NO_FORMAT = "000000000";
 	private static final String FILES_PREFIX = "likeshuxue";
 	private static final String COURSE_ID = "likeshuxue";
-	private static final String DOMAIN = "http://www.tamguo.com";
 	
 	private RunData runData;
 
@@ -152,7 +151,7 @@ public class PaperQuestionCrawler {
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setAnswer(question.getAnswer().replace(img, DOMAIN +  "/files/paper/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
+                                question.setAnswer(question.getAnswer().replace(img, "/files/paper/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setAnswer(question.getAnswer());
                         }
@@ -173,7 +172,7 @@ public class PaperQuestionCrawler {
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setAnalysis(question.getAnalysis().replace(img, DOMAIN + "/files/paper/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
+                                question.setAnalysis(question.getAnalysis().replace(img, "/files/paper/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setAnalysis(question.getAnalysis());
                         }
@@ -194,7 +193,7 @@ public class PaperQuestionCrawler {
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setContent(question.getContent().replace(img, DOMAIN + "/files/paper/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
+                                question.setContent(question.getContent().replace(img, "/files/paper/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setContent(question.getContent());
                         }
