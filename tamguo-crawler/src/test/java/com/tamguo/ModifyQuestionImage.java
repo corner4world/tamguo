@@ -29,7 +29,7 @@ public class ModifyQuestionImage {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void modify() {
-		Integer current = 98 ; 
+		Integer current = 1 ; 
 		Integer size = 100;
 		
 		while(true) {
@@ -41,12 +41,12 @@ public class ModifyQuestionImage {
 			// 处理数据
 			for(int i=0 ; i<entitys.getSize() ; i++) {
 				QuestionEntity question = entitys.getRecords().get(i);
-				question.setAnalysis(question.getAnalysis().replaceAll("http://www.tamguo.com/", ""));
-				question.setContent(question.getContent().replaceAll("http://www.tamguo.com/", ""));
+				question.setAnalysis(question.getAnalysis().replaceAll("files/", "/files/"));
+				question.setContent(question.getContent().replaceAll("files/", "/files/"));
 				if(question.getAnswer() == null) {
 					question.setAnswer("");
 				}
-				question.setAnswer(question.getAnswer().replaceAll("http://www.tamguo.com/", ""));
+				question.setAnswer(question.getAnswer().replaceAll("files/", "/files/"));
 			}
 			iQuestionService.updateAllColumnBatchById(entitys.getRecords());
 			current = current + 1;
