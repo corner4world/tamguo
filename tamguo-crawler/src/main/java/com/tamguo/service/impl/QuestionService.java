@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.config.redis.CacheService;
 import com.tamguo.dao.ChapterMapper;
 import com.tamguo.dao.CourseMapper;
@@ -37,7 +38,7 @@ import com.xuxueli.crawler.rundata.RunData;
 import com.xuxueli.crawler.util.FileUtil;
 
 @Service
-public class QuestionService implements IQuestionService{
+public class QuestionService extends ServiceImpl<QuestionMapper, QuestionEntity> implements IQuestionService{
 	
 	@Autowired
 	QuestionMapper questionMapper;
