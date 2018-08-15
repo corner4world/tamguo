@@ -1,15 +1,12 @@
 package com.tamguo.web.tiku;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.tamguo.common.utils.DateUtil;
 
 @Controller
 public class IndexController {
@@ -19,7 +16,7 @@ public class IndexController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView indexAction(ModelAndView model , HttpServletRequest request) {
 		// request url 
-		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
+		logger.info("request url :{}" , request.getRequestURI());
     	model.setViewName("index");
         return model;
     }
@@ -27,7 +24,7 @@ public class IndexController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView mainAction(ModelAndView model , HttpServletRequest request) {
 		// request url 
-		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
+		logger.info("request url :{}" , request.getRequestURI());
     	model.setViewName("index");
         return model;
     }

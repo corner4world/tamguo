@@ -1,7 +1,6 @@
 package com.tamguo.web.tiku;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.tamguo.common.utils.DateUtil;
 import com.tamguo.common.utils.SystemConstant;
 import com.tamguo.modules.sys.model.SysAreaEntity;
 import com.tamguo.modules.sys.service.ISysAreaService;
@@ -58,7 +56,7 @@ public class PaperController {
     		@PathVariable String year , @PathVariable String area , @PathVariable Integer pageNum, ModelAndView model) {
     	try {
 			// request url 
-    		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
+    		logger.info("request url :{}" , request.getRequestURI());
         	CourseEntity course = iCourseService.selectById(courseId);
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId));
         	SubjectEntity subject = iSubjectService.selectById(subjectId);
@@ -113,7 +111,7 @@ public class PaperController {
 	public ModelAndView indexAction(HttpServletRequest request , @PathVariable String paperId , ModelAndView model){
 		try {
 			// request url 
-    		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
+    		logger.info("request url :{}" , request.getRequestURI());
 			model.setViewName("paper");
 			PaperEntity paper = iPaperService.selectById(paperId);
 			model.addObject("paper", paper);

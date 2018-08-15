@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.mapper.Condition;
-import com.tamguo.common.utils.DateUtil;
 import com.tamguo.modules.tiku.model.BookEntity;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
@@ -43,7 +42,7 @@ public class BookController {
 	public ModelAndView index(@PathVariable String uid , ModelAndView model , HttpServletRequest request) {
 		try {
 			// request url 
-    		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
+    		logger.info("request url :{} " , request.getRequestURI());
 			BookEntity book = iBookService.selectById(uid);
 			SubjectEntity subject = iSubjectService.selectById(book.getSubjectId());
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subject.getId()).orderAsc(Arrays.asList("sort")));
