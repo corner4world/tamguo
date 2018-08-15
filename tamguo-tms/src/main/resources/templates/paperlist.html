@@ -147,7 +147,7 @@
 				<div class="paperlist" th:each="p,pStat:${paperPage.list}">
 					<div class="paper-title-content zhenti">
 						<h3 class="paper-title">
-                    <a th:href="${domainName}" class="paper-a" th:text="${p.name}">2017年高考真题 理科数学 (全国I卷)</a>
+                    <a th:href="${domainName + 'paper/'+p.id + '.html'}" class="paper-a" th:text="${p.name}">2017年高考真题 理科数学 (全国I卷)</a>
                 </h3>
 						<span class="read" th:text="${p.openHits}">0</span>
 						<span class="down" th:text="${p.downHits}">0</span>
