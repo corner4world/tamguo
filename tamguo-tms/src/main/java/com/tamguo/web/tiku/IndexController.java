@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tamguo.common.utils.DateUtil;
+
 @Controller
 public class IndexController {
 	
@@ -16,16 +18,16 @@ public class IndexController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView indexAction(ModelAndView model , HttpServletRequest request) {
-    	// request url 
-		logger.info("request url :{}" , request.getRequestURI());
+		// request url 
+		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
     	model.setViewName("index");
         return model;
     }
 	
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView mainAction(ModelAndView model , HttpServletRequest request) {
-    	// request url 
-		logger.info("request url :{}" , request.getRequestURI());
+		// request url 
+		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
     	model.setViewName("index");
         return model;
     }

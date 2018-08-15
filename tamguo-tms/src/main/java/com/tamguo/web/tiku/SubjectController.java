@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.tamguo.common.utils.DateUtil;
 import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.service.ISysAreaService;
 import com.tamguo.modules.tiku.model.BookEntity;
@@ -56,7 +57,7 @@ public class SubjectController {
     public ModelAndView indexAction(@PathVariable String subjectId , HttpServletRequest request , ModelAndView model) {
 		try {
 			// request url 
-			logger.info("request url :{}" , request.getRequestURI());
+    		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
 			SubjectEntity subject = iSubjectService.selectById(subjectId);
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId).orderAsc(Arrays.asList("sort")));
 			// 获取第一个科目

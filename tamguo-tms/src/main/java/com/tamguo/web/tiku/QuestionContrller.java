@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tamguo.common.utils.DateUtil;
 import com.tamguo.common.utils.Result;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
@@ -46,7 +47,7 @@ public class QuestionContrller {
 			@PathVariable Integer size , ModelAndView model , HttpServletRequest request){
 		try {
 			// request url 
-			logger.info("request url :{}" , request.getRequestURI());
+    		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
 			model.setViewName("questionList");
 
 			ChapterEntity chapter = iChapterService.selectById(chapterId);
@@ -83,8 +84,10 @@ public class QuestionContrller {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"/question/{uid}.html"}, method = RequestMethod.GET)
-	public ModelAndView question(@PathVariable String uid , ModelAndView model){
+	public ModelAndView question(@PathVariable String uid , ModelAndView model , HttpServletRequest request){
 		try {
+			// request url 
+    		logger.info("request url :{} , time:{} " , request.getRequestURI() , DateUtil.getCurrentDateYYYYMMDDStr() );
 			model.setViewName("question");
 			QuestionEntity question = iQuestionService.selectById(uid);
 			question.setQuestionType(question.getQuestionType());
