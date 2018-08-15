@@ -2,6 +2,11 @@ package com.tamguo.web.tiku;
 
 import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +27,7 @@ import com.tamguo.modules.tiku.service.ISubjectService;
 @Controller
 public class BookController {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	IBookService iBookService;
 	@Autowired
@@ -33,8 +39,10 @@ public class BookController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"book/{uid}.html"}, method = RequestMethod.GET)
-	public ModelAndView index(@PathVariable String uid , ModelAndView model) {
+	public ModelAndView index(@PathVariable String uid , ModelAndView model , HttpServletRequest request) {
 		try {
+			// request url 
+    		logger.info("request url :{}" , request.getRequestURI());
 			BookEntity book = iBookService.selectById(uid);
 			SubjectEntity subject = iSubjectService.selectById(book.getSubjectId());
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subject.getId()).orderAsc(Arrays.asList("sort")));

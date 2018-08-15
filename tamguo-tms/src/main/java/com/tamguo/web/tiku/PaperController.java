@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +38,8 @@ import com.tamguo.utils.PageUtils;
 @Controller
 public class PaperController {
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private ICourseService iCourseService;
 	@Autowired
@@ -52,6 +56,8 @@ public class PaperController {
     public ModelAndView indexAction(HttpServletRequest request , @PathVariable String subjectId , @PathVariable String courseId , @PathVariable String paperType,
     		@PathVariable String year , @PathVariable String area , @PathVariable Integer pageNum, ModelAndView model) {
     	try {
+    		// request url 
+    		logger.info("request url :{}" , request.getRequestURI());
         	CourseEntity course = iCourseService.selectById(courseId);
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId));
         	SubjectEntity subject = iSubjectService.selectById(subjectId);
@@ -105,6 +111,8 @@ public class PaperController {
 	@RequestMapping(value = {"/paper/{paperId}.html"}, method = RequestMethod.GET)
 	public ModelAndView indexAction(HttpServletRequest request , @PathVariable String paperId , ModelAndView model){
 		try {
+    		// request url 
+    		logger.info("request url :{}" , request.getRequestURI());
 			model.setViewName("paper");
 			PaperEntity paper = iPaperService.selectById(paperId);
 			model.addObject("paper", paper);

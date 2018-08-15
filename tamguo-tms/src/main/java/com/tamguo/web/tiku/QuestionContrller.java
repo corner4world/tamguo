@@ -2,6 +2,10 @@ package com.tamguo.web.tiku;
 
 import java.util.Arrays;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +28,8 @@ import com.tamguo.modules.tiku.service.ISubjectService;
 
 @Controller
 public class QuestionContrller {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private IQuestionService iQuestionService;
@@ -37,8 +43,10 @@ public class QuestionContrller {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"questionlist/{chapterId}-{current}-{size}.html"}, method = RequestMethod.GET)
 	public ModelAndView questionList(@PathVariable String chapterId , @PathVariable Integer current , 
-			@PathVariable Integer size , ModelAndView model){
+			@PathVariable Integer size , ModelAndView model , HttpServletRequest request){
 		try {
+			// request url 
+			logger.info("request url :{}" , request.getRequestURI());
 			model.setViewName("questionList");
 
 			ChapterEntity chapter = iChapterService.selectById(chapterId);

@@ -55,6 +55,8 @@ public class SubjectController {
 	@RequestMapping(value = {"subject/{subjectId}.html"}, method = RequestMethod.GET)
     public ModelAndView indexAction(@PathVariable String subjectId , HttpServletRequest request , ModelAndView model) {
 		try {
+			// request url 
+			logger.info("request url :{}" , request.getRequestURI());
 			SubjectEntity subject = iSubjectService.selectById(subjectId);
 			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId).orderAsc(Arrays.asList("sort")));
 			// 获取第一个科目

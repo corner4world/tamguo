@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +33,7 @@ import com.tamguo.modules.tiku.service.ISubjectService;
 @Controller
 public class CourseController {
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	IChapterService iChapterService;
 	@Autowired
@@ -44,6 +47,8 @@ public class CourseController {
 	@RequestMapping(value = {"course/{uid}.html"}, method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request , @PathVariable String uid , ModelAndView model) {
 		try {
+    		// request url 
+    		logger.info("request url :{}" , request.getRequestURI());
 			CourseEntity course = iCourseService.selectById(uid);
 			List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", uid));
 			List<ChapterEntity> chapterList = null;
