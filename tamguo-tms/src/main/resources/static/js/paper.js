@@ -17,7 +17,7 @@ $(function(){
 		$(this).addClass("selected-quescontainer");
 		$(".queanalyse-wrap").show(800);
 		$(".queanalyse-wrap").css("left", (document.body.clientWidth - 1200) / 2 + $('.question-box').width()+ 20);
-		var dataIndex = $(this).attr("data-index");
+		var dataIndex = $(this).find(".queindex").text();
 		$.ajax({
 			type : "get", 
 			url : mainHttp + "question/getQuestion/" + $(this).attr("data-id")+ ".html",
