@@ -30,14 +30,14 @@ public class PaperCrawler {
 	private final String SUBJECT_ID = "gaokao";
 	// 科目
 	private final String COURSE_ID = "likeshuxue";
-	// 110000 北京 | 310000 上海 | 500000 重庆 | 120100 天津
-	private final String AREA_ID = "120100";
+	// 110000 北京 | 310000 上海 | 500000 重庆 | 120100 天津 | 370000 山东 | 410000 河南 
+	private final String AREA_ID = "410000";
 	// 年份
-	private final String YEAR = "2013";
+	private final String YEAR = "2016";
 	// 真题试卷             类型(1:真题试卷,2:模拟试卷,3:押题预测,4:名校精品)
-	private final String PAPER_TYPE = "2";
+	private final String PAPER_TYPE = "4";
 	// 开始采集的URL
-	private final String START_URL = "https://tiku.baidu.com/tikupc/paperlist/1bfd700abb68a98271fefa04-16-4-2013-211-1-download";
+	private final String START_URL = "https://tiku.baidu.com/tikupc/paperlist/1bfd700abb68a98271fefa04-16-7-2016-348-1-download";
 	
 	private RunData runData;
 	
