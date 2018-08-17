@@ -120,10 +120,10 @@ public class PaperController {
 			model.addObject("questionList", iQuestionService.selectList(Condition.create().eq("paper_id", paperId)));
 
 	    	// 获取推荐试卷
-			model.addObject("zhentiPaperList", iPaperService.selectList(Condition.create().eq("subject_id", paper.getSubjectId()).eq("type",SystemConstant.ZHENGTI_PAPER_ID)));
-			model.addObject("moniPaperList", iPaperService.selectList(Condition.create().eq("subject_id", paper.getSubjectId()).eq("type",SystemConstant.MONI_PAPER_ID)));
-			model.addObject("yatiPaperList", iPaperService.selectList(Condition.create().eq("subject_id", paper.getSubjectId()).eq("type",SystemConstant.YATI_PAPER_ID)));
-			model.addObject("hotPaperList", iPaperService.selectList(Condition.create().eq("subject_id", paper.getSubjectId()).eq("course_id", paper.getCourseId())));
+			model.addObject("zhentiPaperList", iPaperService.selectPage(new Page<>(1, 5) , Condition.create().eq("subject_id", paper.getSubjectId()).eq("type",SystemConstant.ZHENGTI_PAPER_ID)).getRecords());
+			model.addObject("moniPaperList", iPaperService.selectPage(new Page<>(1, 5) , Condition.create().eq("subject_id", paper.getSubjectId()).eq("type",SystemConstant.MONI_PAPER_ID)).getRecords());
+			model.addObject("yatiPaperList", iPaperService.selectPage(new Page<>(1, 5) , Condition.create().eq("subject_id", paper.getSubjectId()).eq("type",SystemConstant.YATI_PAPER_ID)).getRecords());
+			model.addObject("hotPaperList", iPaperService.selectPage(new Page<>(1, 5) , Condition.create().eq("subject_id", paper.getSubjectId()).eq("course_id", paper.getCourseId())).getRecords());
 			
 
 			if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
