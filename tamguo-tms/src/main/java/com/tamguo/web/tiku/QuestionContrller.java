@@ -80,7 +80,6 @@ public class QuestionContrller {
 	 * @param model
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"/question/{uid}.html"}, method = RequestMethod.GET)
 	public ModelAndView question(@PathVariable String uid , ModelAndView model , HttpServletRequest request){
 		try {
@@ -90,9 +89,6 @@ public class QuestionContrller {
 			QuestionEntity question = iQuestionService.selectById(uid);
 			question.setQuestionType(question.getQuestionType());
 			model.addObject("question", question);
-			
-			// 推荐试题
-			model.addObject("featuredQuestionList", iQuestionService.selectPage(new Page<>(1, 3), Condition.create().eq("subject_id", question.getSubjectId()).eq("course_id", question.getCourseId())).getRecords());
 			return model;
 		} catch (Exception e) {
 			model.setViewName("404");
