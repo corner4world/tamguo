@@ -69,7 +69,7 @@ public class SystemConstant {
 	public static final String ALIYUN_MAIL_FIND_PASSWORD_PREFIX = "EMAIL_FIND_PASSWORD_";
 	
 	/** 默认会员头像*/
-	public static final String DEFAULT_MEMBER_AVATAR = "images/avatar.png";
+	public static final String DEFAULT_MEMBER_AVATAR = "/images/avatar.png";
 	
 	/** 登录错误次数*/
 	public static final String LOGIN_FAILURE_COUNT = "loginFailureCount:";

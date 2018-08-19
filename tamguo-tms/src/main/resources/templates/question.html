@@ -14,6 +14,7 @@
 		<link rel="stylesheet" th:href="${domainName + 'css/footer.css'}" />
 		<link rel="stylesheet" th:href="${domainName + 'css/member/minilogin.css'}" />
 		<link rel="stylesheet" th:href="${domainName + 'css/questionExt.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'js/plugins/layui/css/layui.css'}">
 		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
 	</head>
 	<body>
@@ -63,22 +64,27 @@
 						<div class="kpoint-contain">
 							<h3 class="point-title">考察知识点</h3>
 							<p class="point"> <span class="point-item" th:each="p,pStat:${#strings.arraySplit(question.reviewPoint,',')}" th:text="${p}">社会工作的含义与特点</span></p>
-							<h3 class="point-title">相关回答</h3>
-								<ul class="am-comments-list am-comments-list-flip">
-									<li class="am-comment"><a href="#link-to-user-home"><img
-											src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96"
-											alt="" class="am-comment-avatar" width="48" height="48"></a>
-									<div class="am-comment-main">
+							<p>
+							<h3 class="point-title">相关回答 <button type="button" class="am-btn am-btn-primary am-radius" onclick="doAnswer()">我来回答</button></h3>
+								<p id="answerDiv" class="point" style="margin-top:20px;display:none;">
+									<textarea id="demo" style="display: none;"></textarea>
+									<button type="button" style="margin-top:20px;" onclick="sendAnswer()" class="am-btn am-btn-primary am-radius">发布</button>
+								<p>
+								<ul class="am-comments-list am-comments-list-flip" style="margin-left: 30px;">
+									<li class="am-comment" th:each="answer,status:${answerList}">
+										<a rel="nofollow">
+											<img th:src="${answer.memberAvatar}" alt="用户头像" class="am-comment-avatar" width="48" height="48"></a>
+											<div class="am-comment-main">
 											<header class="am-comment-hd">
 												<div class="am-comment-meta">
-													<a href="#link-to-user" class="am-comment-author">某人</a>
+													<a href="#link-to-user" rel="nofollow" class="am-comment-author" th:text="${answer.memberName}">某人</a>
 													评论于
-													<time datetime="2013-07-27T04:54:29-07:00"
-														title="2013年7月27日 下午7:54 格林尼治标准时间+0800">2014-7-12
+													<time 
+														th:title="${#dates.format(answer.createDate, 'yyyy-MM-dd HH:mm:ss')}" th:text="${#dates.format(answer.createDate, 'yyyy-MM-dd HH:mm:ss')}">2014-7-12
 														15:30</time>
 												</div>
 											</header>
-											<div class="am-comment-bd">
+											<div class="am-comment-bd" th:utext="${answer.answer}">
 												<p>那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？</p>
 												<blockquote>妈：我打算在下个月和樱子结婚。</blockquote>
 											</div>
@@ -89,7 +95,8 @@
 														class="am-icon-reply"></i></a>
 												</div>
 											</footer>
-										</div></li>
+										</div>
+									</li>
 								</ul>
 							</div>
 					</div>
@@ -149,4 +156,44 @@
 <script type="text/javascript" th:src="${domainName + 'js/jquery.iDialog.js'}"></script>
 <script type="text/javascript" th:src="${domainName + 'js/main.js'}" ></script>
 <script type="text/javascript" th:src="${domainName + 'js/member/minlogin.js'}"></script>
+<script type="text/javascript" th:src="${domainName + 'js/plugins/layui/layui.js'}"></script>
+<script th:src="${domainName + 'js/plugins/layer/layer.js'}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+var layedit = null;
+var edit = null;
+function doAnswer(){
+	// 判断是否登录
+	axios.get(mainHttp + 'isLogin.html').then(function(response){
+		if(response.data.code != 1){
+			if($(".header .login-container").find("span").length == 1){
+				$(".mask").css("display","block");
+				$("#passport-login-pop").css("display","block");
+			}
+		}else{
+			layui.use('layedit', function(){
+			  layedit = layui.layedit;
+			  edit = layedit.build('demo'); //建立编辑器
+			});
+			
+			$("#answerDiv").fadeIn(1000);
+		}
+	});
+}
+// 发布
+function sendAnswer(){
+	var content = layedit.getContent(edit);
+	axios.post(mainHttp + 'member/sendAnswer.html',{'questionId':[[${question.id}]],'answer':content}).then(function(response){
+		if(response.data.code == 0){
+			//墨绿深蓝风
+			layer.alert('回答成功！', {closeBtn: 0
+			}, function(){
+				window.location.reload();
+			});
+		}else{
+			layer.alert('服务器异常！')
+		}
+	});
+}
+</script>
 </html>

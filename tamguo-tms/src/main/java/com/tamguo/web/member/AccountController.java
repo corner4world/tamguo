@@ -109,7 +109,7 @@ public class AccountController {
 				UploaderMessage msg = new UploaderMessage();
 				msg.setStatus(Status.SUCCESS);
 				msg.setStatusMsg("File upload success");
-				msg.setFilePath("files/" + DateUtils.format(new Date(), "yyyyMMdd") + "/" + avatorName);
+				msg.setFilePath("/files/" + DateUtils.format(new Date(), "yyyyMMdd") + "/" + avatorName);
 				msg.setFileDomain(domainName);
 				return msg;
 			} catch (Exception e) {

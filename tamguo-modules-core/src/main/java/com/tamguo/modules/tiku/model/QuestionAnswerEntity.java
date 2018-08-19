@@ -2,7 +2,6 @@ package com.tamguo.modules.tiku.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 
@@ -13,6 +12,7 @@ public class QuestionAnswerEntity extends SuperEntity<PaperEntity> implements Se
 	
 	private String questionId;
 	private String memberId;
+	private String memberAvatar;
 	private String memberName;
 	private String answer;
 	private Integer agreeNum;
@@ -63,6 +63,12 @@ public class QuestionAnswerEntity extends SuperEntity<PaperEntity> implements Se
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getMemberAvatar() {
+		return memberAvatar;
+	}
+	public void setMemberAvatar(String memberAvatar) {
+		this.memberAvatar = memberAvatar;
 	} 
 	
 }

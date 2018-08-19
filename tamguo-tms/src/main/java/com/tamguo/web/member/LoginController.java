@@ -104,4 +104,12 @@ public class LoginController {
 		return result;
     }
 
+	@RequestMapping(value = "/isLogin.html", method = RequestMethod.GET)
+	@ResponseBody
+	public Result isLogin() {
+		if(ShiroUtils.isLogin()) {
+			return Result.result(1, null , "已经登录");
+		}
+		return Result.result(0, null, "未登录");
+	}
 }

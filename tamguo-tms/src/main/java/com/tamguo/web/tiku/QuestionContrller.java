@@ -22,6 +22,7 @@ import com.tamguo.modules.tiku.model.QuestionEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
+import com.tamguo.modules.tiku.service.IQuestionAnswerService;
 import com.tamguo.modules.tiku.service.IQuestionService;
 import com.tamguo.modules.tiku.service.ISubjectService;
 
@@ -38,6 +39,8 @@ public class QuestionContrller {
 	private ISubjectService iSubjectService;
 	@Autowired
 	private ICourseService iCourseService;
+	@Autowired
+	private IQuestionAnswerService iQuestionAnswerService;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"questionlist/{chapterId}-{current}-{size}.html"}, method = RequestMethod.GET)
@@ -80,6 +83,7 @@ public class QuestionContrller {
 	 * @param model
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"/question/{uid}.html"}, method = RequestMethod.GET)
 	public ModelAndView question(@PathVariable String uid , ModelAndView model , HttpServletRequest request){
 		try {
@@ -89,6 +93,7 @@ public class QuestionContrller {
 			QuestionEntity question = iQuestionService.selectById(uid);
 			question.setQuestionType(question.getQuestionType());
 			model.addObject("question", question);
+			model.addObject("answerList", iQuestionAnswerService.selectList(Condition.create().eq("question_id", uid).orderDesc(Arrays.asList("create_date"))));
 			return model;
 		} catch (Exception e) {
 			model.setViewName("404");
