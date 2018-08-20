@@ -93,6 +93,7 @@ public class QuestionContrller {
 			QuestionEntity question = iQuestionService.selectById(uid);
 			question.setQuestionType(question.getQuestionType());
 			model.addObject("question", question);
+			model.addObject("course", iCourseService.selectById(question.getCourseId()));
 			model.addObject("answerList", iQuestionAnswerService.selectList(Condition.create().eq("question_id", uid).orderDesc(Arrays.asList("create_date"))));
 			return model;
 		} catch (Exception e) {
