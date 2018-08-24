@@ -41,7 +41,6 @@ public class QuestionVo {
 	@PageFieldSelect(cssQuery=".kpoint-contain .point .point-item",selectType = XxlCrawlerConf.SelectType.TEXT)
 	private List<String> reviewPoint;
 
-
 	public String getQuestionType() {
 		return questionType;
 	}
