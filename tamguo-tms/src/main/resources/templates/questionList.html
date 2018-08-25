@@ -59,7 +59,7 @@
 			        <div class="nexttolearn">
 					    <div class="next-inner clearfix">
 					    		<a th:if="${questionList.pages - questionList.current} > 0" th:href="${domainName + 'questionlist/' +chapter.id + '-'+(questionList.current+1)+'-'+questionList.size+'.html'}" class="tolearn">继续学习</a>
-					            <a th:if="${questionList.pages - questionList.current} == 0" th:href="${domainName + 'course/' + courseId +'.html'}" class="tolearn">已学完, 返回章节学习</a>
+					            <a th:if="${questionList.pages - questionList.current} <= 0" th:href="${domainName + 'course/' + courseId +'.html'}" class="tolearn">已学完, 返回章节学习</a>
 					            <a th:if="${nextChapter == null}" class="next-done">棒棒哒，已是最后一个知识点</a>
 					            <a th:if="${nextChapter != null}" th:href="${domainName + 'questionlist/'+nextChapter.id+'-1-5.html'}" class="nextpoint">学习下一知识点</a>
 					    </div>

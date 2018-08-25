@@ -211,4 +211,10 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 		List<ChapterEntity> list = chapterMapper.selectPage(new Page<>(1, 5), condition);
 		return list;
 	}
+
+	@Transactional(readOnly=true)
+	@Override
+	public ChapterEntity selectNextChapter(String parentCode , String id) {
+		return chapterMapper.selectNextChapter(parentCode , id);
+	}
 }

@@ -30,4 +30,7 @@ public interface IChapterService extends IService<ChapterEntity>{
 	// 科目章节
 	public List<ChapterEntity> findCourseChapter(String courseId);
 
+	// 获取下一章节
+	public ChapterEntity selectNextChapter(String parentCode , String id);
+
 }
