@@ -165,8 +165,8 @@
 		                    <a th:href="${domainName + 'paperlist/' + subjectId + '-'  + courseId+'-'+paperType+'-'+year+'-' + area +'-1.html'}">&lt;</a>
 		                </li>
                 
-						<li th:class="${paperPage.currPageNum == num} ? 'selected page-num' : 'page-num'" th:each="num,numStat:${paperPage.pageNums}">
-							<a th:href="${domainName + 'paperlist/' + subjectId + '-' + courseId+'-'+paperType+'-'+year+'-' + area +'-'+num+'.html'}" th:text="${num}">1</a>
+						<li th:class="${paperPage.currPageNum + '' == num} ? 'selected page-num' : 'page-num'" th:each="num,numStat:${paperPage.pageNums}">
+							<a th:href="${domainName + 'paperlist/' + subjectId + '-' + courseId+'-'+paperType+'-'+year+'-' + area +'-'+(num=='...' ? 1 : num)+'.html'}" th:text="${num}">1</a>
 						</li>
 
 						<li class="page-num next" th:if="${paperPage.isShowNextBtn}">

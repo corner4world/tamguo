@@ -70,6 +70,9 @@ public class PaperController {
         	if(!StringUtils.isEmpty(paperType) && !"0".equals(paperType)) {
         		condition.eq("type", paperType);
         	}
+        	if(!StringUtils.isEmpty(courseId) && !"0".equals(courseId)) {
+        		condition.eq("course_id", courseId);
+        	}
         	if(!StringUtils.isEmpty(year) && !"0".equals(year)) {
         		condition.eq("year", year);
         	}

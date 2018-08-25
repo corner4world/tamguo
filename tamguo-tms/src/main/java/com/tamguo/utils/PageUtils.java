@@ -14,16 +14,16 @@ public class PageUtils {
 	private Boolean isShowPreBtn = false;
 	
 	// 当前页
-	private String currPageNum;
+	private Integer currPageNum;
 	
 	// 页码列表
 	private List<String> pageNums;
 	
 	// 总页数
-	private String totalPage;
+	private Integer totalPage;
 	
 	// 总数量
-	private String total;
+	private Integer total;
 	
 	// 数据
 	private List<?> list;
@@ -47,9 +47,9 @@ public class PageUtils {
 					pgNums.add(((Integer)(page.getCurrent() - 2)).toString());
 					pgNums.add(((Integer)(page.getCurrent() - 1)).toString());
 					pgNums.add(((Integer)page.getCurrent()).toString());
-				}else{
+				} else {
 					pgNums.add(((Integer)(page.getCurrent() - 1)).toString());
-					pgNums.add(((Integer)page.getCurrent()).toString());
+					pgNums.add(((Integer)(page.getCurrent())).toString());
 					pgNums.add(((Integer)(page.getCurrent() + 1)).toString());
 				}
 			}else{
@@ -78,9 +78,9 @@ public class PageUtils {
 		}
 		pg.setPageNums(pgNums);
 		pg.setList(page.getRecords());
-		pg.setCurrPageNum(((Integer)page.getCurrent()).toString());
-		pg.setTotal(((Integer)page.getTotal()).toString());
-		pg.setTotalPage(((Integer)page.getPages()).toString());
+		pg.setCurrPageNum(((Integer)page.getCurrent()));
+		pg.setTotal(((Integer)page.getTotal()));
+		pg.setTotalPage(((Integer)page.getPages()));
 		return pg;
 	}
 
@@ -120,32 +120,32 @@ public class PageUtils {
 	}
 
 
-	public String getCurrPageNum() {
+	public Integer getCurrPageNum() {
 		return currPageNum;
 	}
 
 
-	public void setCurrPageNum(String currPageNum) {
+	public void setCurrPageNum(Integer currPageNum) {
 		this.currPageNum = currPageNum;
 	}
 
 
-	public String getTotalPage() {
+	public Integer getTotalPage() {
 		return totalPage;
 	}
 
 
-	public void setTotalPage(String totalPage) {
+	public void setTotalPage(Integer totalPage) {
 		this.totalPage = totalPage;
 	}
 
 
-	public String getTotal() {
+	public Integer getTotal() {
 		return total;
 	}
 
 
-	public void setTotal(String total) {
+	public void setTotal(Integer total) {
 		this.total = total;
 	}
 }

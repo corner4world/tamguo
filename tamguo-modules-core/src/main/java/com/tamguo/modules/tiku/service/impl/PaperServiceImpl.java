@@ -1,5 +1,6 @@
 package com.tamguo.modules.tiku.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,7 +37,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.HISTORY_PAPER);
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 6);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.ZHENGTI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID));
+			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.ZHENGTI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID).orderDesc(Arrays.asList("id")));
 			cacheService.setObject(SystemConstant.HISTORY_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
@@ -48,7 +49,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.SIMULATION_PAPER);
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 6);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.MONI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID));
+			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.MONI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID).orderDesc(Arrays.asList("id")));
 			cacheService.setObject(SystemConstant.SIMULATION_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
@@ -60,7 +61,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.HOT_PAPER);
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 10);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("area_id", areaId));
+			paperList = paperMapper.selectPage(page, Condition.create().eq("area_id", areaId).orderDesc(Arrays.asList("id")));
 			cacheService.setObject(SystemConstant.HOT_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
