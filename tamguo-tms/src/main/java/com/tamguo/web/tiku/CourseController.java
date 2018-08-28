@@ -46,32 +46,27 @@ public class CourseController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"course/{uid}.html"}, method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request , @PathVariable String uid , ModelAndView model) {
-		try {
-			// request url 
-    		logger.info("request url :{}" , request.getRequestURI());
-			CourseEntity course = iCourseService.selectById(uid);
-			List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", uid));
-			List<ChapterEntity> chapterList = null;
-			BookEntity book = null;
-			if(bookList.size() > 0) {
-				book = bookList.get(0);
-				chapterList = iChapterService.findChapterTree(book.getId());
-			}
-			SubjectEntity subject = iSubjectService.selectById(course.getSubjectId());
-			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", course.getSubjectId()).orderAsc(Arrays.asList("sort")));
-			
-			model.addObject("chapterList", chapterList);
-			model.addObject("courseList", courseList);
-			model.addObject("course", course);
-			model.addObject("subject", subject);
-			model.addObject("bookList", bookList);
-			model.addObject("book" , book);
-			model.setViewName("chapter");
-			return model;
-		} catch (Exception e) {
-			model.setViewName("404");
-			return model;
+		// request url 
+		logger.info("request url :{}" , request.getRequestURI());
+		CourseEntity course = iCourseService.selectById(uid);
+		List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", uid));
+		List<ChapterEntity> chapterList = null;
+		BookEntity book = null;
+		if(bookList.size() > 0) {
+			book = bookList.get(0);
+			chapterList = iChapterService.findChapterTree(book.getId());
 		}
+		SubjectEntity subject = iSubjectService.selectById(course.getSubjectId());
+		List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", course.getSubjectId()).orderAsc(Arrays.asList("sort")));
+		
+		model.addObject("chapterList", chapterList);
+		model.addObject("courseList", courseList);
+		model.addObject("course", course);
+		model.addObject("subject", subject);
+		model.addObject("bookList", bookList);
+		model.addObject("book" , book);
+		model.setViewName("chapter");
+		return model;
 	}
 	
 	@RequestMapping(value = {"course/findChapter.html"}, method = RequestMethod.GET)

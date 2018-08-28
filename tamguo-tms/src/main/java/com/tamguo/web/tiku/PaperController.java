@@ -54,59 +54,53 @@ public class PaperController {
 	@RequestMapping(value = {"paperlist/{subjectId}-{courseId}-{paperType}-{year}-{area}-{pageNum}.html"}, method = RequestMethod.GET)
     public ModelAndView indexAction(HttpServletRequest request , @PathVariable String subjectId , @PathVariable String courseId , @PathVariable String paperType,
     		@PathVariable String year , @PathVariable String area , @PathVariable Integer pageNum, ModelAndView model) {
-    	try {
-			// request url 
-    		logger.info("request url :{}" , request.getRequestURI());
-        	CourseEntity course = iCourseService.selectById(courseId);
-			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId));
-        	SubjectEntity subject = iSubjectService.selectById(subjectId);
-        	List<SysAreaEntity> areaList = iSysAreaService.selectList(Condition.create().eq("tree_level", "0"));
-        	
-        	Page<PaperEntity> page = new Page<>(pageNum , 10);
-        	Condition condition = Condition.create();
-        	if(!StringUtils.isEmpty(subjectId) && !"0".equals(subjectId)) {
-        		condition.eq("subject_id", subjectId);
-        	}
-        	if(!StringUtils.isEmpty(paperType) && !"0".equals(paperType)) {
-        		condition.eq("type", paperType);
-        	}
-        	if(!StringUtils.isEmpty(courseId) && !"0".equals(courseId)) {
-        		condition.eq("course_id", courseId);
-        	}
-        	if(!StringUtils.isEmpty(year) && !"0".equals(year)) {
-        		condition.eq("year", year);
-        	}
-        	if(!StringUtils.isEmpty(area) && !"0".equals(area)) {
-        		condition.eq("area_id", area);
-        	}
-        	PageUtils result = PageUtils.getPage(iPaperService.selectPage(page , condition));
-        	if(courseList.size() > 0) {
-        		course = courseList.get(0);
-        	}
-        	Integer total = iPaperService.selectCount(Condition.EMPTY);
-        	model.addObject("courseList", courseList);
-        	model.addObject("subject", subject);
-        	model.addObject("course", course);
-        	model.addObject("areaList", areaList);
-        	model.addObject("paperPage" , result);
-        	model.addObject("total" , total);
-        	model.addObject("courseId", courseId);
-        	model.addObject("paperType", paperType);
-        	model.addObject("year", year);
-        	model.addObject("area", area);
-        	
+		// request url 
+		logger.info("request url :{}" , request.getRequestURI());
+    	CourseEntity course = iCourseService.selectById(courseId);
+		List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId));
+    	SubjectEntity subject = iSubjectService.selectById(subjectId);
+    	List<SysAreaEntity> areaList = iSysAreaService.selectList(Condition.create().eq("tree_level", "0"));
+    	
+    	Page<PaperEntity> page = new Page<>(pageNum , 10);
+    	Condition condition = Condition.create();
+    	if(!StringUtils.isEmpty(subjectId) && !"0".equals(subjectId)) {
+    		condition.eq("subject_id", subjectId);
+    	}
+    	if(!StringUtils.isEmpty(paperType) && !"0".equals(paperType)) {
+    		condition.eq("type", paperType);
+    	}
+    	if(!StringUtils.isEmpty(courseId) && !"0".equals(courseId)) {
+    		condition.eq("course_id", courseId);
+    	}
+    	if(!StringUtils.isEmpty(year) && !"0".equals(year)) {
+    		condition.eq("year", year);
+    	}
+    	if(!StringUtils.isEmpty(area) && !"0".equals(area)) {
+    		condition.eq("area_id", area);
+    	}
+    	PageUtils result = PageUtils.getPage(iPaperService.selectPage(page , condition));
+    	if(courseList.size() > 0) {
+    		course = courseList.get(0);
+    	}
+    	Integer total = iPaperService.selectCount(Condition.EMPTY);
+    	model.addObject("courseList", courseList);
+    	model.addObject("subject", subject);
+    	model.addObject("course", course);
+    	model.addObject("areaList", areaList);
+    	model.addObject("paperPage" , result);
+    	model.addObject("total" , total);
+    	model.addObject("courseId", courseId);
+    	model.addObject("paperType", paperType);
+    	model.addObject("year", year);
+    	model.addObject("area", area);
+    	
 
-			if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
-	    		model.setViewName("mobile/paperlist");
-	    	}else {
-	    		model.setViewName("paperlist");
-	    	}
-            return model;
-		} catch (Exception e) {
-			model.setViewName("404");
-			return model;
-		}
-		
+		if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+    		model.setViewName("mobile/paperlist");
+    	}else {
+    		model.setViewName("paperlist");
+    	}
+        return model;
     }
 	
 	@SuppressWarnings("unchecked")

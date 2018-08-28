@@ -61,7 +61,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.HOT_PAPER);
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 10);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("area_id", areaId).orderDesc(Arrays.asList("id")));
+			paperList = paperMapper.selectPage(page, Condition.create().orderDesc(Arrays.asList("id")));
 			cacheService.setObject(SystemConstant.HOT_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;

@@ -54,37 +54,30 @@ public class SubjectController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"subject/{subjectId}.html"}, method = RequestMethod.GET)
     public ModelAndView indexAction(@PathVariable String subjectId , HttpServletRequest request , ModelAndView model) {
-		try {
-			// request url 
-    		logger.info("request url :{} " , request.getRequestURI() );
-			SubjectEntity subject = iSubjectService.selectById(subjectId);
-			List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId).orderAsc(Arrays.asList("sort")));
-			// 获取第一个科目
-			CourseEntity course = courseList.get(0);
-			// 获取第一本书
-			List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", course.getId()));
-			List<ChapterEntity> chapterList = null;
-			if(bookList.size() > 0) {
-				BookEntity book = bookList.get(0);
-				chapterList = iChapterService.selectList(Condition.create().eq("book_id", book.getId()));
-			}
-	    	model.addObject("subject", subject);
-	    	model.addObject("course" , course);
-	    	model.addObject("courseList", courseList);
-	    	model.addObject("chapterList" , chapterList);
-	    	model.addObject("areaList", iSysAreaService.selectList(Condition.create().eq("tree_level", "0")));
-	    	if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
-	    		model.setViewName("mobile/subject");
-	    	}else {
-	    		model.setViewName("subject");
-	    	}
-	    	
-	        return model;
-		} catch (Exception e) {
-			logger.error(e.getMessage() , e);
-			model.setViewName("500");
-			return model;
+		// request url 
+		logger.info("request url :{} " , request.getRequestURI() );
+		SubjectEntity subject = iSubjectService.selectById(subjectId);
+		List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId).orderAsc(Arrays.asList("sort")));
+		// 获取第一个科目
+		CourseEntity course = courseList.get(0);
+		// 获取第一本书
+		List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", course.getId()));
+		List<ChapterEntity> chapterList = null;
+		if(bookList.size() > 0) {
+			BookEntity book = bookList.get(0);
+			chapterList = iChapterService.selectList(Condition.create().eq("book_id", book.getId()));
 		}
+    	model.addObject("subject", subject);
+    	model.addObject("course" , course);
+    	model.addObject("courseList", courseList);
+    	model.addObject("chapterList" , chapterList);
+    	model.addObject("areaList", iSysAreaService.selectList(Condition.create().eq("tree_level", "0")));
+    	if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+    		model.setViewName("mobile/subject");
+    	}else {
+    		model.setViewName("subject");
+    	}
+        return model;
     }
 	
 	// [{"value":"11","label":"北京市","children":[{"value":"1101","label":"市辖区"}]}]
