@@ -8,24 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tamguo.utils.BrowserUtils;
+
 @Controller
 public class IndexController {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/","index"}, method = RequestMethod.GET)
     public ModelAndView indexAction(ModelAndView model , HttpServletRequest request) {
 		// request url 
 		logger.info("request url :{}" , request.getRequestURI());
-    	model.setViewName("index");
-        return model;
-    }
-	
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView mainAction(ModelAndView model , HttpServletRequest request) {
-		// request url 
-		logger.info("request url :{}" , request.getRequestURI());
-    	model.setViewName("index");
+    	if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+    		model.setViewName("mobile/index");
+    	}else {
+    		model.setViewName("index");
+    	}
         return model;
     }
     

@@ -1,0 +1,422 @@
+.wrapper {
+    height: 100%;
+    overflow: hidden;
+}
+.wrapper .page {
+    background: #f5f5f5;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+.home_header {
+    width: 100%;
+    height: 14.0625rem;
+    line-height: 14.0625rem;
+    background: url(../images/timg.jpg) center center no-repeat;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #fff;
+}
+.home_header .top {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: -moz-box;
+    display: flex;
+    height: 2.8125rem;
+    line-height: 2.8125rem;
+    padding: 0 .25rem 0 .9375rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.home_header .content {
+    position: absolute;
+    width: 100%;
+    height: 11.25rem;
+}
+.home_header .box_col {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    -moz-box-flex: 1;
+    flex: 1;
+}
+.home_header .switch_city {
+    display: inline-block;
+    padding: 0 .5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    background: rgba(0,0,0,.5);
+    -webkit-border-radius: .75rem;
+    -moz-border-radius: .75rem;
+    border-radius: .75rem;
+    vertical-align: middle;
+    text-align: center;
+}
+.home_header .switch_city .city {
+    font-size: .8125rem;
+    color: #fff;
+}
+.home_header .switch_city * {
+    vertical-align: middle;
+}
+.home_header .switch_city * {
+    vertical-align: middle;
+}
+.icon_pull {
+    background-position: 0 -10.5rem;
+    -webkit-transform: scale(.36,.42);
+    -moz-transform: scale(.36,.42);
+    -ms-transform: scale(.36,.42);
+    -o-transform: scale(.36,.42);
+    transform: scale(.36,.42);
+}
+.icon_arrow_right, .icon_download, .icon_fanhui, .icon_fanhui2, .icon_fanhui_b, .icon_pic, .icon_pull, .icon_search, .icon_search_b, .icon_search_gray, .icon_sort, .icon_triangle_down, .icon_triangle_up, .icon_triangle_up_b, .icon_user {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    margin: -.5rem;
+    background-repeat: no-repeat;
+    background-image: url(../mobile/images/sprite.svg);
+    -webkit-background-size: 2rem 62.375rem;
+    background-size: 2rem 62.375rem;
+    vertical-align: middle;
+    -webkit-transform: scale(.5);
+    transform: scale(.5);
+    font-size: 0;
+}
+.home_header .app, .home_header .my {
+    display: inline-block;
+    width: 2.5rem;
+    height: 100%;
+    line-height: 1em;
+    padding-top: .5rem;
+    font-size: .75rem;
+    color: #fff;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.header .header_back:after, .header .icon_pull, .header .icon_user, .header .logo, .home_header .icon_user {
+    font-size: 0;
+    display: inline-block;
+    background-image: url(../mobile/images/sprite_new.svg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    -webkit-transform: none;
+    transform: none;
+}
+.home_header .icon_user {
+    width: 1.8rem;
+    height: 1.8rem;
+    background-size: 1.8rem;
+    background-position: 0 -14.9625rem;
+    margin: 0;
+}
+.icon_user {
+    background-position: 0 -15.75rem;
+}
+.home_header .content {
+    position: absolute;
+    width: 100%;
+    height: 11.25rem;
+}
+.home_header .slogan {
+    position: absolute;
+    width: 12.625rem;
+    height: 3.875rem;
+    background: url(../images/head_slogan.png) center center no-repeat;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    font-size: 0;
+    top: 1rem;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.home_header .search_box {
+    position: absolute;
+    width: auto;
+    bottom: .25rem;
+    left: .9375rem;
+    right: .9375rem;
+    background: #fff;
+    border: 0;
+    margin: .75rem 0;
+}
+.search_box {
+    display: block;
+    position: relative;
+    margin: .9375rem .9375rem 0;
+    height: 2.1875rem;
+    padding-left: 1.425rem;
+    -webkit-border-radius: .125rem;
+    -moz-border-radius: .125rem;
+    border-radius: .125rem;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #fff;
+}
+.home_header .search_box .icon_search_gray {
+    position: absolute;
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5);
+    left: .4rem;
+    top: .45rem;
+}
+.search_box .icon_search, .search_box .icon_search_gray {
+    position: absolute;
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5);
+    left: .4rem;
+    top: .45rem;
+}
+.icon_search_gray {
+    margin: -.375rem;
+    background-position: 0 -13.125rem;
+    -webkit-transform: scale(.625);
+    -moz-transform: scale(.625);
+    -ms-transform: scale(.625);
+    -o-transform: scale(.625);
+    transform: scale(.625);
+}
+.icon_arrow_right, .icon_download, .icon_fanhui, .icon_fanhui2, .icon_fanhui_b, .icon_pic, .icon_pull, .icon_search, .icon_search_b, .icon_search_gray, .icon_sort, .icon_triangle_down, .icon_triangle_up, .icon_triangle_up_b, .icon_user {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    margin: -.5rem;
+    background-repeat: no-repeat;
+    background-image: url(../images/sprite.svg);
+    -webkit-background-size: 2rem 62.375rem;
+    background-size: 2rem 62.375rem;
+    vertical-align: middle;
+    -webkit-transform: scale(.5);
+    transform: scale(.5);
+    font-size: 0;
+}
+.search_box .input {
+    margin-right: .125rem;
+    border: 0;
+    vertical-align: top;
+}
+.wrapper .page .content_area {
+    min-height: 32rem;
+    min-height: calc(100vh - 2.8125rem);
+}
+.wrapper .page .content_area .mod_box:first-child {
+    margin-top: 0;
+    border-top: 0;
+}
+.channel_nav {
+    padding: .3125rem .625rem 1.25rem;
+    margin-top: 0;
+}
+.mod_box {
+    margin-top: .75rem;
+    padding: 0 0 0 1.25rem;
+    background-color: #fff;
+    border-top: 1px solid #e5e5e5;
+}
+.mod_box, .mod_box h3.mod_tit {
+    border-bottom: 1px solid #e5e5e5;
+}
+.gridbox.col_4 .box_col {
+    width: 25%;
+}
+.channel_nav .box_col {
+    margin: .9375rem 0 0;
+}
+.gridbox .box_col {
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.channel_nav .box_col>a {
+    display: block;
+}
+.page_home .icon_agent, .page_home .icon_app, .page_home .icon_b_baike, .page_home .icon_b_chengjiao, .page_home .icon_b_daikuan, .page_home .icon_b_fangjia, .page_home .icon_b_gujia, .page_home .icon_b_jingjiren, .page_home .icon_b_kefu, .page_home .icon_b_lanmu, .page_home .icon_b_lanrenzhaofang, .page_home .icon_b_shoufu, .page_home .icon_b_shuifei, .page_home .icon_b_wenda, .page_home .icon_b_xiaoqu, .page_home .icon-lishi, .page_home .icon_ditie, .page_home .icon-shuxue1, .page_home .icon_goufang, .page_home .icon_gujia, .page_home .icon-zhengzhi, .page_home .icon_linshen, .page_home .icon-weishengwu, .page_home .icon-huaxue-, .page_home .icon_redian, .page_home .icon_shop, .page_home .icon_wenda, .page_home .icon_wiki, .page_home .icon-dili-, .page_home .icon-xianshangshuxue1, .page_home .icon_xuequfang, .page_home .icon_zhinan, .page_home .icon_zhuangxiu, .page_home .icon-wuli- {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    margin: .6875rem;
+    background-repeat: no-repeat;
+    background-image: url(../images/sprite_icon.svg);
+    -moz-background-size: 2rem 92rem;
+    -o-background-size: 2rem 92rem;
+    background-size: 2rem 92rem;
+    -webkit-transform: scale(1.6875);
+    -moz-transform: scale(1.6875);
+    -ms-transform: scale(1.6875);
+    -o-transform: scale(1.6875);
+    transform: scale(1.6875);
+}
+.page_home .icon-shuxue1 {
+    background-image: url(../images/likeshuxue.png);
+}
+.page_home .icon-xianshangshuxue1 {
+    background-image: url(../images/wenkeshuxue.png);
+}
+.page_home .icon-wuli- {
+    background-image: url(../images/wuli.png);
+}
+.page_home .icon-huaxue- {
+    background-image: url(../images/huaxue.png);
+}
+.page_home .icon-weishengwu {
+    background-image: url(../images/shengwu.png);
+    background-size: cover;
+    transform: scale(1.5);
+}
+.page_home .icon-zhengzhi {
+    background-image: url(../images/zhengzhi.png);
+}
+.page_home .icon-lishi {
+    background-image: url(../images/lishi.png);
+}
+.page_home .icon-dili- {
+    background-image: url(../images/dili.png);
+    background-size: cover;
+    transform: scale(1.5);
+}
+.page_home .icon_agent, .page_home .icon-lishi, .page_home .icon-shuxue1, .page_home .icon-zhengzhi, .page_home .icon-huaxue-, .page_home .icon_shop, .page_home .icon-xianshangshuxue1, .page_home .icon_zhuangxiu, .page_home .icon-wuli- {
+    background-size: cover;
+    transform: scale(1.5);
+}
+.channel_nav .name {
+    margin-top: 0;
+    color: #222;
+}
+.data_channel {
+    padding: 0 0 0 1.25rem;
+}
+.mod_box {
+    margin-top: .75rem;
+    padding: 0 0 0 1.25rem;
+    background-color: #fff;
+    border-top: 1px solid #e5e5e5;
+}
+.data_channel .title {
+    position: relative;
+    height: 3.4375rem;
+    line-height: 3.4375rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+.data_channel .title a {
+    display: block;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.tool_list_wrap {
+    margin-left: -1.2rem;
+    padding: 1.25rem 0 0;
+}
+.gridbox:after, .gridbox:before {
+    display: table;
+    content: "";
+}
+.gridbox.col_5 .box_col {
+    width: 20%;
+}
+.tool_list_wrap .link {
+    margin-bottom: 1.25rem;
+}
+.gridbox .box_col {
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.channel_box .icon {
+    -webkit-transform: scale(.78125);
+    -moz-transform: scale(.78125);
+    -ms-transform: scale(.78125);
+    -o-transform: scale(.78125);
+    transform: scale(.78125);
+    margin: 0;
+}
+.page_home .icon_b_gujia {
+    background-position: 0 -57.75rem;
+}
+.tool_list_wrap {
+    margin-left: -1.2rem;
+    padding: 1.25rem 0 0;
+}
+.gridbox.col_5 .box_col {
+    width: 20%;
+}
+.tool_list_wrap .link {
+    margin-bottom: 1.25rem;
+}
+.gridbox .box_col {
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.channel_box .icon {
+    -webkit-transform: scale(.78125);
+    -moz-transform: scale(.78125);
+    -ms-transform: scale(.78125);
+    -o-transform: scale(.78125);
+    transform: scale(.78125);
+    margin: 0;
+}
+.channel_nav {
+    padding: .3125rem .625rem 1.25rem;
+    margin-top: 0;
+}
+.page_home .icon_b_jingjiren {
+    background-position: 0 -63rem;
+}
+.page_home .icon_b_wenda {
+    background-position: 0 -47.25rem;
+}
+.page_home .icon_b_baike {
+    background-position: 0 -49.875rem;
+}
+.page_home .icon_b_kefu {
+    background-position: 0 -70.875rem;
+}
+.page_home .mod_tit .right {
+    float: right;
+    margin-right: 1.5rem;
+    font-weight: 400;
+}
+.page_home .mod_tit .gray {
+    font-size: .75rem;
+}
+.page_home .gray {
+    color: #9c9fa1;
+}
+.mod_box .mod_cont {
+    padding: 0;
+    line-height: 2;
+}
+.page_home .mod_box .item_desc {
+    background-color: #f9f9f9;
+    font-size: .8125rem;
+    color: #9c9fa1;
+    padding: .25rem .5rem;
+    margin-top: .75rem;
+}
