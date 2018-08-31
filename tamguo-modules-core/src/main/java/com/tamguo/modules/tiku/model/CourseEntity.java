@@ -20,6 +20,7 @@ public class CourseEntity {
 	private Integer questionNum;
 	private Integer pointNum;
 	private String remarks;
+	private String icon;
 	
 	private String seoTitle;
 	private String seoKeywords;
@@ -126,6 +127,12 @@ public class CourseEntity {
 	}
 	public void setSeoDescription(String seoDescription) {
 		this.seoDescription = seoDescription;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 }
