@@ -45,7 +45,7 @@
 					<div class="mod_box channel_nav">
 						<div class="gridbox col_4">
 							<h2 class="box_col" th:title="${c.name}" th:each="c,cStat:${courseList}">
-								<a th:href="${domainName}" class="inner post_ulog">
+								<a th:href="${domainName + 'course/' + c.id + '.html'}" class="inner post_ulog">
 									<div th:class="${c.icon}"></div>
 									<div class="name" th:text="${c.name}">理科数学</div>
 								</a>
