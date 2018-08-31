@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html style="font-size: 32px;">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="掌上探果网">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" /> 
+<meta name="format-detection" content="telephone=no">
+<meta name="applicable-device" content="mobile">
+<link rel="canonical" href="https://www.tamguo.com"/>
+<meta http-equiv="cleartype" content="on">
+<meta http-equiv="Cache-Control" content="no-transform " />
+<title th:text="${course.seoTitle}"></title>
+<meta name="keywords" th:content="${course.seoKeywords}"/>
+<meta name="description" th:content="${course.seoDescription}"/>
+<link rel="stylesheet" th:href="${domainName + 'mobile/css/reset.css'}" />
+<link rel="stylesheet" th:href="${domainName + 'mobile/css/index.css'}" />
+</head>
+<body>
+	<div class="wrapper">
+		<div class="main_start">
+			<!--页面-->
+			<!--TODO here-->
+			<section class="page page_home">
+				<header class="home_header">
+					<div class="top">
+						<div class="box_col">
+							<a th:href="${domainName}"><span class="switch_city"><em class="city">上海</em><i class="icon_pull"></i></span></a>
+						</div>
+						<a th:href="${domainName}" class="my" rel="nofollow"><i
+							class="icon_user"></i></a>
+					</div>
+					<div class="content">
+						<a th:href="${domainName}">
+							<div class="search_box">
+								<i class="icon_search_gray"></i><input type="text" class="input"
+									disabled="" placeholder="输入学校或老师开始找题目咯~">
+							</div>
+						</a>
+					</div>
+				</header>
+
+				<!--/头部-->
+				<div class="content_area">
+					<!--频道导航-->
+					<div class="mod_box channel_nav">
+						<div class="gridbox col_4">
+							<h2 class="box_col" th:title="${c.name}" th:each="c,cStat:${courseList}">
+								<a th:href="${domainName + 'course/' + c.id + '.html'}" class="inner post_ulog">
+									<div th:class="${c.icon}"></div>
+									<div class="name" th:text="${c.name}">理科数学</div>
+								</a>
+							</h2>
+						</div>
+					</div>
+					<!--/频道导航-->
+
+					<!--章节学习-->
+					<div class="mod_box house_lists">
+						<h3 class="mod_tit arrow">
+							<a class="post_ulog_search lazyload_ulog_action"
+								data-ulog_search="ljweb_id=30001&amp;ljweb_mod=m_pages_homepage_recommend-ershoufang&amp;ljweb_bl=more&amp;ljweb_strategy_id=default"
+								data-evtid_lazyaction="10889"
+								data-ulog_lazyaction="recommend_module=m_ershou_shouye&amp;fb_service_id=100001&amp;fb_context_id={&quot;req_source_type&quot;:&quot;zhiying_m&quot;}&amp;fb_expo_id=r87474238291230720&amp;fb_strategy_id=10000076&amp;fb_item_type=ershou_house&amp;fb_item_detail=107000203369&amp;fb_item_location=1&amp;fb_ab_test_flag=reco_rule-100001-default-default&amp;fb_response_ts=1535591483&amp;fb_query_id=188971149"
+								th:href="${domainName}" th:text="${course.name + '>章节学习'}">章节学习<span class="gray right">更多</span></a>
+						</h3>
+						<div class="mod_cont">
+							<ul class="lists">
+								<li class="pictext" th:each="c,cStat:${chapterList}" th:if="${cStat.index < 10}" th:attr="data-id=${c.id}" onclick="showChapter(this)">
+									<a class="a_mask post_ulog_search lazyload_ulog_search post_ulog_action lazyload_ulog_action"></a>
+									<div class="flexbox">
+										<div class="item_list">
+											<div class="item_main" th:text="${c.name}"></div>
+										</div>
+									</div>
+									<ul class="lists" th:each="p,pStat:${c.childChapterList}" style="display:none;" name="chapterName" th:id="${c.id}">
+										<li class="pictext" style="margin-left:40px;">
+											<a class="a_mask post_ulog_search lazyload_ulog_search post_ulog_action lazyload_ulog_action"></a>
+											<div class="flexbox">
+												<div class="item_list">
+													<div class="item_main" th:text="${p.name}"></div>
+												</div>
+											</div>
+											<ul class="lists" th:each="n,nStat:${p.childChapterList}">
+												<li class="pictext" style="margin-left:40px;">
+													<a th:href="${domainName + 'questionlist/' + n.id + '-1-5.html'}" class="a_mask post_ulog_search lazyload_ulog_search post_ulog_action lazyload_ulog_action"></a>
+													<div class="flexbox">
+														<div class="item_list">
+															<div class="item_main" th:text="${n.name}"></div>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--/真題列表-->
+				</div>
+
+				<!--底部:导航当前页用h1着重强调-->
+				<footer class="footer">
+					<div class="nav">
+						<span class="location"><a th:href="${domainName}">上海手机探果网</a></span>
+					</div>
+					<div class="link_box">
+						<div class="link_tit">
+							<h3 class="li text_cut active" data-act="foot_nav"
+								data-mark="foot_nav">探果网分站</h3>
+							<h3 class="li text_cut" data-act="foot_nav" data-mark="foot_nav">热门城市</h3>
+						</div>
+						<div class="link_cont">
+							<ul class="gridbox col_3 contlists active" data-mark="foot_navs">
+								<li class="box_col"><a th:href="${domainName}">北京探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">成都探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">杭州探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">上海探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">天津探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">南京探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">青岛探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">广州探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">济南探果网</a></li>
+							</ul>
+							<ul class="gridbox col_3 contlists" data-mark="foot_navs">
+								<li class="box_col"><a th:href="${domainName}">重庆探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">苏州探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">武汉探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">深圳探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">长沙探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">大连探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">厦门探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">合肥探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">佛山探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">东莞探果网</a></li>
+								<li class="box_col"><a th:href="${domainName}">烟台探果网</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="info">
+						<div class="icon_box">
+							<a href="javascript:;" data-mark="download_app"
+								title="iPhone客户端" class="icon_iphone lazyload_ulog"
+								rel="nofollow">iPhone客户端</a> 
+							<a href="javascript:;"
+								title="Android客户端" class="icon_android lazyload_ulog"
+								data-evtid="10380" data-ulog="ljweb_mod=bottom_logo_android"
+								rel="nofollow">Android客户端</a>
+						</div>
+						<div class="copyright">
+							<p class="company">上海探果网络科技有限公司</p>
+							<p class="record">沪ICP备14022608号-1</p>
+							<div class="record" style="">
+								<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo"
+									style="display: inline-block; text-decoration: none; height: 20px; line-height: 20px;"><img
+									src="https://s1.ljcdn.com/hulk-web/static/m/images/common/beian.png?_v=14022608"
+									style="float: left;">
+								<p
+										style="float: left; height: 20px; line-height: 20px; margin: 0px 0px 0px 5px; color: #727373;">沪ICP备14022608号-1</p></a>
+							</div>
+						</div>
+					</div>
+				</footer>
+				<!--/底部-->
+			</section>
+			<!--/页面-->
+		</div>
+	</div>
+</body>
+<script type="text/javascript" th:src="${domainName + 'js/jquery-1.8.3.min.js'}" ></script>
+<script type="text/javascript">
+function showChapter(self){
+	$("ul[name='chapterName']").hide();
+	$("#" + $(self).attr("data-id")).show();
+}
+</script>
+</html>

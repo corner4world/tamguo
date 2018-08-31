@@ -23,6 +23,7 @@ import com.tamguo.modules.tiku.service.IBookService;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.ISubjectService;
+import com.tamguo.utils.BrowserUtils;
 
 /**
  * Controller - 科目
@@ -65,7 +66,11 @@ public class CourseController {
 		model.addObject("subject", subject);
 		model.addObject("bookList", bookList);
 		model.addObject("book" , book);
-		model.setViewName("chapter");
+		if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+    		model.setViewName("mobile/chapter");
+    	}else {
+    		model.setViewName("chapter");
+    	}
 		return model;
 	}
 	
