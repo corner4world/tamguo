@@ -103,7 +103,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .header .header_back:after, .header .icon_pull, .header .icon_user, .header .logo, .home_header .icon_user {
     font-size: 0;
     display: inline-block;
-    background-image: url(../mobile/images/sprite_new.svg);
+    background-image: url(../images/sprite_new.svg);
     background-repeat: no-repeat;
     background-position: 0 0;
     -webkit-transform: none;
@@ -362,7 +362,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     padding: 1.25rem 0 0;
 }
 .gridbox.col_5 .box_col {
-    width: 20%;
+    width: 33%;
 }
 .tool_list_wrap .link {
     margin-bottom: 1.25rem;

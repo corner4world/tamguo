@@ -15,6 +15,7 @@
 <meta name="description" content="探果网,高考试题,高考试卷,高校试题,名校,名校试题,名校试卷,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
 <link rel="stylesheet" th:href="${domainName + 'mobile/css/reset.css'}" />
 <link rel="stylesheet" th:href="${domainName + 'mobile/css/index.css'}" />
+<link rel="stylesheet" th:href="${domainName + 'mobile/css/iconfont.css'}" />
 </head>
 <body>
 	<div class="wrapper">
@@ -42,147 +43,21 @@
 
 				<!--/头部-->
 				<div class="content_area">
-					<!--频道导航-->
-					<div class="mod_box channel_nav">
-						<div class="gridbox col_4">
-							<h2 class="box_col" th:title="${c.name}" th:each="c,cStat:${chapterMenuList}">
-								<a th:href="${domainName + c.url}" class="inner post_ulog">
-									<div th:class="${c.pinyin}"></div>
-									<div class="name" th:text="${c.name}">理科数学</div>
-								</a>
-							</h2>
-						</div>
-					</div>
-					<!--/频道导航-->
-
-					<!--/banner-->
-
-					<!--常用工具-->
-					<div class="mod_box data_channel tool_list">
+					<!--学历类型-->
+					<div class="mod_box data_channel tool_list" th:each="m,mStat:${menuList}">
 						<dl class="channel_box">
 							<dt class="title">
-								<a href="javascript:;">常用工具</a>
+								<a href="javascript:;" th:text="${m.name}">学历类型</a>
 							</dt>
 							<dd class="tool_list_wrap gridbox col_5">
-								<a th:href="${domainName}" class="link box_col">
-									<span class="icon icon_b_gujia"></span>
-									<div>去估分</div>
-								</a> <a th:href="${domainName}" class="link box_col"> <span
-									class="icon icon_b_jingjiren"></span>
-									<div>找老师</div>
-								</a> <a th:href="${domainName}" class="link box_col"> <span
-									class="icon icon_b_wenda"></span>
-									<div>问答</div>
-								</a> <a th:href="${domainName}" class="link box_col"> <span
-									class="icon icon_b_baike"></span>
-									<div>百科</div>
+								<a th:href="${domainName + c.url}" class="link box_col" th:each="c,cmStat:${m.childSubjects}">
+									<span th:class="${'li-icon iconfont ' + c.pinyin}"></span>
+									<div th:text="${c.name}">去估分</div>
 								</a> 
-								<a href="javascript:;" class="link box_col post_ulog"title="电话"> 
-									<span class="icon icon_b_kefu"></span>
-									<div>客服电话</div>
-								</a>
 							</dd>
 						</dl>
 					</div>
 					<!--/常用工具-->
-					<!--栏目-->
-					<!--/栏目 -->
-
-					<!--真題列表-->
-					<div class="mod_box house_lists">
-						<h3 class="mod_tit arrow">
-							<a class="post_ulog_search lazyload_ulog_action"
-								data-ulog_search="ljweb_id=30001&amp;ljweb_mod=m_pages_homepage_recommend-ershoufang&amp;ljweb_bl=more&amp;ljweb_strategy_id=default"
-								data-evtid_lazyaction="10889"
-								data-ulog_lazyaction="recommend_module=m_ershou_shouye&amp;fb_service_id=100001&amp;fb_context_id={&quot;req_source_type&quot;:&quot;zhiying_m&quot;}&amp;fb_expo_id=r87474238291230720&amp;fb_strategy_id=10000076&amp;fb_item_type=ershou_house&amp;fb_item_detail=107000203369&amp;fb_item_location=1&amp;fb_ab_test_flag=reco_rule-100001-default-default&amp;fb_response_ts=1535591483&amp;fb_query_id=188971149"
-								th:href="${domainName}">为您推荐真题试卷<span class="gray right">更多</span></a>
-						</h3>
-						<div class="mod_cont">
-							<ul class="lists">
-								<li class="pictext" th:each="p,pStat:${historyPaperList}">
-									<a th:href="${domainName + 'paper/' + p.id + '.html'}" class="a_mask post_ulog_search lazyload_ulog_search post_ulog_action lazyload_ulog_action"></a>
-									<div class="flexbox">
-										<div class="item_list">
-											<div class="item_main" th:text="${p.name}">理科数学 东城区2017年高三上学期期末考试</div>
-											<div class="tag_box">
-												<span class="tag" style="color: rgb(242, 161, 47); background-color: rgba(242, 161, 47, 0.15);"
-													title="北京">北京</span> <span class="tag"
-													style="color: rgb(51, 190, 133); background-color: rgba(51, 190, 133, 0.15);"
-													title="真题">真题</span> <span class="tag"
-													style="color: rgb(123, 189, 255); background-color: rgba(123, 189, 255, 0.15);"
-													title="理科数学">理科数学</span>
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<!--/真題列表-->
-					
-					<!--模拟列表-->
-					<div class="mod_box house_lists">
-						<h3 class="mod_tit arrow">
-							<a class="post_ulog_search lazyload_ulog_action"
-								data-ulog_search="ljweb_id=30001&amp;ljweb_mod=m_pages_homepage_recommend-ershoufang&amp;ljweb_bl=more&amp;ljweb_strategy_id=default"
-								data-evtid_lazyaction="10889"
-								data-ulog_lazyaction="recommend_module=m_ershou_shouye&amp;fb_service_id=100001&amp;fb_context_id={&quot;req_source_type&quot;:&quot;zhiying_m&quot;}&amp;fb_expo_id=r87474238291230720&amp;fb_strategy_id=10000076&amp;fb_item_type=ershou_house&amp;fb_item_detail=107000203369&amp;fb_item_location=1&amp;fb_ab_test_flag=reco_rule-100001-default-default&amp;fb_response_ts=1535591483&amp;fb_query_id=188971149"
-								th:href="${domainName}">为您推荐模拟试卷<span class="gray right">更多</span></a>
-						</h3>
-						<div class="mod_cont">
-							<ul class="lists">
-								<li class="pictext" th:each="p,pStat:${simulationPaperList}">
-									<a th:href="${domainName + 'paper/' + p.id + '.html'}" class="a_mask post_ulog_search lazyload_ulog_search post_ulog_action lazyload_ulog_action"></a>
-									<div class="flexbox">
-										<div class="item_list">
-											<div class="item_main" th:text="${p.name}">理科数学 东城区2017年高三上学期期末考试</div>
-											<div class="tag_box">
-												<span class="tag" style="color: rgb(242, 161, 47); background-color: rgba(242, 161, 47, 0.15);"
-													title="北京">北京</span> <span class="tag"
-													style="color: rgb(51, 190, 133); background-color: rgba(51, 190, 133, 0.15);"
-													title="真题">真题</span> <span class="tag"
-													style="color: rgb(123, 189, 255); background-color: rgba(123, 189, 255, 0.15);"
-													title="理科数学">理科数学</span>
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<!--/模拟列表-->
-					
-					<!--热门列表-->
-					<div class="mod_box house_lists">
-						<h3 class="mod_tit arrow">
-							<a class="post_ulog_search lazyload_ulog_action"
-								data-ulog_search="ljweb_id=30001&amp;ljweb_mod=m_pages_homepage_recommend-ershoufang&amp;ljweb_bl=more&amp;ljweb_strategy_id=default"
-								data-evtid_lazyaction="10889"
-								data-ulog_lazyaction="recommend_module=m_ershou_shouye&amp;fb_service_id=100001&amp;fb_context_id={&quot;req_source_type&quot;:&quot;zhiying_m&quot;}&amp;fb_expo_id=r87474238291230720&amp;fb_strategy_id=10000076&amp;fb_item_type=ershou_house&amp;fb_item_detail=107000203369&amp;fb_item_location=1&amp;fb_ab_test_flag=reco_rule-100001-default-default&amp;fb_response_ts=1535591483&amp;fb_query_id=188971149"
-								th:href="${domainName}">为您推荐模拟试卷<span class="gray right">更多</span></a>
-						</h3>
-						<div class="mod_cont">
-							<ul class="lists">
-								<li class="pictext" th:each="p,pStat:${hotPaperList}">
-									<a th:href="${domainName + 'paper/' + p.id + '.html'}" class="a_mask post_ulog_search lazyload_ulog_search post_ulog_action lazyload_ulog_action"></a>
-									<div class="flexbox">
-										<div class="item_list">
-											<div class="item_main" th:text="${p.name}">理科数学 东城区2017年高三上学期期末考试</div>
-											<div class="tag_box">
-												<span class="tag" style="color: rgb(242, 161, 47); background-color: rgba(242, 161, 47, 0.15);"
-													title="北京">北京</span> <span class="tag"
-													style="color: rgb(51, 190, 133); background-color: rgba(51, 190, 133, 0.15);"
-													title="真题">真题</span> <span class="tag"
-													style="color: rgb(123, 189, 255); background-color: rgba(123, 189, 255, 0.15);"
-													title="理科数学">理科数学</span>
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<!--/模拟列表-->
 				</div>
 
 				<!--底部:导航当前页用h1着重强调-->
