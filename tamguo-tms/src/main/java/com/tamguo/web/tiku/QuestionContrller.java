@@ -25,6 +25,7 @@ import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.IQuestionAnswerService;
 import com.tamguo.modules.tiku.service.IQuestionService;
 import com.tamguo.modules.tiku.service.ISubjectService;
+import com.tamguo.utils.BrowserUtils;
 
 @Controller
 public class QuestionContrller {
@@ -48,7 +49,6 @@ public class QuestionContrller {
 			@PathVariable Integer size , ModelAndView model , HttpServletRequest request){
 		// request url 
 		logger.info("request url :{} " , request.getRequestURI());
-		model.setViewName("questionList");
 
 		ChapterEntity chapter = iChapterService.selectById(chapterId);
 		CourseEntity course = iCourseService.selectById(chapter.getCourseId());
@@ -68,6 +68,12 @@ public class QuestionContrller {
 		model.addObject("questionList", questionList);
 		model.addObject("subjectId", course.getSubjectId());
 		model.addObject("courseId", course.getId());
+		
+		if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+    		model.setViewName("mobile/questionList");
+    	}else {
+    		model.setViewName("questionList");
+    	}
 		return model;
 	}
 	

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html style="font-size: 42px;">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="掌上探果网">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no">
+<meta name="applicable-device" content="mobile">
+<link rel="canonical" href="https://www.tamguo.com" />
+<title th:text="${chapter.seoTitle}"></title>
+<meta name="keywords" th:content="${chapter.seoKeywords}" />
+<meta name="description" th:content="${chapter.seoDescription}" />
+<link rel="stylesheet" th:href="${domainName + 'mobile/css/base.css'}" />
+<style>
+.lists_model .model_list, .lists_price .price_list {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box
+}
+
+.filter_box .filter_item .cont li, .filter_box .filter_item .guide li,
+	.filter_box .tab_bar, .lists_price .price_list li {
+	border-bottom: 1px solid #e5e5e5
+}
+
+body.filter_show {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0
+}
+
+.filter_box .tab_bar {
+	position: relative;
+	z-index: 10
+}
+
+.filter_box .filter_item {
+	position: absolute;
+	background: #fff;
+	top: 0;
+	left: 0;
+	right: 0;
+	-webkit-transition: -webkit-transform .5s ease;
+	-moz-transition: transform .5s ease, -moz-transform .5s ease;
+	-o-transition: transform .5s ease, -o-transform .5s ease;
+	transition: transform .5s ease;
+	transition: transform .5s ease, -webkit-transform .5s ease,
+		-moz-transform .5s ease, -o-transform .5s ease;
+	-webkit-transform: translate3d(0, -100%, 0);
+	-moz-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+	opacity: 0;
+	z-index: 1
+}
+
+.filter_box .area_list, .filter_box .model_list, .filter_box .more_list,
+	.filter_box .price_list {
+	width: 100%;
+	max-height: 25.625rem;
+	background: #fff;
+	overflow: auto
+}
+
+.filter_box .more_list {
+	max-height: 20rem;
+	max-height: calc(100vh - 16.0625rem)
+}
+
+.filter_box .area_list {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex
+}
+
+.filter_box .filter_item.active {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	opacity: 1;
+	z-index: 2
+}
+
+.filter_box .filter_item .cont, .filter_box .filter_item .guide,
+	.filter_box .filter_item .nav {
+	overflow: auto
+}
+
+.filter_box .lists_area.active {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex
+}
+
+.filter_box .filter_item li {
+	line-height: 2.5rem
+}
+
+.filter_box .filter_item li.active a {
+	color: #00ae66;
+	-webkit-tap-highlight-color: rgab(0, 0, 0, 0)
+}
+
+.filter_box .filter_item li.active .btn {
+	color: #fff;
+	-webkit-tap-highlight-color: rgab(0, 0, 0, 0)
+}
+
+.filter_box .filter_item .guide, .filter_box .filter_item .nav {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	padding-left: 1.1875rem;
+	border-right: 1px solid #e5e5e5
+}
+
+.filter_box .filter_item .nav {
+	background: #f0f0f0;
+	padding-left: 0
+}
+
+.filter_box .filter_item .nav li {
+	padding-left: 1.875rem
+}
+
+.filter_box .filter_item .nav li.active {
+	background: #fff;
+	margin-right: -1px;
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5
+}
+
+.filter_box .filter_item .nav li:first-child {
+	border-top: 0
+}
+
+.filter_box .filter_item .cont {
+	-webkit-box-flex: 2;
+	-webkit-flex: 2;
+	-moz-box-flex: 2;
+	-ms-flex: 2;
+	flex: 2;
+	padding-left: 1.1875rem
+}
+
+.filter_box .filter_item .cont li.active, .filter_box .filter_item .guide li.active
+	{
+	color: #00ae66
+}
+
+.filter_box .filter_item .level2.active, .filter_box .filter_item .level3.active
+	{
+	display: block
+}
+
+.lists_price .price_list {
+	width: 100%;
+	padding-left: 1.25rem;
+	box-sizing: border-box
+}
+
+.lists_price .price_list li {
+	height: 3.125rem;
+	line-height: 3.125rem;
+	font-size: 1rem
+}
+
+.lists_price .price_list li:last-child {
+	border-bottom: 0
+}
+
+.lists_price li>* {
+	vertical-align: middle
+}
+
+.lists_price li>span {
+	margin-right: .9375rem
+}
+
+.lists_price .input {
+	width: 2.1875rem;
+	height: 1.125rem;
+	line-height: 1.125rem;
+	padding: 0 .125rem;
+	font-size: .6875rem;
+	border: 0;
+	background: #f5f5f5;
+	-webkit-border-radius: .125rem;
+	-moz-border-radius: .125rem;
+	border-radius: .125rem;
+	text-align: center
+}
+
+.lists_price .connect {
+	padding: 0 .3125rem;
+	color: #c5c5c5
+}
+
+.lists_model .btn, .lists_price .btn {
+	background-color: #00ae66;
+	color: #fff
+}
+
+.lists_price .btn {
+	display: inline-block;
+	width: 2.0625rem;
+	height: 1rem;
+	line-height: 1rem;
+	margin-left: .625rem;
+	font-size: .625rem;
+	-webkit-border-radius: .125rem;
+	-moz-border-radius: .125rem;
+	border-radius: .125rem
+}
+
+.lists_model .model_list {
+	width: 100%;
+	padding-left: 1.25rem;
+	box-sizing: border-box
+}
+
+.lists_model .model_list li {
+	height: 2.5rem;
+	line-height: 2.5rem;
+	border-bottom: 1px solid #e5e5e5
+}
+
+.lists_model .model_list li:last-child {
+	border-bottom: 0
+}
+
+.lists_model .model_list li label {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex
+}
+
+.lists_model .model_list .model {
+	display: block;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1
+}
+
+.lists_model .model_list input[type=checkbox] {
+	margin-top: .8125rem;
+	margin-right: 1.25rem
+}
+
+.lists_model .btn_link {
+	background: 0 0;
+	color: #00ae66
+}
+
+.lists_more .item {
+	padding: 1.25rem;
+	border-bottom: 1px solid #e5e5e5
+}
+
+.lists_more .item:last-child {
+	border-bottom: 0
+}
+
+.lists_more .item_tit {
+	font-size: .875rem;
+	font-weight: 600
+}
+
+.lists_more .item_desc {
+	color: #9c9fa1;
+	font-size: .6875rem;
+	margin-top: .9375rem
+}
+
+.lists_more .item_cont .value_lists {
+	overflow: hidden;
+	padding-bottom: .125rem
+}
+
+.lists_more .item_cont .val {
+	float: left;
+	width: 25%;
+	height: 1.5625rem;
+	line-height: 1.5625rem;
+	margin: .75rem 0 0;
+	padding-right: .75rem;
+	font-size: .6875rem;
+	text-align: center;
+	color: #999;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.lists_more .item_cont .val a {
+	display: block;
+	border: 1px solid #e5e5e5;
+	color: #999;
+	-webkit-border-radius: .125rem;
+	-moz-border-radius: .125rem;
+	border-radius: .125rem;
+	overflow: hidden;
+	white-space: nowrap
+}
+
+.lists_more .item_cont .val.active a {
+	border-color: #00ae66
+}
+
+.lists_model .opt_box, .lists_more .opt_box, .opt_box+.lists_model .model_list
+	{
+	border-top: 1px solid #e5e5e5
+}
+
+.lists_model .model_list li, .lists_price .price_list li {
+	background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAQAAACROWYpAAAAUklEQVR4Ae3VOQEAQQgDwEhACk4XgyESFgX3Obi/IqkHOoCMI2euFzs5ZGDkeq8MsHKV42Lkx3YcM3Ajh2vcuHHj/3Hj+0ef9ezdyBisy7AYsg2cbp3yKncnfQAAAABJRU5ErkJggg==)
+		92% center no-repeat;
+	-moz-background-size: .9375rem .9375rem;
+	-o-background-size: .9375rem .9375rem;
+	background-size: .9375rem .9375rem
+}
+
+.lists_model .model_list li.active, .lists_price .price_list li.active {
+	background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAPFBMVEUAAAAAr2AArmYAr2UArWYArWUArmUArmUArmUArWYArWUArmYArmUAr2gArWYAr2QArWYArmUArWUArmbHRGgfAAAAE3RSTlMAEKAw8GDPkO+Pn9CwIIBAcMDgP/MWjgAAAIJJREFUeF7N0zkWxDAIBNHGSJY861L3v+sERHgentSV/oSAlm2TormZBnUMNVxFzhSoDM7Hdsi2XixzVlgLDqVn9r7TxJ3pim6hia8w49wlNPO9wWqhPLRnPYFL6KJfVgdeSRNrAZJm1ju0YvuEFixvoQXLT/VMxzNo/0Zko1XYhn0BNtYUGVhIZlYAAAAASUVORK5CYII=)
+		92% center no-repeat;
+	-moz-background-size: .9375rem .9375rem;
+	-o-background-size: .9375rem .9375rem;
+	background-size: .9375rem .9375rem
+}
+
+.lists_price .price_list li, .lists_price .price_list li.active {
+	background: 0 0
+}
+</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="main_start">
+			<!--页面-->
+			<!--TODO here-->
+			<section class="page page_xiaoqu">
+				<header class="header header_white">
+					<div class="flexbox left">
+						<a href="javascript:history.back();" class="header_back"></a> 
+							<a th:href="${domainName}" class="city_wrap"> 
+								<span class="switch_city">
+									<em class="city">北京</em><i class="icon_pull"></i>
+								</span>
+							</a>
+					</div>
+					<a th:href="${domainName}" class=""><span
+						style="font-weight: 600; font-size: 38px; color: #00ae66;">探果网</span></a>
+					<a th:href="${domainName}" class="my right"><i class="icon_user"></i></a>
+				</header>
+				<!--/头部-->
+				<div class="content_area">
+
+					<div class="dynamic_search_box">
+						<div class="input_wrap">
+							<a th:href="${domainName}" class="post_ulog" data-evtid="10523"
+								data-ulog="">
+								<div class="search_box search_center">
+									<i class="icon_search_gray"></i><input type="text"
+										class="input" placeholder="请输入学校或老师名~">
+								</div>
+							</a>
+						</div>
+						<div class="banner dynamic_group has_bg"></div>
+					</div>
+
+					<!--房源列表-->
+					<div class="mod_box house_lists">
+						<!--筛选条-->
+						<div class="tab_bar flexbox" data-mark="booth">
+							<div class="tab_tit box_col" data-mark="booth_area">
+								<h2 class="tit">科目</h2>
+								<i class="icon_triangle_down"></i>
+							</div>
+
+							<div class="tab_tit box_col" data-mark="booth_price">
+								<h2 class="tit">章节</h2>
+								<i class="icon_triangle_down"></i>
+							</div>
+							<div class="tab_tit box_col" data-mark="booth_model">
+								<h2 class="tit">题目</h2>
+								<i class="icon_triangle_down"></i>
+							</div>
+						</div>
+						<!--/筛选条-->
+
+						<div class="occupy" style="height: 89px; display: none;"></div>
+						<div class="sort_bar" data-mark="btn_sort"
+							style="bottom: 4.28rem;">
+							<i class="icon_sort"></i><span>排序</span>
+						</div>
+
+						<div class="mod_cont">
+							<li class="pictext" th:each="q,qStat:${questionList.records}">
+								<a th:href="${domainName + 'question/' + q.id + '.html'}" th:utext="${q.content}">
+								</a>
+							</li>
+
+							<li class="loading_box m_lj_loadingDom">
+								<a th:if="${questionList.pages - questionList.current} > 0" th:href="${domainName + 'questionlist/' +chapter.id + '-'+(questionList.current+1)+'-'+questionList.size+'.html'}" style="font-size:42px;float:left;">继续学习</a>
+					            <a th:if="${questionList.pages - questionList.current} <= 0" th:href="${domainName + 'course/' + courseId +'.html'}" style="font-size:42px;float:left;">已学完, 返回章节学习</a>
+					            <a th:if="${nextChapter == null}" class="next-done" style="font-size:42px;">棒棒哒，已是最后一个知识点</a>
+					            <a th:if="${nextChapter != null}" th:href="${domainName + 'questionlist/'+nextChapter.id+'-1-5.html'}" style="font-size:42px;">学习下一知识点</a>
+					        </li>
+						</div>
+					</div>
+					<!--/房源列表-->
+				</div>
+				<div class="layer_fixed b" style="display: none;"
+					data-mark="sort_layer">
+					<div class="content">
+						<ul class="lists">
+							<li class="li active" data-act="sort" data-query="id=0"><a
+								th:href="${domainName + 'course/' + course.id + '.html'}" th:text="${course.name}">默认</a></li>
+							<li class="li" data-act="sort" data-query="id=21"><a
+								th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+						</ul>
+					</div>
+				</div>
+				<!--底部:导航当前页用h1着重强调-->
+				<footer class="footer">
+					<div class="nav">
+						<span class="location"><a th:href="${domainName}">探果网北京站</a></span> <i
+							class="crumb"></i>
+						<h1 class="cur" title="北京探果网">
+							<a th:href="${domainName}">北京小区</a>
+						</h1>
+					</div>
+					<div class="link_box">
+						<div class="link_tit">
+							<h3 class="li text_cut active" data-act="foot_nav"
+								data-mark="foot_nav">北京高考</h3>
+							<h3 class="li text_cut" data-act="foot_nav" data-mark="foot_nav">热门推荐</h3>
+							<h3 class="li text_cut" data-act="foot_nav" data-mark="foot_nav">周边试题</h3>
+						</div>
+						<div class="link_cont">
+							<ul class="gridbox col_3 contlists active" data-mark="foot_navs">
+								<li class="box_col"><a
+								th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a
+								th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+							</ul>
+							<ul class="gridbox col_3 contlists" data-mark="foot_navs">
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+							</ul>
+							<ul class="gridbox col_3 contlists" data-mark="foot_navs">
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+							</ul>
+						</div>
+					</div>
+					<div class="info">
+						<div class="icon_box">
+							<a href="javascript:;" 
+								title="iPhone客户端" class="icon_iphone lazyload_ulog"
+								rel="nofollow">iPhone客户端</a> <a href="javascript:;"
+								title="Android客户端" class="icon_android lazyload_ulog"
+								rel="nofollow">Android客户端</a>
+						</div>
+						<div class="copyright">
+							<p class="company">上海探果网络科技有限公司</p>
+							<p class="record">沪ICP备14022608号-1</p>
+							<div class="record" style="">
+								<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo"
+									style="display: inline-block; text-decoration: none; height: 20px; line-height: 20px;"><img
+									src="https://s1.ljcdn.com/hulk-web/static/m/images/common/beian.png?_v=14022608"
+									style="float: left;">
+								<p
+										style="float: left; height: 20px; line-height: 20px; margin: 0px 0px 0px 5px; color: #727373;">沪ICP备14022608号-1</p></a>
+							</div>
+						</div>
+					</div>
+				</footer>
+				<!--/底部-->
+				<!--/底部-->
+			</section>
+			<section class="layer_fixed filter_box" style="display: none;"
+				data-mark="panel_box">
+				<!--头部筛选条-->
+				<header class="tab_bar flexbox">
+					<div class="tab_tit box_col active" data-mark="button_area">
+						<span class="tit">区域</span><i class="icon_triangle_down"></i>
+					</div>
+					<div class="tab_tit box_col" data-mark="button_price">
+						<span class="tit">均价</span><i class="icon_triangle_down"></i>
+					</div>
+					<div class="tab_tit box_col" data-mark="button_model">
+						<span class="tit">类型</span><i class="icon_triangle_down"></i>
+					</div>
+					<div class="tab_tit box_col" data-mark="button_year">
+						<span class="tit">楼龄</span><i class="icon_triangle_down"></i>
+					</div>
+				</header>
+				<!--/头部筛选条-->
+
+				<div class="content">
+					<div class="filter_item lists_area" data-mark="panel_area">
+						<div class="area_list">
+							<div class="nav" data-mark="level1">
+								<ul class="level1">
+									<li class="li active" data-act="s1"
+										data-info="id=district&amp;name=区域">区域</li>
+								</ul>
+							</div>
+							<div class="guide" data-mark="level2">
+								<ul class="level2 active">
+
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a></li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+									<li class="li">
+										<a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:title="${subject.name}">不限</a>
+									</li>
+								</ul>
+							</div>
+							<div class="cont" data-mark="level3" style="display: none;">
+								<ul class="level3">
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="filter_item lists_price" data-mark="panel_price">
+						<ul class="price_list ">
+							<li class="li">
+								<a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a>
+							</li>
+							<li class="li" data-act="price" data-info="id=1&amp;name=2万以下">
+								<a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a>
+							</li>
+							<li class="li" data-act="price" data-info="id=2&amp;name=2-3万">
+								<a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a>
+							</li>
+							<li class="li" data-act="price" data-info="id=3&amp;name=3-4万">
+								<a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a>
+							</li>
+							<li class="li" data-act="price" data-info="id=4&amp;name=4-5万">
+								<a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a>
+							</li>
+							<li class="li" data-act="price" data-info="id=5&amp;name=5-6万">
+								<a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a>
+							</li>
+							<li class="li" data-act="price" data-info="id=6&amp;name=6万以上">
+								<a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a>
+							</li>
+						</ul>
+
+					</div>
+					
+					<!--类型-->
+					<div class="filter_item lists_model" data-mark="panel_model">
+						<ul class="model_list q_roomlist">
+							<li class="li"><span
+								class="model"><a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a></span></li>
+							<li class="li"><span
+								class="model"><a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a></span></li>
+						</ul>
+						<div class="opt_box">
+							<a href="javascript:;" class="btn btn_link" data-act="clear"
+								style="display: none;">清空条件</a> <a href="javascript:;"
+								class="btn btn_green" data-act="submit">确定</a>
+						</div>
+					</div>
+					<!--/类型-->
+					<!--楼龄-->
+					<div class="filter_item lists_year" data-mark="panel_year">
+						<ul class="model_list q_roomlist">
+							<li class="li"><span class="model"><a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a></span></li>
+							<li class="li"><span class="model"><a th:href="${domainName + 'course/' + course.id + '.html'}" th:title="${course.name}"></a></span></li>
+						</ul>
+						<div class="opt_box">
+							<a href="javascript:;" class="btn btn_link" data-act="clear"
+								style="display: none;">清空条件</a> <a href="javascript:;"
+								class="btn btn_green" data-act="submit">确定</a>
+						</div>
+					</div>
+					<!--/楼龄-->
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>
