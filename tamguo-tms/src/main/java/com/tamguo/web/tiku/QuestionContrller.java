@@ -20,6 +20,7 @@ import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
 import com.tamguo.modules.tiku.model.QuestionEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
+import com.tamguo.modules.tiku.model.enums.QuestionTypeEnum;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.IQuestionAnswerService;
@@ -60,6 +61,10 @@ public class QuestionContrller {
 		page.setCurrent(current);
 		page.setSize(size);
 		Page<QuestionEntity> questionList = iQuestionService.selectPage(page , Condition.create().eq("chapter_id", chapterId).orderDesc(Arrays.asList("id")));
+		for(int i=0 ;i<questionList.getRecords().size() ; i++) {
+			QuestionEntity question = questionList.getRecords().get(i);
+			question.setQuestionType(QuestionTypeEnum.getQuestionType(question.getQuestionType()).getDesc());
+		}
 		model.addObject("subject", subject);
 		model.addObject("course", course);
 		model.addObject("chapter", chapter);
@@ -90,7 +95,7 @@ public class QuestionContrller {
 		logger.info("request url :{}" , request.getRequestURI());
 		model.setViewName("question");
 		QuestionEntity question = iQuestionService.selectById(uid);
-		question.setQuestionType(question.getQuestionType());
+		question.setQuestionType(QuestionTypeEnum.getQuestionType(question.getQuestionType()).getDesc());
 		model.addObject("question", question);
 		model.addObject("course", iCourseService.selectById(question.getCourseId()));
 		model.addObject("answerList", iQuestionAnswerService.selectList(Condition.create().eq("question_id", uid).orderDesc(Arrays.asList("create_date"))));

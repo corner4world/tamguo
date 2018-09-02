@@ -379,7 +379,6 @@ body.filter_show {
 								</div>
 							</a>
 						</div>
-						<div class="banner dynamic_group has_bg"></div>
 					</div>
 
 					<!--房源列表-->
@@ -412,6 +411,12 @@ body.filter_show {
 							<li class="pictext" th:each="q,qStat:${questionList.records}">
 								<a th:href="${domainName + 'question/' + q.id + '.html'}" th:utext="${q.content}">
 								</a>
+								<div class="card-name-wrapper" style="padding: 1.5625rem 1.25rem;display: -webkit-flex;display: flex;-webkit-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;align-items: flex-end;padding-bottom: 1rem;">
+	            					<div class="resblock-tags-line">
+		                                <span class="tag" th:text="${q.questionType}">住宅</span><span class="tag" th:text="${q.score }" th:if="${q.score != null}">分数</span><span class="tag" th:text="${q.year}" th:if="${q.year != null}">年份</span>
+		                            </div>
+	                        		<a th:href="${domainName + 'question/' + q.id + '.html'}" class="more post_ulog" style="float:right;">查看解析</a>
+                    			</div>
 							</li>
 
 							<li class="loading_box m_lj_loadingDom">
