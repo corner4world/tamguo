@@ -3,7 +3,7 @@
 <head>
 	<meta name="baidu-site-verification" content="5agfTbCO3Q" />
 	<meta charset="utf-8" />
-	<title>探果网_聪明的学生都在这里</title>
+	<title>聪明的学生都在这里_探果网</title>
 	<meta name="keywords" content="高考,考研,财会类,建筑工程,职业资格,医卫类,会计类"/>
 	<meta name="description" content="探果网,高考试题,高考试卷,高校试题,名校,名校试题,名校试卷,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
 	<meta name="author" content="Tamguo Team" />
@@ -120,7 +120,7 @@
 								<ul class="paper-list paper-list-zhenti">
 									<li class="list-item" th:each="p,pStat:${historyPaperList}">
 										<p class="list-item-name">
-											<a class="list-item-name-link" th:href="${domainName + 'paper/' + p.id + '.html'}" th:text="${p.name}">2017年高考真题 语文 (北京卷)</a>
+											<a class="list-item-name-link" th:href="${domainName + 'paper/' + p.id + '.html'}" th:text="${p.name}" th:title="${p.name}">2017年高考真题 语文 (北京卷)</a>
 										</p>
 										<p class="list-item-detail">
 											<a class="list-item-link list-item-link-jiexi" th:href="${domainName + 'paper/' + p.id + '.html'}" target="_blank">解析</a><span class="item-separate">|</span>
@@ -137,7 +137,7 @@
 								<ul class="paper-list paper-list-moni">
 									<li class="list-item" th:each="p,pStat:${simulationPaperList}">
 										<p class="list-item-name">
-											<a class="list-item-name-link" th:href="${domainName + 'paper/' + p.id + '.html'}" th:text="${p.name}">英语 西城区2017年高三期末考试</a>
+											<a class="list-item-name-link" th:href="${domainName + 'paper/' + p.id + '.html'}" th:text="${p.name}" th:title="${p.name}">英语 西城区2017年高三期末考试</a>
 										</p>
 										<p class="list-item-detail">
 											<a class="list-item-link list-item-link-jiexi" th:href="${domainName + 'paper/' + p.id + '.html'}" target="_blank">解析</a><span class="item-separate">|</span>
@@ -152,7 +152,7 @@
 								</h3>
 								<ul class="hotpaper-list">
 									<li class="hotpaper-list-item" th:each="p,pStat:${hotPaperList}">
-										<a class="hotpaper-name" th:href="${domainName + 'paper/' + p.id + '.html'}">
+										<a class="hotpaper-name" th:href="${domainName + 'paper/' + p.id + '.html'}" th:title="${p.name}">
 											<span th:class="${'rank-'+(pStat.index+1) + ' hotpaper-rank'}"></span><span th:text="${p.name}">2017年高考真题 语文 (北京卷)</span>
 										</a>
 									</li>
@@ -222,7 +222,7 @@
 									</div>
 								</div>
 								<div class="test-list">
-										<a th:each="c,cmStat:${m.childSubjects}" class="item-link log-class-link" th:href="${domainName + c.url}" target="_blank" th:text="${c.name}">会计从业资格</a>
+										<a th:each="c,cmStat:${m.childSubjects}" class="item-link log-class-link" th:href="${domainName + c.url}" target="_blank" th:text="${c.name}" th:title="${c.name}">会计从业资格</a>
 								</div>
 							</div>
 						</div>
