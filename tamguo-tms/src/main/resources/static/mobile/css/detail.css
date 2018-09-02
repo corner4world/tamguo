@@ -1,0 +1,31 @@
+section.card {
+    padding: 1.5625rem 1.25rem;
+    margin-bottom: .75rem;
+}
+section {
+    background: #fff;
+}
+.card-name-wrapper {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+    padding-bottom: 1rem;
+}
+.card-name-wrapper .name {
+    font-size: 1.1875rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.card-name-wrapper .more {
+    position: relative;
+    padding-right: .75rem;
+    font-size: .8125rem;
+    color: #9C9FA1;
+    line-height: 1;
+}
+.loupan-status .status-wrapper .status-item:last-child {
+    padding-bottom: 0;
+}

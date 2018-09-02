@@ -94,6 +94,11 @@ public class QuestionContrller {
 		model.addObject("question", question);
 		model.addObject("course", iCourseService.selectById(question.getCourseId()));
 		model.addObject("answerList", iQuestionAnswerService.selectList(Condition.create().eq("question_id", uid).orderDesc(Arrays.asList("create_date"))));
+		if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
+    		model.setViewName("mobile/question");
+    	}else {
+    		model.setViewName("question");
+    	}
 		return model;
 	}
 	
