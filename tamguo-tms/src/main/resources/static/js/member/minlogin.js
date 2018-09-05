@@ -145,4 +145,8 @@ $(function(){
 		$("#TANGRAM__PSP_25__verifyCodeImg").attr("src",mainHttp + "captcha.jpg?t=" + $.now());
 	});
 	
+	$("#TANGRAM__PSP_25__verifyCodeImg").bind("click",function(){
+		$("#TANGRAM__PSP_25__verifyCodeImg").attr("src",mainHttp + "captcha.jpg?t=" + $.now());
+	});
+	
 })
