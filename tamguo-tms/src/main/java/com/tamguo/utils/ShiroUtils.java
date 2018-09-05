@@ -39,11 +39,5 @@ public class ShiroUtils {
 	public static void logout() {
 		SecurityUtils.getSubject().logout();
 	}
-	
-	public static String getKaptcha(String key) {
-		String kaptcha = getSessionAttribute(key).toString();
-//		getSession().removeAttribute(key);
-		return kaptcha;
-	}
 
 }

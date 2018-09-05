@@ -1,5 +1,6 @@
 package com.tamguo.web.member;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tamguo.common.utils.Result;
 import com.tamguo.common.utils.SystemConstant;
 import com.tamguo.modules.member.service.IMemberService;
-import com.tamguo.utils.ShiroUtils;
 
 @Controller
 public class PasswordController {
@@ -25,9 +25,9 @@ public class PasswordController {
 	}
 	
 	@RequestMapping(value = "password/confirmAccount.html", method = RequestMethod.POST)
-	public ModelAndView submitConfirmAccount(String username , String veritycode , ModelAndView model){
+	public ModelAndView submitConfirmAccount(String username , String veritycode , ModelAndView model , HttpSession session){
 		Result result = iMemberService.confirmAccount(username, veritycode);
-		String kaptcha = ShiroUtils.getKaptcha(SystemConstant.KAPTCHA_SESSION_KEY);
+		String kaptcha = session.getAttribute(SystemConstant.KAPTCHA_SESSION_KEY).toString();
 		if (!veritycode.equalsIgnoreCase(kaptcha)) {
 			result = Result.result(202, null, "验证码错误");
 		}

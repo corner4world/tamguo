@@ -26,12 +26,12 @@ import com.tamguo.utils.ShiroUtils;
 public class LoginController {
 
 	@RequestMapping("captcha.jpg")
-	public void captcha(HttpServletResponse response) throws ServletException, IOException {
+	public void captcha(HttpServletResponse response , HttpSession session) throws ServletException, IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
 		
 		String a = CaptchaUtils.generateCaptcha(response.getOutputStream());
-		ShiroUtils.setSessionAttribute(SystemConstant.KAPTCHA_SESSION_KEY, a);
+		session.setAttribute(SystemConstant.KAPTCHA_SESSION_KEY, a);
 	}
 	
 	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
@@ -47,7 +47,7 @@ public class LoginController {
 		if(StringUtils.isEmpty(verifyCode)) {
 			result = Result.result(202, null, "请输入验证码");
 		} else if(StringUtils.isNotEmpty(verifyCode)){
-			String kaptcha = ShiroUtils.getKaptcha(SystemConstant.KAPTCHA_SESSION_KEY);
+			String kaptcha = session.getAttribute(SystemConstant.KAPTCHA_SESSION_KEY).toString();
 			if (!verifyCode.equalsIgnoreCase(kaptcha)) {
 				result = Result.result(205, null, "验证码错误");
 			} else {
@@ -82,7 +82,7 @@ public class LoginController {
 		if(StringUtils.isEmpty(captcha)) {
 			result = Result.result(204, null, "请输入验证码");
 		} else if(StringUtils.isNotEmpty(captcha)){
-			String kaptcha = ShiroUtils.getKaptcha(SystemConstant.KAPTCHA_SESSION_KEY);
+			String kaptcha = session.getAttribute(SystemConstant.KAPTCHA_SESSION_KEY).toString();
 			if (!captcha.equalsIgnoreCase(kaptcha)) {
 				result = Result.result(205, null, "验证码错误");
 			}else {
