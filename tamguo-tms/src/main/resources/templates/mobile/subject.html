@@ -74,11 +74,11 @@
 											<div class="item_main" th:text="${p.name}">理科数学 东城区2017年高三上学期期末考试</div>
 											<div class="tag_box">
 												<span class="tag" style="color: rgb(242, 161, 47); background-color: rgba(242, 161, 47, 0.15);"
-													title="北京">北京</span> <span class="tag"
+													th:title="${p.areaName}" th:text="${p.areaName}">北京</span> <span class="tag"
 													style="color: rgb(51, 190, 133); background-color: rgba(51, 190, 133, 0.15);"
 													title="真题">真题</span> <span class="tag"
 													style="color: rgb(123, 189, 255); background-color: rgba(123, 189, 255, 0.15);"
-													title="理科数学">理科数学</span>
+													th:title="${p.courseName}" th:text="${p.courseName}">理科数学</span>
 											</div>
 										</div>
 									</div>
@@ -106,11 +106,11 @@
 											<div class="item_main" th:text="${p.name}">理科数学 东城区2017年高三上学期期末考试</div>
 											<div class="tag_box">
 												<span class="tag" style="color: rgb(242, 161, 47); background-color: rgba(242, 161, 47, 0.15);"
-													title="北京">北京</span> <span class="tag"
+													th:title="${p.areaName}" th:text="${p.areaName}">北京</span> <span class="tag"
 													style="color: rgb(51, 190, 133); background-color: rgba(51, 190, 133, 0.15);"
-													title="真题">真题</span> <span class="tag"
+													title="真题">模拟</span> <span class="tag"
 													style="color: rgb(123, 189, 255); background-color: rgba(123, 189, 255, 0.15);"
-													title="理科数学">理科数学</span>
+													th:title="${p.courseName}" th:text="${p.courseName}">理科数学</span>
 											</div>
 										</div>
 									</div>
@@ -127,7 +127,7 @@
 								data-ulog_search="ljweb_id=30001&amp;ljweb_mod=m_pages_homepage_recommend-ershoufang&amp;ljweb_bl=more&amp;ljweb_strategy_id=default"
 								data-evtid_lazyaction="10889"
 								data-ulog_lazyaction="recommend_module=m_ershou_shouye&amp;fb_service_id=100001&amp;fb_context_id={&quot;req_source_type&quot;:&quot;zhiying_m&quot;}&amp;fb_expo_id=r87474238291230720&amp;fb_strategy_id=10000076&amp;fb_item_type=ershou_house&amp;fb_item_detail=107000203369&amp;fb_item_location=1&amp;fb_ab_test_flag=reco_rule-100001-default-default&amp;fb_response_ts=1535591483&amp;fb_query_id=188971149"
-								th:href="${domainName}">为您推荐模拟试卷<span class="gray right">更多</span></a>
+								th:href="${domainName}">为您推荐热门试卷<span class="gray right">更多</span></a>
 						</h3>
 						<div class="mod_cont">
 							<ul class="lists">
@@ -138,11 +138,11 @@
 											<div class="item_main" th:text="${p.name}">理科数学 东城区2017年高三上学期期末考试</div>
 											<div class="tag_box">
 												<span class="tag" style="color: rgb(242, 161, 47); background-color: rgba(242, 161, 47, 0.15);"
-													title="北京">北京</span> <span class="tag"
+													th:title="${p.areaName}" th:text="${p.areaName}">北京</span> <span class="tag"
 													style="color: rgb(51, 190, 133); background-color: rgba(51, 190, 133, 0.15);"
-													title="真题">真题</span> <span class="tag"
+													title="热门" th:text>热门</span> <span class="tag"
 													style="color: rgb(123, 189, 255); background-color: rgba(123, 189, 255, 0.15);"
-													title="理科数学">理科数学</span>
+													th:title="${p.courseName}" th:text="${p.courseName}">理科数学</span>
 											</div>
 										</div>
 									</div>

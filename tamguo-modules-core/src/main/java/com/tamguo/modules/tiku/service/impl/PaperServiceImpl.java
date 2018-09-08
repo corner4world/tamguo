@@ -16,14 +16,23 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.common.utils.Result;
 import com.tamguo.common.utils.SystemConstant;
 import com.tamguo.config.redis.CacheService;
+import com.tamguo.modules.sys.service.ISysAreaService;
 import com.tamguo.modules.tiku.dao.PaperMapper;
 import com.tamguo.modules.tiku.dao.QuestionMapper;
 import com.tamguo.modules.tiku.model.PaperEntity;
+import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.IPaperService;
+import com.tamguo.modules.tiku.service.ISubjectService;
 
 @Service
 public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> implements IPaperService{
 	
+	@Autowired
+	private ISubjectService iSubjectService;
+	@Autowired
+	private ICourseService iCourseService;
+	@Autowired
+	private ISysAreaService iSysAreaService;
 	@Autowired
 	private PaperMapper paperMapper;
 	@Autowired
@@ -37,7 +46,13 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.HISTORY_PAPER);
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 6);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.ZHENGTI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID).orderDesc(Arrays.asList("id")));
+			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.ZHENGTI_PAPER_ID).orderDesc(Arrays.asList("id")));
+			for(int i=0 ; i<paperList.size() ; i++) {
+				PaperEntity paper = paperList.get(i);
+				paper.setSubjectName(iSubjectService.selectById(paper.getSubjectId()).getName());
+				paper.setCourseName(iCourseService.selectById(paper.getCourseId()).getName());
+				paper.setAreaName(iSysAreaService.selectById(paper.getAreaId()).getAreaName());
+			}
 			cacheService.setObject(SystemConstant.HISTORY_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
@@ -49,7 +64,13 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		List<PaperEntity> paperList = (List<PaperEntity>) cacheService.getObject(SystemConstant.SIMULATION_PAPER);
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 6);
-			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.MONI_PAPER_ID).eq("area_id", SystemConstant.BEIJING_AREA_ID).orderDesc(Arrays.asList("id")));
+			paperList = paperMapper.selectPage(page, Condition.create().eq("type", SystemConstant.MONI_PAPER_ID).orderDesc(Arrays.asList("id")));
+			for(int i=0 ; i<paperList.size() ; i++) {
+				PaperEntity paper = paperList.get(i);
+				paper.setSubjectName(iSubjectService.selectById(paper.getSubjectId()).getName());
+				paper.setCourseName(iCourseService.selectById(paper.getCourseId()).getName());
+				paper.setAreaName(iSysAreaService.selectById(paper.getAreaId()).getAreaName());
+			}
 			cacheService.setObject(SystemConstant.SIMULATION_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
@@ -62,6 +83,12 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		if(paperList == null){
 			Page<PaperEntity> page = new Page<>(1 , 10);
 			paperList = paperMapper.selectPage(page, Condition.create().orderDesc(Arrays.asList("id")));
+			for(int i=0 ; i<paperList.size() ; i++) {
+				PaperEntity paper = paperList.get(i);
+				paper.setSubjectName(iSubjectService.selectById(paper.getSubjectId()).getName());
+				paper.setCourseName(iCourseService.selectById(paper.getCourseId()).getName());
+				paper.setAreaName(iSysAreaService.selectById(paper.getAreaId()).getAreaName());
+			}
 			cacheService.setObject(SystemConstant.HOT_PAPER, paperList , 2 * 60 * 60);
 		}
 		return paperList;
@@ -158,6 +185,14 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, PaperEntity> impl
 		paper.setCreaterId(currMemberId);
 		paperMapper.updateById(paper);
 		return Result.result(Result.SUCCESS_CODE, paper, "修改成功");
+	}
+
+	public ISubjectService getiSubjectService() {
+		return iSubjectService;
+	}
+
+	public void setiSubjectService(ISubjectService iSubjectService) {
+		this.iSubjectService = iSubjectService;
 	}
 
 }
