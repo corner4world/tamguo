@@ -100,15 +100,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-.header .header_back:after, .header .icon_pull, .header .icon_user, .header .logo, .home_header .icon_user {
-    font-size: 0;
-    display: inline-block;
-    background-image: url(../images/sprite_new.svg);
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    -webkit-transform: none;
-    transform: none;
-}
 .home_header .icon_user {
     width: 1.8rem;
     height: 1.8rem;
@@ -384,7 +375,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 .channel_nav {
     padding: .3125rem .625rem 1.25rem;
-    margin-top: 0;
 }
 .page_home .icon_b_jingjiren {
     background-position: 0 -63rem;

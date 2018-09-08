@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="font-size: 32px;">
+<html style="font-size: 42px;">
 <head>
 <meta charset="UTF-8">
 <meta name="apple-mobile-web-app-title" content="掌上探果网">
@@ -21,27 +21,29 @@
 			<!--页面-->
 			<!--TODO here-->
 			<section class="page page_home">
-				<header class="home_header">
-					<div class="top">
-						<div class="box_col">
-							<a th:href="${domainName}"><span class="switch_city"><em class="city">上海</em><i class="icon_pull"></i></span></a>
-						</div>
-						<a th:href="${domainName}" class="my" rel="nofollow"><i
-							class="icon_user"></i></a>
+				<header class="header header_white">
+					<div class="flexbox left">
+						<a href="javascript:history.back();" class="header_back"></a> 
 					</div>
-					<div class="content">
-						<a th:href="${domainName}">
-							<div class="search_box">
-								<i class="icon_search_gray"></i><input type="text" class="input"
-									disabled="" placeholder="输入学校或老师开始找题目咯~">
-							</div>
-						</a>
-					</div>
+					<a th:href="${domainName}" class=""><span style="font-weight: 600; font-size: 38px; color: #00ae66;">探果网</span></a>
+					<a th:href="${domainName}" class="my right"><i class="icon_user"></i></a>
 				</header>
 
 				<!--/头部-->
 				<div class="content_area">
-					<!--频道导航-->
+					<div class="dynamic_search_box">
+						<div class="input_wrap">
+							<a th:href="${domainName}" class="post_ulog" data-evtid="10523"
+								data-ulog="">
+								<div class="search_box search_center">
+									<i class="icon_search_gray"></i><input type="text"
+										class="input" placeholder="请输入学校或老师名~">
+								</div>
+							</a>
+						</div>
+					</div>
+					
+					<!--科目导航-->
 					<div class="mod_box channel_nav">
 						<div class="gridbox col_4">
 							<h2 class="box_col" th:title="${c.name}" th:each="c,cStat:${courseList}">

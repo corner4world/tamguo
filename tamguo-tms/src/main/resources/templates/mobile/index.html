@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="font-size: 32px;">
+<html style="font-size: 42px;">
 <head>
 <meta charset="UTF-8">
 <meta name="apple-mobile-web-app-title" content="掌上探果网">
@@ -23,26 +23,28 @@
 			<!--页面-->
 			<!--TODO here-->
 			<section class="page page_home">
-				<header class="home_header">
-					<div class="top">
-						<div class="box_col">
-							<a th:href="${domainName}"><span class="switch_city"><em class="city">上海</em><i class="icon_pull"></i></span></a>
-						</div>
-						<a th:href="${domainName}" class="my" rel="nofollow"><i
-							class="icon_user"></i></a>
+				<header class="header header_white">
+					<div class="flexbox left">
+						<a th:href="${domainName}" class="header_back"></a> 
 					</div>
-					<div class="content">
-						<a th:href="${domainName}">
-							<div class="search_box">
-								<i class="icon_search_gray"></i><input type="text" class="input"
-									disabled="" placeholder="输入学校或老师开始找题目咯~">
-							</div>
-						</a>
-					</div>
+					<a th:href="${domainName}" class=""><span style="font-weight: 600; font-size: 38px; color: #00ae66;">探果网</span></a>
+					<a th:href="${domainName}" class="my right"><i class="icon_user"></i></a>
 				</header>
 
 				<!--/头部-->
 				<div class="content_area">
+					<div class="dynamic_search_box">
+						<div class="input_wrap">
+							<a th:href="${domainName}" class="post_ulog" data-evtid="10523"
+								data-ulog="">
+								<div class="search_box search_center">
+									<i class="icon_search_gray"></i><input type="text"
+										class="input" placeholder="请输入学校或老师名~">
+								</div>
+							</a>
+						</div>
+					</div>
+					
 					<!--学历类型-->
 					<div class="mod_box data_channel tool_list" th:each="m,mStat:${menuList}">
 						<dl class="channel_box">
@@ -50,7 +52,7 @@
 								<a href="javascript:;" th:text="${m.name}">学历类型</a>
 							</dt>
 							<dd class="tool_list_wrap gridbox col_5">
-								<a th:href="${domainName + c.url}" class="link box_col" th:each="c,cmStat:${m.childSubjects}">
+								<a th:href="${domainName + c.url}" th:title="${c.name}" class="link box_col" th:each="c,cmStat:${m.childSubjects}">
 									<span th:class="${'li-icon iconfont ' + c.pinyin}"></span>
 									<div th:text="${c.name}">去估分</div>
 								</a> 

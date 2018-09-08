@@ -63,8 +63,8 @@ public class PaperQuestionCrawler {
 	@Autowired
 	CacheService cacheService;
 	private static final String FILES_NO_FORMAT = "000000000";
-	private static final String FILES_PREFIX = "likeshuxue";
-	private static final String COURSE_ID = "likeshuxue";
+	private static final String FILES_PREFIX = "wenkeshuxue";
+	private static final String COURSE_ID = "wenkeshuxue";
 	
 	private RunData runData;
 
