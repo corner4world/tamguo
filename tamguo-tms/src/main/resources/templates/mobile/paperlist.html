@@ -1,106 +1,640 @@
 <!DOCTYPE html>
-<html>
+<html style="font-size: 42px;">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title th:text="${#strings.isEmpty(subject.seoTitle) ? '探果网_聪明的学生都在这里' : subject.seoTitle}"></title>
-<meta name="keywords" th:content="${#strings.isEmpty(subject.seoKeywords) ? '探果网为考生提供高效的智能备考服务，涵括领域有高考、财会类、建筑工程、职业资格、医卫类、计算机类和学历类等热门考试题库。拥有高校名师丰富的经验，优质的学习资料和备考全阶段的高效服务！' : subject.seoKeywords}"/>
-<meta name="description" th:content="${#strings.isEmpty(subject.seoDescription) ? '探果网,高考试题,高考试卷,高校试题,名校,名校试题,名校试卷,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷' : subject.seoDescription}"/>
-<meta name="author" content="Tamguo Team" />
-<meta name="copyright" content="Tamguo" />
-<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-<link rel="shortcut icon" href="/favicon.ico">
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="掌上探果网">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<meta name="applicable-device" content="mobile">
+<link rel="canonical" href="https://www.tamguo.com" />
+<title th:text="${#strings.isEmpty(course.seoTitle) ? subject.seoTitle : course.seoTitle}"></title>
+<meta name="keywords" th:content="${#strings.isEmpty(course.seoKeywords) ? subject.seoKeywords : course.seoKeywords}"/>
+<meta name="description" th:content="${#strings.isEmpty(course.seoDescription) ? subject.seoDescription : course.seoDescription}"/>
+<link rel="stylesheet" th:href="${domainName + 'mobile/css/base.css'}" />
+<style>
+.lists_model .model_list, .lists_price .price_list {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box
+}
+
+.filter_box .filter_item .cont li, .filter_box .filter_item .guide li,
+	.filter_box .tab_bar, .lists_price .price_list li {
+	border-bottom: 1px solid #e5e5e5
+}
+
+body.filter_show {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0
+}
+
+.filter_box .tab_bar {
+	position: relative;
+	z-index: 10
+}
+
+.filter_box .filter_item {
+	position: absolute;
+	background: #fff;
+	top: 0;
+	left: 0;
+	right: 0;
+	-webkit-transition: -webkit-transform .5s ease;
+	-moz-transition: transform .5s ease, -moz-transform .5s ease;
+	-o-transition: transform .5s ease, -o-transform .5s ease;
+	transition: transform .5s ease;
+	transition: transform .5s ease, -webkit-transform .5s ease,
+		-moz-transform .5s ease, -o-transform .5s ease;
+	-webkit-transform: translate3d(0, -100%, 0);
+	-moz-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+	opacity: 0;
+	z-index: 1
+}
+
+.filter_box .area_list, .filter_box .model_list, .filter_box .more_list,
+	.filter_box .price_list {
+	width: 100%;
+	max-height: 25.625rem;
+	background: #fff;
+	overflow: auto
+}
+
+.filter_box .more_list {
+	max-height: 20rem;
+	max-height: calc(100vh - 16.0625rem)
+}
+
+.filter_box .area_list {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex
+}
+
+.filter_box .filter_item.active {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	opacity: 1;
+	z-index: 2
+}
+
+.filter_box .filter_item .cont, .filter_box .filter_item .guide,
+	.filter_box .filter_item .nav {
+	overflow: auto
+}
+
+.filter_box .lists_area.active {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex
+}
+
+.filter_box .filter_item li {
+	line-height: 2.5rem
+}
+
+.filter_box .filter_item li.active a {
+	color: #00ae66;
+	-webkit-tap-highlight-color: rgab(0, 0, 0, 0)
+}
+
+.filter_box .filter_item li.active .btn {
+	color: #fff;
+	-webkit-tap-highlight-color: rgab(0, 0, 0, 0)
+}
+
+.filter_box .filter_item .guide, .filter_box .filter_item .nav {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	padding-left: 1.1875rem;
+	border-right: 1px solid #e5e5e5
+}
+
+.filter_box .filter_item .nav {
+	background: #f0f0f0;
+	padding-left: 0
+}
+
+.filter_box .filter_item .nav li {
+	padding-left: 1.875rem
+}
+
+.filter_box .filter_item .nav li.active {
+	background: #fff;
+	margin-right: -1px;
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5
+}
+
+.filter_box .filter_item .nav li:first-child {
+	border-top: 0
+}
+
+.filter_box .filter_item .cont {
+	-webkit-box-flex: 2;
+	-webkit-flex: 2;
+	-moz-box-flex: 2;
+	-ms-flex: 2;
+	flex: 2;
+	padding-left: 1.1875rem
+}
+
+.filter_box .filter_item .cont li.active, .filter_box .filter_item .guide li.active
+	{
+	color: #00ae66
+}
+
+.filter_box .filter_item .level2.active, .filter_box .filter_item .level3.active
+	{
+	display: block
+}
+
+.lists_price .price_list {
+	width: 100%;
+	padding-left: 1.25rem;
+	box-sizing: border-box
+}
+
+.lists_price .price_list li {
+	height: 3.125rem;
+	line-height: 3.125rem;
+	font-size: 1rem
+}
+
+.lists_price .price_list li:last-child {
+	border-bottom: 0
+}
+
+.lists_price li>* {
+	vertical-align: middle
+}
+
+.lists_price li>span {
+	margin-right: .9375rem
+}
+
+.lists_price .input {
+	width: 2.1875rem;
+	height: 1.125rem;
+	line-height: 1.125rem;
+	padding: 0 .125rem;
+	font-size: .6875rem;
+	border: 0;
+	background: #f5f5f5;
+	-webkit-border-radius: .125rem;
+	-moz-border-radius: .125rem;
+	border-radius: .125rem;
+	text-align: center
+}
+
+.lists_price .connect {
+	padding: 0 .3125rem;
+	color: #c5c5c5
+}
+
+.lists_model .btn, .lists_price .btn {
+	background-color: #00ae66;
+	color: #fff
+}
+
+.lists_price .btn {
+	display: inline-block;
+	width: 2.0625rem;
+	height: 1rem;
+	line-height: 1rem;
+	margin-left: .625rem;
+	font-size: .625rem;
+	-webkit-border-radius: .125rem;
+	-moz-border-radius: .125rem;
+	border-radius: .125rem
+}
+
+.lists_model .model_list {
+	width: 100%;
+	padding-left: 1.25rem;
+	box-sizing: border-box
+}
+
+.lists_model .model_list li {
+	height: 2.5rem;
+	line-height: 2.5rem;
+	border-bottom: 1px solid #e5e5e5
+}
+
+.lists_model .model_list li:last-child {
+	border-bottom: 0
+}
+
+.lists_model .model_list li label {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex
+}
+
+.lists_model .model_list .model {
+	display: block;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1
+}
+
+.lists_model .model_list input[type=checkbox] {
+	margin-top: .8125rem;
+	margin-right: 1.25rem
+}
+
+.lists_model .btn_link {
+	background: 0 0;
+	color: #00ae66
+}
+
+.lists_more .item {
+	padding: 1.25rem;
+	border-bottom: 1px solid #e5e5e5
+}
+
+.lists_more .item:last-child {
+	border-bottom: 0
+}
+
+.lists_more .item_tit {
+	font-size: .875rem;
+	font-weight: 600
+}
+
+.lists_more .item_desc {
+	color: #9c9fa1;
+	font-size: .6875rem;
+	margin-top: .9375rem
+}
+
+.lists_more .item_cont .value_lists {
+	overflow: hidden;
+	padding-bottom: .125rem
+}
+
+.lists_more .item_cont .val {
+	float: left;
+	width: 25%;
+	height: 1.5625rem;
+	line-height: 1.5625rem;
+	margin: .75rem 0 0;
+	padding-right: .75rem;
+	font-size: .6875rem;
+	text-align: center;
+	color: #999;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.lists_more .item_cont .val a {
+	display: block;
+	border: 1px solid #e5e5e5;
+	color: #999;
+	-webkit-border-radius: .125rem;
+	-moz-border-radius: .125rem;
+	border-radius: .125rem;
+	overflow: hidden;
+	white-space: nowrap
+}
+
+.lists_more .item_cont .val.active a {
+	border-color: #00ae66
+}
+
+.lists_model .opt_box, .lists_more .opt_box, .opt_box+.lists_model .model_list
+	{
+	border-top: 1px solid #e5e5e5
+}
+
+.lists_model .model_list li, .lists_price .price_list li {
+	background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAQAAACROWYpAAAAUklEQVR4Ae3VOQEAQQgDwEhACk4XgyESFgX3Obi/IqkHOoCMI2euFzs5ZGDkeq8MsHKV42Lkx3YcM3Ajh2vcuHHj/3Hj+0ef9ezdyBisy7AYsg2cbp3yKncnfQAAAABJRU5ErkJggg==)
+		92% center no-repeat;
+	-moz-background-size: .9375rem .9375rem;
+	-o-background-size: .9375rem .9375rem;
+	background-size: .9375rem .9375rem
+}
+
+.lists_model .model_list li.active, .lists_price .price_list li.active {
+	background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAPFBMVEUAAAAAr2AArmYAr2UArWYArWUArmUArmUArmUArWYArWUArmYArmUAr2gArWYAr2QArWYArmUArWUArmbHRGgfAAAAE3RSTlMAEKAw8GDPkO+Pn9CwIIBAcMDgP/MWjgAAAIJJREFUeF7N0zkWxDAIBNHGSJY861L3v+sERHgentSV/oSAlm2TormZBnUMNVxFzhSoDM7Hdsi2XixzVlgLDqVn9r7TxJ3pim6hia8w49wlNPO9wWqhPLRnPYFL6KJfVgdeSRNrAZJm1ju0YvuEFixvoQXLT/VMxzNo/0Zko1XYhn0BNtYUGVhIZlYAAAAASUVORK5CYII=)
+		92% center no-repeat;
+	-moz-background-size: .9375rem .9375rem;
+	-o-background-size: .9375rem .9375rem;
+	background-size: .9375rem .9375rem
+}
+
+.lists_price .price_list li, .lists_price .price_list li.active {
+	background: 0 0
+}
+.btn {
+    display: block;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    text-align: center;
+    padding: .75rem;
+    vertical-align: middle;
+    line-height: 1;
+    font-size: 1rem;
+    margin: 0 .3125rem;
+}
+.opt_box .btn.btn-cancel {
+    background: #fff;
+    color: #6B7072!important;
+    border-radius: .125rem;
+}
+</style>
 </head>
 <body>
-	<div class="page-group">
-		<div class="page" id="page-index">
-			<header class="bar bar-nav">
-				<a class="icon icon-me pull-left open-panel"
-					data-panel=".panel-left"></a> <a
-					class="button button-link button-nav pull-right open-popup"
-					data-popup=".popup-about"> 关于 <span class="icon icon-menu"></span>
-				</a>
-				<h1 class="title" th:text="${'探果网-' + subject.name}"></h1>
-			</header>
-			<div class="bar bar-standard bar-footer">
-				<a class="icon icon-edit pull-left"></a> <a
-					class="icon icon-settings pull-right open-panel"
-					data-panel=".panel-right"></a>
-			</div>
-			<div class="content" id='page-index'>
-				<div class="content-inner">
-					<div class="content-block-title">试卷</div>
-					<div class="card" th:each="paper,status:${paperPage.list}">
-					      <div class="card-content no-border">
-					      	<a th:href="${domainName + 'paper/' +paper.id + '.html'}" class="item-link item-content">
-					        	<div class="card-content-inner" th:text="${paper.name}">这是一个用纯文本的简单卡片。但卡片可以包含自己的页头，页脚，列表视图，图像，和里面的任何元素。</div>
-					        </a>
-					      </div>
-					      <div class="card-footer">
-						        <span class="link">赞</span>
-						        <span class="link">评论</span>
-						        <span class="link">分享</span>
-					      </div>
-				    </div>
-				</div>
-			</div>
-		</div>
-		<div class="popup popup-about">
-			<header class="bar bar-nav">
-				<a class="button button-link button-nav pull-right close-popup">
-					关闭 </a>
-				<h1 class="title">关于探果网</h1>
-			</header>
-			<div class="content">
-				<div class="content-block">
-					<p><h4>探果网旨在为用户提供高效的备考服务，让知识能无障碍传播，为用户创造价值，助您不断前行！</h4></p>
-					<p><h3>
-					电脑上查阅题目更加方便
-					</h3></p>
-					<div>
-						<div>更多试卷信息请关注微信公众号</div>
-						<p>
-							<img style="width:80px;height:80px;" alt="探果网公众号" th:src="${domainName + 'images/qrcode_for_gh_30d79d8188a1_258.jpg'}">
-						</p>
+	<div class="wrapper">
+		<div class="main_start">
+			<!--页面-->
+			<!--TODO here-->
+			<section class="page page_xiaoqu">
+				<header class="header header_white">
+					<div class="flexbox left">
+						<a href="javascript:history.back();" class="header_back"></a> 
 					</div>
-					<p></p>
-					<p>
-						<a class="button close-popup">确定</a>
-					</p>
-				</div>
-			</div>
-		</div>
+					<a th:href="${domainName}" class=""><span
+						style="font-weight: 600; font-size: 38px; color: #00ae66;">探果网</span></a>
+					<a th:href="${domainName}" class="my right"><i class="icon_user"></i></a>
+				</header>
+				<!--/头部-->
+				<div class="content_area">
 
-		<div class="panel-overlay"></div>
-		<!-- Left Panel with Reveal effect -->
-		<div class="panel panel-left panel-reveal">
-			<div class="content-block">
-				<p>这是一个侧栏</p>
-				<p></p>
-				<!-- Click on link with "close-panel" class will close panel -->
-				<p>
-					<a href="#" class="close-panel">关闭</a>
-				</p>
-			</div>
-		</div>
-		<div class="panel panel-right panel-cover">
-			<div class="content-block">
-				<p>探果网</p>
-				<p></p>
-				<!-- Click on link with "close-panel" class will close panel -->
-				<p>
-					<a href="#" class="close-panel">关闭</a>
-				</p>
-			</div>
+					<div class="dynamic_search_box">
+						<div class="input_wrap">
+							<a th:href="${domainName}" class="post_ulog" data-evtid="10523"
+								data-ulog="">
+								<div class="search_box search_center">
+									<i class="icon_search_gray"></i><input type="text"
+										class="input" placeholder="请输入学校或老师名~">
+								</div>
+							</a>
+						</div>
+					</div>
+
+					<!--题目列表-->
+					<div class="mod_box house_lists">
+						<!--筛选条-->
+						<div class="tab_bar flexbox">
+							<div class="tab_tit box_col" onclick="showFilter('kemu')">
+								<h2 class="tit" th:if="${courseId == '0'}">科目</h2>
+								<h2 class="tit" th:if="${courseId != '0'}" th:text="${course.name}"></h2>
+								<i class="icon_triangle_down"></i>
+							</div>
+							<div class="tab_tit box_col" onclick="showFilter('leixing')">
+								<h2 class="tit" th:if="${paperType == '0'}">类型</h2>
+								<h2 class="tit" th:if="${paperType == '1'}">真题试卷</h2>
+								<h2 class="tit" th:if="${paperType == '2'}">模拟试卷</h2>
+								<h2 class="tit" th:if="${paperType == '3'}">押题预测</h2>
+								<h2 class="tit" th:if="${paperType == '4'}">名校经典</h2>
+								<i class="icon_triangle_down"></i>
+							</div>
+							<div class="tab_tit box_col" onclick="showFilter('diqu')">
+								<h2 class="tit" th:if="${area == '0'}">地区</h2>
+								<h2 class="tit" th:if="${area != '0'}" th:text="${currArea.areaName}">地区</h2>
+								<i class="icon_triangle_down"></i>
+							</div>
+							<div class="tab_tit box_col" onclick="showFilter('nianfen')">
+								<h2 class="tit" th:text="${year == '0' ? '年份' : year + '年'}">年份</h2>
+								<i class="icon_triangle_down"></i>
+							</div>
+						</div>
+						<!--/筛选条-->
+
+						<div class="occupy" style="height: 89px; display: none;"></div>
+						<div class="sort_bar" data-mark="btn_sort"
+							style="bottom: 4.28rem;">
+							<i class="icon_sort"></i><span>排序</span>
+						</div>
+
+						<div class="mod_cont">
+							<li class="pictext" th:each="p,pStat:${paperPage.list}">
+								<a th:href="${domainName + 'paper/' + p.id + '.html'}" th:text="${p.name}">
+								</a>
+								<div class="card-name-wrapper" style="padding: 1.5625rem 1.25rem;display: -webkit-flex;display: flex;-webkit-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;align-items: flex-end;padding-bottom: 1rem;">
+	            					<div class="resblock-tags-line">
+		                                <span class="tag" th:text="${p.year}">年份</span><span class="tag" th:text="${p.courseId}">年份</span>
+		                            </div>
+	                        		<a th:href="${domainName + 'paper/' + p.id + '.html'}" class="more post_ulog" style="float:right;">查看解析</a>
+                    			</div>
+							</li>
+						</div>
+						<div class="opt_box flexbox flex-sub-center">
+							<a href="javascript:;" th:if="${paperPage.currPageNum != 1}" class="btn btn-cancel post_ulog" th:href="${domainName + 'paperlist/' + subjectId +'-' + courseId+'-'+paperType+'-'+year+'-' + area +'-'+(paperPage.currPageNum - 1)+'.html'}">上一页</a>
+		                    <a href="javascript:;" th:if="${paperPage.currPageNum == 1}" class="btn btn-cancel post_ulog" th:href="${domainName + 'paperlist/' + subjectId +'-' + courseId+'-'+paperType+'-'+year+'-' + area +'-'+(paperPage.currPageNum)+'.html'}">上一页</a>
+		                    <a href="javascript:;" th:if="${paperPage.currPageNum < paperPage.totalPage}" class="btn btn-cancel post_ulog" th:href="${domainName + 'paperlist/' + subjectId +'-' + courseId+'-'+paperType+'-'+year+'-' + area +'-'+(paperPage.currPageNum+1)+'.html'}">下一页</a>
+			            </div>
+					</div>
+				</div>
+				<div class="layer_fixed b" style="display: none;"
+					data-mark="sort_layer">
+					<div class="content">
+						<ul class="lists">
+							<li class="li active" data-act="sort" data-query="id=0"><a
+								th:href="${domainName + 'course/' + course.id + '.html'}" th:text="${course.name}">下载量</a></li>
+							<li class="li" data-act="sort" data-query="id=21"><a
+								th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">最新</a></li>
+						</ul>
+					</div>
+				</div>
+				<!--底部:导航当前页用h1着重强调-->
+				<footer class="footer">
+					<div class="nav">
+						<span class="location"><a th:href="${domainName}">探果网北京站</a></span> <i
+							class="crumb"></i>
+						<h1 class="cur" title="北京探果网">
+							<a th:href="${domainName}">北京探果网</a>
+						</h1>
+					</div>
+					<div class="link_box">
+						<div class="link_tit">
+							<h3 class="li text_cut active" data-act="foot_nav"
+								data-mark="foot_nav">北京高考</h3>
+							<h3 class="li text_cut" data-act="foot_nav" data-mark="foot_nav">热门推荐</h3>
+							<h3 class="li text_cut" data-act="foot_nav" data-mark="foot_nav">周边试题</h3>
+						</div>
+						<div class="link_cont">
+							<ul class="gridbox col_3 contlists active" data-mark="foot_navs">
+								<li class="box_col"><a
+								th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a
+								th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+								</li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li>
+							</ul>
+							<ul class="gridbox col_3 contlists" data-mark="foot_navs">
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+							</ul>
+							<ul class="gridbox col_3 contlists" data-mark="foot_navs">
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+								<li class="box_col"><a th:href="${domainName + 'subject/' + subject.id + '.html'}" th:text="${subject.name}">科目</a></li></li>
+							</ul>
+						</div>
+					</div>
+					<div class="info">
+						<div class="icon_box">
+							<a href="javascript:;" 
+								title="iPhone客户端" class="icon_iphone lazyload_ulog"
+								rel="nofollow">iPhone客户端</a> <a href="javascript:;"
+								title="Android客户端" class="icon_android lazyload_ulog"
+								rel="nofollow">Android客户端</a>
+						</div>
+						<div class="copyright">
+							<p class="company">上海探果网络科技有限公司</p>
+							<p class="record">沪ICP备14022608号-1</p>
+							<div class="record" style="">
+								<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo"
+									style="display: inline-block; text-decoration: none; height: 20px; line-height: 20px;"><img
+									src="https://s1.ljcdn.com/hulk-web/static/m/images/common/beian.png?_v=14022608"
+									style="float: left;">
+								<p
+										style="float: left; height: 20px; line-height: 20px; margin: 0px 0px 0px 5px; color: #727373;">沪ICP备14022608号-1</p></a>
+							</div>
+						</div>
+					</div>
+				</footer>
+				<!--/底部-->
+				<!--/底部-->
+			</section>
+			<section class="layer_fixed filter_box" id="filterBox" style="display: none;" data-mark="panel_box">
+				<!--头部筛选条-->
+				<header class="tab_bar flexbox">
+					<div class="tab_tit box_col" id="kemuheader" onclick="showFilter('kemu')">
+						<span class="tit">科目</span><i class="icon_triangle_down"></i>
+					</div>
+					<div class="tab_tit box_col" id="leixingheader" onclick="showFilter('leixing')">
+						<span class="tit">类型</span><i class="icon_triangle_down"></i>
+					</div>
+					<div class="tab_tit box_col" id="diquheader" onclick="showFilter('diqu')">
+						<span class="tit">地区</span><i class="icon_triangle_down"></i>
+					</div>
+					<div class="tab_tit box_col" id="nianfenheader" onclick="showFilter('nianfen')">
+						<span class="tit">年份</span><i class="icon_triangle_down"></i>
+					</div>
+				</header>
+				<!--/头部筛选条-->
+
+				<div class="content">
+					<div class="filter_item lists_price" id="kemu">
+						<ul class="price_list">
+							<li class="li">
+								<a th:href="${domainName + 'paperlist' + '/' + subjectId + '-0-' + paperType + '-' + year + '-' + area + '-1.html'}" title="全部">全部</a>
+							</li>
+							<li class="li" th:each="c,cStatus:${courseList}">
+								<a th:href="${domainName + 'paperlist' + '/' + subjectId + '-' + c.id+'-' + paperType + '-' + year + '-' + area + '-1.html'}" th:title="${c.name}" th:text="${c.name}"></a>
+							</li>
+						</ul>
+					</div>
+					
+					<!--类型-->
+					<div class="filter_item lists_price" id="leixing">
+						<ul class="price_list">
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-0-' + year + '-' + area + '-1.html'}" title="全部">全部</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+PAPER_TYPE_ZHENTI+'-' + year + '-' + area + '-1.html'}" title="真题试卷">真题试卷</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+PAPER_TYPE_MONI+'-' + year + '-' + area + '-1.html'}" title="模拟试卷">模拟试卷</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+PAPER_TYPE_YATI+'-' + year + '-' + area + '-1.html'}" title="押题预测">押题预测</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+PAPER_TYPE_MINGXIAO+'-' + year + '-' + area + '-1.html'}" title="名校精品">名校精品</a>
+							</li>
+						</ul>
+					</div>
+					<!--/地区-->
+					<div class="filter_item lists_price" id="diqu">
+						<ul class="price_list">
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-0-' + '0-1.html'}" title="全部">全部</a>
+							</li>
+							<li class="li" th:each="a,aStatus:${areaList}">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-'+year+'-'+a.id+'-1.html'}" th:title="${a.areaName}" th:text="${a.areaName}"></a>
+							</li>
+						</ul>
+					</div>
+					<!--/楼龄-->
+					<div class="filter_item lists_price" id="nianfen">
+						<ul class="price_list">
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-0-' + area + '-1.html'}" title="全部">全部</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-2018-' + area + '-1.html'}" title="2018年">2018年</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-2017-' + area + '-1.html'}" title="2017年">2017年</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-2016-' + area + '-1.html'}" title="2016年">2016年</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-2015-' + area + '-1.html'}" title="2015年">2015年</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-2014-' + area + '-1.html'}" title="2014年">2014年</a>
+							</li>
+							<li class="li">
+								<a th:href="${domainName + 'paperlist/'  + subjectId + '-' + courseId+'-'+paperType+'-2013-' + area + '-1.html'}" title="2013年">2013年</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
 		</div>
 	</div>
 </body>
+<script type="text/javascript" th:src="${domainName + 'js/jquery-1.8.3.min.js'}" ></script>
 <script type="text/javascript" th:inline="javascript">
 //百度统计 www.tamguo.com
 var _hmt = _hmt || [];
@@ -130,5 +664,14 @@ var _hmt = _hmt || [];
 var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?40ee03bede7c19e05d89f18db868df8a":"https://jspassport.ssl.qhimg.com/11.0.1.js?40ee03bede7c19e05d89f18db868df8a";
 document.write('<script src="' + src + '" id="sozz"><\/script>');
 })();
+</script>
+<script type="text/javascript" th:inline="javascript">
+function showFilter(type){
+	$("#filterBox").show();
+	$(".content").find("div").removeClass("active");
+	$(".tab_bar").find("div").removeClass("active");
+	$("#" + type).addClass("active");
+	$("#" + type + "header").addClass("active");
+}
 </script>
 </html>

@@ -57,7 +57,8 @@ public class PaperController {
 		// request url 
 		logger.info("request url :{}" , request.getRequestURI());
     	CourseEntity course = iCourseService.selectById(courseId);
-		List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId));
+    	SysAreaEntity currArea = iSysAreaService.selectById(area);
+		List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subjectId).orderBy("sort", true));
     	SubjectEntity subject = iSubjectService.selectById(subjectId);
     	List<SysAreaEntity> areaList = iSysAreaService.selectList(Condition.create().eq("tree_level", "0"));
     	
@@ -79,7 +80,7 @@ public class PaperController {
     		condition.eq("area_id", area);
     	}
     	PageUtils result = PageUtils.getPage(iPaperService.selectPage(page , condition));
-    	if(courseList.size() > 0) {
+    	if(courseList.size() > 0 && course == null) {
     		course = courseList.get(0);
     	}
     	Integer total = iPaperService.selectCount(Condition.EMPTY);
@@ -93,6 +94,7 @@ public class PaperController {
     	model.addObject("paperType", paperType);
     	model.addObject("year", year);
     	model.addObject("area", area);
+    	model.addObject("currArea", currArea);
     	
 
 		if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
