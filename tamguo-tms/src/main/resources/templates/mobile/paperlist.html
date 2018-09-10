@@ -444,6 +444,9 @@ body.filter_show {
 		                    <a href="javascript:;" th:if="${paperPage.currPageNum == 1}" class="btn btn-cancel post_ulog" th:href="${domainName + 'paperlist/' + subjectId +'-' + courseId+'-'+paperType+'-'+year+'-' + area +'-'+(paperPage.currPageNum)+'.html'}">上一页</a>
 		                    <a href="javascript:;" th:if="${paperPage.currPageNum < paperPage.totalPage}" class="btn btn-cancel post_ulog" th:href="${domainName + 'paperlist/' + subjectId +'-' + courseId+'-'+paperType+'-'+year+'-' + area +'-'+(paperPage.currPageNum+1)+'.html'}">下一页</a>
 			            </div>
+			            <div class="opt_box flexbox flex-sub-center">
+							<a class="btn btn-cancel post_ulog" th:text="${'当前'+paperPage.currPageNum+'页/共'+paperPage.totalPage+'页'}">共4页/34套试卷</a>
+						</div>
 					</div>
 				</div>
 				<div class="layer_fixed b" style="display: none;"
