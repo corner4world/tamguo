@@ -431,7 +431,7 @@ body.filter_show {
 							<li class="pictext" th:each="p,pStat:${paperPage.list}">
 								<a th:href="${domainName + 'paper/' + p.id + '.html'}" th:text="${p.name}">
 								</a>
-								<div class="card-name-wrapper" style="padding: 1.5625rem 1.25rem;display: -webkit-flex;display: flex;-webkit-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;align-items: flex-end;padding-bottom: 1rem;">
+								<div class="card-name-wrapper" style="display: -webkit-flex;display: flex;-webkit-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;align-items: flex-end;padding-bottom: 1rem;">
 	            					<div class="resblock-tags-line">
 		                                <span class="tag" th:text="${p.year}">年份</span><span class="tag" th:text="${p.courseId}">年份</span>
 		                            </div>
