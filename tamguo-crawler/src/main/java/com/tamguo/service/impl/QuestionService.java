@@ -53,9 +53,8 @@ public class QuestionService extends ServiceImpl<QuestionMapper, QuestionEntity>
 	@Autowired
 	CacheService cacheService;
 	private static final String FILES_NO_FORMAT = "000000000";
-	private static final String FILES_PREFIX = "zz";
-	private static final String COURSE_ID = "zhengzhi";
-	private static final String DOMAIN = "http://www.tamguo.com";
+	private static final String FILES_PREFIX = "kyzz";
+	private static final String COURSE_ID = "kaoyanzhengzhi";
 	
 	private RunData runData;
 
@@ -141,7 +140,7 @@ public class QuestionService extends ServiceImpl<QuestionMapper, QuestionEntity>
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setAnswer(question.getAnswer().replace(img, DOMAIN +  "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
+                                question.setAnswer(question.getAnswer().replace(img,  "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setAnswer(question.getAnswer());
                         }
@@ -162,7 +161,7 @@ public class QuestionService extends ServiceImpl<QuestionMapper, QuestionEntity>
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setAnalysis(question.getAnalysis().replace(img, DOMAIN + "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
+                                question.setAnalysis(question.getAnalysis().replace(img, "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setAnalysis(question.getAnalysis());
                         }
@@ -183,7 +182,7 @@ public class QuestionService extends ServiceImpl<QuestionMapper, QuestionEntity>
                                 System.out.println("down images " + (ret?"success":"fail") + "：" + img);
                                 
                                 // 替换URL
-                                question.setContent(question.getContent().replace(img, DOMAIN + "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
+                                question.setContent(question.getContent().replace(img, "/files/question/" + COURSE_ID + '/' + fileDatePath + "/" + fileName));
                             }
                             question.setContent(question.getContent());
                         }

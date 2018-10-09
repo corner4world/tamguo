@@ -17,15 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.service.ISysAreaService;
 import com.tamguo.modules.tiku.model.BookEntity;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
+import com.tamguo.modules.tiku.model.PaperEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
 import com.tamguo.modules.tiku.service.IBookService;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
+import com.tamguo.modules.tiku.service.IPaperService;
 import com.tamguo.modules.tiku.service.ISubjectService;
 import com.tamguo.utils.BrowserUtils;
 
@@ -50,6 +53,8 @@ public class SubjectController {
 	private ICourseService iCourseService;
 	@Autowired
 	private IBookService iBookService;
+	@Autowired
+	private IPaperService iPaperService;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"subject/{subjectId}.html"}, method = RequestMethod.GET)
@@ -67,11 +72,14 @@ public class SubjectController {
 			BookEntity book = bookList.get(0);
 			chapterList = iChapterService.selectList(Condition.create().eq("book_id", book.getId()));
 		}
+		// 获取最新的试卷
+		Page<PaperEntity> paperPage = iPaperService.selectPage(new Page<>(1, 15) , Condition.create().eq("subject_id", subjectId).orderDesc(Arrays.asList("id")));
     	model.addObject("subject", subject);
     	model.addObject("course" , course);
     	model.addObject("courseList", courseList);
     	model.addObject("chapterList" , chapterList);
     	model.addObject("areaList", iSysAreaService.selectList(Condition.create().eq("tree_level", "0")));
+    	model.addObject("paperList", paperPage.getRecords());
     	if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
     		model.setViewName("mobile/subject");
     	}else {

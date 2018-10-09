@@ -30,9 +30,9 @@ import com.xuxueli.crawler.rundata.RunData;
 @Service
 public class SubjectService implements ISubjectService{
 	
-	private final static String COURSE_ID = "zhengzhi";
-	private final static String BOOK_ID = "1025976567395184649";
-	private final static String SUBJECT_ID = "gaokao";
+	private final static String COURSE_ID = "kaoyanzhengzhi";
+	private final static String BOOK_ID = "1025976567395184651";
+	private final static String SUBJECT_ID = "kaoyan";
 	@Autowired
 	SubjectMapper subjectMapper;
 	@Autowired
@@ -53,7 +53,7 @@ public class SubjectService implements ISubjectService{
 	@Override
 	public void crawlerSubject() {
 		XxlCrawler crawler = new XxlCrawler.Builder()
-            .setUrls("https://tiku.baidu.com/tikupc/chapterlist/1bfd700abb68a98271fefa04-26-knowpoint-11")
+            .setUrls("https://tiku.baidu.com/tikupc/chapterlist/f3eb19e8b8f67c1cfad6b805-342-knowpoint-11")
             .setAllowSpread(false)
             .setFailRetryCount(5)
             .setThreadCount(20)
@@ -63,7 +63,7 @@ public class SubjectService implements ISubjectService{
                 public void parse(Document html, Element pageVoElement, SubjectVo subjectVo) {
                     // 解析封装 PageVo 对象
                     String pageUrl = html.baseUri();
-                    if(pageUrl.contains("https://tiku.baidu.com/tikupc/chapterlist/1bfd700abb68a98271fefa04-26-knowpoint-11")) {
+                    if(pageUrl.contains("https://tiku.baidu.com/tikupc/chapterlist/f3eb19e8b8f67c1cfad6b805-342-knowpoint-11")) {
                     	logger.info("开始解析书籍：{}" , pageUrl);
                     	ChapterEntity chapterCondition = new ChapterEntity();
                     	chapterCondition.setName(subjectVo.getChapterCurrName());
