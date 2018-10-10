@@ -1,5 +1,7 @@
 package com.tamguo.web.tiku;
 
+import java.util.concurrent.BlockingQueue;
+
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tamguo.modules.tiku.model.ChapterEntity;
+
+import com.tamguo.modules.tiku.model.queue.LearnChapterQueue;
 import com.tamguo.utils.BrowserUtils;
 
 @Controller
@@ -19,6 +24,8 @@ public class IndexController {
     public ModelAndView indexAction(ModelAndView model , HttpServletRequest request) {
 		// request url 
 		logger.info("request url :{}" , request.getRequestURI());
+		BlockingQueue<ChapterEntity> chapterQueue = LearnChapterQueue.getChapterQueue();
+		model.addObject("chapterList", chapterQueue.toArray());
     	if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
     		model.setViewName("mobile/index");
     	}else {

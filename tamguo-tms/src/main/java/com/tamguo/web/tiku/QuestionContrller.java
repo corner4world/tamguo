@@ -1,6 +1,9 @@
 package com.tamguo.web.tiku;
 
 import java.util.Arrays;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -21,6 +24,7 @@ import com.tamguo.modules.tiku.model.CourseEntity;
 import com.tamguo.modules.tiku.model.QuestionEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
 import com.tamguo.modules.tiku.model.enums.QuestionTypeEnum;
+import com.tamguo.modules.tiku.model.queue.LearnChapterQueue;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.IQuestionAnswerService;
@@ -44,10 +48,13 @@ public class QuestionContrller {
 	@Autowired
 	private IQuestionAnswerService iQuestionAnswerService;
 	
+	// 章节
+	BlockingQueue<ChapterEntity> chapterQueue = new LinkedBlockingQueue<ChapterEntity>(10);
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"questionlist/{chapterId}-{current}-{size}.html"}, method = RequestMethod.GET)
 	public ModelAndView questionList(@PathVariable String chapterId , @PathVariable Integer current , 
-			@PathVariable Integer size , ModelAndView model , HttpServletRequest request){
+			@PathVariable Integer size , ModelAndView model , HttpServletRequest request) throws InterruptedException{
 		// request url 
 		logger.info("request url :{} " , request.getRequestURI());
 
@@ -73,6 +80,8 @@ public class QuestionContrller {
 		model.addObject("questionList", questionList);
 		model.addObject("subjectId", course.getSubjectId());
 		model.addObject("courseId", course.getId());
+		
+		LearnChapterQueue.add(chapter);
 		
 		if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
     		model.setViewName("mobile/questionList");

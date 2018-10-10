@@ -89,12 +89,12 @@
 											</h3>
 								<div class="feed-list-content">
 									<ul class="feed-list" style="top: 0px;">
-										<li class="feed-list-item list-border">
+										<li class="feed-list-item list-border" th:each="c,cStat:${chapterList}">
 											<img th:src="${domainName + 'images/avatar.png'}" class="item-img">
 											<div class="feed-list-detail">
 												<p class="detail-item"><span class="item-name">Tom</span>已学完了70个知识点</p>
 												<p class="detail-item">今天学了
-													<a class="item-link" th:href="${domainName}" target="_blank">光的干涉</a>等<span class="course-num">16</span>个知识点</p>
+													<a class="item-link" th:href="${domainName + 'questionlist/' + c.id + '-1-5.html'}" target="_blank" th:text="${c.name}">光的干涉</a>等<span class="course-num">16</span>个知识点</p>
 											</div>
 										</li>
 									</ul>
