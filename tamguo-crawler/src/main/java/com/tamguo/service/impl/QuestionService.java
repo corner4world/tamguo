@@ -53,8 +53,8 @@ public class QuestionService extends ServiceImpl<QuestionMapper, QuestionEntity>
 	@Autowired
 	CacheService cacheService;
 	private static final String FILES_NO_FORMAT = "000000000";
-	private static final String FILES_PREFIX = "kyzz";
-	private static final String COURSE_ID = "kaoyanzhengzhi";
+	private static final String FILES_PREFIX = "qyglzs";
+	private static final String COURSE_ID = "qiyeguanlizhishi";
 	
 	private RunData runData;
 
