@@ -63,4 +63,5 @@ public class IndexController {
     	model.setViewName("500");
         return model;
     }
+	
 }
