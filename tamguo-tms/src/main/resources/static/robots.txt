@@ -1,4 +1,4 @@
 # robots.txt for Tamguo
 
 User-agent: *
-Sitemap: /sitemap/index.xml
+#Sitemap: /sitemap/index.xml
