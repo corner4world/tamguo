@@ -3,16 +3,16 @@ package com.tamguo.modules.tiku.service;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.tamguo.modules.tiku.model.BookEntity;
+import com.tamguo.modules.tiku.model.KnowPointEntity;
 import com.tamguo.modules.tiku.model.condition.BookCondition;
 
-public interface IBookService extends IService<BookEntity>{
+public interface IKnowPointService extends IService<KnowPointEntity>{
 
-	Page<BookEntity> listData(BookCondition condition);
+	Page<KnowPointEntity> listData(BookCondition condition);
 
-	void save(BookEntity book);
+	void save(KnowPointEntity book);
 
-	void update(BookEntity book);
+	void update(KnowPointEntity book);
 
 	void delete(String id);
 

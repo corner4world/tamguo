@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.tamguo.modules.tiku.model.enums.BookStatusEnum;
 
-@TableName(value="tiku_book")
-public class BookEntity {
+@TableName(value="t_know_point")
+public class KnowPointEntity {
 
 	@TableId
 	private String id;

@@ -13,7 +13,7 @@ import com.tamguo.config.dao.SuperEntity;
  * The persistent class for the tiku_chapter database table.
  * 
  */
-@TableName(value="tiku_paper")
+@TableName(value="t_paper")
 public class PaperEntity extends SuperEntity<PaperEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -14,10 +14,10 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tamguo.common.utils.SystemConstant;
-import com.tamguo.modules.tiku.dao.BookMapper;
+import com.tamguo.modules.tiku.dao.KnowPointMapper;
 import com.tamguo.modules.tiku.dao.ChapterMapper;
 import com.tamguo.modules.tiku.dao.CourseMapper;
-import com.tamguo.modules.tiku.model.BookEntity;
+import com.tamguo.modules.tiku.model.KnowPointEntity;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.condition.ChapterCondition;
 import com.tamguo.modules.tiku.model.enums.ChapterStatusEnum;
@@ -31,7 +31,7 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 	@Autowired
 	CourseMapper courseMapper;
 	@Autowired
-	BookMapper bookMapper;
+	KnowPointMapper bookMapper;
 
 	@Transactional(readOnly=false)
 	@SuppressWarnings("unchecked")
@@ -201,7 +201,7 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, ChapterEntity
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChapterEntity> findCourseChapter(String courseId) {
-		List<BookEntity> bookList = bookMapper.selectList(Condition.create().eq("course_id", courseId));
+		List<KnowPointEntity> bookList = bookMapper.selectList(Condition.create().eq("course_id", courseId));
 		if(bookList.size() == 0) {
 			return null;
 		}

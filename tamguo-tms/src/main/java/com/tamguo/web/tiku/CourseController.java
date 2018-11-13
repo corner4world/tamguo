@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.baomidou.mybatisplus.mapper.Condition;
-import com.tamguo.modules.tiku.model.BookEntity;
+import com.tamguo.modules.tiku.model.KnowPointEntity;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
-import com.tamguo.modules.tiku.service.IBookService;
+import com.tamguo.modules.tiku.service.IKnowPointService;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.ISubjectService;
@@ -42,7 +42,7 @@ public class CourseController {
 	@Autowired
 	ISubjectService iSubjectService;
 	@Autowired
-	IBookService iBookService;
+	IKnowPointService knowPointService;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"course/{uid}.html"}, method = RequestMethod.GET)
@@ -50,12 +50,12 @@ public class CourseController {
 		// request url 
 		logger.info("request url :{}" , request.getRequestURI());
 		CourseEntity course = iCourseService.selectById(uid);
-		List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", uid));
+		List<KnowPointEntity> knowPointList = knowPointService.selectList(Condition.create().eq("course_id", uid));
 		List<ChapterEntity> chapterList = null;
-		BookEntity book = null;
-		if(bookList.size() > 0) {
-			book = bookList.get(0);
-			chapterList = iChapterService.findChapterTree(book.getId());
+		KnowPointEntity knowPoint = null;
+		if(knowPointList.size() > 0) {
+			knowPoint = knowPointList.get(0);
+			chapterList = iChapterService.findChapterTree(knowPoint.getId());
 		}
 		SubjectEntity subject = iSubjectService.selectById(course.getSubjectId());
 		List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", course.getSubjectId()).orderAsc(Arrays.asList("sort")));
@@ -64,8 +64,8 @@ public class CourseController {
 		model.addObject("courseList", courseList);
 		model.addObject("course", course);
 		model.addObject("subject", subject);
-		model.addObject("bookList", bookList);
-		model.addObject("book" , book);
+		model.addObject("knowPointList", knowPointList);
+		model.addObject("knowPoint" , knowPoint);
 		if(BrowserUtils.isMobile(request.getHeader("user-agent"))) {
     		model.setViewName("mobile/chapter");
     	}else {

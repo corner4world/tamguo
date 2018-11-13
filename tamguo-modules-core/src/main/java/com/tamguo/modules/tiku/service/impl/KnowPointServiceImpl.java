@@ -11,23 +11,23 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.tamguo.modules.tiku.dao.BookMapper;
+import com.tamguo.modules.tiku.dao.KnowPointMapper;
 import com.tamguo.modules.tiku.dao.CourseMapper;
 import com.tamguo.modules.tiku.dao.SubjectMapper;
-import com.tamguo.modules.tiku.model.BookEntity;
+import com.tamguo.modules.tiku.model.KnowPointEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
 import com.tamguo.modules.tiku.model.condition.BookCondition;
 import com.tamguo.modules.tiku.model.enums.BookStatusEnum;
 import com.tamguo.modules.tiku.model.enums.CourseStatusEnum;
 import com.tamguo.modules.tiku.model.enums.SubjectStatusEnum;
-import com.tamguo.modules.tiku.service.IBookService;
+import com.tamguo.modules.tiku.service.IKnowPointService;
 
 @Service
-public class BookServiceImpl extends ServiceImpl<BookMapper, BookEntity> implements IBookService{
+public class KnowPointServiceImpl extends ServiceImpl<KnowPointMapper, KnowPointEntity> implements IKnowPointService{
 
 	@Autowired
-	BookMapper bookMapper;
+	KnowPointMapper knowPointMapper;
 	@Autowired
 	CourseMapper courseMapper;
 	@Autowired
@@ -35,26 +35,26 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, BookEntity> impleme
 	
 	@Transactional(readOnly=false)
 	@Override
-	public Page<BookEntity> listData(BookCondition condition) {
-		Page<BookEntity> page = new Page<>(condition.getPageNo() , condition.getPageSize());
-		return page.setRecords(bookMapper.listData(page, condition));
+	public Page<KnowPointEntity> listData(BookCondition condition) {
+		Page<KnowPointEntity> page = new Page<>(condition.getPageNo() , condition.getPageSize());
+		return page.setRecords(knowPointMapper.listData(page, condition));
 	}
 
 	@Transactional(readOnly=false)
 	@Override
-	public void save(BookEntity book) {
+	public void save(KnowPointEntity book) {
 		CourseEntity course = courseMapper.selectById(book.getCourseId());
 		
 		book.setStatus(BookStatusEnum.NORMAL);
 		book.setSubjectId(course.getSubjectId());
-		bookMapper.insert(book);
+		knowPointMapper.insert(book);
 	}
 
 	@Transactional(readOnly=false)
 	@Override
-	public void update(BookEntity book) {
+	public void update(KnowPointEntity book) {
 		CourseEntity course = courseMapper.selectById(book.getCourseId());
-		BookEntity entity = bookMapper.selectById(book.getId());
+		KnowPointEntity entity = knowPointMapper.selectById(book.getId());
 		
 		entity.setName(book.getName());
 		entity.setPointNum(book.getPointNum());
@@ -64,31 +64,31 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, BookEntity> impleme
 		entity.setSort(book.getSort());
 		entity.setCourseId(course.getId());
 		
-		bookMapper.updateById(entity);
+		knowPointMapper.updateById(entity);
 	}
 
 	@Transactional(readOnly=false)
 	@Override
 	public void delete(String id) {
-		BookEntity book = bookMapper.selectById(id);
+		KnowPointEntity book = knowPointMapper.selectById(id);
 		book.setStatus(BookStatusEnum.DELETE);
-		bookMapper.updateById(book);
+		knowPointMapper.updateById(book);
 	}
 
 	@Transactional(readOnly=false)
 	@Override
 	public void enable(String id) {
-		BookEntity book = bookMapper.selectById(id);
+		KnowPointEntity book = knowPointMapper.selectById(id);
 		book.setStatus(BookStatusEnum.NORMAL);
-		bookMapper.updateById(book);
+		knowPointMapper.updateById(book);
 	}
 
 	@Transactional(readOnly=false)
 	@Override
 	public void disabled(String id) {
-		BookEntity book = bookMapper.selectById(id);
+		KnowPointEntity book = knowPointMapper.selectById(id);
 		book.setStatus(BookStatusEnum.DISABLED);
-		bookMapper.updateById(book);
+		knowPointMapper.updateById(book);
 	}
 
 	@Transactional(readOnly=false)
@@ -97,11 +97,11 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, BookEntity> impleme
 	public JSONArray treeData() {
 		List<SubjectEntity> subjectList = subjectMapper.selectList(Condition.create().eq("status", SubjectStatusEnum.NORMAL.getValue()));
 		List<CourseEntity> courseList = courseMapper.selectList(Condition.create().eq("status", CourseStatusEnum.NORMAL.getValue()));
-		List<BookEntity> bookList = bookMapper.selectList(Condition.create().eq("status", BookStatusEnum.NORMAL.getValue()));
+		List<KnowPointEntity> bookList = knowPointMapper.selectList(Condition.create().eq("status", BookStatusEnum.NORMAL.getValue()));
 		return transform(subjectList, courseList , bookList);
 	}
 
-	private JSONArray transform(List<SubjectEntity> subjectList , List<CourseEntity> courseList , List<BookEntity> bookList) {
+	private JSONArray transform(List<SubjectEntity> subjectList , List<CourseEntity> courseList , List<KnowPointEntity> bookList) {
 		JSONArray entitys = new JSONArray();
 		for(int i=0 ; i<subjectList.size() ; i++) {
 			JSONObject entity = new JSONObject();

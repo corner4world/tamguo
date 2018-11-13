@@ -9,7 +9,7 @@ import com.tamguo.config.dao.SuperEntity;
  * The persistent class for the tiku_question database table.
  * 
  */
-@TableName(value="tiku_question")
+@TableName(value="t_question")
 public class QuestionEntity extends SuperEntity<QuestionEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 

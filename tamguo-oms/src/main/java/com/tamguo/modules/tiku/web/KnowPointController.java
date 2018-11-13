@@ -12,38 +12,38 @@ import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.common.utils.ExceptionSupport;
 import com.tamguo.common.utils.Result;
-import com.tamguo.modules.tiku.model.BookEntity;
+import com.tamguo.modules.tiku.model.KnowPointEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
 import com.tamguo.modules.tiku.model.condition.BookCondition;
-import com.tamguo.modules.tiku.service.IBookService;
+import com.tamguo.modules.tiku.service.IKnowPointService;
 import com.tamguo.modules.tiku.service.ICourseService;
 
 @Controller
-@RequestMapping(path="tiku/book")
-public class BookController {
+@RequestMapping(path="tiku/knowpoint")
+public class KnowPointController {
 
 	/** 书籍*/
-	private final String BOOK_LIST_PAGE = "modules/tiku/book/list";
-	private final String BOOK_UPDATE_PAGE = "modules/tiku/book/update";
+	private final String KNOWPOINT_LIST_PAGE = "modules/tiku/knowpoint/list";
+	private final String KNOWPOINT_UPDATE_PAGE = "modules/tiku/knowpoint/update";
 	
 	@Autowired
-	private IBookService iBookService;
+	private IKnowPointService iKnowPointService;
 	@Autowired
 	private ICourseService iCourseService;
 	
 	
 	@RequestMapping(path="list")
 	public ModelAndView index(ModelAndView model) {
-		model.setViewName(BOOK_LIST_PAGE);
+		model.setViewName(KNOWPOINT_LIST_PAGE);
 		return model;
 	}
 	
 	@RequestMapping(path="update")
 	public ModelAndView update(String id, ModelAndView model) {
-		model.setViewName(BOOK_UPDATE_PAGE);
-		BookEntity book = iBookService.selectById(id);
-		CourseEntity course = iCourseService.selectById(book.getCourseId());
-		model.addObject("book", book);
+		model.setViewName(KNOWPOINT_UPDATE_PAGE);
+		KnowPointEntity knowpoint = iKnowPointService.selectById(id);
+		CourseEntity course = iCourseService.selectById(knowpoint.getCourseId());
+		model.addObject("knowpoint", knowpoint);
 		model.addObject("course", course);
 		return model;
 	}
@@ -51,15 +51,15 @@ public class BookController {
 	@RequestMapping(path="listData",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> listData(BookCondition condition) {
-		Page<BookEntity> page = iBookService.listData(condition);
+		Page<KnowPointEntity> page = iKnowPointService.listData(condition);
 		return Result.jqGridResult(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent(), page.getPages());
 	}
 
 	@RequestMapping(path="save",method=RequestMethod.POST)
 	@ResponseBody
-	public Result save(BookEntity book) {
+	public Result save(KnowPointEntity book) {
 		try {
-			iBookService.save(book);
+			iKnowPointService.save(book);
 			return Result.result(0, null, "保存书籍【"+book.getName()+"】成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("保存书籍", this.getClass(), e);
@@ -68,9 +68,9 @@ public class BookController {
 	
 	@RequestMapping(path="update",method=RequestMethod.POST)
 	@ResponseBody
-	public Result update(BookEntity book) {
+	public Result update(KnowPointEntity book) {
 		try {
-			iBookService.update(book);
+			iKnowPointService.update(book);
 			return Result.result(0, null, "修改书籍【"+book.getName()+"】成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("修改书籍", this.getClass(), e);
@@ -81,7 +81,7 @@ public class BookController {
 	@ResponseBody
 	public Result delete(String id) {
 		try {
-			iBookService.delete(id);
+			iKnowPointService.delete(id);
 			return Result.result(0, null, "删除书籍成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("删除书籍", this.getClass(), e);
@@ -92,7 +92,7 @@ public class BookController {
 	@ResponseBody
 	public Result enable(String id) {
 		try {
-			iBookService.enable(id);
+			iKnowPointService.enable(id);
 			return Result.result(0, null, "激活书籍成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("激活书籍", this.getClass(), e);
@@ -103,7 +103,7 @@ public class BookController {
 	@ResponseBody
 	public Result disabled(String id) {
 		try {
-			iBookService.disabled(id);
+			iKnowPointService.disabled(id);
 			return Result.result(0, null, "停用书籍成功");
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("停用书籍", this.getClass(), e);
@@ -113,6 +113,6 @@ public class BookController {
 	@RequestMapping(path="treeData",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONArray treeData() {
-		return iBookService.treeData();
+		return iKnowPointService.treeData();
 	}
 }

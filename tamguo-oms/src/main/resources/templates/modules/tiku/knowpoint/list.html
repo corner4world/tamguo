@@ -3,7 +3,7 @@ content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta ht
 content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
 content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
 content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
-<title>书籍管理 - JeeSite Demo</title>
+<title>书籍管理 - Tamguo OMS</title>
 <script th:src="${setting.domain + 'global.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
@@ -25,7 +25,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
-					<a href="tiku/book/add" class="btn btn-default btnTool" title="新增书籍"><i class="fa fa-plus"></i> 新增</a>
+					<a href="tiku/knowpoint/add" class="btn btn-default btnTool" title="新增书籍"><i class="fa fa-plus"></i> 新增</a>
 				<div class="btn-group">
 					<a href="javascript:" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-navicon"></i> <span class="caret"></span>
@@ -38,7 +38,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 			</div>
 		</div>
 		<div class="box-body">
-			<form id="searchForm" th:action="${setting.domain + 'tiku/book/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
+			<form id="searchForm" th:action="${setting.domain + 'tiku/knowpoint/listData'}" method="post" class="form-inline " data-page-no="1" data-page-size="10" data-order-by="">
 				<div class="form-group">
 					<label class="control-label">书籍编号：</label>
 					<div class="control-inline">
@@ -171,7 +171,7 @@ $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
 		{header:'书籍编号', name:'id', index:'u.id', width:300, align:"center", frozen:true, formatter: function(val, obj, row, act){
-			return '<a href="tiku/book/update?id='+row.id+'&op=edit" class="btnList" data-title="编辑书籍">'+(val||row.id)+'</a>';
+			return '<a href="tiku/knowpoint/update?id='+row.id+'&op=edit" class="btnList" data-title="编辑书籍">'+(val||row.id)+'</a>';
 		}},
 		{header:'分类', name:'subjectName', index:'u.courseName', width:100, align:"center"},
 		{header:'科目', name:'courseName', index:'u.courseName', width:100, align:"center"},
@@ -189,14 +189,14 @@ $('#dataGrid').dataGrid({
 		}},
 		{header:'操作', name:'actions', width:160, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="tiku/book/update?id='+row.id+'&op=edit" class="btnList" title="编辑书籍"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="tiku/knowpoint/update?id='+row.id+'&op=edit" class="btnList" title="编辑书籍"><i class="fa fa-pencil"></i></a>&nbsp;');
 				if (row.status == "normal"){
-					actions.push('<a href="'+ctx+'tiku/book/disabled?id='+row.id+'" class="btnList" title="停用书籍" data-confirm="确认要停用该书籍吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'tiku/knowpoint/disabled?id='+row.id+'" class="btnList" title="停用书籍" data-confirm="确认要停用该书籍吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 				}
 				if (row.status == "disabled"){
-					actions.push('<a href="'+ctx+'tiku/book/enable?id='+row.id+'" class="btnList" title="启用书籍" data-confirm="确认要启用该书籍吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+					actions.push('<a href="'+ctx+'tiku/knowpoint/enable?id='+row.id+'" class="btnList" title="启用书籍" data-confirm="确认要启用该书籍吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
-				actions.push('<a href="'+ctx+'tiku/book/delete?id='+row.id+'" class="btnList" title="删除书籍" data-confirm="确认要删除该书籍吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				actions.push('<a href="'+ctx+'tiku/knowpoint/delete?id='+row.id+'" class="btnList" title="删除书籍" data-confirm="确认要删除该书籍吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');
 		}}
 	],

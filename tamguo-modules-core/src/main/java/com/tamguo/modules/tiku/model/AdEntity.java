@@ -11,7 +11,7 @@ import com.tamguo.config.dao.SuperEntity;
  * The persistent class for the tiku_ad database table.
  * 
  */
-@TableName(value="tiku_ad")
+@TableName(value="t_ad")
 public class AdEntity extends SuperEntity<AdEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 

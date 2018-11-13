@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tamguo.modules.tiku.dao.BookMapper">
+<mapper namespace="com.tamguo.modules.tiku.dao.KnowPointMapper">
 	
-	<select id="listData" resultType="BookEntity">
+	<select id="listData" resultType="KnowPointEntity">
 		SELECT
 			b.id,
 			b.subject_id,
@@ -20,9 +20,9 @@
 			s.name AS subject_name,
 			c.name AS course_name
 		FROM
-			tiku_book b
-		LEFT JOIN tiku_subject s ON s.id = b.subject_id
-		LEFT JOIN tiku_course c ON c.id = b.course_id
+			t_know_point b
+		LEFT JOIN t_subject s ON s.id = b.subject_id
+		LEFT JOIN t_course c ON c.id = b.course_id
 		WHERE
 			1 = 1 
 		<if test="id != null and id != ''">

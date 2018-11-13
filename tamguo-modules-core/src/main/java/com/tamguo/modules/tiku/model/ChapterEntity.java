@@ -16,7 +16,7 @@ import java.util.List;
  * The persistent class for the tiku_chapter database table.
  * 
  */
-@TableName(value="tiku_chapter")
+@TableName(value="t_chapter")
 public class ChapterEntity extends SuperEntity<ChapterEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 

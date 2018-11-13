@@ -20,12 +20,12 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.service.ISysAreaService;
-import com.tamguo.modules.tiku.model.BookEntity;
+import com.tamguo.modules.tiku.model.KnowPointEntity;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
 import com.tamguo.modules.tiku.model.PaperEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
-import com.tamguo.modules.tiku.service.IBookService;
+import com.tamguo.modules.tiku.service.IKnowPointService;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.IPaperService;
@@ -52,7 +52,7 @@ public class SubjectController {
 	@Autowired
 	private ICourseService iCourseService;
 	@Autowired
-	private IBookService iBookService;
+	private IKnowPointService iBookService;
 	@Autowired
 	private IPaperService iPaperService;
 
@@ -66,10 +66,10 @@ public class SubjectController {
 		// 获取第一个科目
 		CourseEntity course = courseList.get(0);
 		// 获取第一本书
-		List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", course.getId()));
+		List<KnowPointEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", course.getId()));
 		List<ChapterEntity> chapterList = null;
 		if(bookList.size() > 0) {
-			BookEntity book = bookList.get(0);
+			KnowPointEntity book = bookList.get(0);
 			chapterList = iChapterService.selectList(Condition.create().eq("book_id", book.getId()));
 		}
 		// 获取最新的试卷

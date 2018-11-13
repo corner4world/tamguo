@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.mapper.Condition;
-import com.tamguo.modules.tiku.model.BookEntity;
+import com.tamguo.modules.tiku.model.KnowPointEntity;
 import com.tamguo.modules.tiku.model.ChapterEntity;
 import com.tamguo.modules.tiku.model.CourseEntity;
 import com.tamguo.modules.tiku.model.SubjectEntity;
-import com.tamguo.modules.tiku.service.IBookService;
+import com.tamguo.modules.tiku.service.IKnowPointService;
 import com.tamguo.modules.tiku.service.IChapterService;
 import com.tamguo.modules.tiku.service.ICourseService;
 import com.tamguo.modules.tiku.service.ISubjectService;
 
 @Controller
-public class BookController {
+public class KnowPointController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
-	IBookService iBookService;
+	IKnowPointService iKnowPointService;
 	@Autowired
 	IChapterService iChapterService;
 	@Autowired
@@ -38,23 +38,23 @@ public class BookController {
 	ICourseService iCourseService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = {"book/{uid}.html"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"knowpoint/{uid}.html"}, method = RequestMethod.GET)
 	public ModelAndView index(@PathVariable String uid , ModelAndView model , HttpServletRequest request) {
 		// request url 
 		logger.info("request url :{} " , request.getRequestURI());
-		BookEntity book = iBookService.selectById(uid);
-		SubjectEntity subject = iSubjectService.selectById(book.getSubjectId());
+		KnowPointEntity knowpoint = iKnowPointService.selectById(uid);
+		SubjectEntity subject = iSubjectService.selectById(knowpoint.getSubjectId());
 		List<CourseEntity> courseList = iCourseService.selectList(Condition.create().eq("subject_id", subject.getId()).orderAsc(Arrays.asList("sort")));
-		List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("course_id", book.getCourseId()));
-		CourseEntity course = iCourseService.selectById(book.getCourseId());
-		List<ChapterEntity> chapterList = iChapterService.findChapterTree(book.getId());
-		model.addObject("book", book);
+		List<KnowPointEntity> knowPointList = iKnowPointService.selectList(Condition.create().eq("course_id", knowpoint.getCourseId()));
+		CourseEntity course = iCourseService.selectById(knowpoint.getCourseId());
+		List<ChapterEntity> chapterList = iChapterService.findChapterTree(knowpoint.getId());
+		model.addObject("knowpoint", knowpoint);
 		model.addObject("subject", subject);
 		model.addObject("course", course);
 		model.addObject("chapterList" , chapterList);
 		model.addObject("courseList", courseList);
-		model.addObject("bookList", bookList);
-		model.setViewName("book");
+		model.addObject("knowPointList", knowPointList);
+		model.setViewName("knowpoint");
 		return model;
 	}
 	

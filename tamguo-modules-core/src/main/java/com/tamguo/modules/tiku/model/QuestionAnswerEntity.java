@@ -5,7 +5,7 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 
-@TableName(value="tiku_question_answer")
+@TableName(value="t_question_answer")
 public class QuestionAnswerEntity extends SuperEntity<PaperEntity> implements Serializable{
 
 	private static final long serialVersionUID = 1L;

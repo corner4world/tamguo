@@ -1,9 +1,8 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta content="webkit" name="renderer"/><meta http-equiv="X-UA-Compatible"
-content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta http-equiv="Cache-Control"
-content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
-content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
+content="IE=edge">
+<meta content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
 content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
-<title>书籍管理 - JeeSite Demo</title>
+<title>书籍管理 - Tamguo</title>
 <script th:src="${setting.domain + 'global.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
@@ -26,7 +25,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" th:action="${setting.domain + 'tiku/book/save'}" method="post" class="form-horizontal">
+<form id="inputForm" th:action="${setting.domain + 'tiku/knowpoint/update'}" method="post" class="form-horizontal">
+<input type="hidden" id="id" name="id" th:value="${knowpoint.id}"/>
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
 				<div class="row">
@@ -35,7 +35,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 书籍名称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="name" name="name" value="" maxlength="100" class="form-control required "/>
+								<input type="text" id="name" name="name" th:value="${knowpoint.name}" maxlength="100" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -44,7 +44,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required ">*</span> 出版社：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="publishingHouse" name="publishingHouse" value="" maxlength="64" class="form-control required"/>
+								<input type="text" id="publishingHouse" name="publishingHouse" th:value="${knowpoint.publishingHouse}" maxlength="64" class="form-control required"/>
 							</div>
 						</div>
 					</div>
@@ -56,8 +56,8 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 								<span class="required">*</span> 归属科目：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 							<div class="input-group treeselect" id="companyDiv" data-url="tiku/course/treeData?">
-								<input id="courseId" type="hidden" name="courseId" value="" class="isReset"/>
-								<input id="courseName" type="text" name="courseName" value=""
+								<input id="courseId" type="hidden" name="courseId" th:value="${course.id}" class="isReset"/>
+								<input id="courseName" type="text" name="courseName" th:value="${course.name}"
 									class="form-control  " readonly="readonly"
 								/><span class="input-group-btn"><a id="companyButton" href="javascript:"
 									class="btn btn-default "><i class="fa fa-search"></i></a>
@@ -142,13 +142,13 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							});
 							</script>							</div>
 													</div>
-												</div>
+					</div>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 排序号：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="sort" name="sort" value="" maxlength="10" class="form-control digits"/>
+								<input type="text" id="sort" name="sort" th:value="${knowpoint.sort}" maxlength="10" class="form-control digits"/>
 							</div>
 						</div>
 					</div>
@@ -159,7 +159,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 问题数量：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="questionNum" name="questionNum" value="" maxlength="64" class="form-control required abc"/>
+								<input type="text" id="questionNum" name="questionNum" th:value="${knowpoint.questionNum}" maxlength="64" class="form-control required abc"/>
 							</div>
 						</div>
 					</div>
@@ -168,7 +168,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> 知识点数量：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="pointNum" name="pointNum" value="" maxlength="10" class="form-control digits"/>
+								<input type="text" id="pointNum" name="pointNum" th:value="${knowpoint.pointNum}" maxlength="10" class="form-control digits"/>
 							</div>
 						</div>
 					</div>
@@ -179,7 +179,7 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
-								<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control "></textarea>
+								<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control " th:utext="${knowpoint.remarks}"></textarea>
 							</div>
 						</div>
 					</div>

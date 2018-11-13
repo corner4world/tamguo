@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.tamguo.modules.tiku.model.enums.CourseStatusEnum;
 
-@TableName(value="tiku_course")
+@TableName(value="t_course")
 public class CourseEntity {
 	
 	@TableId

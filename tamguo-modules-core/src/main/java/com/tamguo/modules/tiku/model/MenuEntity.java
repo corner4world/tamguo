@@ -12,7 +12,7 @@ import java.util.List;
  * The persistent class for the tiku_subject database table.
  * 
  */
-@TableName(value="tiku_menu")
+@TableName(value="t_menu")
 public class MenuEntity extends SuperEntity<MenuEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 

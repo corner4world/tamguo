@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
-import com.tamguo.modules.tiku.model.BookEntity;
+import com.tamguo.modules.tiku.model.KnowPointEntity;
 import com.tamguo.modules.tiku.model.condition.BookCondition;
 
-public interface BookMapper extends BaseMapper<BookEntity>{
+public interface KnowPointMapper extends BaseMapper<KnowPointEntity>{
 
-	List<BookEntity> listData(Pagination page , BookCondition condition);
+	List<KnowPointEntity> listData(Pagination page , BookCondition condition);
 }

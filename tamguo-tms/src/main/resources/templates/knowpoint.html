@@ -67,7 +67,7 @@
     </ul>
     <ul class="sc-subject clearfix">
         <li>课本:</li>
-        <li th:class="${book.id == b.id} ? selected : ''" th:each="b,index:${bookList}"><a th:href="${domainName + 'book/' + b.id + '.html'}" th:text="${b.name}">必修1</a></li>
+        <li th:class="${knowpoint.id == b.id} ? selected : ''" th:each="b,index:${knowPointList}"><a th:href="${domainName + 'knowpoint/' + b.id + '.html'}" th:text="${b.name}">必修1</a></li>
     </ul>
 </div>
 
