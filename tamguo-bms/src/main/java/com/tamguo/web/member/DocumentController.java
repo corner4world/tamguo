@@ -123,4 +123,43 @@ public class DocumentController {
 			return Result.failResult("上传失败");
 		}
 	}
+	
+	/**
+	 * 上传附件
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "uploadFile" , method = RequestMethod.POST)
+	@ResponseBody
+	public Result uploadFile(@RequestParam("editormd-file-file") MultipartFile file, String bookId , HttpServletRequest request) {
+		try {
+			String fileMd5 = FileMd5Utils.getMD5((FileInputStream)file.getInputStream());
+			FileEntity sysFile = iFileEntityService.selectOne(Condition.create().eq("file_md5", fileMd5));
+			if(sysFile != null) {
+				sysFile.setFilePath(domainName + "files/" + sysFile.getFilePath());
+				return Result.successResult(sysFile);
+			}
+			String filePath  = fileStoragePath + "book/" + DateUtil.fomatDate(new Date(), "yyyyMM") + "/" + bookId;
+			File dest = new File(filePath);
+			if(!dest.exists()) {
+				dest.mkdirs();
+			}
+			// save 文件
+			FileUtils.writeByteArrayToFile(new File(filePath + "/" + file.getOriginalFilename()) , file.getBytes());
+			
+			FileEntity fileEntity = new FileEntity();
+			fileEntity.setFileContentType(file.getContentType());
+			fileEntity.setFileExtension(file.getOriginalFilename());
+			fileEntity.setFileMd5(FileMd5Utils.getMD5((FileInputStream)file.getInputStream()));
+			fileEntity.setFileSize(file.getSize());
+			fileEntity.setFilePath("book/" + DateUtil.fomatDate(new Date(), "yyyyMM") + "/" + bookId + "/" + file.getOriginalFilename());
+			iFileEntityService.insert(fileEntity);
+			
+			fileEntity.setFilePath(domainName + "files/" + fileEntity.getFilePath());
+			
+			return Result.successResult(fileEntity);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return Result.failResult("上传失败");
+		}
+	}
 }

@@ -215,13 +215,13 @@
                                 </template>
                                 <template v-else-if="item.state == 'error'">
                                     <span class="error-message">${item.message}</span>
-                                    <button type="button" class="btn btn-sm close" @click="removeAttach(item.attachment_id)">
+                                    <button type="button" class="btn btn-sm close" @click="removeAttach(item.fileId)">
                                         <i class="fa fa-remove" aria-hidden="true"></i>
                                     </button>
                                 </template>
                                 <template v-else>
-                                    <a :href="item.http_path" target="_blank" :title="item.file_name">${item.file_name}</a>
-                                    <span class="text">(${ formatBytes(item.file_size) })</span>
+                                    <a :href="item.filePath" target="_blank" :title="item.file_name">${item.fileExtension}</a>
+                                    <span class="text">(${ formatBytes(item.fileSize) })</span>
                                     <span class="error-message">${item.message}</span>
                                     <button type="button" class="btn btn-sm close" @click="removeAttach(item.attachment_id)">
                                         <i class="fa fa-remove" aria-hidden="true"></i>
@@ -751,7 +751,7 @@ docker run -p 8181:8181 -e MYSQL_PORT_3306_TCP_ADDR=127.0.0.1 -e MYSQL_PORT_3306
                             var item = window.vueApp.lists[index];
                             if(item.attachment_id === file.id){
                                 if(res.code === 0) {
-                                    window.vueApp.lists.splice(index, 1, res.attach ? res.attach : res.data);
+                                    window.vueApp.lists.splice(index, 1, res.result ? res.result : res.result);
                                 }else{
                                     item.message = res.message;
                                     item.state = "error";
