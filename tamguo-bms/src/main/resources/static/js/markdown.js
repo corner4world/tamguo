@@ -154,7 +154,7 @@ $(function () {
                 var node = { "id": res.result.id, 'parent': res.result.parentId === "0" ? '#' : res.result.parentId, "text": res.result.name, "identify": res.result.id};
                 pushDocumentCategory(node);
                 window.selectNode = node;
-                pushVueLists(null);
+                pushVueLists(res.result.fileUploads);
                 setLastSelectNode($node);
             } else {
                 layer.msg("文档加载失败");

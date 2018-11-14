@@ -44,6 +44,9 @@ public class DocumentEntity extends Model<DocumentEntity>{
 	@TableField(exist=false)
 	private String cover; 
 	
+	@TableField(exist=false)
+	private List<FileUploadEntity> fileUploads;
+	
 	public String getId() {
 		return id;
 	}
@@ -143,6 +146,12 @@ public class DocumentEntity extends Model<DocumentEntity>{
 	}
 	public void setStatus(DocumentStatusEnum status) {
 		this.status = status;
+	}
+	public List<FileUploadEntity> getFileUploads() {
+		return fileUploads;
+	}
+	public void setFileUploads(List<FileUploadEntity> fileUploads) {
+		this.fileUploads = fileUploads;
 	}
 	
 }

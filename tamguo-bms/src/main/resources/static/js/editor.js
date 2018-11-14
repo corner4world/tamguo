@@ -404,23 +404,23 @@ $(function () {
             removeAttach : function ($attach_id) {
                 var $this = this;
                 var item = $this.lists.filter(function ($item) {
-                    return $item.attachment_id == $attach_id;
+                    return $item.id == $attach_id;
                 });
 
                 if(item && item[0].hasOwnProperty("state")){
                     $this.lists = $this.lists.filter(function ($item) {
-                        return $item.attachment_id != $attach_id;
+                        return $item.id != $attach_id;
                     });
                     return;
                 }
                 $.ajax({
                     url : window.removeAttachURL,
                     type : "post",
-                    data : { "attach_id" : $attach_id},
+                    data : { "id" : $attach_id},
                     success : function (res) {
-                        if(res.errcode === 0){
+                        if(res.code === 0){
                             $this.lists = $this.lists.filter(function ($item) {
-                                return $item.attachment_id != $attach_id;
+                                return $item.id != $attach_id;
                             });
                         }else{
                             layer.msg(res.message);

@@ -21,7 +21,7 @@
         window.releaseURL = "[[${domainName}]]" + "/book/xingzheng/release";
         window.sortURL = "[[${domainName}]]" + "/book/xingzheng/sort";
         window.historyURL = "[[${domainName}]]" + "/history/get";
-        window.removeAttachURL =  "[[${domainName}]]" + "/api/attach/remove";
+        window.removeAttachURL =  "[[${domainName}]]" + "member/document/removeFile";
         window.highlightStyle = "github";
         window.template = { "getUrl":"[[${domainName}]]" + "/api/template/get", "listUrl" : "[[${domainName}]]" + "/api/template/list", "deleteUrl" : "[[${domainName}]]" + "/api/template/remove", "saveUrl" :"[[${domainName}]]" + "/api/template/add"}
         
@@ -215,15 +215,15 @@
                                 </template>
                                 <template v-else-if="item.state == 'error'">
                                     <span class="error-message">${item.message}</span>
-                                    <button type="button" class="btn btn-sm close" @click="removeAttach(item.fileId)">
+                                    <button type="button" class="btn btn-sm close" @click="removeAttach(item.id)">
                                         <i class="fa fa-remove" aria-hidden="true"></i>
                                     </button>
                                 </template>
                                 <template v-else>
-                                    <a :href="item.filePath" target="_blank" :title="item.file_name">${item.fileExtension}</a>
+                                    <a :href="item.filePath" target="_blank" :title="item.fileName">${item.fileName}</a>
                                     <span class="text">(${ formatBytes(item.fileSize) })</span>
                                     <span class="error-message">${item.message}</span>
-                                    <button type="button" class="btn btn-sm close" @click="removeAttach(item.attachment_id)">
+                                    <button type="button" class="btn btn-sm close" @click="removeAttach(item.id)">
                                         <i class="fa fa-remove" aria-hidden="true"></i>
                                     </button>
                                     <div class="clearfix"></div>
