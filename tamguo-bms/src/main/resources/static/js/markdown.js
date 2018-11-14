@@ -151,7 +151,7 @@ $(function () {
                 }catch(e){
                     console.log(e);
                 }
-                var node = { "id": res.result.id, 'parent': res.result.parent_id === 0 ? '#' : res.result.parent_id, "text": res.result.name, "identify": res.result.id};
+                var node = { "id": res.result.id, 'parent': res.result.parentId === "0" ? '#' : res.result.parentId, "text": res.result.name, "identify": res.result.id};
                 pushDocumentCategory(node);
                 window.selectNode = node;
                 pushVueLists(null);
@@ -196,7 +196,7 @@ $(function () {
                 index = layer.load(1, { shade: [0.1, '#fff'] });
                 window.saveing = true;
             },
-            url: window.editURL,
+            url: window.editURL + "modify",
             data: { "id": doc_id, "markdown": content, "content": html, "cover": $is_cover ? "yes" : "no"},
             type: "post",
             timeout : 30000,
@@ -277,9 +277,9 @@ $(function () {
                     'parent': res.result.parentId,
                     "text": res.result.name,
                     "identify": res.result.id,
-                    "version": res.result.version ,
-                    state: { opened: res.result.is_open == 1},
-                    a_attr: { is_open: res.result.is_open == 1}
+                    "version": res.result.createDate ,
+                    state: { opened: res.result.isOpen == 1},
+                    a_attr: { is_open: res.result.isOpen == 1}
                 };
 
                 var node = window.treeCatalog.get_node(data.id);

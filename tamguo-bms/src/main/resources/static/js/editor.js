@@ -184,9 +184,9 @@ function openEditCatalogDialog($node) {
   //  $then.find("input[name='doc_name']").val(text);
 
     if($node.a_attr && $node.a_attr.is_open){
-        $then.find("input[name='is_open'][value='1']").prop("checked","checked");
+        $then.find("input[name='isOpen'][value='1']").prop("checked","checked");
     }else{
-        $then.find("input[name='is_open'][value='0']").prop("checked","checked");
+        $then.find("input[name='isOpen'][value='0']").prop("checked","checked");
     }
 
     for (var index in window.documentCategory){

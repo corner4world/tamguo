@@ -1,13 +1,17 @@
 package com.tamguo.modules.book.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 @TableName(value="b_book")
-public class BookEntity {
+public class BookEntity extends Model<BookEntity>{
 
+	private static final long serialVersionUID = 1L;
+	
 	@TableId
 	private String id;
 	private String categoryId;
@@ -79,6 +83,10 @@ public class BookEntity {
 	}
 	public void setBookImage(String bookImage) {
 		this.bookImage = bookImage;
+	}
+	@Override
+	protected Serializable pkVal() {
+		return getId();
 	}
 	
 }

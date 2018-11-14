@@ -17,7 +17,7 @@
         window.fileUploadURL = "[[${domainName}]]" + "member/document/uploadFile";
         window.selectNode = null;
         window.deleteURL = "[[${domainName}]]" + "member/document/delete";
-        window.editURL =  "[[${domainName}]]" + "member/document";
+        window.editURL =  "[[${domainName}]]" + "member/document/";
         window.releaseURL = "[[${domainName}]]" + "/book/xingzheng/release";
         window.sortURL = "[[${domainName}]]" + "/book/xingzheng/sort";
         window.historyURL = "[[${domainName}]]" + "/history/get";
@@ -35,7 +35,7 @@
 		        async: false,
 		        success: function (res) {
 		            if (res.code === 0) {
-		            	window.documentCategory = res.result.documentCategoryList; 
+		            	window.documentCategory = res.result.documentList; 
 		            	window.book = res.result.book;
 		            }
 		        }
@@ -173,7 +173,7 @@
                         </div>
                         <div class="col-lg-6">
                             <label>
-                                <input type="radio" name="is_open" value="0" checked> 关闭<span class="text">(在阅读时会关闭节点)</span>
+                                <input type="radio" name="isOpen" value="0" checked> 关闭<span class="text">(在阅读时会关闭节点)</span>
                             </label>
                         </div>
 

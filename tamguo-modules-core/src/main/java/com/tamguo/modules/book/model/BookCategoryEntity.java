@@ -1,17 +1,21 @@
 package com.tamguo.modules.book.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 @TableName(value="b_book_category")
-public class BookCategoryEntity {
+public class BookCategoryEntity extends Model<BookCategoryEntity>{
 
+	private static final long serialVersionUID = 1L;
+	
 	@TableId
 	private String id;
-	private String parentCode;
-	private String parentCodes;
+	private String parentId;
+	private String parentIds;
 	private String treeSort;
 	private String treeSorts;
 	private String treeLeaf;
@@ -29,18 +33,6 @@ public class BookCategoryEntity {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getParentCode() {
-		return parentCode;
-	}
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
-	}
-	public String getParentCodes() {
-		return parentCodes;
-	}
-	public void setParentCodes(String parentCodes) {
-		this.parentCodes = parentCodes;
 	}
 	public String getTreeSort() {
 		return treeSort;
@@ -107,6 +99,22 @@ public class BookCategoryEntity {
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	public String getParentId() {
+		return parentId;
+	}
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+	public String getParentIds() {
+		return parentIds;
+	}
+	public void setParentIds(String parentIds) {
+		this.parentIds = parentIds;
+	}
+	@Override
+	protected Serializable pkVal() {
+		return getId();
 	}
 	
 }
