@@ -274,7 +274,7 @@ $(function () {
             if (res.code === 0) {
                 var data = {
                     "id": res.result.id,
-                    'parent': res.result.parentId,
+                    'parent': res.result.parentId === "0" ? "#" : res.result.parentId,
                     "text": res.result.name,
                     "identify": res.result.id,
                     "version": res.result.createDate ,
