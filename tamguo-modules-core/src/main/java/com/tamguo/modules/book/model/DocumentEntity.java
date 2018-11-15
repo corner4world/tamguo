@@ -19,6 +19,7 @@ public class DocumentEntity extends Model<DocumentEntity>{
 	
 	@TableId
 	private String id;
+	private String batchNo;
 	private String parentId;
 	private String bookId;
 	private String owner;
@@ -152,6 +153,12 @@ public class DocumentEntity extends Model<DocumentEntity>{
 	}
 	public void setFileUploads(List<FileUploadEntity> fileUploads) {
 		this.fileUploads = fileUploads;
+	}
+	public String getBatchNo() {
+		return batchNo;
+	}
+	public void setBatchNo(String batchNo) {
+		this.batchNo = batchNo;
 	}
 	
 }

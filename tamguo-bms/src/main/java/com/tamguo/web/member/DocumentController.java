@@ -194,6 +194,9 @@ public class DocumentController {
 		}
 	}
 	
+	/**
+	 * 移除文件 
+	 */
 	@RequestMapping(value = "removeFile" , method = RequestMethod.POST)
 	@ResponseBody
 	public Result removeFile(String id) {
@@ -202,6 +205,7 @@ public class DocumentController {
 		} catch (Exception e) {
 			return Result.result(1, null, "删除失败");
 		}
-		return Result.successResult("删除成功");
+		return Result.result(0, null, "删除成功");
 	}
+	
 }

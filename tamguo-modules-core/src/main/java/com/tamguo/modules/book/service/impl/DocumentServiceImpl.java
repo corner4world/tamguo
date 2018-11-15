@@ -45,11 +45,13 @@ public class DocumentServiceImpl extends ServiceImpl<DocumentMapper, DocumentEnt
 			document.setParentId(entity.getParentId());
 			document.setUpdateDate(new Date());
 			document.setStatus(DocumentStatusEnum.HISTORY);
+			document.setBatchNo(entity.getBatchNo());
 			this.insert(document);
 			
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	@Transactional(readOnly=false)
 	@Override
 	public void create(DocumentEntity document) {
@@ -57,6 +59,7 @@ public class DocumentServiceImpl extends ServiceImpl<DocumentMapper, DocumentEnt
 		document.setCreateDate(new Date());
 		document.setUpdateDate(new Date());
 		document.setOwner("system");
+		document.setBatchNo(new com.baomidou.mybatisplus.toolkit.IdWorker().getIdStr());
 		this.insert(document);
 	}
 
