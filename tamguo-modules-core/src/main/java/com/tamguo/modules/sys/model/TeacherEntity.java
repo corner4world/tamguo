@@ -12,7 +12,7 @@ import com.tamguo.modules.sys.model.enums.TeacherStatus;
  * The persistent class for the tiku_teacher database table.
  * 
  */
-@TableName(value="tiku_teacher")
+@TableName(value="t_teacher")
 public class TeacherEntity extends SuperEntity<TeacherEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

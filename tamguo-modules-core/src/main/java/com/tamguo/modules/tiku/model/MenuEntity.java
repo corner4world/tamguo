@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /**
- * The persistent class for the tiku_subject database table.
+ * The persistent class for the t_subject database table.
  * 
  */
 @TableName(value="t_menu")

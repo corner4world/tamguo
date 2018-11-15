@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 
 /**
- * The persistent class for the tiku_question database table.
+ * The persistent class for the t_question database table.
  * 
  */
 @TableName(value="t_question")

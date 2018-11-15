@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.tamguo.config.dao.SuperEntity;
 
 /**
- * The persistent class for the tiku_ad database table.
+ * The persistent class for the t_ad database table.
  * 
  */
 @TableName(value="t_ad")

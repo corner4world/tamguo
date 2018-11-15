@@ -9,7 +9,7 @@ import com.tamguo.config.dao.SuperEntity;
 
 
 /**
- * The persistent class for the tiku_chapter database table.
+ * The persistent class for the t_chapter database table.
  * 
  */
 @TableName(value="t_school")
