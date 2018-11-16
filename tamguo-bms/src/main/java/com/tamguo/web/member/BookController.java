@@ -24,7 +24,7 @@ import com.tamguo.modules.book.service.IBookCategoryService;
 import com.tamguo.modules.book.service.IBookService;
 import com.tamguo.modules.book.service.IDocumentService;
 
-@Controller
+@Controller(value="memberBookController")
 @RequestMapping(value="member/book")
 public class BookController {
 	
