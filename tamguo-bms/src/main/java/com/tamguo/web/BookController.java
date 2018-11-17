@@ -59,7 +59,7 @@ public class BookController {
 		return model;
 	}
 	
-	@RequestMapping(value="document/{id}" , method=RequestMethod.POST)
+	@RequestMapping(value="document/{id}.html" , method=RequestMethod.POST)
 	@ResponseBody
 	public Result getDocument(@PathVariable String id) {
 		try {

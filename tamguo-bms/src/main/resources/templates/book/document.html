@@ -79,20 +79,20 @@
                         <div class="catalog-list read-book-preview" id="sidebar">
                         	<ul th:if="${doc.parentId} eq '0'" th:each="doc,status:${documentList}">
                         		<li th:id="${doc.id}">
-                        			<a th:href="${domainName + 'document/' + doc.id}" th:title="${doc.id}" th:text="${doc.name}">测试项目类型</a>
+                        			<a th:href="${domainName + 'document/' + doc.id + '.html'}" th:title="${doc.id}" th:text="${doc.name}">测试项目类型</a>
                         			<ul>
                         				<li th:if="${d.parentId == doc.id}" th:id="${d.id}" th:each="d,status:${documentList}">
-                        					<a th:href="${domainName + 'document/' + d.id}" th:title="${d.id}" th:text="${d.name}" th:class="${d.id == document.id ? 'jstree-clicked' : ''}">普通文档类型</a>
-                        					<!-- <ul>
-		                        				<li th:id="${dd.id}" th:each="dd,status:${d.children}">
+                        					<a th:href="${domainName + 'document/' + d.id + '.html'}" th:title="${d.id}" th:text="${d.name}" th:class="${d.id == document.id ? 'jstree-clicked' : ''}">普通文档类型</a>
+                        					<ul>
+		                        				<li th:if="${d.parentId == dd.id}" th:id="${dd.id}" th:each="dd,status:${d.children}">
 		                        					<a th:href="${domainName + 'document/' + dd.id + '.html'}" th:title="${dd.id}" data-version="1541647449" th:text="${dd.name}" th:class="${dd.id == document.id ? 'jstree-clicked' : ''}">普通文档类型</a>
 		                        					<ul>
-				                        				<li th:id="${ddd.id}" th:each="ddd,status:${dd.children}">
+				                        				<li th:if="${dd.parentId == ddd.id}" th:id="${ddd.id}" th:each="ddd,status:${dd.children}">
 				                        					<a th:href="${domainName + 'document/' + ddd.id + '.html'}" th:title="${ddd.id}" data-version="1541647449" th:text="${ddd.name}" th:class="${ddd.id == document.id ? 'jstree-clicked' : ''}" >普通文档类型</a>
 				                        				</li>
 				                        			</ul>
 		                        				</li>
-		                        			</ul> -->
+		                        			</ul>
                         				</li>
                         			</ul>
                         		</li>
