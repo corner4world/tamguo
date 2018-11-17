@@ -75,11 +75,11 @@ function loadDocument($url, $id, $callback) {
             NProgress.start();
         },
         success : function (res) {
-            if (res.errcode === 0) {
-                var body = res.data.body;
-                var doc_title = res.data.doc_title;
-                var title = res.data.title;
-                var doc_info = res.data.doc_info;
+            if (res.code === 0) {
+                var body = res.result.content;
+                var doc_title = res.result.name;
+                var title = res.result.name;
+                var doc_info = res.result.markdown;
 
                 $body = body;
                 if (typeof $callback === "function" ) {

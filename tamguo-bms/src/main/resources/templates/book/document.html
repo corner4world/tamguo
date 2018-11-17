@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title th:text="${book.name + '-探果网'}">测试项目类型 - 探果网</title>
+    <title th:text="${document.name + '-探果网'}">测试项目类型 - 探果网</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta name="author" content="tamguo" />
     <meta name="site" content="https://www.tamguo.com" />
-    <meta name="keywords" th:content="${book.name}">
-    <meta name="description" th:content="${book.name}">
+    <meta name="keywords" th:content="${document.name}">
+    <meta name="description" th:content="${document.name}">
     <link th:href="${domainName + 'bootstrap/css/bootstrap.min.css'}" rel="stylesheet">
     <link th:href="${domainName + 'jstree/3.3.4/themes/default/style.min.css'}" rel="stylesheet">
     <link th:href="${domainName + 'font-awesome/css/font-awesome.min.css'}" rel="stylesheet">
@@ -32,7 +32,7 @@
         <div class="container-fluid">
             <div class="navbar-header pull-left manual-title">
                 <span class="slidebar" id="slidebar"><i class="fa fa-align-justify"></i></span>
-                <a href="https://www.tamguo.com" th:title="${book.name}" class="book-title" th:text="${book.name}">高中理科数学必修一</a>
+                <a href="https://www.tamguo.com" th:title="${document.name}" class="book-title" th:text="${document.name}">高中理科数学必修一</a>
                 <span style="font-size: 12px;font-weight: 100;"></span>
             </div>
             <div class="navbar-header pull-right manual-menu">
@@ -81,8 +81,8 @@
                         		<li th:id="${doc.id}">
                         			<a th:href="${domainName + 'document/' + doc.id}" th:title="${doc.id}" th:text="${doc.name}">测试项目类型</a>
                         			<ul>
-                        				<li th:id="${d.id}" th:each="d,status:${documentList}">
-                        					<a th:href="${domainName + 'document/' + d.id }" th:title="${d.id}" th:text="${d.name}" th:class="${d.id == document.id ? 'jstree-clicked' : ''}">普通文档类型</a>
+                        				<li th:if="${d.parentId == doc.id}" th:id="${d.id}" th:each="d,status:${documentList}">
+                        					<a th:href="${domainName + 'document/' + d.id}" th:title="${d.id}" th:text="${d.name}" th:class="${d.id == document.id ? 'jstree-clicked' : ''}">普通文档类型</a>
                         					<!-- <ul>
 		                        				<li th:id="${dd.id}" th:each="dd,status:${d.children}">
 		                        					<a th:href="${domainName + 'document/' + dd.id + '.html'}" th:title="${dd.id}" data-version="1541647449" th:text="${dd.name}" th:class="${dd.id == document.id ? 'jstree-clicked' : ''}">普通文档类型</a>
@@ -235,7 +235,7 @@
 $(function () {
     $("#searchList").on("click","a",function () {
         var id = $(this).attr("data-id");
-        var url = "[[${domainName}]]" + "/document/[[${book.id}]]";
+        var url = "[[${domainName}]]" + "/document/[[${document.id}]].html";
         $(this).parent("li").siblings().find("a").removeClass("active");
         $(this).addClass("active");
         loadDocument(url,id,function (body) {
