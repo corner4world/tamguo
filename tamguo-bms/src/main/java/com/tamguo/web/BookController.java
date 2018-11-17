@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.tamguo.common.utils.Result;
 import com.tamguo.modules.book.model.BookEntity;
 import com.tamguo.modules.book.model.DocumentEntity;
+import com.tamguo.modules.book.model.enums.DocumentStatusEnum;
 import com.tamguo.modules.book.service.IBookService;
 import com.tamguo.modules.book.service.IDocumentService;
 
@@ -39,11 +40,11 @@ public class BookController {
 		model.setViewName("book/book");
 		
 		// 查询第一章
-		List<DocumentEntity> documentList = iDocumentService.selectList(Condition.create().eq("book_id", id).eq("parent_id", "0").orderAsc(Arrays.asList("create_date")));
+		List<DocumentEntity> documentList = iDocumentService.selectList(Condition.create().eq("book_id", id).eq("status", DocumentStatusEnum.NORMAL.getValue()).eq("parent_id", "0").orderAsc(Arrays.asList("create_date")));
 		if(!CollectionUtils.isEmpty(documentList)) {
 			model.addObject("document", documentList.get(0));
 		}
-		model.addObject("documentList", iDocumentService.selectList(Condition.create().eq("book_id", id).orderAsc(Arrays.asList("create_date"))));
+		model.addObject("documentList", iDocumentService.selectList(Condition.create().eq("book_id", id).eq("status", DocumentStatusEnum.NORMAL.getValue()).orderAsc(Arrays.asList("create_date"))));
 		return model;
 	}
 	
@@ -52,7 +53,7 @@ public class BookController {
 	public ModelAndView document(@PathVariable String id ,  ModelAndView model) {
 		model.setViewName("book/document");
 		DocumentEntity document = iDocumentService.selectById(id);
-		List<DocumentEntity> documentList = iDocumentService.selectList(Condition.create().eq("book_id", document.getBookId()).orderAsc(Arrays.asList("create_date")));
+		List<DocumentEntity> documentList = iDocumentService.selectList(Condition.create().eq("book_id", document.getBookId()).eq("status", DocumentStatusEnum.NORMAL.getValue()).orderAsc(Arrays.asList("create_date")));
 		model.addObject("documentList", documentList);
 		model.addObject("document", document);
 		model.addObject("book", iBookService.selectById(document.getBookId()));
