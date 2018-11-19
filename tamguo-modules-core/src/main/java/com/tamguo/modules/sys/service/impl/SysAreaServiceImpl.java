@@ -6,12 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.tamguo.common.utils.Result;
+import com.tamguo.common.utils.SystemConstant;
+import com.tamguo.config.redis.CacheService;
 import com.tamguo.modules.sys.dao.SysAreaMapper;
 import com.tamguo.modules.sys.model.SysAreaEntity;
 import com.tamguo.modules.sys.model.condition.SysAreaCondition;
@@ -23,6 +27,8 @@ public class SysAreaServiceImpl extends ServiceImpl<SysAreaMapper, SysAreaEntity
 	
 	@Autowired
 	SysAreaMapper sysAreaMapper;
+	@Autowired
+	CacheService cacheService;
 
 	@Override
 	public List<SysAreaEntity> listData(SysAreaCondition condition) {
@@ -130,5 +136,30 @@ public class SysAreaServiceImpl extends ServiceImpl<SysAreaMapper, SysAreaEntity
 		 	oldParentOffice.setTreeLeaf(true);
 		 	sysAreaMapper.updateById(oldParentOffice);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=false)
+	@Override
+	public Result findAreaTree() {
+		if(cacheService.isExist(SystemConstant.AREA_ALL_TREE)) {
+			return Result.successResult(cacheService.getObject(SystemConstant.AREA_ALL_TREE));
+		}
+		List<SysAreaEntity> areaList = sysAreaMapper.selectList(Condition.create().eq("parent_code", "0"));
+		for(SysAreaEntity area : areaList) {
+			List<SysAreaEntity> childend = sysAreaMapper.selectList(Condition.create().eq("parent_code", area.getId()));
+			if(!CollectionUtils.isEmpty(childend)) {
+				area.setChildren(childend);
+			}
+			
+			for(SysAreaEntity a : childend) {
+				List<SysAreaEntity> ceList = sysAreaMapper.selectList(Condition.create().eq("parent_code", a.getId()));
+				if(!CollectionUtils.isEmpty(ceList)) {
+					a.setChildren(ceList);
+				}
+			}
+		}
+		cacheService.setObject(SystemConstant.AREA_ALL_TREE, areaList , 60 * 60 * 2);
+		return Result.successResult(areaList);
 	}
 }

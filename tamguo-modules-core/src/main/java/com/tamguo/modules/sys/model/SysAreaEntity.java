@@ -3,6 +3,7 @@ package com.tamguo.modules.sys.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -49,6 +50,9 @@ public class SysAreaEntity implements Serializable {
 	private String updateBy;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDate;
+	
+	@TableField(exist=false)
+	private List<SysAreaEntity> children;
 
 	public SysAreaEntity() {
 	}
@@ -183,5 +187,21 @@ public class SysAreaEntity implements Serializable {
 
 	public void setStatus(SysAreaStatusEnum status) {
 		this.status = status;
+	}
+
+	public List<SysAreaEntity> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SysAreaEntity> children) {
+		this.children = children;
+	}
+	
+	public String getValue() {
+		return getAreaCode();
+	}
+	
+	public String getLable() {
+		return getAreaName();
 	}
 }

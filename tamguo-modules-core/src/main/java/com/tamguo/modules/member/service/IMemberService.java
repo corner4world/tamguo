@@ -1,9 +1,10 @@
 package com.tamguo.modules.member.service;
 
+import com.baomidou.mybatisplus.service.IService;
 import com.tamguo.common.utils.Result;
 import com.tamguo.modules.member.model.MemberEntity;
 
-public interface IMemberService {
+public interface IMemberService extends IService<MemberEntity>{
 
 	/** 登录*/
 	public Result login(String username , String password);

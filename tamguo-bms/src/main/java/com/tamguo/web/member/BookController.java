@@ -36,6 +36,25 @@ public class BookController {
 	IBookCategoryService iBookCategoryService;
 	@Autowired
 	IDocumentService iDocumentService;
+	
+	@RequestMapping(value="list.html" , method = RequestMethod.GET)
+	public ModelAndView bookList(ModelAndView model) {
+		model.setViewName("member/book/list");
+		return model;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="getBookList" , method = RequestMethod.POST)
+	@ResponseBody
+	public Result getBookList(Integer pageNo , Integer pageSize) {
+		try {
+			List<BookEntity> bookList = iBookService.selectList(Condition.create().eq("owner", "tamguo"));
+			return Result.result(0, bookList, "查询成功！");
+		} catch (Exception e) {
+			logger.error(e.getMessage() , e );
+			return Result.failResult("查询失败");
+		}
+	}
 
 	@RequestMapping(value = "edit", method = RequestMethod.GET)
 	public ModelAndView edit(String bookId , ModelAndView model) {

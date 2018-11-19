@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.service.IService;
+import com.tamguo.common.utils.Result;
 import com.tamguo.modules.sys.model.SysAreaEntity;
 import com.tamguo.modules.sys.model.condition.SysAreaCondition;
 
@@ -18,5 +19,8 @@ public interface ISysAreaService extends IService<SysAreaEntity>{
 
 	/** 修改地区*/
 	void update(SysAreaEntity area);
+	
+	/** 树形*/
+	Result findAreaTree();
 
 }

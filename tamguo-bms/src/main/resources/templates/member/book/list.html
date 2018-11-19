@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>书籍列表 - 探果网</title>
+		<link rel="stylesheet" th:href="${domainName + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/iconfont.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/bookList.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/member/memberMain.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
+		<style type="text/css">
+		  .time {
+		    font-size: 13px;
+		    color: #999;
+		  }
+		  
+		  .bottom {
+		    margin-top: 13px;
+		    line-height: 12px;
+		  }
+		
+		  .button {
+		    padding: 0;
+		    float: right;
+		  }
+		
+		  .image {
+		    width: 100%;
+		    display: block;
+		  }
+		
+		  .clearfix:before,
+		  .clearfix:after {
+		      display: table;
+		      content: "";
+		  }
+		  
+		  .clearfix:after {
+		      clear: both
+		  }
+		</style>
+	</head>
+	<body  style="position: relative;height: auto;min-height: 100%;">
+	
+		<div class="head" th:fragment="memberHeader">
+			<div class="head-bar public">
+				<div class="logo">
+					<a target="_blank" th:href="${domainName}">
+						<img th:src="${domainName + 'images/logo_731bc32.png'}">
+					</a>
+					<p><span>书籍中心</span></p>
+				</div>
+				<ul class="nav">
+					<li><a th:href="${domainName + 'member/index.html'}">首页</a></li>
+					<li class="active"><a th:href="${domainName + 'member/book/list.html'}">书籍</a></li>
+					<li><a th:href="${domainName + 'member/account.html'}">帐号</a></li>
+				</ul>
+				<div class="mguser">
+					<div class="mguser-box">
+						<span th:text="${session.currMember.username}">tamguo</span>
+						<a th:href="${domainName + 'logout.html'}">退出</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="cnav">
+			<div class="public cnav_b">
+				<div class="cnav_left">
+					探果五步曲
+				</div>
+				<div class="cnav_right">
+					<ul>
+						<li><span class="Cnav_t">1</span><b>新建书籍</b></li>
+						<li><span>2</span>添加章节</li>
+						<li><span>3</span>书写内容</li>
+						<li><span>4</span>发布试卷</li>
+						<li><span>5</span>等待收益</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="plist test_public myPositionList ng-scope" style="padding:10px;">
+		    <div class="topbt topbt-2">
+		        <h3>我的试卷</h3>
+		    </div>
+		    <div class="pageShow" id="pageShow" style="padding:40px;">
+		        <div class="con_top addNewPaper">
+		            <span style="text-align: center;" id="addSiama"><a href="javascript:void(0)">+ 新建试卷</a></span>
+		        </div>
+				<div class="slide-list" style="width: 4050px; left: -2025px;"><ul class="list-col list-col5 list-express slide-item clone">
+				
+    		</div>
+		   <div class="clear" style="margin-top: 20px;"></div>
+		</div>
+		</div>
+		
+		<!-- 尾部-->
+		<div th:replace="include/memberFooter :: memberFooter"></div>
+		
+	</body>
+	<script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${domainName}]];
+	</script>
+    <!-- import JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+	<script type="text/javascript" th:src="${domainName + 'js/member/bookList.js'}" ></script>
+</html>

@@ -54,7 +54,7 @@ public class MemberPaperController {
 	public Result addPaperQuestionInfo(@RequestBody JSONObject data){
 		try {
 			String paperId ; String title ; String name ;String type;
-			paperId = data.getString("uid");
+			paperId = data.getString("id");
 			title = data.getString("title");
 			type = data.getString("type");
 			name = QuestionTypeEnum.getQuestionType(type).getDesc();

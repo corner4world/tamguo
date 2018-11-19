@@ -82,4 +82,7 @@ public class SystemConstant {
 	
 	/** 默认的章节根目录*/
 	public static final String CHAPTER_DEFAULT_ROOT_UID = "-1";
+
+	/** 所有地区*/
+	public static final String AREA_ALL_TREE = "AREAALL:";
 }
