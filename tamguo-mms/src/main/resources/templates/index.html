@@ -3,11 +3,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>会员中心 - 探果网</title>
-		<link rel="stylesheet" th:href="${domainName + 'css/reset.css'}" />
-		<link rel="stylesheet" th:href="${domainName + 'css/iconfont.css'}" />
-		<link rel="stylesheet" th:href="${domainName + 'css/member/index.css'}" />
-		<link rel="stylesheet" th:href="${domainName + 'css/member/memberMain.css'}" />
-		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/reset.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/iconfont.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/member/index.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/member/memberMain.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'static/images/favicon.png'}" />
 	</head>
 	<body>
 	<!-- 头部-->
@@ -15,7 +15,7 @@
 		<div class="head-bar public">
 			<div class="logo">
 				<a target="_blank" th:href="${domainName}">
-					<img th:src="${domainName + 'images/logo_731bc32.png'}">
+					<img th:src="${domainName + 'static/images/logo_731bc32.png'}">
 				</a>
 				<p><span>考试中心</span></p>
 			</div>
@@ -54,7 +54,7 @@
 		<div class="PCshow hide" style="display: block;">
 			<div class="examContent public">
 				<h2>
-				<img th:src="${domainName + 'images/member/index/face-xiao.png'}"
+				<img th:src="${domainName + 'static/images/member/index/face-xiao.png'}"
 					style="position: relative; top: -2px;"> &nbsp;<span
 					style="letter-spacing: 4px;"> 
 					<b id="userName" style="font-weight: normal; color: #2abcb8" th:text="${member.nickName}">tamguo</b>，您好！欢迎来到探果网会员中心
@@ -97,22 +97,22 @@
 				<div class="topNews" id="numList1">
 					<ul>
 						<li>
-							<img th:src="${domainName + 'images/member/index/peneil.png'}" style="margin-top: 26px;position: relative;top: -4px;"><br>
+							<img th:src="${domainName + 'static/images/member/index/peneil.png'}" style="margin-top: 26px;position: relative;top: -4px;"><br>
 							<span><b id="datab1" th:text="${member.downNum}">0</b> 次</span><br>
 							<span>下载总数</span>
 						</li>
 						<li>
-							<img th:src="${domainName + 'images/member/index/paperm.png'}" style="margin-top: 26px;position: relative;top: -4px;"><br>
+							<img th:src="${domainName + 'static/images/member/index/paperm.png'}" style="margin-top: 26px;position: relative;top: -4px;"><br>
 							<span><b id="datab2" th:text="${member.paperNum}">1</b> 套</span><br>
 							<span>试卷总数</span>
 						</li>
 						<li>
-							<img th:src="${domainName + 'images/member/index/peoplem.png'}" style="margin-top: 26px;position: relative;top: -4px;"><br>
+							<img th:src="${domainName + 'static/images/member/index/peoplem.png'}" style="margin-top: 26px;position: relative;top: -4px;"><br>
 							<span><b id="datab3" th:text="${member.hitsNum}">0</b> 次</span><br>
 							<span>阅读总数</span>
 						</li>
 						<li>
-							<img th:src="${domainName + 'images/member/index/testnew.png'}" style="margin-top: 26px;position: relative;top: -6px;"><br>
+							<img th:src="${domainName + 'static/images/member/index/testnew.png'}" style="margin-top: 26px;position: relative;top: -6px;"><br>
 							<span><b id="datab4" th:text="${member.questionNum}">19</b> 道</span><br>
 							<span>试题总数</span>
 						</li>

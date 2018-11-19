@@ -20,7 +20,7 @@ public class IndexController {
 	@Autowired
 	IMemberService iMemberService;
 	
-	@RequestMapping(value = "/index.html", method = RequestMethod.GET)
+	@RequestMapping(value = {"index.html" , "/"}, method = RequestMethod.GET)
 	public ModelAndView index(ModelAndView model){
 		model.setViewName("index");
 		model.addObject("member", iMemberService.selectById(ShiroUtils.getMemberId()));
