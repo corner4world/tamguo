@@ -57,7 +57,7 @@ public class LoginController {
 					subject.login(token);
 					
 					session.setAttribute("currMember", ShiroUtils.getMember());
-					response.sendRedirect("member/index.html");
+					response.sendRedirect("index.html");
 					return null;
 				} catch (UnknownAccountException e) {
 					result = Result.result(201, null, "用户名或密码有误，请重新输入或找回密码");

@@ -83,7 +83,7 @@ var vm = new Vue({
 	      		    if(response.data.code == 200){
 	      		    	vm.loading = false;
 	      		    	vm.$message({message: "注册成功",duration:500,type: 'success',onClose:function(){
-	      		    		window.location.href = "member/index.html";
+	      		    		window.location.href = "index.html";
 	      		    	}});
 					}else{
 						vm.loading = false;
