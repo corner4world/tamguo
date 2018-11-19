@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>找回密码_探果网</title>
+		<meta name="description" content="探果网携手高校名师为考生提供高效的智能备考服务，涵括领域有高考、财会类、建筑工程、职业资格、医卫类、计算机类和学历类等热门考试题库。拥有高校名师丰富的经验，优质的学习资料和备考全阶段的高效服务，助您丰富自我，不断前行！"/>
+		<meta name="keyword" content="探果网,高校名师,名师专访,名师教案,名师课堂试题库,试卷库,智能题库,历年真题,模拟试题,押题,预测试题,高考,会计证,会计从业,会计师,经济师,施工员,建造师,建筑师,造价师,职业资格,证券资格,考研,计算机考试,建筑考试,财会类,医卫类,护士资格,公务员,知识点,试题,试卷"/>
+		<link rel="stylesheet" th:href="${domainName + 'css/reset.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'css/password/securityCheck.css'}" />
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'images/favicon.png'}" />
+	</head>
+	<body>
+		<div id="wrapper" class="">
+			<div id="head">
+				<div class="mod-header">
+					<a th:href="${domainName + 'login.html'}"><img th:src="${domainName + 'images/logo_731bc32.png'}" alt="logo"></a>
+				</div>
+				<ul class="mod-userbar">
+					<li>
+						<a id="mod-userbar-login" th:href="${domainName + 'login.html'}">登录</a>
+					</li>
+					<li>|</li>
+					<li>
+						<a th:href="${domainName + 'register.html'}">注册</a>
+					</li>
+				</ul>
+			</div>
+			<div id="nav">
+				<div class="nav-2">
+					<div class="mod-nav clearfix">
+						<h1 class="page-type-notab">找回密码</h1>
+					</div>
+				</div>
+			</div>
+			<div id="content">
+				<div class="mod-forgot">
+					<ul class="mod-sub-nav">
+						<li class="mod-sub-list1">确认帐号</li>
+						<li class="mod-sub-list2 list2-active">安全验证</li>
+						<li class="mod-sub-list3">重置密码</li>
+					</ul>
+					<div class="mod-step-detail" style="position:relative;">
+						<div class="forgot-auth-container">
+							<p class="step-form-info">为了你的帐号安全，请完成身份验证</p>
+							<div class="forgot-auth-type m-t10" id="mobile-auth">
+								<form th:action="${domainName + 'password/securityCheck.html'}" method="post" class="form-2" id="form-mobile">
+									<div class="forgot-auth-title" th:text="${isEmail == '1' ? '邮箱验证' : '手机验证'}">手机验证</div>
+									<div class="form-2-item clearfix pass-input-container">
+										<label class="form-2-label" th:text="${isEmail == '1' ? '邮箱' : '手机号'}">手机号：</label>
+										<div class="form-2-content line-32" th:text="${isEmail == '0' ? result.result.mobile : result.result.email}">
+											156******86</div>
+									</div>
+									<p class="verify-method">验证码：</p>
+									<div class="form-2-item clearfix">
+										<div class="form-2-content pass-input-container vcode-container m-b-mobile">
+											<input type="text" th:class="${codeError == '1' ? 'pass-input vcode-input pass-input-new pass-input-error' : 'pass-input vcode-input pass-input-new'}" name="mobileVcode" value="" id="pass-input-mobileVcode" th:placeholder="${isEmail == '1' ? '邮箱验证码' : '手机验证码'}">
+											<div class="pass-button-timer" id="pass-button-new1">发送验证码</div>
+											<span class="pass-input-stip" id="forgot-mobileVcode-success"></span>
+											<div class="clear"></div>
+											<a class="pass-input-stip" id="forgot-mobileVcode-unreceived" style="margin-left:0;display:none;">收不到短信验证码?</a>
+											<span class="pass-input-msg" id="forgot-mobileVcode-tip" th:text="${codeError == '1' ? '验证码错误' : ''}"></span>
+										</div>
+									</div>
+									<div class="m-b30">
+										<input type="hidden" name="username" th:value="${result.result.username}"></input>
+										<input type="hidden" name="mobile" th:value="${result.result.mobile}"></input>
+										<input type="hidden" name="email" th:value="${result.result.email}"></input>
+										<input type="hidden" name="isEmail" th:value="${isEmail}"></input>
+										<input class="pass-button-submit pass-submit-form pass-button-new1" type="submit" name="" value="下一步" id="submit-mobile" t="mobile">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="foot">
+				<div class="mod-footer">
+					<div class="copy-box">2018&nbsp;©Tamguo</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script type="text/javascript" th:src="${domainName + 'js/jquery-1.8.3.min.js'}"></script>
+	<script type="text/javascript" th:src="${domainName + 'js/password/securityCheck.js'}"></script>
+	<script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${domainName}]];
+	</script>
+</html>

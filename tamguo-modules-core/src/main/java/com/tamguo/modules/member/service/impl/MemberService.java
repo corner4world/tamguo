@@ -134,7 +134,7 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 			return Result.result(201, null, "帐号不存在！");
 		}
 		
-		List<MemberEntity> members = memberMapper.selectList(Condition.create().eq("user_name", account).or().eq("mobile", account));
+		List<MemberEntity> members = memberMapper.selectList(Condition.create().eq("username", account).or().eq("mobile", account));
 		if(members.size() == 0){
 			return Result.result(201, null, "帐号不存在！");
 		}
