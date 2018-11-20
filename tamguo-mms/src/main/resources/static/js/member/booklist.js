@@ -11,6 +11,7 @@ var validateCategory = (rule, value, callback) => {
 var vm = new Vue({
 	el:'#container',
 	data:{
+		bookDomainName:null,
 		totalCount:0,
 		bookList:[],
 		categoryList:[],
@@ -103,3 +104,4 @@ var vm = new Vue({
 });
 vm.getBookList();
 vm.getBookCategory();
+vm.bookDomainName = bookDomainName;

@@ -105,7 +105,7 @@
 						                <h3 class="am-gallery-title">{{book.name}}</h3>
 						                <div class="am-gallery-desc">{{book.createDate}}</div>
 						            </a>
-						            <a class="am-btn am-btn-link" target="view_window">查看</a>
+						            <a class="am-btn am-btn-link" :href="bookDomainName + 'book/' + book.id + '.html'" target="view_window">查看</a>
 						            <a class="am-btn am-btn-link" :href="'editBook/' +book.id" style="float:right;">编辑</a>
 						        </div>
 						      </li>
@@ -153,6 +153,7 @@
     <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
 	<script type="text/javascript" th:inline="javascript">
 		var mainHttp = [[${domainName}]];
+		var bookDomainName = [[${bookDomainName}]];
 	</script>
 	<script type="text/javascript" th:src="${domainName + 'static/js/member/booklist.js'}" ></script>
 </html>

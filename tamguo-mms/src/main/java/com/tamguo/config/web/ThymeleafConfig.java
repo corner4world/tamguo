@@ -22,7 +22,7 @@ public class ThymeleafConfig implements EnvironmentAware{
 	    if(viewResolver != null) {
 	        Map<String, Object> vars = new HashMap<>();
 	        vars.put("domainName", env.getProperty("domain.name"));
-	        vars.put("adminDomain", env.getProperty("admin.domain.name"));
+	        vars.put("bookDomainName", env.getProperty("book.domain.name"));
 	        vars.put("PAPER_TYPE_ZHENTI", SystemConstant.ZHENGTI_PAPER_ID);
 	        vars.put("PAPER_TYPE_MONI", SystemConstant.MONI_PAPER_ID);
 	        vars.put("PAPER_TYPE_YATI", SystemConstant.YATI_PAPER_ID);
