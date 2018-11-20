@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>会员中心书籍列表 - 探果网</title>
+		<link rel="stylesheet" th:href="${domainName + 'static/css/reset.css' }" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/member/booklist.css' }" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/member/memberMain.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/amazeui/css/amazeui.css'}">
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'static/images/favicon.png'}" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
+		<style>
+		  .avatar-uploader .el-upload {
+		    border: 1px dashed #d9d9d9;
+		    border-radius: 6px;
+		    cursor: pointer;
+		    position: relative;
+		    overflow: hidden;
+		  }
+		  .avatar-uploader .el-upload:hover {
+		    border-color: #409EFF;
+		  }
+		  .avatar-uploader-icon {
+		    font-size: 28px;
+		    color: #8c939d;
+		    width: 178px;
+		    height: 178px;
+		    line-height: 178px;
+		    text-align: center;
+		  }
+		  .avatar {
+		    width: 178px;
+		    height: 178px;
+		    display: block;
+		  }
+		</style>
+	</head>
+	<body>
+		<!-- 头部-->
+		<div class="head" th:fragment="memberHeader">
+		<div class="head-bar public">
+				<div class="logo">
+					<a target="_blank" th:href="${domainName}">
+						<img th:src="${domainName + 'static/images/logo_731bc32.png'}">
+					</a>
+					<p><span>考试中心</span></p>
+				</div>
+				<ul class="nav">
+					<li><a th:href="${domainName + 'index.html'}">首页</a></li>
+					<li class="active"><a th:href="${domainName + 'booklist.html'}">书籍</a></li>
+					<li><a th:href="${domainName + 'account.html'}">帐号</a></li>
+				</ul>
+				<div class="mguser">
+					<div class="mguser-box">
+						<span th:text="${session.currMember.username}">tamguo</span>
+						<a th:href="${domainName + 'logout.html'}">退出</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="banner_list">
+	        <div class="cnav">
+	            <div class="public cnav_b">
+	                <div class="cnav_left">
+						探果五步曲
+					</div>
+					<div class="cnav_right">
+						<ul>
+							<li><span class="Cnav_t">1</span><b>新建书籍</b></li>
+							<li><span>2</span>添加章节</li>
+							<li><span>3</span>添加内容</li>
+							<li><span>4</span>发布试卷</li>
+							<li><span>5</span>等待收益</li>
+						</ul>
+					</div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    <div id="container" class="plist test_public  prof_t ng-scope">
+    		<div class="pronext" style="margin-right: 16px;"><a th:href="${domainName + 'member/paper.html'}" class="backM">返回试卷列表页</a></div>
+		    <div class="topbt topbt-2">
+		        <h3>管理书籍</h3>
+		    </div>
+		    <div class="test">
+		        <span style="margin-right: 10px;display: inline-block;line-height:20px;"><span style="font-weight: bolder;font-size: 16px;    display: inline-block;overflow: hidden; white-space: nowrap;text-overflow: ellipsis;max-width: 304px;position:relative;top:5px;" class="ng-binding">书籍列表</span></span>
+		    </div>
+		    <div class="addQues_btn">
+		        <span><a @click="bookDialogVisible = true">+ 添加书籍</a></span>
+		    </div>
+		    <div class="apa_ri">
+		        <div class="apa_ri-two">
+		            <div class="apa_ri-qx">
+		                <span style="position: relative;top: 3px;">共 <em class="ng-binding">{{totalCount}}</em> 项查询结果</span>
+		            </div>
+		            <div class="quesesBox quesManBox">
+						 <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
+							  am-avg-md-3 am-avg-lg-4 am-gallery-bordered" data-am-gallery="{  }" >
+						      <li v-for="book in bookList">
+						        <div class="am-gallery-item">
+						            <a :href="'editBook/' +book.id">
+						              <img :src="book.bookImage"  alt="远方 有一个地方 那里种有我们的梦想" height="200" width="200"/>
+						                <h3 class="am-gallery-title">{{book.name}}</h3>
+						                <div class="am-gallery-desc">{{book.createDate}}</div>
+						            </a>
+						        </div>
+						      </li>
+						  </ul>
+		            </div>
+		        </div>
+    		</div>
+    		
+    		<el-dialog title="添加书籍" :visible.sync="bookDialogVisible">
+    			  <el-form :model="book" :rules="rules" ref="book" label-width="80px" class="demo-ruleForm">
+    			  	  <el-form-item label="分类" prop="categoryIds">
+						    <el-cascader
+							    :options="categoryList"
+							    v-model="book.categoryIds"
+							    @active-item-change="handleItemChange">
+							  </el-cascader>
+							  
+					  </el-form-item> 
+					  <el-form-item label="书籍名称" prop="name">
+						    <el-input v-model="book.name"></el-input>
+					  </el-form-item>
+					  <el-form-item label="书籍封面" prop="imageUrl">
+						    <el-upload class="avatar-uploader" th:action="${domainName + 'uploadImage'}"
+							  :show-file-list="false"
+							  :on-success="handleAvatarSuccess"
+							  :before-upload="beforeAvatarUpload">
+							  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+							  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+							</el-upload>
+					  </el-form-item>
+				  </el-form>
+				  <div slot="footer" class="dialog-footer">
+				    <el-button @click="bookDialogVisible = false">取 消</el-button>
+				    <el-button type="primary" @click="saveBook">确 定</el-button>
+				  </div>
+			</el-dialog>
+		</div>
+<!-- 尾部-->
+<div th:replace="include/footer :: footer"></div>
+</body>
+	
+	<!-- 引入组件库 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${domainName}]];
+	</script>
+	<script type="text/javascript" th:src="${domainName + 'static/js/member/booklist.js'}" ></script>
+</html>

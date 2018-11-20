@@ -129,5 +129,8 @@
     right: 5px;
     top: 0px;
 }
-
+img, input, fieldset {
+    border: 0 none;
+    vertical-align: middle;
+}
 

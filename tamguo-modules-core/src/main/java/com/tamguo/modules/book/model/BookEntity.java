@@ -2,8 +2,10 @@ package com.tamguo.modules.book.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
@@ -23,6 +25,9 @@ public class BookEntity extends Model<BookEntity>{
 	private String seoDescription;
 	private Date createDate;
 	private Date updateDate;
+	
+	@TableField(exist=false)
+	private List<String> categoryIds;
 	
 	public String getId() {
 		return id;
@@ -88,5 +93,10 @@ public class BookEntity extends Model<BookEntity>{
 	protected Serializable pkVal() {
 		return getId();
 	}
-	
+	public List<String> getCategoryIds() {
+		return categoryIds;
+	}
+	public void setCategoryIds(List<String> categoryIds) {
+		this.categoryIds = categoryIds;
+	}
 }
