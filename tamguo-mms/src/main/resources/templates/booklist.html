@@ -100,11 +100,13 @@
 							  am-avg-md-3 am-avg-lg-4 am-gallery-bordered" data-am-gallery="{  }" >
 						      <li v-for="book in bookList">
 						        <div class="am-gallery-item">
-						            <a :href="'editBook/' +book.id">
+						            <a href="javascipt:(0);">
 						              <img :src="book.bookImage"  alt="远方 有一个地方 那里种有我们的梦想" height="200" width="200"/>
 						                <h3 class="am-gallery-title">{{book.name}}</h3>
 						                <div class="am-gallery-desc">{{book.createDate}}</div>
 						            </a>
+						            <a class="am-btn am-btn-link" target="view_window">查看</a>
+						            <a class="am-btn am-btn-link" :href="'editBook/' +book.id" style="float:right;">编辑</a>
 						        </div>
 						      </li>
 						  </ul>
