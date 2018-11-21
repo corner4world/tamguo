@@ -43,7 +43,7 @@ public class RegisterController {
 		return iMemberService.checkMobile(mobile);
 	}
 	
-	@RequestMapping(value = "/subRegister.html", method = RequestMethod.POST)
+	@RequestMapping(value = "/subRegister", method = RequestMethod.POST)
 	@ResponseBody
 	public Result subRegister(@RequestBody MemberEntity member , HttpSession session){
 		Result result = iMemberService.register(member);

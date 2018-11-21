@@ -63,9 +63,6 @@ var vm = new Vue({
           verifyCode:[
         	  { required: true, message: '请输入验证码', trigger: 'blur' },
           ],
-          kemuId:[
-        	  {required: true, message: '请选择科目', trigger: 'change'}
-          ],
           email:[
         	  { required: true, message: '请输入邮箱地址', trigger: 'blur' },
               { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
@@ -78,11 +75,10 @@ var vm = new Vue({
          this.$refs[formName].validate((valid) => {
 	          if (valid) {
 	        	vm.loading = true;
-	    		vm.member.subjectId = vm.member.kemuId[0];
-	            axios({method: 'post',url: mainHttp + 'subRegister.html',data: vm.member}).then(function(response){
+	            axios({method: 'post',url: mainHttp + 'subRegister',data: vm.member}).then(function(response){
 	      		    if(response.data.code == 200){
 	      		    	vm.loading = false;
-	      		    	vm.$message({message: "注册成功",duration:500,type: 'success',onClose:function(){
+	      		    	vm.$message({message: "注册成功",duration:100,type: 'success',onClose:function(){
 	      		    		window.location.href = "index.html";
 	      		    	}});
 					}else{
@@ -100,16 +96,11 @@ var vm = new Vue({
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-      getCourses:function(){
-    	  axios.get(mainHttp + 'subject/getSubjectTree.html').then(function(response){
-    		  vm.courses = response.data.result;
-    	  });  
-      },
       sendSms:function(){
     	  // 校验成功才能发送短信
     	  vm.$refs['member'].validateField('mobile',function(message){
     		  if(message == ""){
-    			  axios.get(mainHttp + 'sms/sendFindPasswordSms.html?mobile='+vm.member.mobile).then(function(response){
+    			  axios.get(mainHttp + 'sendFindPasswordSms?mobile='+vm.member.mobile).then(function(response){
             		  if(response.data.code == 200){
             			  vm.$message({message: response.data.message,type: 'success'});
             		  }else{
@@ -121,4 +112,3 @@ var vm = new Vue({
       }
     }
   });
-vm.getCourses();

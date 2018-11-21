@@ -17,7 +17,7 @@
 		    <div id="head">
 		        <div class="mod-header">
 		            <a th:href="${domainName}" style="display: block;">
-		                <img th:src="${domainName + 'images/logo_731bc32.png'}" alt="logo"></a>
+		                <img th:src="${domainName + 'static/images/logo_731bc32.png'}" alt="logo"></a>
 		        </div>
 		    </div>
 		    <div id="nav">
@@ -33,12 +33,6 @@
 		                <el-form :model="member" :rules="rules" ref="member" label-width="100px" class="demo-ruleForm" v-loading="loading">
 						  <el-form-item label="用戶名" prop="username">
 						    <el-input v-model="member.username"></el-input>
-						  </el-form-item>
-						  <el-form-item label="类型" prop="kemuId">
-						    <el-cascader
-							    :options="courses"
-							    v-model="member.kemuId">
-							  </el-cascader>
 						  </el-form-item>
 						  <el-form-item label="手机号" prop="mobile">
 						    <el-input v-model="member.mobile"></el-input>

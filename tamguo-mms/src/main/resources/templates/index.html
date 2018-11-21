@@ -14,10 +14,10 @@
 	<div class="head" th:fragment="memberHeader">
 		<div class="head-bar public">
 			<div class="logo">
-				<a target="_blank" th:href="${domainName}">
+				<a th:href="${tamguoDomainName}">
 					<img th:src="${domainName + 'static/images/logo_731bc32.png'}">
 				</a>
-				<p><span>考试中心</span></p>
+				<p><span>会员中心</span></p>
 			</div>
 			<ul class="nav">
 				<li class="active"><a th:href="${domainName + 'index.html'}">首页</a></li>
@@ -69,7 +69,7 @@
 						<tbody><tr>
 							<td>
 							<span class="logoV">
-							<img th:src="${domainName + member.avatar}">
+							<img th:src="${domainName +'static'+ member.avatar}">
 							</span>
 							</td>
 						</tr>
@@ -119,9 +119,9 @@
 					</ul>
 					<div class="newExam">
 						<div class="add-p">
-							<a th:href="${domainName + 'member/paper.html'}"><i class="iconfont icon-jia" style="font-size:130px;"></i></a>
+							<a th:href="${domainName + 'booklist.html'}"><i class="iconfont icon-jia" style="font-size:130px;"></i></a>
 						</div>
-						<a th:href="${domainName + 'member/paper.html'}">开始新建试卷</a>
+						<a th:href="${domainName + 'booklist.html'}">开始新建试卷</a>
 					</div>
 				</div>
 			</div>

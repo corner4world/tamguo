@@ -3,6 +3,8 @@ package com.tamguo.web.interceptor;
 import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -17,6 +19,9 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 
 	/** 登录URL */
 	private String loginUrl = DEFAULT_LOGIN_URL;
+	
+	@Value("${member.domain.name}")
+	private String memberDomainName;
 	
 	/**
 	 * 请求前处理
@@ -43,9 +48,9 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 			} else {
 				if (request.getMethod().equalsIgnoreCase("GET")) {
 					String redirectUrl = request.getQueryString() != null ? request.getRequestURI() + "?" + request.getQueryString() : request.getRequestURI();
-					response.sendRedirect(request.getContextPath() + loginUrl + "?" + REDIRECT_URL_PARAMETER_NAME + "=" + URLEncoder.encode(redirectUrl, "UTF-8"));
+					response.sendRedirect(memberDomainName + loginUrl + "?" + REDIRECT_URL_PARAMETER_NAME + "=" + URLEncoder.encode(redirectUrl, "UTF-8"));
 				} else {
-					response.sendRedirect(request.getContextPath() + loginUrl);
+					response.sendRedirect(memberDomainName + request.getContextPath() + loginUrl);
 				}
 				return false;
 			}

@@ -20,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(memberInterceptor).addPathPatterns("/**").excludePathPatterns("/login.html","/register.html","/password/**","/captcha.jpg" , "/submitLogin.html" , "/miniLogin.html","/static/**");
+		registry.addInterceptor(memberInterceptor).addPathPatterns("/**").excludePathPatterns("/login.html","/register.html","/password/**","/captcha.jpg" , "/submitLogin.html" , "/miniLogin.html","/static/**","/sendFindPasswordSms","/subRegister");
 	}
 	
     @Override
