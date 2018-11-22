@@ -47,6 +47,7 @@ public class BookController {
 		model.addObject("documentList", iDocumentService.selectList(Condition.create().eq("book_id", id).eq("status", DocumentStatusEnum.NORMAL.getValue()).orderAsc(Arrays.asList("create_date"))));
 		return model;
 	}
+
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="document/{id}.html" , method=RequestMethod.GET)

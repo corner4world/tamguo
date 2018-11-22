@@ -28,6 +28,8 @@ public class BookEntity extends Model<BookEntity>{
 	
 	@TableField(exist=false)
 	private List<String> categoryIds;
+	@TableField(exist=false)
+	private String memberName;
 	
 	public String getId() {
 		return id;
@@ -98,5 +100,11 @@ public class BookEntity extends Model<BookEntity>{
 	}
 	public void setCategoryIds(List<String> categoryIds) {
 		this.categoryIds = categoryIds;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 }

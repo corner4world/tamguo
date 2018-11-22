@@ -1,0 +1,29 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="header" th:fragment="header">
+	<div class="menu">
+		<div class="menu-contain clearfix">
+			<a th:href="${domainName}"><span class="container-logo"></span></a>		
+			<div class="contain-login">
+                <div class="login-container">
+                    <i th:if="${session.currMember == null}" class="login-icon iconfont icon-yonghu"></i><span th:if="${session.currMember == null}">登录</span>
+                    <img style="border-radius:55px;" th:if="${session.currMember != null}" class="user-photo" th:src="${domainName + session.currMember.avatar}" alt="用户头像">
+                    <i th:if="${session.currMember != null}" class="photo-icon iconfont icon-down" style="transform: rotate(0deg);"></i>
+                </div>
+                <ul th:class="${currMember == null} ? 'login-option dis-none' : 'login-option'" id="loginOptionUl">
+                    <li><a th:href="${memberDomain + 'index.html'}" title="我的首页">我的首页</a></li>
+                    <li><a th:href="${memberDomain + 'index.html'}" title="账号设置">账号设置</a></li>
+                    <li><a th:href="${memberDomain + 'logout.html'}" title="退出">退出</a></li>
+                </ul>
+            </div>
+			<ul class="contain-ul">
+                <li class="contain-li jiaoshirukou">
+                    <a th:href="${memberDomain + 'regist.html'}" title="注册">注册</a><i class="li-icon iconfont icon-jiaoshi1"></i>
+                </li>
+            </ul>
+          </div>
+	</div>
+</div>
+<script type="text/javascript" th:inline="javascript" th:fragment="header">
+var mainHttp = [[${domainName}]];
+</script>
