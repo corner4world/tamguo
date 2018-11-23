@@ -35,14 +35,15 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
-	public ModelAndView login(ModelAndView model){
+	public ModelAndView login(String redirectUrl , ModelAndView model){
 		model.setViewName("login");
 		model.addObject("isVerifyCode" , "0");
+		model.addObject("redirectUrl", redirectUrl);
 		return model;
 	}
 	
 	@RequestMapping(value = "/submitLogin.html", method = RequestMethod.POST)
-	public ModelAndView submitLogin(String  username , String password , String verifyCode , ModelAndView model , HttpSession session , HttpServletResponse response) throws IOException{
+	public ModelAndView submitLogin(String  username , String password , String verifyCode , String redirectUrl , ModelAndView model , HttpSession session , HttpServletResponse response) throws IOException{
 		Result result = Result.successResult(null);
 		if(StringUtils.isEmpty(verifyCode)) {
 			result = Result.result(202, null, "请输入验证码");
@@ -57,7 +58,11 @@ public class LoginController {
 					subject.login(token);
 					
 					session.setAttribute("currMember", ShiroUtils.getMember());
-					response.sendRedirect("index.html");
+					if(!StringUtils.isEmpty(redirectUrl)) {
+						response.sendRedirect(redirectUrl);
+					}else {
+						response.sendRedirect("index.html");
+					}
 					return null;
 				} catch (UnknownAccountException e) {
 					result = Result.result(201, null, "用户名或密码有误，请重新输入或找回密码");

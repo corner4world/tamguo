@@ -31,6 +31,7 @@
 						<div class="login-wrapper">
 							<div id="login" class="tang-pass-login animation" style="display: block; visibility: visible; opacity: 1;">
 								<form id="TANGRAM__PSP_3__form" th:action="${domainName + 'submitLogin.html'}" class="pass-form pass-form-normal" method="POST" autocomplete="off">
+									<input type="hidden" id="redirectUrl" name="redirectUrl" th:value="${redirectUrl}"></input>
 									<p class="pass-form-logo">用户名密码登录</p>
 									<p id="TANGRAM__PSP_3__errorWrapper" class="pass-generalErrorWrapper">
 										<span id="TANGRAM__PSP_3__error" class="pass-generalError pass-generalError-error" th:text="${msg}"></span>

@@ -20,7 +20,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 	/** 登录URL */
 	private String loginUrl = DEFAULT_LOGIN_URL;
 	
-	@Value("${tamguo.admin.name}")
+	@Value("${tamguo.domain.name}")
 	private String tamguoDomainName;
 	
 	/**

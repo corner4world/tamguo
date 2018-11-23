@@ -42,17 +42,51 @@
 
             <div class="btn-group dropdown-menu-right pull-right slidebar visible-xs-inline-block visible-sm-inline-block">
                 <button class="btn btn-default dropdown-toggle hidden-lg" type="button" data-toggle="dropdown"><i class="fa fa-align-justify"></i></button>
-                <ul class="dropdown-menu" role="menu">
-                    
-                    <li><a th:href="${memberDomain + 'login.html'}" title="用户登录">登录</a></li>
-                    
+                <ul th:if="${session.currMember == null}" class="dropdown-menu" role="menu">
+                    <li><a th:href="${memberDomain + 'login.html?redirectUrl=' + domainName}" title="用户登录">登录</a></li>
+                </ul>
+                <ul th:if="${session.currMember != null}" class="dropdown-menu" role="menu">
+                      <li>
+                          <a th:href="${memberDomain}" title="个人中心"><i class="fa fa-user" aria-hidden="true"></i> 个人中心</a>
+                      </li>
+                      <li>
+                          <a th:href="${memberDomain + 'booklist.html'}" title="我的书籍"><i class="fa fa-book" aria-hidden="true"></i> 我的项目</a>
+                      </li>
+                      <li>
+                          <a th:href="${memberDomain + 'logout.html'}" title="退出登录"><i class="fa fa-sign-out"></i> 退出登录</a>
+                      </li>
                 </ul>
             </div>
 
         </div>
         <nav class="navbar-collapse hidden-xs hidden-sm" role="navigation">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a th:href="${memberDomain + 'login.html'}" title="用户登录">登录</a></li>
+            <ul th:if="${session.currMember == null}" class="nav navbar-nav navbar-right">
+                <li><a th:href="${memberDomain + 'login.html?redirectUrl=' + domainName}" title="用户登录">登录</a></li>
+            </ul>
+            
+             <ul th:if="${session.currMember != null}" class="nav navbar-nav navbar-right">
+                <li>
+                    <div class="img user-info" data-toggle="dropdown">
+                        <img th:src="${tamguoDomain + session.currMember.avatar}" onerror="this.src='https://book.tamguo.com/images/avatar.png';" class="img-circle userbar-avatar" th:alt="${session.currMember.nickName}">
+                        <div class="userbar-content">
+                            <span th:text="${session.currMember.nickName}">admin</span>
+                            <div></div>
+                        </div>
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </div>
+                    <ul class="dropdown-menu user-info-dropdown" role="menu">
+                        <li>
+                            <a th:href="${memberDomain}" title="个人中心"><i class="fa fa-user" aria-hidden="true"></i> 个人中心</a>
+	                    </li>
+	                    <li>
+	                        <a th:href="${memberDomain + 'booklist.html'}" title="我的书籍"><i class="fa fa-book" aria-hidden="true"></i> 我的项目</a>
+	                    </li>
+	                    <li>
+	                        <a th:href="${memberDomain + 'logout.html'}" title="退出登录"><i class="fa fa-sign-out"></i> 退出登录</a>
+	                    </li>
+                    </ul>
+                </li>
+                
             </ul>
         </nav>
     </div>
