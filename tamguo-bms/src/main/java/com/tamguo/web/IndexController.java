@@ -3,6 +3,7 @@ package com.tamguo.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -43,5 +44,11 @@ public class IndexController {
 
 		return model;
 	}
+	
+    @RequestMapping(value = "/baidu_verify_buLyB5tU19.html", method = RequestMethod.GET)
+    public ModelAndView baidu_verify_5agfTbCO3Q(ModelAndView model) {
+    	model.setViewName("thirdparty/baidu_verify_buLyB5tU19");
+        return model;
+    }
 	
 }
