@@ -113,4 +113,16 @@ public class BookController {
 		}
 		return entitys;
 	}
+	
+	@RequestMapping(value="book/{id}.html" , method=RequestMethod.GET)
+	@ResponseBody
+	public Result book(@PathVariable String id) {
+		try {
+			BookEntity book =  iBookService.selectById(id);
+			return Result.result(0, book, "查询成功！");
+		} catch (Exception e) {
+			logger.error(e.getMessage() , e);
+			return Result.result(1, null, "查询失败！");
+		}
+	}
 }

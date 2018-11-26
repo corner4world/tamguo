@@ -41,10 +41,10 @@
 				</div>
 				<div class="cnav_right">
 					<ul>
-						<li><span class="Cnav_t">1</span><b>新建试卷</b></li>
-						<li><span>2</span>添加子卷</li>
-						<li><span>3</span>添加试题</li>
-						<li><span>4</span>发布试卷</li>
+						<li><span class="Cnav_t">1</span><b>新建书籍</b></li>
+						<li><span>2</span>添加章节</li>
+						<li><span>3</span>添加内容</li>
+						<li><span>4</span>发布书籍</li>
 						<li><span>5</span>等待收益</li>
 					</ul>
 				</div>
@@ -104,7 +104,7 @@
 						<li>
 							<img th:src="${domainName + 'static/images/member/index/paperm.png'}" style="margin-top: 26px;position: relative;top: -4px;"><br>
 							<span><b id="datab2" th:text="${member.paperNum}">1</b> 套</span><br>
-							<span>试卷总数</span>
+							<span>书籍总数</span>
 						</li>
 						<li>
 							<img th:src="${domainName + 'static/images/member/index/peoplem.png'}" style="margin-top: 26px;position: relative;top: -4px;"><br>
@@ -114,14 +114,14 @@
 						<li>
 							<img th:src="${domainName + 'static/images/member/index/testnew.png'}" style="margin-top: 26px;position: relative;top: -6px;"><br>
 							<span><b id="datab4" th:text="${member.questionNum}">19</b> 道</span><br>
-							<span>试题总数</span>
+							<span>章节总数</span>
 						</li>
 					</ul>
 					<div class="newExam">
 						<div class="add-p">
 							<a th:href="${domainName + 'booklist.html'}"><i class="iconfont icon-jia" style="font-size:130px;"></i></a>
 						</div>
-						<a th:href="${domainName + 'booklist.html'}">开始新建试卷</a>
+						<a th:href="${domainName + 'booklist.html'}">开始新建书籍</a>
 					</div>
 				</div>
 			</div>

@@ -101,11 +101,12 @@
 						      <li v-for="book in bookList">
 						        <div class="am-gallery-item">
 						            <a href="javascipt:(0);">
-						              <img :src="book.bookImage"  alt="远方 有一个地方 那里种有我们的梦想" height="200" width="200"/>
+						              <img :src="book.bookImage" onerror="this.src='https://book.tamguo.com/images/book.jpg';" height="200" width="200"/>
 						                <h3 class="am-gallery-title">{{book.name}}</h3>
 						                <div class="am-gallery-desc">{{book.createDate}}</div>
 						            </a>
 						            <a class="am-btn am-btn-link" :href="bookDomainName + 'book/' + book.id + '.html'" target="view_window">查看</a>
+						            <a class="am-btn am-btn-link" @click="showEditDialog(book.id)">修改</a>
 						            <a class="am-btn am-btn-link" :href="'editBook/' +book.id" style="float:right;">编辑</a>
 						        </div>
 						      </li>

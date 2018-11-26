@@ -86,6 +86,19 @@ var vm = new Vue({
 		          }
 	        });
 		},
+	    showEditDialog:function(id){
+	    	axios.get('book/'+id + '.html').then(function (response) {
+  			    console.log(response);
+  			    if(response.data.code == 0){
+  			    	vm.bookDialogVisible = true;
+  			    	vm.book = result.data.result;
+  			    }else{
+  			    	this.$message.error(response.data.message);
+  			    }
+	  		  }).catch(function (error) {
+	  			    console.log(error);
+	  		  });
+	    },
 		handleAvatarSuccess(res, file) {
 	        this.imageUrl = res.result.filePath;
 	    },
