@@ -91,7 +91,8 @@ var vm = new Vue({
   			    console.log(response);
   			    if(response.data.code == 0){
   			    	vm.bookDialogVisible = true;
-  			    	vm.book = result.data.result;
+  			    	vm.book = response.data.result;
+  			    	vm.imageUrl = vm.book.bookImage;
   			    }else{
   			    	this.$message.error(response.data.message);
   			    }

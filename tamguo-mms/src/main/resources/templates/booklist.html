@@ -117,6 +117,7 @@
     		
     		<el-dialog title="添加书籍" :visible.sync="bookDialogVisible">
     			  <el-form :model="book" :rules="rules" ref="book" label-width="80px" class="demo-ruleForm">
+    			  	  <input type="hidden" v-model="book.id"></input>
     			  	  <el-form-item label="分类" prop="categoryIds">
 						    <el-cascader
 							    :options="categoryList"

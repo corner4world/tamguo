@@ -2,6 +2,7 @@ package com.tamguo.modules.book.service.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,11 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, BookEntity> impleme
 		book.setSeoDescription(book.getName());
 		book.setSeoKeywords(book.getName());
 		book.setSeoTitle(book.getName());
-		this.insert(book);
+		if(StringUtils.isEmpty(book.getId())) {
+			this.insert(book);
+		}else {
+			this.updateById(book);
+		}
 	}
 
 }
