@@ -29,7 +29,7 @@ public class FileController {
 	
 	@Value("${file.storage.path}")
 	private String fileStoragePath;
-	@Value("${domain.name}")
+	@Value("${tamguo.domain.name}")
 	private String domainName;
 	@Autowired
 	private IFileEntityService iFileEntityService;

@@ -50,7 +50,7 @@ public class DocumentController {
 	
 	@Value("${file.storage.path}")
 	private String fileStoragePath;
-	@Value("${domain.name}")
+	@Value("${tamguo.domain.name}")
 	private String domainName;
 	
 	@SuppressWarnings("unchecked")

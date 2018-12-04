@@ -21,6 +21,8 @@ import com.tamguo.modules.book.model.DocumentEntity;
 import com.tamguo.modules.book.model.enums.DocumentStatusEnum;
 import com.tamguo.modules.book.service.IBookService;
 import com.tamguo.modules.book.service.IDocumentService;
+import com.tamguo.modules.member.model.MemberEntity;
+import com.tamguo.modules.member.service.IMemberService;
 
 @Controller
 public class BookController {
@@ -31,14 +33,19 @@ public class BookController {
 	private IBookService iBookService;
 	@Autowired
 	private IDocumentService iDocumentService;
+	@Autowired
+	private IMemberService iMemberService;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="book/{id}.html" , method=RequestMethod.GET)
 	public ModelAndView book(@PathVariable String id ,  ModelAndView model) {
 		BookEntity book = iBookService.selectById(id);
+		MemberEntity member = iMemberService.selectById(book.getOwner());
+		if(member != null) {
+			book.setOwner(member.getUsername());
+		}
 		model.addObject("book", book);
 		model.setViewName("book/book");
-		
 		// 查询第一章
 		List<DocumentEntity> documentList = iDocumentService.selectList(Condition.create().eq("book_id", id).eq("status", DocumentStatusEnum.NORMAL.getValue()).eq("parent_id", "0").orderAsc(Arrays.asList("create_date")));
 		if(!CollectionUtils.isEmpty(documentList)) {
