@@ -8,6 +8,8 @@
 		<link rel="stylesheet" th:href="${domainName + 'static/css/member/index.css'}" />
 		<link rel="stylesheet" th:href="${domainName + 'static/css/member/memberMain.css'}" />
 		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'static/images/favicon.png'}" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
 	</head>
 	<body>
 	<!-- 头部-->
@@ -51,7 +53,7 @@
 			</div>
 		</div>
 		
-		<div class="PCshow hide" style="display: block;">
+		<div class="PCshow hide" style="display: block;" id="container">
 			<div class="examContent public">
 				<h2>
 				<img th:src="${domainName + 'static/images/member/index/face-xiao.png'}"
@@ -87,9 +89,9 @@
 							<b style="margin-left:14px;color:#009688;" id="examCandsNum" th:text="${member.point + ' '}">1000</b>分
 						</li>
 						<li style="padding-left: 24px;">余额：<b style="margin-left: 19px;color:#009688;" th:text="${#numbers.formatDecimal(member.amount,1,2) + ' '}">50</b>元</li>
-						<li style="padding-left: 21px;">最近登录时间：<b style="margin-left: 13px;" th:text="${#dates.format(member.lastLoginTime * 1000, 'yyyy/MM/ss HH:mm')}">2018-04-27 10:32</b></li>
+						<li style="padding-left: 21px;">最近登录时间：<b style="margin-left: 13px;" th:text="${#dates.format(member.lastLoginTime, 'yyyy/MM/ss HH:mm')}">2018-04-27 10:32</b></li>
 					</ul>
-					<a th:href="${domainName}" target="_blank" id="addMoney">我的钱包</a>
+					<a @click="withdrawMoney" target="_blank" id="addMoney">提现</a>
 				</div>
 			</div>
 			<!-- 右侧信息显示 -->
@@ -130,5 +132,23 @@
 		
 		<!-- 尾部-->
 		<div th:replace="include/footer :: footer"></div>
+		
+		<!-- 引入组件库 -->
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
+	    <script type="text/javascript">
+	 // Vue
+	    var vm = new Vue({
+	    	el:'#container',
+	    	data:{
+	    	},
+	    	methods: {
+	    		withdrawMoney:function(){
+	    			this.$message.error('提现功能在开发中,可联系管理员提现。 微信号：TamGooo ');	
+	    		} 
+	    	}
+	    });
+	    </script>
 </body>
 </html>

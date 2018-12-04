@@ -3,7 +3,7 @@ content="IE=edge"><meta name="keywords" content="PoweredByJeeSiteV4.0"/><meta ht
 content="no-cache, no-store, must-revalidate"/><meta name="description" content="PoweredByJeeSiteV4.0"/><meta
 content="no-cache" http-equiv="Pragma"/><meta http-equiv="Expires" content="0"/><meta
 content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
-<title>科目管理 - Tamguo</title>
+<title>奖励积分 - TamGuo OMS</title>
 <script th:src="${setting.domain + 'global.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-1.12.4.min.js'}"></script>
 <script th:src="${setting.domain + 'jquery/jquery-migrate-1.4.1.min.js'}"></script>
@@ -12,39 +12,41 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <link rel="stylesheet" th:href="${setting.domain + 'bootstrap/css/bootstrap.min.css'}">
 <link rel="stylesheet" th:href="${setting.domain + 'select2/4.0/select2.css'}">
 <link rel="stylesheet" th:href="${setting.domain + 'icheck/1.0/minimal/grey.css'}">
+<link rel="stylesheet" th:href="${setting.domain + 'jqGrid/4.7/css/ui.jqgrid.css'}">
 <link rel="stylesheet" th:href="${setting.domain + 'adminlte/css/AdminLTE.min.css'}">
 <link rel="stylesheet" th:href="${setting.domain + 'common/jeesite.css'}">
 <link rel="stylesheet" th:href="${setting.domain + 'common/common.css'}">
 </head><body class="hold-transition ">
 <div class="wrapper"><div class="main-content">
 	<div class="box box-main">
-		<div class="box-header">
+		<div class="box-header with-border">
 			<div class="box-title">
-				<i class="fa icon-trophy"></i> 新增科目
+				<i class="fa icon-people"></i> 会员奖励积分
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-<form id="inputForm" th:action="${setting.domain + 'tiku/course/save'}" method="post" class="form-horizontal">
+<form id="inputForm" th:action="${setting.domain + 'tiku/member/reward'}" method="post" class="form-horizontal">
+			<input type="hidden" id="id" name="id" th:value="${member.id}"/>
+			<input type="hidden" id="bookId" name="bookId" value=""/>
 			<div class="box-body">
-				<div class="form-unit">基本信息</div>
-				<div class="row">
+<br/>				<div class="row">
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
-								<span class="required ">*</span> 科目名称：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-								<input type="text" id="name" name="name" value="" maxlength="100" class="form-control required "/>
-							</div>
+								<span class="required ">*</span> 会员账号：<i class="fa icon-question hide"></i></label>
+								<div class="col-sm-8">
+									<input type="text" id="username" name="username" th:value="${member.username}" minlength="4" maxlength="20" readonly="true" class="form-control required userName"/>
+								</div>
 						</div>
 					</div>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
-								<span class="required ">*</span> 科目编码：<i class="fa icon-question hide"></i></label>
+								<span class="required ">*</span> 会员昵称：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="uid" name="uid" value="" maxlength="64" class="form-control required abc" th:remote="${setting.domain + 'tiku/subject/checkSubjectCode'}" data-msg-remote="岗位名称已存在"/>
+<input type="text" id="nickName" name="nickName" th:value="${member.nickName}" maxlength="32" readonly="true" class="form-control required "/>
 							</div>
 						</div>
 					</div>
@@ -53,35 +55,25 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
-								<span class="required ">*</span> 题库类型：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-8">
-								<select id="subjectId" name="subjectId" class="form-control">
-									<option value="">&nbsp;</option>
-									<option th:value="${subject.id}" th:each="subject,subjectStat:${subjectList}" th:text="${subject.name}">财务经理</option>
-								</select>	
-							</div>
+								<span class="required ">*</span> 奖励积分：<i class="fa icon-question hide"></i></label>
+								<div class="col-sm-8">
+									<input type="text" id="rewardPoint" name="rewardPoint" value="" maxlength="20" class="form-control required"/>
+								</div>
 						</div>
 					</div>
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="control-label col-sm-4" title="">
-								<span class="required hide">*</span> 排序号：<i class="fa icon-question hide"></i></label>
+								<span class="required ">*</span> 奖励金额：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<input type="text" id="sort" name="sort" value="" maxlength="10" class="form-control digits"/>
+<input type="text" id="rewardMoney" name="rewardMoney" value="" maxlength="20" class="form-control required "/>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="form-group">
-							<label class="control-label col-sm-2" title="">
-								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
-							<div class="col-sm-10">
-<textarea id="remarks" name="remarks" rows="4" maxlength="500" class="form-control "></textarea>
-							</div>
-						</div>
-					</div>
+				<div class="form-unit">会员书籍</div>
+				<div class="pl10 pb20">
+					<table id="bookGrid"></table>
 				</div>
 			</div>
 			<div class="box-footer">
@@ -103,18 +95,52 @@ content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <script th:src="${setting.domain + 'select2/4.0/i18n/zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'layer/3.1/layer.js'}"></script>
 <script th:src="${setting.domain + 'my97/WdatePicker.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/jquery.jqGrid.extend.js'}"></script>
+<script th:src="${setting.domain + 'jqGrid/4.7/js/i18n/zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.js'}"></script>
 <script th:src="${setting.domain + 'jquery-validation/1.16/localization/messages_zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'jquery-validation/1.16/jquery.validate.extend.js'}"></script>
 <script th:src="${setting.domain + 'common/jeesite.js'}"></script>
 <script th:src="${setting.domain + 'common/i18n/jeesite_zh_CN.js'}"></script>
 <script th:src="${setting.domain + 'common/common.js'}"></script>
-<script>
+<script type="text/javascript" th:inline="javascript">
+// 加载角色列表
+var bookGrid = $("#bookGrid").dataGrid({
+	url: ctx + 'tiku/member/bookTreeData',
+	postData: [
+		{name:'memberId',value:$("#id").val()}
+	],
+	columnModel: [
+		{header:'书籍编码', name:'id', sortable:false, width:100, align:"center"},
+		{header:'书籍分类', name:'categoryName', sortable:false, width:100, align:"center"},
+		{header:'书籍名称', name:'name', sortable:false, width:100, align:"center"},
+		{header:'创建时间', name:'createDate', sortable:false, width:100, align:"center"}  
+	],
+	showCheckbox: false,
+	autoGridHeight: function(){
+		return 'auto';
+	},
+	autoGridWidth: function(){
+		return $('#inputForm .box-body').width()-20;
+	},
+	ajaxSuccess: function(){
+		console.log("success");
+	}
+});
+
 $("#inputForm").validate({
 	submitHandler: function(form){
+		// 获取选中角色
+		var book = bookGrid.dataGrid('getSelectRow');
+		if(book == null){
+			js.showMessage("请选择获奖的书籍！");
+			return false;
+		}
+		$("#bookId").val(book);
 		js.ajaxSubmitForm($(form), function(data){
 			js.showMessage(data.message);
-			if(data.code == 0){
+			if(data.result == 0){
 				js.closeCurrentTabPage(function(contentWindow){
 					contentWindow.page();
 				});

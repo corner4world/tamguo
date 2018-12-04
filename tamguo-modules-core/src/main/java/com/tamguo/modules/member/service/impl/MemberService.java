@@ -1,5 +1,7 @@
 package com.tamguo.modules.member.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
@@ -8,15 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.tamguo.common.utils.DateUtil;
 import com.tamguo.common.utils.Result;
 import com.tamguo.common.utils.SystemConstant;
 import com.tamguo.config.redis.CacheService;
+import com.tamguo.modules.book.model.BookEntity;
+import com.tamguo.modules.book.service.IBookService;
 import com.tamguo.modules.member.dao.MemberMapper;
 import com.tamguo.modules.member.model.MemberEntity;
+import com.tamguo.modules.member.model.condition.MemberCondition;
 import com.tamguo.modules.member.service.IMemberService;
+import com.tamguo.modules.sys.service.ISmsService;
 
 @Service
 public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> implements IMemberService{
@@ -25,6 +32,10 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 	private MemberMapper memberMapper;
 	@Autowired
 	private CacheService cacheService;
+	@Autowired
+	private ISmsService iSmsService;
+	@Autowired
+	private IBookService iBookService;
 
 	@Override
 	public Result login(String username, String password) {
@@ -108,7 +119,6 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 		entity.setPassword(new Sha256Hash(member.getPassword()).toHex());
 		entity.setUsername(member.getUsername());
 		entity.setNickName(member.getUsername());
-		entity.setSubjectId(member.getSubjectId());
 		entity.setEmail(member.getEmail());
 		memberMapper.insert(entity);
 		return Result.result(200, entity, "注册成功");
@@ -189,7 +199,6 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 		entity.setAvatar(member.getAvatar());
 		entity.setEmail(member.getEmail());
 		entity.setMobile(member.getMobile());
-		entity.setSubjectId(member.getSubjectId());
 		entity.setNickName(member.getNickName());
 		
 		memberMapper.updateById(entity);
@@ -213,7 +222,7 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 	@Override
 	public void updateLastLoginTime(String uid) {
 		MemberEntity member = memberMapper.selectById(uid);
-		member.setLastLoginTime(DateUtil.getTime());
+		member.setLastLoginTime(new Date());
 		memberMapper.updateById(member);
 	}
 
@@ -236,6 +245,44 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 		}
 		entity.setPassword(new Sha256Hash(member.getNowPassword()).toHex());
 		return Result.result(0, null, "修改成功");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	@Override
+	public Page<MemberEntity> listData(MemberCondition condition) {
+		Page<MemberEntity> page = new Page<>(condition.getPageNo(), condition.getPageSize());
+		Condition query = Condition.create();
+		if(!StringUtils.isEmpty(condition.getMobile())) {
+			query.eq("mobile", condition.getMobile());
+		}
+		if(!StringUtils.isEmpty(condition.getNickName())) {
+			query.like("nick_name", condition.getNickName());
+		}
+		if(!StringUtils.isEmpty(condition.getUsername())) {
+			query.eq("username", condition.getUsername());
+		}
+		return this.selectPage(page, query);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public void reward(String id ,String bookId , Integer rewardPoint, BigDecimal rewardMoney) {
+		MemberEntity member = memberMapper.selectById(id);
+		
+		// 更新记录
+		member.setPoint(member.getPoint() + rewardPoint);
+		member.setAmount(member.getAmount().add(rewardMoney));
+		this.updateById(member);
+		
+		BookEntity book = iBookService.selectById(bookId);
+		
+		// 发送短信
+		try {
+			iSmsService.sendRewardSms(member.getMobile(), member.getUsername(), book.getName(), rewardPoint, rewardMoney);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

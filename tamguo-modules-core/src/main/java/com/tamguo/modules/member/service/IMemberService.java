@@ -1,8 +1,12 @@
 package com.tamguo.modules.member.service;
 
+import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.tamguo.common.utils.Result;
 import com.tamguo.modules.member.model.MemberEntity;
+import com.tamguo.modules.member.model.condition.MemberCondition;
 
 public interface IMemberService extends IService<MemberEntity>{
 
@@ -53,5 +57,11 @@ public interface IMemberService extends IService<MemberEntity>{
 
 	/** 修改密码 */
 	public Result updatePwd(MemberEntity member);
+
+	/** 公司列表*/
+	public Page<MemberEntity> listData(MemberCondition condition);
+
+	/** 奖励*/
+	public void reward(String id , String bookId , Integer rewardPoint, BigDecimal rewardMoney);
 	
 }

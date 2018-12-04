@@ -2,6 +2,7 @@ package com.tamguo.modules.member.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -15,8 +16,6 @@ import com.tamguo.config.dao.SuperEntity;
 public class MemberEntity extends SuperEntity<MemberEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private String subjectId;
-
 	private String username;
 	
 	private String nickName;
@@ -33,7 +32,7 @@ public class MemberEntity extends SuperEntity<MemberEntity> implements Serializa
 	
 	private BigDecimal amount;
 	
-	private Long lastLoginTime;
+	private Date lastLoginTime;
 	
 	private Integer paperNum;
 	
@@ -105,14 +104,6 @@ public class MemberEntity extends SuperEntity<MemberEntity> implements Serializa
 		this.amount = amount;
 	}
 
-	public Long getLastLoginTime() {
-		return lastLoginTime;
-	}
-
-	public void setLastLoginTime(Long lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
-
 	public Integer getPaperNum() {
 		return paperNum;
 	}
@@ -161,19 +152,19 @@ public class MemberEntity extends SuperEntity<MemberEntity> implements Serializa
 		this.verifyCode = verifyCode;
 	}
 
-	public String getSubjectId() {
-		return subjectId;
-	}
-
-	public void setSubjectId(String subjectId) {
-		this.subjectId = subjectId;
-	}
-
 	public String getNowPassword() {
 		return nowPassword;
 	}
 
 	public void setNowPassword(String nowPassword) {
 		this.nowPassword = nowPassword;
+	}
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 }
