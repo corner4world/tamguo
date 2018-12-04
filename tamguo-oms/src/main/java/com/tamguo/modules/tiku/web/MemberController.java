@@ -67,7 +67,7 @@ public class MemberController {
 	 	if(!CollectionUtils.isEmpty(bookList)) {
 	 		for(int i=0 ; i<bookList.size() ; i++) {
 	 			BookEntity book = bookList.get(i);
-	 			BookCategoryEntity category = iBookCategoryService.selectById(book.getCategoryId());
+	 			BookCategoryEntity category = iBookCategoryService.selectById(book.getCategoryId().split(",")[0]);
 	 			book.setCategoryName(category.getName());
 	 		}
 	 	}

@@ -82,7 +82,7 @@ public class SmsServiceImpl implements ISmsService{
         request.setTemplateCode("SMS_152285431");
         Integer vcode = (int) ((Math.random()*9+1)*100000);  
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        request.setTemplateParam("{\"name\":\""+vcode+"\"}");
+        request.setTemplateParam("{\"name\":\""+name+"\",\"bookName\":\""+bookName+"\",\"point\":\""+point+"\",\"money\":\""+money+"\"}");
 
         //选填-上行短信扩展码(无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
