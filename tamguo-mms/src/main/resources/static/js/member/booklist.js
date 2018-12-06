@@ -92,6 +92,12 @@ var vm = new Vue({
   			    if(response.data.code == 0){
   			    	vm.bookDialogVisible = true;
   			    	vm.book = response.data.result;
+  			    	var categoryIds = response.data.result.categoryIds;
+  			    	for(var i=0 ; i<categoryIds.length - 1; i++){
+  			    		var categoryId = categoryIds[i];
+  			    		vm.handleItemChange(categoryId);
+  			    	}
+  			    	vm.book = response.data.result;
   			    	vm.imageUrl = vm.book.bookImage;
   			    }else{
   			    	this.$message.error(response.data.message);

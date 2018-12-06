@@ -121,7 +121,7 @@ public class BookController {
 			BookEntity book =  iBookService.selectById(id);
 			
 			String categoryIds = book.getCategoryId();
-		 	book.setCategoryIds(Arrays.asList(categoryIds));
+		 	book.setCategoryIds(Arrays.asList(categoryIds.split(",")));
 			// 获取categoryIds
 			return Result.result(0, book, "查询成功！");
 		} catch (Exception e) {
