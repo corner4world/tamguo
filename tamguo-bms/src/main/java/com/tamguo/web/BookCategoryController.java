@@ -31,7 +31,7 @@ public class BookCategoryController {
 			current = 1;
 		}
 		model.setViewName("category");
-		Page<BookEntity> bookPage = iBookService.selectPage(new Page<>(current, 18));
+		Page<BookEntity> bookPage = iBookService.selectPage(new Page<>(current, 18),Condition.create().like("category_id", id));
 		for(BookEntity book : bookPage.getRecords()) {
 			MemberEntity member = iMemberService.selectById(book.getOwner());
 			if(member != null) {
