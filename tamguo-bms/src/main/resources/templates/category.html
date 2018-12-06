@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>专业的高中书籍托管平台_探书网</title>
+    <title th:text="${category.seoTitle}">专业的高中书籍托管平台_探书网</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta name="author" content="tamguo" />
     <meta name="site" content="https://book.tamguo.com" />
-    <meta name="keywords" content="书籍管理、章节管理、知识点管理、真题解析、试卷管理、专业文档">
-    <meta name="description" content="book.tamguo.com 是一个面向高中学生的书籍托管平台，提供书籍 、文章、博客、章节、试卷分析、试题分析、知识点分享、打印、下载服务">
+    <meta name="keywords" th:content="${category.seoKeywords}">
+    <meta name="description" th:content="${category.seoDescription}">
     
     <link th:href="${domainName + 'bootstrap/css/bootstrap.min.css'}" rel="stylesheet">
     <link th:href="${domainName + 'font-awesome/css/font-awesome.min.css'}" rel="stylesheet">
@@ -29,8 +29,8 @@
                     <li>
                         <a th:href="${domainName}" title="首页">首页</a>
                     </li>
-                    <li th:class="${categoryId == category.id} ? 'active' : '' " th:each="category,categoryStatus:${bookCategoryList}">
-                        <a th:href="${domainName + 'category/' + category.id + '.html'}" th:title="${category.name}"  th:text="${category.name}">文章</a>
+                    <li th:class="${category.id == cate.id} ? 'active' : '' " th:each="cate,categoryStatus:${bookCategoryList}">
+                        <a th:href="${domainName + 'category/' + cate.id + '.html'}" th:title="${cate.name}"  th:text="${cate.name}">文章</a>
                     </li>
                 </ul>
                 <div class="searchbar pull-left visible-lg-inline-block visible-md-inline-block">
@@ -122,13 +122,13 @@
             <nav class="pagination-container">
                 <ul class="pagination pagination-lg" >
 				    <li th:class="${bookPage.current==1}?'disabled' : ''"><a href="#">上一页</a></li>
-				    <li th:if="${bookPage.current-3 >=1}" ><a th:href="@{${domainName}+'category/'+${categoryId}+'.html?current=' + ${bookPage.current-3}}" th:text="${bookPage.current -3}" >1</a></li>
-				    <li th:if="${bookPage.current-2 >=1}" ><a th:href="@{${domainName}+'category/'+${categoryId}+'.html?current=' + ${bookPage.current-2}}" th:text="${bookPage.current -2}" >1</a></li>
-				    <li th:if="${bookPage.current-1 >=1}" ><a th:href="@{${domainName}+'category/'+${categoryId}+'.html?current=' + ${bookPage.current-1}}" th:text="${bookPage.current -1}" >1</a></li>
+				    <li th:if="${bookPage.current-3 >=1}" ><a th:href="@{${domainName}+'category/'+${category.id}+'.html?current=' + ${bookPage.current-3}}" th:text="${bookPage.current -3}" >1</a></li>
+				    <li th:if="${bookPage.current-2 >=1}" ><a th:href="@{${domainName}+'category/'+${category.id}+'.html?current=' + ${bookPage.current-2}}" th:text="${bookPage.current -2}" >1</a></li>
+				    <li th:if="${bookPage.current-1 >=1}" ><a th:href="@{${domainName}+'category/'+${category.id}+'.html?current=' + ${bookPage.current-1}}" th:text="${bookPage.current -1}" >1</a></li>
 				    <li class="active"><a href="#" th:text="${bookPage.current}" >1</a></li>
-				    <li th:if="${bookPage.current+1 <=bookPage.pages}" ><a th:href="@{${domainName}+'category/'+${categoryId}+'.html?current=' + ${bookPage.current+1}}" th:text="${bookPage.current +1}" >1</a></li>
-				    <li th:if="${bookPage.current+2 <=bookPage.pages}" ><a th:href="@{${domainName}+'category/'+${categoryId}+'.html?current=' + ${bookPage.current+2}}" th:text="${bookPage.current +2}" >1</a></li>
-				    <li th:if="${bookPage.current+3 <=bookPage.pages}" ><a th:href="@{${domainName}+'category/'+${categoryId}+'.html?current=' + ${bookPage.current+3}}" th:text="${bookPage.current +3}" >1</a></li>
+				    <li th:if="${bookPage.current+1 <=bookPage.pages}" ><a th:href="@{${domainName}+'category/'+${category.id}+'.html?current=' + ${bookPage.current+1}}" th:text="${bookPage.current +1}" >1</a></li>
+				    <li th:if="${bookPage.current+2 <=bookPage.pages}" ><a th:href="@{${domainName}+'category/'+${category.id}+'.html?current=' + ${bookPage.current+2}}" th:text="${bookPage.current +2}" >1</a></li>
+				    <li th:if="${bookPage.current+3 <=bookPage.pages}" ><a th:href="@{${domainName}+'category/'+${category.id}+'.html?current=' + ${bookPage.current+3}}" th:text="${bookPage.current +3}" >1</a></li>
 				
 				    <li th:class="${bookPage.current==bookPage.total}?'disabled' : ''" ><a href="#">下一页</a></li>
 				</ul>

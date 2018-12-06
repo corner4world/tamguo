@@ -40,7 +40,7 @@ public class BookCategoryController {
 		}
 		// 查询分类
 		model.addObject("bookCategoryList", iBookCategoryService.selectList(Condition.create().eq("parent_id", "0")));
-		model.addObject("categoryId", id);
+		model.addObject("category", iBookCategoryService.selectById(id));
 		model.addObject("bookPage", bookPage);
 		return model;
 	}
