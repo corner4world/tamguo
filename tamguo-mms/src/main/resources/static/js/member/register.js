@@ -7,14 +7,16 @@ var validateCheckPass = (rule, value, callback) => {
   }
 };
 var validateUsername = (rule, value, callback) => {
-  if(!/^(undefined|null|\s)$/.test(value)){
+  if(!/^\w+$/.test(value)){
+	  callback(new Error('只能输入由数字、英文字母或者下划线组成的用户名'));
+  }else if(!/^(undefined|null|\s)$/.test(value)){
 	  axios({method: 'get',url: mainHttp + 'checkUsername.html?username='+vm.member.username}).then(function(response){
- 		   if(response.data.code == 201){
- 			  callback(new Error('此用户名太受欢迎,请更换一个!'));
- 		   }else{
- 			  callback();
- 		   }
- 	  });
+		   if(response.data.code == 201){
+			  callback(new Error('此用户名太受欢迎,请更换一个!'));
+		   }else{
+			  callback();
+		   }
+	  });
   }
 }
 var validateMobile = (rule, value, callback) => {
