@@ -2,6 +2,7 @@ package com.tamguo.modules.book.service.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,12 +56,19 @@ public class DocumentServiceImpl extends ServiceImpl<DocumentMapper, DocumentEnt
 	@Transactional(readOnly=false)
 	@Override
 	public void create(DocumentEntity document) {
-		document.setStatus(DocumentStatusEnum.NORMAL);
-		document.setCreateDate(new Date());
-		document.setUpdateDate(new Date());
-		document.setOwner("system");
-		document.setBatchNo(new com.baomidou.mybatisplus.toolkit.IdWorker().getIdStr());
-		this.insert(document);
+		if(StringUtils.isEmpty(document.getId())) {
+			document.setStatus(DocumentStatusEnum.NORMAL);
+			document.setCreateDate(new Date());
+			document.setUpdateDate(new Date());
+			document.setOwner("system");
+			document.setBatchNo(new com.baomidou.mybatisplus.toolkit.IdWorker().getIdStr());
+			this.insert(document);
+		}else {
+			DocumentEntity entity = this.selectById(document.getId());
+			entity.setName(document.getName());
+			entity.setIsOpen(document.getIsOpen());
+			this.updateById(entity);
+		}
 	}
 
 }

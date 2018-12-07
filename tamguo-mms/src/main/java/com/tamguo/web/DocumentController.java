@@ -207,4 +207,17 @@ public class DocumentController {
 		}
 		return Result.result(0, null, "删除成功");
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="delete" , method = RequestMethod.POST)
+	@ResponseBody
+	public Result delete(String id) {
+		try {
+			DocumentEntity document = iDocumentService.selectById(id);
+			iDocumentService.delete(Condition.create().eq("batch_no", document.getBatchNo()));
+		} catch (Exception e) {
+			return Result.result(1, null, "删除失败");
+		}
+		return Result.result(0, null, "删除成功");
+	}
 }

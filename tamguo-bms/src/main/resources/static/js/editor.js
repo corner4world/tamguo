@@ -51,10 +51,10 @@ function openLastSelectedNode() {
 function setLastSelectNode($node) {
     if(window.localStorage) {
         if (typeof $node === "undefined" || !$node) {
-            window.sessionStorage.removeItem("MinDoc::LastLoadDocument:" + window.book.identify);
+            window.sessionStorage.removeItem("MinDoc::LastLoadDocument:" + window.book.id);
         } else {
             var nodeId = $node.id ? $node.id : $node.node.id;
-            window.sessionStorage.setItem("MinDoc::LastLoadDocument:" + window.book.identify, nodeId);
+            window.sessionStorage.setItem("MinDoc::LastLoadDocument:" + window.book.id, nodeId);
         }
     }
 }
