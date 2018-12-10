@@ -1,23 +1,137 @@
 @charset "utf-8";
-body { font-family: "Microsoft Yahei"; color: #333;background:#f5f5f6}
-em, i { font-style: normal; }
-.start{color: red}
-.hide-text{    overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
-.well{height: 10px;background: #f5f5f6;width: 340px;position: relative;left: -10px;}
-.cnav { height: 98px; width: 100%; background: url(../../images/project-cnavbj.jpg) no-repeat; background-size: cover; }
-.cnav_b { position: relative; }
-.cnav_left { float: left; width: 162px; height: 54px; margin: 22px 0 0 46px; font-size: 18px; color: #fff; line-height: 54px; background: url(../../images/test-paper/top-kaos.png) no-repeat; padding-left: 55px; }
-.cnav_right { float: left; width:728px; height: 5px; background: url(../../images/project-cnav.png) repeat-x; margin: 47px 0 0 0; }
-.cnav_right ul { position: absolute; top: 30px; left: 230px; }
-.cnav_right ul li { width: 120px; height: 50px; float: left; font-size: 14px; color: #fff; text-align: center; line-height: 12px; margin-left: 32px; }
-.cnav_right ul li span { font-size: 12px; font-weight: bold; width: 27px; height: 27px; color: #29bdb9; display: block; margin: 5px auto 5px auto; text-align: center; line-height: 27px; background: url(../../images/project-candidate.png) no-repeat -26px 0; }
-.cnavX { background: url(../../images/project-candidate.png) no-repeat -61px -39px; width: 17px; height: 17px; position: absolute; top: 12px; left: 1082px; cursor: pointer; }
-.cnav_right ul li .Cnav_t { background: url(../../images/project-candidate.png) no-repeat -54px 0; width: 37px; height: 37px; line-height: 37px; margin: 0 auto; }
-.contentBox{margin-top: 20px;font-size: 14px;overflow: hidden;}
+.contentBox {
+    margin-top: 20px;
+    font-size: 14px;
+    overflow: hidden;
+}
+.infoCnt-box {
+    padding: 0px;
+}
+.cnt-box {
+    background: #FFFFFF;
+    padding: 10px;
+}
+.public {
+    width: 1098px;
+    margin: 0px auto;
+}
+.info-cnt {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.contentBox .navLeft {
+    float: left;
+    display: inline-block;
+    width: 16.4%;
+    background: rgb(41,186,185);
+}
+.contentBox .navLeft dl dt {
+    height: 40px;
+    line-height: 40px;
+    background: rgb(37,172,169);
+    padding-left: 10px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+}
+.icon-w {
+    float: right;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 10px;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.fa-minus:before {
+    content: "\f068";
+}
+.contentBox .navLeft dl dd {
+    text-align: center;
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+}
+.navLeft dl dd i {
+    width: 17px;
+    height: 14px;
+    display: inline-block;
+    background: url(../../images/member/account/icon-erro.png) no-repeat;
+    margin: 0px 4px;
+    position: relative;
+    top: 1px;
+    margin-left: 0px;
+}
+.contentBox .navLeft dl dd {
+    text-align: center;
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+}
+.contentBox .newsRight {
+    float: left;
+    display: inline-block;
+    width: 83%;
+    background: white;
+    min-height: 279px;
+}
+.info-rBox {
+    padding-left: 76px;
+}
+.info-rBox {
+    padding-bottom: 40px!important;
+}
+.info-rBox {
+    padding-left: 80px;
+    position: relative;
+}
+.user_list {
+    padding: 0px;
+}
+.user_list {
+    padding: 20px 0px;
+    vertical-align: top;
+    width: 550px;
+}
+.info-table {
+    width: 100%;
+    margin-top: 28px;
+    font-size: 14px;
+}
+.info-table tr td {
+    padding-bottom: 20px;
+}
+.info-label {
+    position: relative;
+}
+.info-label span {
+    position: absolute;
+    left: -15px;
+    top: 0px;
+    color: #ff5a00;
+}
+* {
+    box-sizing: border-box;
+}
+.cvcadd-text {
+    height: 40px;
+    border: 1px solid #d4d7db;
+    font-size: 14px;
+    padding: 0px 12px;
+    width: 311px;
+}
 .acphoto {
     display: inline-block;
     position: relative;
-    /*padding: 0 2em;*/
+    /* padding: 0 2em; */
     border: none;
     border-radius: 80px;
     height: 80px;
@@ -30,11 +144,16 @@ em, i { font-style: normal; }
     cursor: pointer;
     float: left;
 }
-.up_photo{
+.mybtn {
+    float: left;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+.up_photo {
     display: inline-block;
     position: relative;
     padding: 0 2em;
-    /*border: none;*/
+    /* border: none; */
     border: 1px solid #29bdb9;
     border-radius: 0px;
     background: #29bdb9;
@@ -45,62 +164,35 @@ em, i { font-style: normal; }
     cursor: pointer;
     margin-top: 15px;
 }
-.mybtn{
-    float: left;
-    margin-left: 10px;
-    padding-top: 10px;
-}
-.contentBox{margin-top: 20px;font-size: 14px;overflow: hidden;}
-.contentBox .navLeft{float: left;display: inline-block;width: 16.4%;background:rgb(41,186,185);}
-.contentBox .navLeft dl{}
-.contentBox .navLeft dl dt{height: 40px;line-height: 40px;background:rgb(37,172,169);padding-left: 10px;font-size: 14px;color:white;cursor: pointer; }
-.icon-w{float: right;position: relative;top: 50%;transform: translateY(-50%);margin-right: 10px;}
-.icon-f{margin-right: 10px;}
-.contentBox .navLeft dl dd{text-align: center;;color: white;height: 40px;line-height: 40px;cursor: pointer; }
-.contentBox .navLeft dl dd a{color: white}
-.contentBox .newsRight{float: left;display: inline-block;width:83%;background:white;min-height: 279px;}
-.user_list{padding: 0px;}
-.info-cnt{padding-top:0px;background: #f5f5f6; }
-.photoBox{display: none;}
-.navLeft dl dd i {width: 17px;height: 14px;display: inline-block;background: url(../../images/icon-erro.png) no-repeat;margin: 0px 4px;position: relative;top: 1px;margin-left: 0px;
-}
-.icon-h {
-    font-size: 14px;
+.up_photo {
+    display: inline-block;
     position: relative;
-    margin-right: 10px;
+    padding: 0 2em;
+    /* border: none; */
+    border: 1px solid #29bdb9;
+    border-radius: 0px;
+    background: #29bdb9;
+    color: #fff;
+    font-size: 14px;
+    line-height: 28px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 15px;
 }
-.acm-container{/*position: relative;top: -20px;*/padding-bottom: 200px;}
-.info-cnt {
-    padding-top:0px;
-     padding-bottom:0px; 
-    
+a.btn_ok {
+    display: inline-block;
+    position: relative;
+    padding: 0 2em;
+    border: none;
+    border-radius: 0px;
+    background: #29bdb9;
+    color: #fff;
+    font-size: 14px;
+    line-height: 28px;
+    text-decoration: none;
+    cursor: pointer;
 }
-.footer{margin-top: 0px!important;}
-.headlogotable{float: right;}
-.info-rBox{padding-bottom: 40px!important;}
-.navLeft .list a dd:hover{background:#52cdc8}
-.contentBox .navLeft dl dt:hover{background:#52cdc8 }
-.head .logo {
-     padding-top: 0px; 
-    float: left;
-    display: -webkit-box;
-    line-height: 59px;
+.head .nav li:hover {
+    border-bottom: 2px solid #29bdb9;
+    font-weight: bold;
 }
-  .head .logo  a{
-    max-width: 120px;
-    height: 55px;
-    line-height: 55px;
-    text-align: center;
-    display: block;
-    }
-    .head .logo img{
-        float: none;
-        max-width: 100%;
-        max-height: 100%
-    }
-    .head .logo p {
-    float: none;
-    line-height: 59px;
-    padding-left: 12px;
-}
-.weixinPng:hover img:nth-child(2){display: block}

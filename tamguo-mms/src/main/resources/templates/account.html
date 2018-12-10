@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>个人信息 - 探果网</title>
 		<link rel="stylesheet" th:href="${domainName + 'static/css/reset.css' }" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/member/account.css' }" />
 		<link rel="stylesheet" th:href="${domainName + 'static/css/member/booklist.css' }" />
 		<link rel="stylesheet" th:href="${domainName + 'static/css/member/memberMain.css'}" />
 		<link rel="stylesheet" th:href="${domainName + 'static/css/amazeui/css/amazeui.css'}">
@@ -79,8 +80,55 @@
 	        </div>
 	    </div>
 	    
-	    <div id="container" class="plist test_public  prof_t ng-scope">
-    		
+	    <div class="acm-container">
+		<div class="cnt-box public infoCnt-box contentBox ">
+			<div class="info-cnt">
+				<div class="navLeft">
+                 <dl>
+						<dt class="down">
+							<img th:src="${domainName + 'static/images/member/index/person.png'}" style="width: 14px;
+    margin-right: 6px;margin-top: -5px;"> 个人信息 <i class="fa fa-minus icon-w"></i>
+						</dt>
+						<div class="list" style="display: block;">
+						<a th:href="${domainName + 'account.html'}"><dd class="activeDd"><i></i>基本信息</dd></a>
+						<!--  <dd>绑定账号</dd> -->
+						<a th:href="${domainName + 'account.html'}"><dd><i></i>修改密码</dd></a>
+						</div>
+
+					</dl>
+              </div>
+				<div class="info-right newsRight" id="app">
+					<div class="info-rBox" style="padding-bottom: 20px;">
+							<div class=" user_list clearfix">
+								<el-form ref="member" :rules="rules" :model="member" label-width="80px">
+								  <el-form-item label="用户头像">
+								    <el-upload
+									  class="avatar-uploader"
+									  action="uploadFile"
+									  :show-file-list="false"
+									  :on-success="handleAvatarSuccess"
+									  :before-upload="beforeAvatarUpload">
+									  <img v-if="member.avatar" :src="member.imageUrl" class="avatar">
+									  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+									 </el-upload>
+								  </el-form-item>
+								  <el-form-item label="用户名" prop="username">
+								    <el-input v-model="member.username" th:value="${member.username}" :disabled="true"></el-input>
+								  </el-form-item>
+								  <el-form-item label="昵称" prop="nickName">
+								    <el-input v-model="member.nickName" th:value="${member.nickName}"></el-input>
+								  </el-form-item>
+								  <el-form-item>
+								    <el-button type="primary" @click="onSubmit">立即修改</el-button>
+								  </el-form-item>
+								</el-form>
+							</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!--content end-->
 		</div>
 <!-- 尾部-->
 <div th:replace="include/footer :: footer"></div>
@@ -94,4 +142,5 @@
 		var mainHttp = [[${domainName}]];
 		var bookDomainName = [[${bookDomainName}]];
 	</script>
+	<script type="text/javascript" th:src="${domainName + 'static/js/member/account.js'}"></script>
 </html>
