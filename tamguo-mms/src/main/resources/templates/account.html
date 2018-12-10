@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="Zh-hans" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>个人信息 - 探果网</title>
+		<link rel="stylesheet" th:href="${domainName + 'static/css/reset.css' }" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/member/booklist.css' }" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/member/memberMain.css'}" />
+		<link rel="stylesheet" th:href="${domainName + 'static/css/amazeui/css/amazeui.css'}">
+		<link type="favicon" rel="shortcut icon" th:href="${domainName + 'static/images/favicon.png'}" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/theme-chalk/index.css">
+		<style>
+		  .avatar-uploader .el-upload {
+		    border: 1px dashed #d9d9d9;
+		    border-radius: 6px;
+		    cursor: pointer;
+		    position: relative;
+		    overflow: hidden;
+		  }
+		  .avatar-uploader .el-upload:hover {
+		    border-color: #409EFF;
+		  }
+		  .avatar-uploader-icon {
+		    font-size: 28px;
+		    color: #8c939d;
+		    width: 178px;
+		    height: 178px;
+		    line-height: 178px;
+		    text-align: center;
+		  }
+		  .avatar {
+		    width: 178px;
+		    height: 178px;
+		    display: block;
+		  }
+		</style>
+	</head>
+	<body>
+		<!-- 头部-->
+		<div class="head" th:fragment="memberHeader">
+		<div class="head-bar public">
+				<div class="logo">
+					<a th:href="${tamguoDomainName}">
+						<img th:src="${domainName + 'static/images/logo_731bc32.png'}">
+					</a>
+					<p><span>考试中心</span></p>
+				</div>
+				<ul class="nav">
+					<li><a th:href="${domainName + 'index.html'}">首页</a></li>
+					<li class="active"><a th:href="${domainName + 'booklist.html'}">书籍</a></li>
+					<li><a th:href="${domainName + 'account.html'}">帐号</a></li>
+				</ul>
+				<div class="mguser">
+					<div class="mguser-box">
+						<span th:text="${session.currMember.username}">tamguo</span>
+						<a th:href="${domainName + 'logout.html'}">退出</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="banner_list">
+	        <div class="cnav">
+	            <div class="public cnav_b">
+	                <div class="cnav_left">
+						探果五步曲
+					</div>
+					<div class="cnav_right">
+						<ul>
+							<li><span class="Cnav_t">1</span><b>新建书籍</b></li>
+							<li><span>2</span>添加章节</li>
+							<li><span>3</span>添加内容</li>
+							<li><span>4</span>发布试卷</li>
+							<li><span>5</span>等待收益</li>
+						</ul>
+					</div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    <div id="container" class="plist test_public  prof_t ng-scope">
+    		
+		</div>
+<!-- 尾部-->
+<div th:replace="include/footer :: footer"></div>
+</body>
+	
+	<!-- 引入组件库 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.4.2/lib/index.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+		var mainHttp = [[${domainName}]];
+		var bookDomainName = [[${bookDomainName}]];
+	</script>
+</html>

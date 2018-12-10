@@ -210,12 +210,11 @@ public class MemberService extends ServiceImpl<MemberMapper, MemberEntity> imple
 		return memberMapper.selectById(uid);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
 	@Override
 	public MemberEntity findByUsername(String username) {
-		MemberEntity condition = new MemberEntity();
-		condition.setUsername(username);
-		return memberMapper.selectOne(condition);
+		return this.selectOne(Condition.create().eq("username", username).or().eq("mobile", username).or().eq("email", username));
 	}
 
 	@Transactional(readOnly=false)

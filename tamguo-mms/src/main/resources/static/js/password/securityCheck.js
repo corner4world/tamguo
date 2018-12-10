@@ -31,7 +31,7 @@ $(function(){
         	// 发送短信
             $.ajax({
     			type : "get", 
-    			url : mainHttp + "sms/sendFindPasswordSms.html",
+    			url : mainHttp + "sendFindPasswordSms",
     			async : false,
     			data:{mobile:$("input[name='mobile']").val()},
     			dataType : "json",
@@ -43,7 +43,7 @@ $(function(){
         	// 发送邮件
             $.ajax({
     			type : "get", 
-    			url : mainHttp + "email/sendFindPasswordEmail.html",
+    			url : mainHttp + "sendFindPasswordEmail",
     			async : false,
     			data:{email:$("input[name='email']").val()},
     			dataType : "json",

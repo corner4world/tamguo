@@ -65,9 +65,6 @@ public class SystemConstant {
 	/** 短信找回密码前缀*/
 	public static final String ALIYUN_MOBILE_SMS_PREFIX = "MOBILE_SMS_PREKEY_";
 	
-	/** 邮箱找回密码前缀*/
-	public static final String ALIYUN_MAIL_FIND_PASSWORD_PREFIX = "EMAIL_FIND_PASSWORD_";
-	
 	/** 默认会员头像*/
 	public static final String DEFAULT_MEMBER_AVATAR = "/images/avatar.png";
 	
@@ -85,4 +82,22 @@ public class SystemConstant {
 
 	/** 所有地区*/
 	public static final String AREA_ALL_TREE = "AREAALL:";
+	
+	/** ALIYUN*/
+	public static final String ALIYUN_SMTP_HOST_NAME = "smtp.aliyun.com";
+	
+	/** ALIYUN*/
+	public static final int ALIYUN_SMTP_HOST_PORT = 465;
+	
+	/** ALIYUN*/
+	public static final String ALIYUN_MAIL_ACCOUNT = "candy.tam@aliyun.com";
+	
+	/** ALIYUN*/
+	public static final String ALIYUN_MAIL_PASSWORD = "tanguo520pig";
+	
+	/** 邮件主题*/
+	public static final String ALIYUN_MAIL_SUBJECT_FINDPASSWORD = "探果网找回密码";
+
+	/** 邮箱找回密码前缀*/
+	public static final String ALIYUN_MAIL_FIND_PASSWORD_PREFIX = "EMAIL_FIND_PASSWORD_";
 }

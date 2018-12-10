@@ -27,7 +27,7 @@
 			and u.login_code = #{loginCode}
 		</if>
 		<if test="userName != null and userName != ''">
-			and u.user_name = #{userName}
+			and u.username = #{userName}
 		</if>
 		<if test="email != null and email != ''">
 			and u.email = #{email}
