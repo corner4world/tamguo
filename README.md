@@ -19,3 +19,5 @@
   [3]: http://member.tamguo.com
 
 - 管理员账号：system 密码：123456
+
+QQ群：937899574
