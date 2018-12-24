@@ -17,3 +17,5 @@
   [1]: http://www.tamguo.com
   [2]: http://admin.tamguo.com
   [3]: http://member.tamguo.com
+
+- 管理员账号：admin 密码：123456
