@@ -10,6 +10,7 @@
  1. [在线访问][1]
  2. [后台运营][2]
  3. [会员中心][3]
+ 4. [书籍中心][4]
 
 本项目期望可以使用java开发一套完整的互联网项目，分享互联网技术方面的经验和知识。
 
@@ -17,6 +18,7 @@
   [1]: http://www.tamguo.com
   [2]: http://admin.tamguo.com
   [3]: http://member.tamguo.com
+  [4]: http://book.tamguo.com
 
 - 管理员账号：system 密码：123456
 
