@@ -23,3 +23,5 @@
 - 管理员账号：system 密码：123456
 
 QQ群：937899574
+
+[文档](https://book.tamguo.com/document/1077070505573294082.html)
