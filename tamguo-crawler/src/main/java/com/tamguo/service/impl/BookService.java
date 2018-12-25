@@ -53,7 +53,7 @@ public class BookService implements IBookService {
 	@Autowired
 	CacheService cacheService;
 	private static final String FILES_NO_FORMAT = "0000000";
-	private static final String FILES_PREFIX = "LINCHZHIYEYISHI";
+	private static final String FILES_PREFIX = "WULIBIXIUER";
 	private static final String DOMAIN = "http://www.tamguo.com";
 
 
