@@ -90,10 +90,10 @@ public class SystemConstant {
 	public static final int ALIYUN_SMTP_HOST_PORT = 465;
 	
 	/** ALIYUN*/
-	public static final String ALIYUN_MAIL_ACCOUNT = "candy.tam@aliyun.com";
+	public static final String ALIYUN_MAIL_ACCOUNT = "";
 	
 	/** ALIYUN*/
-	public static final String ALIYUN_MAIL_PASSWORD = "tanguo520pig";
+	public static final String ALIYUN_MAIL_PASSWORD = "";
 	
 	/** 邮件主题*/
 	public static final String ALIYUN_MAIL_SUBJECT_FINDPASSWORD = "探果网找回密码";
