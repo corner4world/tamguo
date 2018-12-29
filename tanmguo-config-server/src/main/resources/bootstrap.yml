@@ -10,7 +10,7 @@ spring:
         git:
           uri: https://gitee.com/zhangshukang/tamguo-config-server-repo.git
           username: 434329122@qq.com
-          password: 
+          password:
           search-paths: tamguo
       fail-fast: true
       override-none: true   #覆盖非系统属性　true不覆盖
