@@ -59,7 +59,7 @@ QQ群：937899574
 
 下载`Redis-x64-3.2.100.zip`这个包，解压，执行`redis-server.exe`。
 
-![redis 启动](https://images.gitee.com/uploads/images/2019/0110/164646_11648db7_93398.png "redis 启动")
+![redis 启动](https://www.tamguo.com/files/book/201901/1077070399566454786/redis.png "redis 启动")
 
 看到这个界面Redis就算启动成功。
 
@@ -74,8 +74,27 @@ QQ群：937899574
 
 至此`tamguo`的环境基本基本上已经安装好。
 
+### 启动 tms
+
+找到`tamguo-tms`下面的`application.propertys`。 
+
+- domain.name // 页面引用静态资源的前缀
+- member.domain.name // 会员系统跳转域名
+- cookie.domian.name // 关系到session，本地配置成local
+- server.port     // 服务端口
+- spring.datasource.url   // 数据库连接地址
+- spring.datasource.username // 数据库连接用户名
+- redis.hostname    // redis 服务地址
+- redis.port        // redis 端口
+- file.storage.path  // 上传文件存放路径
+
+确定`propertys`正确后，用springboot 方式启动应用。
+
+![启动成功](https://images.gitee.com/uploads/images/2019/0110/170054_8f975a9c_93398.png "启动成功")
+
+到这里就启动成功了，访问 `http://localhost:8081/`
+
+到现在tms已经启动成功， tms 针对的用户（包括老师，学生等等）。
+
 > ### 捐赠 
 > 感谢你们的支持！
-
-
-
