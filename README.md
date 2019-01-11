@@ -1,6 +1,6 @@
 # tamguo 題庫
 
-![logo](https://www.tamguo.com/files/book/201812/1065126653186768898/logo_731bc32.png "logo")
+![logo](https://images.gitee.com/uploads/images/2019/0110/164645_73f76413_93398.png "logo")
 
 # 简介
 
@@ -34,11 +34,11 @@ QQ群：937899574
 
 # 项目结构
 
-![探果网项目结构](https://www.tamguo.com/files/book/201812/1077070399566454786/20181225135556.png "探果网项目结构")
+![探果网项目结构](https://images.gitee.com/uploads/images/2019/0110/164645_39231d0a_93398.png "探果网项目结构")
 
 1. `tamguo-common` 一些基础的工具类包
 2. `tamguo-modules-core` 依赖`tamguo-common`，主要是核心业务包，包括数据处理，文件处理，邮件处理，短信处理等等。
-3. `tamguo-bms` 书籍系统[https://books.tamguo.com](https://books.tamguo.com "https://books.tamguo.com"),书籍系统展现层
+3. `tamguo-bms` 书籍系统[https://book.tamguo.com](https://books.tamguo.com "https://books.tamguo.com"),书籍系统展现层
 4. `tamguo-mms`会员中心[https://member.tamguo.com](https://member.tamguo.com "https://member.tamguo.com")
 5. `tamguo-oms`后台管理系统[https://admin.tamguo.com](https://member.tamguo.com "https://admin.tamguo.com")
 6. `tamguo-crawler`爬虫程序，单独项目运行
@@ -48,8 +48,53 @@ QQ群：937899574
 在`tamguo db`目录下
 
 
+### 开始
+
+
+> 安装 `redis`
+
+因为官网没有`windows redis`的版本,我们去github上下载windows版本的redis
+
+[redis windows 下载](https://github.com/MicrosoftArchive/redis/releases "redis window")
+
+下载`Redis-x64-3.2.100.zip`这个包，解压，执行`redis-server.exe`。
+
+![redis 启动](https://www.tamguo.com/files/book/201901/1077070399566454786/redis.png "redis 启动")
+
+看到这个界面Redis就算启动成功。
+
+
+> 安装 `MYSQL`
+
+不做描述
+
+> 安装 `jdk1.8`
+
+不做描述
+
+至此`tamguo`的环境基本基本上已经安装好。
+
+### 启动 tms
+
+找到`tamguo-tms`下面的`application.propertys`。 
+
+- domain.name // 页面引用静态资源的前缀
+- member.domain.name // 会员系统跳转域名
+- cookie.domian.name // 关系到session，本地配置成local
+- server.port     // 服务端口
+- spring.datasource.url   // 数据库连接地址
+- spring.datasource.username // 数据库连接用户名
+- redis.hostname    // redis 服务地址
+- redis.port        // redis 端口
+- file.storage.path  // 上传文件存放路径
+
+确定`propertys`正确后，用springboot 方式启动应用。
+
+![启动成功](https://images.gitee.com/uploads/images/2019/0110/170054_8f975a9c_93398.png "启动成功")
+
+到这里就启动成功了，访问 `http://localhost:8081/`
+
+到现在tms已经启动成功， tms 针对的用户（包括老师，学生等等）。
+
 > ### 捐赠 
 > 感谢你们的支持！
-
-
-
