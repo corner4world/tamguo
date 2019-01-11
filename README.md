@@ -59,14 +59,16 @@ QQ群：937899574
 
 下载`Redis-x64-3.2.100.zip`这个包，解压，执行`redis-server.exe`。
 
-![redis 启动](https://www.tamguo.com/files/book/201901/1077070399566454786/redis.png "redis 启动")
+![redis 启动](https://images.gitee.com/uploads/images/2019/0111/104127_b33cb3c0_93398.png "redis 启动")
 
 看到这个界面Redis就算启动成功。
 
 
 > 安装 `MYSQL`
 
-不做描述
+不做描述, 把tamguo下面的db文件导入mysql注意数据库名称。
+
+![db 数据](https://images.gitee.com/uploads/images/2019/0111/104127_1a7b4fe4_93398.jpeg "db 数据")
 
 > 安装 `jdk1.8`
 
@@ -90,11 +92,34 @@ QQ群：937899574
 
 确定`propertys`正确后，用springboot 方式启动应用。
 
-![启动成功](https://images.gitee.com/uploads/images/2019/0110/170054_8f975a9c_93398.png "启动成功")
+![启动成功](https://images.gitee.com/uploads/images/2019/0111/104128_d1901664_93398.png "启动成功")
 
 到这里就启动成功了，访问 `http://localhost:8081/`
 
 到现在tms已经启动成功， tms 针对的用户（包括老师，学生等等）。
+
+![tamguo](https://images.gitee.com/uploads/images/2019/0111/104127_fbd92553_93398.png "tamguo")
+
+
+> 启动 bms （书籍项目）
+
+和tms一样配置好`application.propertys`,启动application.java 即可。
+
+![book 探书网](https://images.gitee.com/uploads/images/2019/0111/104127_66c81c50_93398.jpeg "book 探书网")
+
+> 启动 mms （会员系统）
+
+和tms一样配置好`application.propertys`,启动application.java 即可。
+
+![会员中心](https://images.gitee.com/uploads/images/2019/0111/104127_5fc49cdc_93398.jpeg "会员中心")
+
+> 启动 oms （后台运营系统）
+
+和tms一样配置好`application.propertys`,启动application.java 即可。
+
+![oms](https://images.gitee.com/uploads/images/2019/0111/104127_e819fb3d_93398.jpeg)
+
+到这里`tamguo`的所有子系统都已经启动成功
 
 > ### 捐赠 
 > 感谢你们的支持！
